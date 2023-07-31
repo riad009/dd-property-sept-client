@@ -1,4 +1,4 @@
-import { Button, Radio } from "antd";
+import { Button, Checkbox, Col, Radio, Row } from "antd";
 import { useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
@@ -38,10 +38,14 @@ const SearchLocation = () => {
   ];
 
   const [value, setValue] = useState("All Residential");
-  const onChange = (e) => {
+  const radioHandler = (e) => {
     setFooter1Open(true);
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
+  };
+
+  const checkBoxHandler = (checkedValues) => {
+    console.log("checked = ", checkedValues);
   };
 
   return (
@@ -86,24 +90,42 @@ const SearchLocation = () => {
               </div>
               {/* Footer Body */}
               {/* Footer Items */}
-              <div className="overflow-scroll h-52 overflow-x-hidden w-80">
-                <Radio.Group
-                  buttonStyle="solid"
-                  onChange={onChange}
-                  value={value}
-                >
-                  {footer1Items.map((item) => (
-                    <Radio
-                      key={item.key}
-                      value={item.label}
-                      className={`w-full mt-1 p-2 ${
-                        value === item.label && "bg-dark2 text-white"
+              <div className="overflow-scroll h-52 overflow-x-hidden w-80 bg-dark2 bg-opacity-5">
+                {footer1Items.map((item) => (
+                  <div key={item.key}>
+                    <label
+                      className={`p-3 w-full flex items-center mb-2 cursor-pointer ${
+                        item.label === value && "bg-dark2"
                       }`}
                     >
-                      {item.label}
-                    </Radio>
-                  ))}
-                </Radio.Group>
+                      <input
+                        type="radio"
+                        value={item.label}
+                        checked={item.label === value}
+                        onChange={radioHandler}
+                        className="form-radio h-5 w-5 text-blue-600"
+                      />
+                      <span
+                        className={`ml-2 ${
+                          item.label === value ? "text-white" : "text-dark"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                    </label>
+                    {item.label === value && item.options && (
+                      <Checkbox.Group
+                        className="px-10"
+                        style={{ width: "100%" }}
+                        onChange={checkBoxHandler}
+                      >
+                        {item.options?.map((option, index) => (
+                          <Checkbox value="A">{option}</Checkbox>
+                        ))}
+                      </Checkbox.Group>
+                    )}
+                  </div>
+                ))}
               </div>
               {/* Footer Footer */}
               <div className="text-dark flex justify-between items-center p-5 text-sm">
