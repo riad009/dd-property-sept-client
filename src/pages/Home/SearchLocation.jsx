@@ -1,4 +1,4 @@
-import { Button, Checkbox, Radio } from "antd";
+import { Button, Radio } from "antd";
 import { useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
@@ -45,7 +45,7 @@ const SearchLocation = () => {
   };
 
   return (
-    <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 lg:w-1/3 md:w-1/2 mx-auto bg-dark bg-opacity-80 p-5 text-white rounded-lg">
+    <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 lg:w-1/3 md:w-1/2 mx-auto bg-dark bg-opacity-80 p-5 text-white rounded-lg">
       {/* Navbar */}
       <div className="flex w-fit mx-auto gap-5 text-xl mb-5">
         <h1 className="cursor-pointer border-b-2 border-danger">Buy</h1>
@@ -96,7 +96,7 @@ const SearchLocation = () => {
                     <Radio
                       key={item.key}
                       value={item.label}
-                      className={`w-full mt-2 p-3 ${
+                      className={`w-full mt-1 p-2 ${
                         value === item.label && "bg-dark2 text-white"
                       }`}
                     >
