@@ -5,3 +5,7 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+
+svg {
+  vertical-align: baseline;
+}
