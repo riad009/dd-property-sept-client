@@ -84,7 +84,7 @@ const SearchLocation = () => {
   };
 
   return (
-    <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 lg:w-1/3 md:w-1/2 mx-auto bg-dark bg-opacity-80 p-5 text-white rounded-lg">
+    <div className="sm:absolute sm:-bottom-24 sm:left-1/2 transform sm:-translate-x-1/2 lg:w-1/3 md:w-1/2 w-full mx-auto bg-dark bg-opacity-80 p-5 text-white md:rounded-lg">
       {/* Navbar */}
       <div className="flex w-fit mx-auto gap-5 text-xl mb-5">
         <h1 className="cursor-pointer border-b-2 border-danger">Buy</h1>
