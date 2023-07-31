@@ -2,7 +2,7 @@ import thi_flag from "../assets/thiland.png";
 import eng_flag from "../assets/england.png";
 import Container from "../shared/Container";
 import { Dropdown, Space, Modal, Button, Divider } from "antd";
-import { MenuOutlined, HeartOutlined } from "@ant-design/icons";
+import { MenuOutlined, HeartOutlined, CloseOutlined } from "@ant-design/icons";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { useState } from "react";
 import Brand from "./Brand";
@@ -149,10 +149,17 @@ const Navbar = () => {
       <Container>
         <div className="p-5">
           <div className="flex items-center">
-            <MenuOutlined
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden md:inline"
-            />
+            {!sidebarOpen ? (
+              <MenuOutlined
+                onClick={() => setSidebarOpen(true)}
+                className="lg:hidden md:inline"
+              />
+            ) : (
+              <CloseOutlined
+                className="lg:hidden md:inline"
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
             <Brand medium />
           </div>
           <div className="hidden w-full lg:flex lg:items-center">

@@ -1,9 +1,31 @@
-import { Button, Checkbox, Col, Radio, Row } from "antd";
+import { Button, Checkbox, Divider, Input, Space } from "antd";
 import { useState } from "react";
+import { BoldOutlined } from "@ant-design/icons";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+import ApplyFilterButtons from "../../components/ApplyFilterButtons";
 
 const SearchLocation = () => {
   const [footer1Open, setFooter1Open] = useState(false);
+  const [footer2Open, setFooter2Open] = useState(false);
+  const [footer3Open, setFooter3Open] = useState(false);
+
+  const footer1Handler = () => {
+    setFooter1Open(!footer1Open);
+    setFooter2Open(false);
+    setFooter3Open(false);
+  };
+
+  const footer2Handler = () => {
+    setFooter1Open(false);
+    setFooter2Open(!footer2Open);
+    setFooter3Open(false);
+  };
+
+  const footer3Handler = () => {
+    setFooter1Open(false);
+    setFooter2Open(false);
+    setFooter3Open(!footer3Open);
+  };
 
   const footer1Items = [
     {
@@ -67,9 +89,10 @@ const SearchLocation = () => {
         </button>
       </div>
       {/* Footer */}
-      <div className="mt-5 flex items-center justify-center">
+      <div className="mt-5 flex items-center gap-5 justify-center">
+        {/* Footer 1 */}
         <h6
-          onClick={() => setFooter1Open(!footer1Open)}
+          onClick={footer1Handler}
           className="flex items-center gap-1 cursor-pointer relative"
         >
           All Residential
@@ -134,6 +157,39 @@ const SearchLocation = () => {
                   Apply Filter
                 </Button>
               </div>
+            </div>
+          )}
+        </h6>
+        {/* Footer 2 */}
+        <h6
+          onClick={footer2Handler}
+          className="flex items-center gap-1 cursor-pointer relative"
+        >
+          Any Price
+          {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
+          {footer2Open && (
+            <div className="absolute shadow-md rounded-lg top-7 left-0 bg-white w-96">
+              <div className="p-3">
+                <h1 className="text-dark text-sm">Price</h1>
+                <div className="flex text-sm gap-5 mt-5">
+                  {/* Footer Header */}
+                  <Space.Compact size="large">
+                    <Input
+                      addonBefore={<BoldOutlined />}
+                      placeholder="Min Price"
+                    />
+                  </Space.Compact>
+                  <Space.Compact size="large">
+                    <Input
+                      addonBefore={<BoldOutlined />}
+                      placeholder="Max Price"
+                    />
+                  </Space.Compact>
+                </div>
+              </div>
+              <Divider />
+              {/* Footer Footer */}
+              <ApplyFilterButtons />
             </div>
           )}
         </h6>
