@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         danger: "#e03c31",
+        dark: "#212529",
       },
     },
   },

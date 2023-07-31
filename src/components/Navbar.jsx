@@ -10,55 +10,67 @@ import { useState } from "react";
 const navItems = {
   forDesktop: [
     {
-      title: "Buy",
+      key: 0,
+      label: "Buy",
       path: "/",
     },
     {
-      title: "Rent",
+      key: 1,
+      label: "Rent",
       path: "/",
     },
     {
-      title: "Condos",
+      key: 2,
+      label: "Condos",
       path: "/",
     },
     {
-      title: "New Projects",
+      key: 3,
+      label: "New Projects",
       path: "/",
     },
     {
-      title: "Commercial",
+      key: 4,
+      label: "Commercial",
       path: "/",
     },
     {
-      title: "Guides",
+      key: 5,
+      label: "Guides",
       path: "/",
     },
     {
-      title: "Find Agents",
+      key: 6,
+      label: "Find Agents",
       path: "/",
     },
   ],
   forMobile: [
     {
-      title: "News",
+      key: 7,
+      label: "News",
       path: "/",
     },
     {
-      title: "Home Loan Tools",
+      key: 8,
+      label: "Home Loan Tools",
       path: "/",
     },
     {
-      title: "Ask Guru",
+      key: 9,
+      label: "Ask Guru",
       path: "/",
     },
   ],
   forAgent: [
     {
-      title: "Agent Offerings",
+      key: 10,
+      label: "Agent Offerings",
       path: "/",
     },
     {
-      title: "AgentNet",
+      key: 11,
+      label: "AgentNet",
       path: "/",
     },
   ],
@@ -125,11 +137,32 @@ const Navbar = () => {
                   href={item.path}
                   className="group text-sm transition duration-300"
                 >
-                  {item.title}
+                  {item.label}
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-danger"></span>
                 </a>
               ))}
             </div>
+            <Dropdown
+              className="cursor-pointer"
+              menu={{
+                items: [
+                  ...navItems.forMobile,
+                  {
+                    type: "divider",
+                  },
+                  ...navItems.forAgent,
+                ],
+              }}
+              trigger={["click"]}
+              placement="bottomRight"
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                  More
+                  <BiChevronDown />
+                </Space>
+              </a>
+            </Dropdown>
           </div>
           <div className="flex gap-5">
             <Dropdown
@@ -169,7 +202,7 @@ const Navbar = () => {
         </div>
       </Container>
       <Modal
-        title="Basic Modal"
+        label="Basic Modal"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}

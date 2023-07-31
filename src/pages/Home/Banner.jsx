@@ -1,12 +1,14 @@
 import banner1 from "../../assets/banner1.jpg";
+import SearchLocation from "./SearchLocation";
 const Banner = () => {
   return (
-    <div>
+    <div className="relative">
       <img
-        className="w-4/6 mx-auto h-[400px] object-cover"
+        className="max-w-screen-xl w-full mx-auto h-[400px] object-cover"
         src={banner1}
         alt="banner"
       />
+      <SearchLocation />
     </div>
   );
 };
