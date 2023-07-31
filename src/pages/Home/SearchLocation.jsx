@@ -8,6 +8,19 @@ const SearchLocation = () => {
   const [footer1Open, setFooter1Open] = useState(false);
   const [footer2Open, setFooter2Open] = useState(false);
   const [footer3Open, setFooter3Open] = useState(false);
+  const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
+
+  const [bedroomsSelected, setBedroomsSelected] = useState([]);
+
+  const handleBedroomSizeFilter = (option) => {
+    if (bedroomsSelected.includes(option)) {
+      setBedroomsSelected(
+        bedroomsSelected.filter((selectedOption) => selectedOption !== option)
+      );
+    } else {
+      setBedroomsSelected([...bedroomsSelected, option]);
+    }
+  };
 
   const footer1Handler = () => {
     setFooter1Open(!footer1Open);
@@ -185,6 +198,39 @@ const SearchLocation = () => {
                       placeholder="Max Price"
                     />
                   </Space.Compact>
+                </div>
+              </div>
+              <Divider />
+              {/* Footer Footer */}
+              <ApplyFilterButtons />
+            </div>
+          )}
+        </h6>
+
+        {/* Footer 3 */}
+        <h6
+          onClick={footer3Handler}
+          className="flex items-center gap-1 cursor-pointer relative"
+        >
+          Bedroom
+          {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
+          {footer3Open && (
+            <div className="absolute shadow-md rounded-lg top-7 right-0 bg-white w-96">
+              <div className="p-3">
+                <h1 className="text-dark text-sm">Bedroom</h1>
+                <div className="flex flex-wrap gap-5 mt-5 text-dark">
+                  {bedRoomSizes.map((option) => (
+                    <div
+                      key={option}
+                      className={`px-4 py-1 border rounded-lg cursor-pointer ${
+                        bedroomsSelected.includes(option) &&
+                        "bg-dark text-white"
+                      } border border-dark`}
+                      onClick={() => handleBedroomSizeFilter(option)}
+                    >
+                      {option}
+                    </div>
+                  ))}
                 </div>
               </div>
               <Divider />
