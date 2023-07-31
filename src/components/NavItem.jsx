@@ -2,7 +2,7 @@ const NavItem = ({ href, label, icon }) => {
   return (
     <a
       href={href}
-      className="group text-sm transition duration-300 flex items-center lg:p-0 p-4"
+      className="group text-sm transition duration-300 flex items-center gap-2 lg:p-0 p-4"
     >
       <span className="lg:hidden">{icon}</span>
       {label}

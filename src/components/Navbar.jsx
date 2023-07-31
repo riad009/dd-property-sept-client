@@ -2,8 +2,16 @@ import thi_flag from "../assets/thiland.png";
 import eng_flag from "../assets/england.png";
 import Container from "../shared/Container";
 import { Dropdown, Space, Modal, Button, Divider } from "antd";
-import { MenuOutlined, HeartOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  MenuOutlined,
+  HeartOutlined,
+  CloseOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
+import { BsBuildingAdd, BsBuildingsFill } from "react-icons/bs";
+import { HiOutlineLightBulb } from "react-icons/hi";
+import { RiPhoneFindFill } from "react-icons/ri";
 import { useState } from "react";
 import Brand from "./Brand";
 import NavItem from "./NavItem";
@@ -23,13 +31,13 @@ export const navItems = {
       key: 0,
       label: "Buy",
       path: "/",
-      icon: <BiChevronDown />,
+      icon: <SearchOutlined />,
     },
     {
       key: 1,
       label: "Rent",
       path: "/",
-      icon: <BiChevronDown />,
+      icon: <SearchOutlined />,
     },
     {
       key: 2,
@@ -41,25 +49,25 @@ export const navItems = {
       key: 3,
       label: "New Projects",
       path: "/",
-      icon: <BiChevronDown />,
+      icon: <BsBuildingAdd />,
     },
     {
       key: 4,
       label: "Commercial",
       path: "/",
-      icon: <BiChevronDown />,
+      icon: <BsBuildingsFill />,
     },
     {
       key: 5,
       label: "Guides",
       path: "/",
-      icon: <BiChevronDown />,
+      icon: <HiOutlineLightBulb className="text-xl" />,
     },
     {
       key: 6,
       label: "Find Agents",
       path: "/",
-      icon: <BiChevronDown />,
+      icon: <RiPhoneFindFill className="text-xl" />,
     },
   ],
   forMobile: [
@@ -67,16 +75,19 @@ export const navItems = {
       key: 7,
       label: "News",
       path: "/",
+      icon: <SearchOutlined />,
     },
     {
       key: 8,
       label: "Home Loan Tools",
       path: "/",
+      icon: <SearchOutlined />,
     },
     {
       key: 9,
       label: "Ask Guru",
       path: "/",
+      icon: <SearchOutlined />,
     },
   ],
   forAgent: [
@@ -95,8 +106,8 @@ export const navItems = {
 
 export const items = [
   {
-    label: <ShortList />,
     key: "0",
+    label: <ShortList />,
   },
 ];
 
@@ -242,7 +253,9 @@ const Navbar = () => {
           {/* Sidebar */}
           {sidebarOpen && (
             <div className="absolute flex top-[70px] lg:hidden w-full left-0">
-              <div className={`bg-white flex flex-col left-0 sm:w-[360px]`}>
+              <div
+                className={`bg-white flex flex-col left-0 sm:w-[360px] w-full`}
+              >
                 <div className="bg-danger px-3 text-sm py-7 text-white">
                   <div
                     onClick={() => setAccordionOpen(!accordionOpen)}

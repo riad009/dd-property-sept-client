@@ -102,7 +102,7 @@ const SearchLocation = () => {
         </button>
       </div>
       {/* Footer */}
-      <div className="mt-5 flex items-center gap-5 justify-center">
+      <div className="text-sm mt-5 flex items-center gap-5 justify-center">
         {/* Footer 1 */}
         <h6
           onClick={footer1Handler}
@@ -113,8 +113,8 @@ const SearchLocation = () => {
           {footer1Open && (
             <div className="absolute shadow-md rounded-lg top-7 left-0 bg-white">
               <div className="p-3">
-                <h1 className="text-dark text-sm">Property Type</h1>
-                <div className="flex text-sm gap-2 mt-3">
+                <h1 className="text-dark">Property Type</h1>
+                <div className="flex gap-2 mt-3">
                   {/* Footer Header */}
                   <h6 className="bg-danger bg-opacity-10 text-danger py-1 px-3 rounded-full">
                     Residential
@@ -181,7 +181,7 @@ const SearchLocation = () => {
           Any Price
           {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
           {footer2Open && (
-            <div className="absolute shadow-md rounded-lg top-7 left-0 bg-white w-96">
+            <div className="absolute shadow-md rounded-lg top-7 -right-28 bg-white w-80">
               <div className="p-3">
                 <h1 className="text-dark text-sm">Price</h1>
                 <div className="flex text-sm gap-5 mt-5">
@@ -215,7 +215,7 @@ const SearchLocation = () => {
           Bedroom
           {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
           {footer3Open && (
-            <div className="absolute shadow-md rounded-lg top-7 right-0 bg-white w-96">
+            <div className="absolute shadow-md rounded-lg top-7 right-0 bg-white w-80">
               <div className="p-3">
                 <h1 className="text-dark text-sm">Bedroom</h1>
                 <div className="flex flex-wrap gap-5 mt-5 text-dark">
