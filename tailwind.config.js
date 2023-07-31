@@ -6,6 +6,7 @@ export default {
       colors: {
         danger: "#e03c31",
         dark: "#212529",
+        dark2: "#505050",
       },
     },
   },
