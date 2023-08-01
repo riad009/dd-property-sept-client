@@ -40,7 +40,7 @@ const HandPicked = () => {
     <div className="bg-dark2/10">
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
         <SectionHeader title="Handpicked for you" />
-        <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
+        <div className="md:overflow-x-hidden overflow-x-scroll flex gap-5">
           {handPicked?.map((project, index) => (
             <CardOne
               key={index}

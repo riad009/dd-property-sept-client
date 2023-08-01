@@ -156,10 +156,10 @@ const Footer1 = () => {
       </SmallContainer>
       <Divider />
       <SmallContainer extraClasses="flex p-5 justify-between">
-        <img className="w-1/4" src={brand4} alt="brand1" />
-        <img className="w-1/4" src={brand1} alt="brand1" />
-        <img className="w-1/4" src={brand2} alt="brand1" />
-        <img className="w-1/12" src={brand3} alt="brand1" />
+        <img className="w-1/4 md:w-40" src={brand4} alt="brand1" />
+        <img className="w-1/4 md:w-40" src={brand1} alt="brand1" />
+        <img className="w-1/4 md:w-40" src={brand2} alt="brand1" />
+        <img className="w-1/12 md:w-20" src={brand3} alt="brand1" />
       </SmallContainer>
     </div>
   );

@@ -13,7 +13,9 @@ const CardOne = ({
   return (
     <div
       onClick={clickEvent}
-      className={`${shadow && "shadow bg-white rounded-b"} cursor-pointer`}
+      className={`${
+        shadow && "md:min-w-min min-w-full shadow bg-white rounded-b"
+      } cursor-pointer`}
     >
       <div className="relative">
         <img
