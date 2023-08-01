@@ -14,9 +14,8 @@ const Offers = () => {
           <div className="sm:grid flex flex-col gap-5 grid-cols-2">
             <div className="flex text-white bg-danger p-5 col-span-2 items-center justify-between">
               <div className="overflow-hidden">
-                <h2 className="text-2xl mb-5">
-                  Buy, sell, rent with confidence & the right
-                  <span className="md:hidden lg:inline"> agents</span>
+                <h2 className="text-2xl mb-5 line-clamp-2">
+                  Buy, sell, rent with confidence & the right agents
                 </h2>
                 <Button small extraClasses="text-danger bg-white">
                   Verified Agents
@@ -26,9 +25,8 @@ const Offers = () => {
             </div>
             <div className="flex text-white bg-dark p-5 items-center justify-between">
               <div>
-                <h2 className="lg:text-lg mb-5 text-md">
-                  Check out hot deals from TH’s leading property
-                  <span className="md:hidden lg:block">developers</span>
+                <h2 className="lg:text-lg mb-5 text-md line-clamp-3">
+                  Check out hot deals from TH’s leading property developers
                 </h2>
                 <Button small extraClasses="text-white bg-danger">
                   Easy Own

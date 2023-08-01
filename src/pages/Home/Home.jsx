@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import LatestProjects from "./LatestProjects";
 import Offers from "./Offers";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <div className="relative">
       <Banner />
       <Offers />
+      <LatestProjects />
     </div>
   );
 };
