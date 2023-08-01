@@ -5,7 +5,7 @@ import beginHome from "../../assets/begin.jpg";
 
 const Offers = () => {
   return (
-    <SmallContainer extraClasses="sm:mt-28 mt-0 p-10">
+    <SmallContainer extraClasses="sm:mt-28 mt-0 sm:p-10 p-5">
       <div className="md:flex gap-5">
         <div className="md:flex-1">
           <h1 className="text-2xl mb-2 font-semibold">
