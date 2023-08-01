@@ -1,12 +1,11 @@
-import { Button, Checkbox, Divider, Input, Space } from "antd";
+import { Button, Checkbox, Divider, InputNumber } from "antd";
 import { useState } from "react";
-import { BoldOutlined } from "@ant-design/icons";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import ApplyFilterButtons from "../../components/ApplyFilterButtons";
 
 const SearchLocation = () => {
   const [footer1Open, setFooter1Open] = useState(false);
-  const [footer2Open, setFooter2Open] = useState(false);
+  const [footer2Open, setFooter2Open] = useState(true);
   const [footer3Open, setFooter3Open] = useState(false);
   const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
 
@@ -83,6 +82,14 @@ const SearchLocation = () => {
     console.log("checked = ", checkedValues);
   };
 
+  const minPriceHandler = (e) => {
+    console.log(e.target.value);
+  };
+
+  const maxPriceHandler = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
     <div className="sm:absolute sm:-bottom-24 sm:left-1/2 transform sm:-translate-x-1/2 lg:w-1/3 md:w-1/2 w-full mx-auto bg-dark bg-opacity-80 p-5 text-white md:rounded-lg">
       {/* Navbar */}
@@ -94,7 +101,7 @@ const SearchLocation = () => {
       <div className="flex justify-center">
         <input
           type="text"
-          className="bg-white p-3 rounded-l-md w-full"
+          className="bg-white text-dark focus:outline-none p-3 rounded-l-md w-full"
           placeholder="Search Location"
         />
         <button className="bg-danger p-3 rounded-r-md" type="submit">
@@ -104,12 +111,14 @@ const SearchLocation = () => {
       {/* Footer */}
       <div className="text-sm mt-5 flex items-center gap-5 justify-center">
         {/* Footer 1 */}
-        <h6
-          onClick={footer1Handler}
-          className="flex items-center gap-1 cursor-pointer relative"
-        >
-          All Residential
-          {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
+        <div className="relative">
+          <h6
+            onClick={footer1Handler}
+            className="flex items-center gap-1 cursor-pointer"
+          >
+            All Residential
+            {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
+          </h6>
           {footer1Open && (
             <div className="absolute shadow-md rounded-lg top-7 left-0 bg-white">
               <div className="p-3">
@@ -172,32 +181,36 @@ const SearchLocation = () => {
               </div>
             </div>
           )}
-        </h6>
+        </div>
         {/* Footer 2 */}
-        <h6
-          onClick={footer2Handler}
-          className="flex items-center gap-1 cursor-pointer relative"
-        >
-          Any Price
-          {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
+        <div className="relative">
+          <h6
+            onClick={footer2Handler}
+            className="flex items-center gap-1 cursor-pointer"
+          >
+            Any Price
+            {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
+          </h6>
           {footer2Open && (
             <div className="absolute shadow-md rounded-lg top-7 -right-28 bg-white w-80">
               <div className="p-3">
                 <h1 className="text-dark text-sm">Price</h1>
                 <div className="flex text-sm gap-5 mt-5">
                   {/* Footer Header */}
-                  <Space.Compact size="large">
-                    <Input
-                      addonBefore={<BoldOutlined />}
-                      placeholder="Min Price"
-                    />
-                  </Space.Compact>
-                  <Space.Compact size="large">
-                    <Input
-                      addonBefore={<BoldOutlined />}
-                      placeholder="Max Price"
-                    />
-                  </Space.Compact>
+
+                  <InputNumber
+                    type="number"
+                    addonBefore={<span>&#3647;</span>}
+                    placeholder="Min Price"
+                    onChange={minPriceHandler}
+                  />
+
+                  <InputNumber
+                    type="number"
+                    addonBefore={<span>&#3647;</span>}
+                    placeholder="Max Price"
+                    onChange={maxPriceHandler}
+                  />
                 </div>
               </div>
               <Divider />
@@ -205,15 +218,16 @@ const SearchLocation = () => {
               <ApplyFilterButtons />
             </div>
           )}
-        </h6>
-
+        </div>
         {/* Footer 3 */}
-        <h6
-          onClick={footer3Handler}
-          className="flex items-center gap-1 cursor-pointer relative"
-        >
-          Bedroom
-          {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
+        <div className="relative">
+          <h6
+            onClick={footer3Handler}
+            className="flex items-center gap-1 cursor-pointer"
+          >
+            Bedroom
+            {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
+          </h6>
           {footer3Open && (
             <div className="absolute shadow-md rounded-lg top-7 right-0 bg-white w-80">
               <div className="p-3">
@@ -238,7 +252,7 @@ const SearchLocation = () => {
               <ApplyFilterButtons />
             </div>
           )}
-        </h6>
+        </div>
       </div>
     </div>
   );
