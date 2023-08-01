@@ -8,9 +8,13 @@ const CardOne = ({
   shadow,
   price,
   typeColor = "bg-danger",
+  clickEvent,
 }) => {
   return (
-    <div className={`${shadow && "shadow bg-white rounded-b"}`}>
+    <div
+      onClick={clickEvent}
+      className={`${shadow && "shadow bg-white rounded-b"} cursor-pointer`}
+    >
       <div className="relative">
         <img
           src={image}

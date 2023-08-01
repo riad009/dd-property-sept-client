@@ -1,3 +1,4 @@
+import AskGuru from "./AskGuru";
 import Banner from "./Banner";
 import BuyCondos from "./BuyCondos";
 import HandPicked from "./HandPicked";
@@ -14,6 +15,7 @@ const Home = () => {
       <VirtualTours />
       <HandPicked />
       <BuyCondos />
+      <AskGuru />
     </div>
   );
 };
