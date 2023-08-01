@@ -1,7 +1,7 @@
 import thi_flag from "../assets/thiland.png";
 import eng_flag from "../assets/england.png";
 import Container from "../shared/Container";
-import { Dropdown, Space, Modal, Button, Divider } from "antd";
+import { Dropdown, Space, Modal, Button, Divider, Select } from "antd";
 import {
   MenuOutlined,
   HeartOutlined,
@@ -113,22 +113,22 @@ export const items = [
 
 export const languages = [
   {
+    value: "th",
     label: (
-      <a href="/" className="flex items-center gap-2">
-        <img className="w-8" src={thi_flag} alt="thiland_flag" />
+      <p className="flex gap-2 items-center">
+        <img className="w-5" src={thi_flag} alt="thiland" />
         TH
-      </a>
+      </p>
     ),
-    key: "0",
   },
   {
+    value: "en",
     label: (
-      <a href="/" className="flex items-center gap-2">
-        <img className="w-7" src={eng_flag} alt="thiland_flag" />
+      <p className="flex gap-2 items-center">
+        <img className="w-5" src={eng_flag} alt="malaysia" />
         EN
-      </a>
+      </p>
     ),
-    key: "1",
   },
 ];
 
@@ -153,6 +153,10 @@ const Navbar = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const languageHandler = (e) => {
+    console.log(e.target.value);
   };
 
   return (
@@ -193,6 +197,12 @@ const Navbar = () => {
                       {
                         type: "divider",
                       },
+                      {
+                        key: navItems.length + 1,
+                        label: <h1 className="font-semibold">For Agent</h1>,
+                        disabled: true,
+                        path: "/",
+                      },
                       ...navItems.forAgent,
                     ],
                   }}
@@ -232,20 +242,14 @@ const Navbar = () => {
                 Login
               </Button>
 
-              <Dropdown
-                className="border py-1 text-sm rounded px-3 cursor-pointer"
-                menu={{
-                  items: languages,
-                }}
-                trigger={["click"]}
-              >
-                <a onClick={(e) => e.preventDefault()}>
-                  <Space>
-                    Language
-                    <BiChevronDown />
-                  </Space>
-                </a>
-              </Dropdown>
+              <Select
+                className="w-32"
+                optionFilterProp="children"
+                onChange={languageHandler}
+                defaultActiveFirstOption={true}
+                defaultValue="thiland"
+                options={languages}
+              />
             </div>
           </div>
 
