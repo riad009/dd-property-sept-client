@@ -9,7 +9,7 @@ import RedImage from "../../components/RedImage";
 const BelowAskGuru = () => {
   return (
     <SmallContainer extraClasses="p-10">
-      <div className="md:w-full w-[400px] mx-auto flex gap-10 md:overflow-x-auto overflow-x-hidden">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <RedImage
           image={image1}
           title="Most Properties"
