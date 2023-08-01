@@ -1,6 +1,14 @@
 import Button from "../Button";
 
-const CardOne = ({ image, type, title, text, shadow, price }) => {
+const CardOne = ({
+  image,
+  type,
+  title,
+  text,
+  shadow,
+  price,
+  typeColor = "bg-danger",
+}) => {
   return (
     <div className={`${shadow && "shadow bg-white rounded-b"}`}>
       <div className="relative">
@@ -10,7 +18,9 @@ const CardOne = ({ image, type, title, text, shadow, price }) => {
           className={`${shadow && "rounded-t"}`}
         />
         {!shadow && (
-          <span className="absolute -bottom-2 left-0 bg-danger text-white px-2 text-[0.7rem] rounded-r-md">
+          <span
+            className={`absolute -bottom-2 left-0 ${typeColor} text-white px-2 text-[0.7rem] rounded-r-md`}
+          >
             {type}
           </span>
         )}
@@ -30,7 +40,7 @@ const CardOne = ({ image, type, title, text, shadow, price }) => {
         </h6>
         <p className="text-xs text-dark2">{text}</p>
         {shadow && (
-          <small className="mt-3 border w-fit border-blue-200 text-[0.7em] px-3 rounded-full">
+          <small className="mt-3 border w-fit border-blue-200 text-[0.7em] px-3 rounded">
             Land
           </small>
         )}

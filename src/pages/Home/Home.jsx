@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import BuyCondos from "./BuyCondos";
 import HandPicked from "./HandPicked";
 import LatestProjects from "./LatestProjects";
 import Offers from "./Offers";
@@ -12,6 +13,7 @@ const Home = () => {
       <LatestProjects />
       <VirtualTours />
       <HandPicked />
+      <BuyCondos />
     </div>
   );
 };
