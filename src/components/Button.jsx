@@ -4,8 +4,8 @@ const Button = ({ children, loading, extraClasses, small, type }) => {
   return (
     <button
       type={type}
-      className={`flex gap-2 items-center rounded cursor-pointer ${
-        small ? "py-1 px-4" : "py-2 px-6"
+      className={`text-xs py-2 flex gap-2 items-center rounded cursor-pointer ${
+        small ? "px-4" : "px-6"
       } ${extraClasses}`}
     >
       {loading && <LoadingOutlined />}
