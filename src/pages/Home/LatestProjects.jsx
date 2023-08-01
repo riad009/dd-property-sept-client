@@ -33,10 +33,10 @@ const latesProjects = [
 const LatestProjects = () => {
   return (
     <div className="bg-dark2/10">
-      <SmallContainer extraClasses="p-10">
+      <SmallContainer extraClasses="px-10 py-16">
         <SectionHeader title="Latest Projects" />
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
-          {latesProjects.map((project, index) => (
+          {latesProjects?.map((project, index) => (
             <CardOne
               key={index}
               image={project.image}

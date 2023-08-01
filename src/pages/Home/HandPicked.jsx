@@ -3,42 +3,49 @@ import SectionHeader from "../../components/SectionHeader";
 import CardOne from "../../components/cards/CardOne";
 import SmallContainer from "../../shared/SmallContainer";
 
-const virtualToursData = [
+const handPicked = [
   {
     image: image1,
-    type: "Video",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-  },
-  {
-    image: image1,
-    type: "New Project",
+    price: 2000,
+    type: "Studio",
     title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
     text: "Hua Hin, Prachuap Khiri Khan",
   },
   {
     image: image1,
-    type: "Virtual Tour",
+    price: 2000,
+    type: "Studio",
     title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
     text: "Hua Hin, Prachuap Khiri Khan",
   },
   {
     image: image1,
-    type: "Virtual Tour",
+    price: 2000,
+    type: "Studio",
+    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
+    text: "Hua Hin, Prachuap Khiri Khan",
+  },
+  {
+    image: image1,
+    price: 2000,
+    type: "Studio",
     title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
     text: "Hua Hin, Prachuap Khiri Khan",
   },
 ];
 
-const VirtualTours = () => {
+const HandPicked = () => {
   return (
-    <div>
+    <div className="bg-dark2/10">
       <SmallContainer extraClasses="px-10 py-16">
-        <SectionHeader title="Videos & Virtual Tours" />
+        <SectionHeader title="Handpicked for you" />
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
-          {virtualToursData?.map((project, index) => (
+          {handPicked?.map((project, index) => (
             <CardOne
               key={index}
+              shadow
               image={project.image}
+              price={project.price}
               type={project.type}
               title={project.title}
               text={project.text}
@@ -50,4 +57,4 @@ const VirtualTours = () => {
   );
 };
 
-export default VirtualTours;
+export default HandPicked;

@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import HandPicked from "./HandPicked";
 import LatestProjects from "./LatestProjects";
 import Offers from "./Offers";
 import VirtualTours from "./VirtualTours";
@@ -10,6 +11,7 @@ const Home = () => {
       <Offers />
       <LatestProjects />
       <VirtualTours />
+      <HandPicked />
     </div>
   );
 };
