@@ -1,5 +1,6 @@
 import AskGuru from "./AskGuru";
 import Banner from "./Banner";
+import BelowAskGuru from "./BelowAskGuru";
 import BuyCondos from "./BuyCondos";
 import HandPicked from "./HandPicked";
 import LatestProjects from "./LatestProjects";
@@ -16,6 +17,7 @@ const Home = () => {
       <HandPicked />
       <BuyCondos />
       <AskGuru />
+      <BelowAskGuru />
     </div>
   );
 };
