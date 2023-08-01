@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import LatestProjects from "./LatestProjects";
 import Offers from "./Offers";
+import VirtualTours from "./VirtualTours";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <Banner />
       <Offers />
       <LatestProjects />
+      <VirtualTours />
     </div>
   );
 };

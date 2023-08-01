@@ -1,4 +1,5 @@
 import image1 from "../../assets/banner1.jpg";
+import SectionHeader from "../../components/SectionHeader";
 import CardOne from "../../components/cards/CardOne";
 import SmallContainer from "../../shared/SmallContainer";
 
@@ -31,10 +32,10 @@ const latesProjects = [
 
 const LatestProjects = () => {
   return (
-    <div className="bg-dark2/5">
+    <div className="bg-dark2/10">
       <SmallContainer extraClasses="p-10">
-        <h1 className="font-semibold text-3xl mb-3">Latest Projects</h1>
-        <div className="grid grid-cols-4 gap-5">
+        <SectionHeader title="Latest Projects" />
+        <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
           {latesProjects.map((project, index) => (
             <CardOne
               key={index}
