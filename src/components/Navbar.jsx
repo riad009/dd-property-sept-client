@@ -162,7 +162,7 @@ const Navbar = () => {
   return (
     <div className="shadow z-10 relative transition-all duration-300">
       <Container>
-        <div className="p-5">
+        <div className="p-2">
           <div className="flex items-center">
             {!sidebarOpen ? (
               <MenuOutlined

@@ -7,6 +7,7 @@ export default {
         danger: "#e03c31",
         dark: "#212529",
         dark2: "#505050",
+        dark3: "#F2F2F2",
       },
     },
   },

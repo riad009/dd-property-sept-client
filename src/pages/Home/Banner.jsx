@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <div className="relative flex sm:flex-col flex-col-reverse bg-dark/10">
       <img
-        className="max-w-screen-xl w-full mx-auto h-[400px] object-cover"
+        className="max-w-screen-xl w-full mx-auto h-[365px] object-cover"
         src={banner1}
         alt="banner"
       />
