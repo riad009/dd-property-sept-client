@@ -4,8 +4,9 @@ import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import ApplyFilterButtons from "../../components/ApplyFilterButtons";
 
 const SearchLocation = () => {
+  const [propertyType, setPropertyType] = useState("residential");
   const [footer1Open, setFooter1Open] = useState(false);
-  const [footer2Open, setFooter2Open] = useState(true);
+  const [footer2Open, setFooter2Open] = useState(false);
   const [footer3Open, setFooter3Open] = useState(false);
   const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
 
@@ -125,10 +126,24 @@ const SearchLocation = () => {
                 <h1 className="text-dark">Property Type</h1>
                 <div className="flex gap-2 mt-3">
                   {/* Footer Header */}
-                  <h6 className="bg-danger bg-opacity-10 text-danger py-1 px-3 rounded-full">
+                  <h6
+                    onClick={() => setPropertyType("residential")}
+                    className={`${
+                      propertyType === "residential"
+                        ? "bg-danger bg-opacity-10 text-danger"
+                        : "bg-dark bg-opacity-10 text-dark"
+                    } cursor-pointer  py-1 px-3 rounded-full`}
+                  >
                     Residential
                   </h6>
-                  <h6 className="bg-dark bg-opacity-10 text-dark py-1 px-3 rounded-full">
+                  <h6
+                    onClick={() => setPropertyType("commercial")}
+                    className={`${
+                      propertyType === "commercial"
+                        ? "bg-danger bg-opacity-10 text-danger"
+                        : "bg-dark bg-opacity-10 text-dark"
+                    } cursor-pointer  py-1 px-3 rounded-full`}
+                  >
                     Commertial
                   </h6>
                 </div>
@@ -173,12 +188,8 @@ const SearchLocation = () => {
                 ))}
               </div>
               {/* Footer Footer */}
-              <div className="text-dark flex justify-between items-center p-5 text-sm">
-                <h6>Clear</h6>
-                <Button className="bg-dark2 text-white h-10">
-                  Apply Filter
-                </Button>
-              </div>
+              {/* Footer Footer */}
+              <ApplyFilterButtons />
             </div>
           )}
         </div>

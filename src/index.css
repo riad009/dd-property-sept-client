@@ -9,3 +9,7 @@
 svg {
   vertical-align: baseline;
 }
+
+.antd-btn:hover {
+  color: white;
+}
