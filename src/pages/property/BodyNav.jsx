@@ -29,7 +29,7 @@ const BodyNav = () => {
   return (
     <div className="bg-black text-white shadow text-sm">
       <SmallContainer extraClasses="flex justify-between items-center p-5">
-        <div className="flex items-center gap-3 overflow-x-scroll">
+        <div className="flex items-center gap-3 sm:overflow-auto overflow-x-scroll">
           {bodyNavItems.map((item, index) => (
             <Link key={index} to={item.path} className="hover:text-danger">
               {item.label}

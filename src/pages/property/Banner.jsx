@@ -1,4 +1,4 @@
-import React from "react";
+import ImageViewer from "react-simple-image-viewer";
 import SmallContainer from "../../shared/SmallContainer";
 import { Breadcrumb, Divider, Tooltip } from "antd";
 import { CiCircleChevRight, CiTwitter } from "react-icons/ci";
@@ -6,6 +6,7 @@ import { MdFacebook } from "react-icons/md";
 import { PiHeart, PiShareFatThin } from "react-icons/pi";
 import { Slide } from "react-slideshow-image";
 import thumb from "../../assets/singleProjectThumb.jpg";
+import { useCallback, useState } from "react";
 
 const Details = ({ children, icon }) => (
   <p className="font-semibold flex items-center gap-y-20">
@@ -15,6 +16,18 @@ const Details = ({ children, icon }) => (
 );
 
 const Banner = ({ breadCrumbItems, images }) => {
+  const openImageViewer = useCallback((index) => {
+    setCurrentImage(index);
+    setIsViewerOpen(true);
+  }, []);
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const closeImageViewer = () => {
+    setCurrentImage(0);
+    setIsViewerOpen(false);
+  };
+
   return (
     <div>
       <SmallContainer extraClasses="p-5">
@@ -97,7 +110,12 @@ const Banner = ({ breadCrumbItems, images }) => {
         ]}
       >
         {images.map((item, index) => (
-          <img key={index} src={item.img} />
+          <img
+            onClick={() => openImageViewer(index)}
+            key={index}
+            src={item.img}
+            className="cursor-pointer"
+          />
         ))}
       </Slide>
 
@@ -127,6 +145,17 @@ const Banner = ({ breadCrumbItems, images }) => {
           </Details>
         </div>
       </SmallContainer>
+
+      {/* Image Viewer */}
+      {isViewerOpen && (
+        <ImageViewer
+          src={images.map((img) => img.img)}
+          currentIndex={currentImage}
+          disableScroll={false}
+          closeOnClickOutside={true}
+          onClose={closeImageViewer}
+        />
+      )}
     </div>
   );
 };

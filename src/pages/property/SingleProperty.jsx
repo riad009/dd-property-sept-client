@@ -72,9 +72,9 @@ const SingleProperty = () => {
         <div className="sm:flex gap-5">
           <div className="flex-1">
             <OverviewSection />
-            <AvailableUnitSection />
+            <AvailableUnitSection images={images} />
           </div>
-          <div className="sm:h-screen max-h-[calc(100vh-40px)]">
+          <div className="sm:h-screen max-h-[calc(100vh)]">
             <StickySection handleContactAbout={handleContactAbout} />
           </div>
         </div>
