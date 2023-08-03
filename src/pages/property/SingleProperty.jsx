@@ -65,7 +65,7 @@ const SingleProperty = () => {
     <div>
       <Banner breadCrumbItems={breadCrumbItems} images={images} />
       {/* Body Navbar */}
-      <div className="sticky top-0  max-h-[calc(100vh-40px)]">
+      <div className="sm:sticky top-0 sm:max-h-[calc(60vh-40px)]">
         <BodyNav />
       </div>
       <SmallContainer extraClasses="relative p-10">
@@ -74,7 +74,7 @@ const SingleProperty = () => {
             <OverviewSection />
             <AvailableUnitSection />
           </div>
-          <div className="sticky top-0 h-screen max-h-[calc(100vh-40px)]">
+          <div className="sm:h-screen max-h-[calc(100vh-40px)]">
             <StickySection handleContactAbout={handleContactAbout} />
           </div>
         </div>

@@ -5,7 +5,7 @@ import { CiHeart, CiShare2 } from "react-icons/ci";
 
 const StickySection = ({ handleContactAbout }) => {
   return (
-    <div className="w-72 sticky top-16">
+    <div className="w-72 sm:sticky top-16">
       <div className="bg-dark/5 p-3 rounded-md">
         <img className="w-16 mx-auto" src={img4} alt="leaf" />
         <p className="text-xs my-3  text-center">
