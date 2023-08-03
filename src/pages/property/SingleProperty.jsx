@@ -1,9 +1,9 @@
-import { Breadcrumb, Tooltip } from "antd";
+import { Breadcrumb, Divider, Tooltip } from "antd";
 import SmallContainer from "../../shared/SmallContainer";
 import { useParams } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
 import { PiShareFatThin, PiHeart, PiHeartFill } from "react-icons/pi";
-import { CiTwitter } from "react-icons/ci";
+import { CiTwitter, CiCircleChevRight } from "react-icons/ci";
 import { MdFacebook } from "react-icons/md";
 import img1 from "../../assets/banner1.jpg";
 import img2 from "../../assets/banner2.jpg";
@@ -143,6 +143,35 @@ const SingleProperty = () => {
           <img key={index} src={item.img} />
         ))}
       </Slide>
+
+      <SmallContainer extraClasses="p-10">
+        {/* Important Details */}
+        <div className="sm:flex gap-5 justify-between">
+          <p className="flex items-center gap-y-20">
+            <CiCircleChevRight className="sm:hidden text-2xl w-12" />
+            Good location, next to the main road, 6 lanes, 5 minutes to the BTS,
+            20 minutes to Sathorn
+          </p>
+          <Divider className="md:block hidden h-20 my-auto" type="vertical" />
+          <p className="flex items-center gap-y-20">
+            <CiCircleChevRight className="sm:hidden text-2xl w-12" />
+            There is a multipurpose room. downstairs to adjust functions
+            according to lifestyle
+          </p>
+          <Divider className="md:block hidden h-20 my-auto" type="vertical" />
+          <p className="flex items-center gap-y-20">
+            <CiCircleChevRight className="sm:hidden text-2xl w-12" />
+            Central area, large green area throughout the project Access to
+            every green space
+          </p>
+          <Divider className="md:block hidden h-20 my-auto" type="vertical" />
+
+          <p className="flex items-center gap-y-20">
+            <CiCircleChevRight className="sm:hidden text-2xl w-12" />
+            24-hour security system with Easy pass access
+          </p>
+        </div>
+      </SmallContainer>
     </div>
   );
 };
