@@ -42,7 +42,7 @@ const LatestProjects = () => {
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
           {latesProjects?.map((project, index) => (
             <CardOne
-              clickEvent={() => navigate("/")}
+              clickEvent={() => navigate(`/property/projects/${project.title}`)}
               key={index}
               image={project.image}
               type={project.type}
