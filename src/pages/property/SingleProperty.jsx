@@ -12,6 +12,8 @@ import AvailableUnitSection from "./AvailableUnitSection";
 import "react-slideshow-image/dist/styles.css";
 import Facilities from "./Facilities";
 import HomeFinance from "./HomeFinance";
+import Location from "./Location";
+import ContactDeveloper from "./ContactDeveloper";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -81,6 +83,8 @@ const SingleProperty = () => {
           </div>
         </div>
         <HomeFinance />
+        <Location />
+        <ContactDeveloper />
       </SmallContainer>
     </div>
   );
