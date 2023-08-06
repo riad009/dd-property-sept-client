@@ -6,6 +6,7 @@ import { GiBathtub, GiBed } from "react-icons/gi";
 import { MdChevronRight } from "react-icons/md";
 import { MdGridView } from "react-icons/md";
 import ImageViewer from "react-simple-image-viewer";
+import Brochure from "./Brochure";
 
 const AvailableUnitSection = ({ images }) => {
   const onChange = (key) => {
@@ -128,6 +129,7 @@ const AvailableUnitSection = ({ images }) => {
           onClose={closeImageViewer}
         />
       )}
+      <Brochure />
     </section>
   );
 };

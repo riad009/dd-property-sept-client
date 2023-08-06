@@ -4,13 +4,12 @@ import { HomeOutlined } from "@ant-design/icons";
 import img1 from "../../assets/banner1.jpg";
 import img2 from "../../assets/banner2.jpg";
 import img3 from "../../assets/banner3.jpg";
-
-import "react-slideshow-image/dist/styles.css";
 import BodyNav from "./BodyNav";
 import OverviewSection from "./OverviewSection";
 import Banner from "./Banner";
 import StickySection from "./StickySection";
 import AvailableUnitSection from "./AvailableUnitSection";
+import "react-slideshow-image/dist/styles.css";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
