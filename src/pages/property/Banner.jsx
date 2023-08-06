@@ -9,7 +9,7 @@ import thumb from "../../assets/singleProjectThumb.jpg";
 import { useCallback, useState } from "react";
 
 const Details = ({ children, icon }) => (
-  <p className="font-semibold flex items-center gap-y-20">
+  <p className="font-semibold flex items-center gap-x-2 gap-y-20">
     <span className="sm:hidden text-2xl w-12">{icon}</span>
     {children}
   </p>
@@ -121,24 +121,24 @@ const Banner = ({ breadCrumbItems, images }) => {
 
       <SmallContainer extraClasses="p-10">
         {/* Important Details */}
-        <div className="sm:flex gap-5 justify-between">
+        <div className="sm:flex gap-5 justify-between text-justify">
           <Details icon={<CiCircleChevRight />}>
             Good location, next to the main road, 6 lanes, 5 minutes to the BTS,
             20 minutes to Sathorn
           </Details>
-          <Divider type="vertical h-20 my-auto" />
+          <Divider type="vertical h-20 my-auto hidden sm:block" />
 
           <Details icon={<CiCircleChevRight />}>
             There is a multipurpose room. downstairs to adjust functions
             according to lifestyle
           </Details>
-          <Divider type="vertical h-20 my-auto" />
+          <Divider type="vertical h-20 my-auto hidden sm:block" />
 
           <Details icon={<CiCircleChevRight />}>
             Central area, large green area throughout the project Access to
             every green space
           </Details>
-          <Divider type="vertical h-20 my-auto" />
+          <Divider type="vertical h-20 my-auto hidden sm:block" />
 
           <Details icon={<CiCircleChevRight />}>
             24-hour security system with Easy pass access

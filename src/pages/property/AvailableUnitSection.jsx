@@ -1,4 +1,6 @@
+import { useWindowWidth } from "@react-hook/window-size";
 import { Tabs } from "antd";
+import { useEffect } from "react";
 import { useCallback, useState } from "react";
 import { GiBathtub, GiBed } from "react-icons/gi";
 import { MdChevronRight } from "react-icons/md";
@@ -15,6 +17,8 @@ const AvailableUnitSection = ({ images }) => {
     setIsViewerOpen(true);
   }, []);
 
+  const width = useWindowWidth();
+  const [activeKey, setActiveKey] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const closeImageViewer = () => {
@@ -28,17 +32,28 @@ const AvailableUnitSection = ({ images }) => {
       label: <p className="text-dark">1 Bedroom</p>,
       children: (
         <Tabs
-          tabPosition="left"
+          tabPosition={width >= 900 ? "left" : "top"}
           items={new Array(3).fill(null).map((_, i) => {
-            const id = String(i + 1);
             return {
               label: (
-                <div className="text-dark">
-                  <h6>Studio – Mountain BLD C</h6>
-                  <p>30sqm</p>
+                <div
+                  className={`${
+                    activeKey === i
+                      ? "bg-dark text-white"
+                      : "bg-dark/10 text-dark"
+                  } p-3 rounded-md text-start`}
+                >
+                  <h6 className="font-semibold">Studio – Mountain BLD C</h6>
+                  <p
+                    className={`text-xs ${
+                      activeKey === i ? "text-white/50" : "text-dark2"
+                    }`}
+                  >
+                    30sqm
+                  </p>
                 </div>
               ),
-              key: id,
+              key: i,
               children: (
                 <div>
                   <div className="flex gap-3 items-center">
@@ -70,19 +85,20 @@ const AvailableUnitSection = ({ images }) => {
                   <p className="cursor-pointer font-semibold text-danger flex items-center">
                     View Floor Plan <MdChevronRight className="text-lg" />
                   </p>
-                  <div className="relative transition-300 hover:scale-105">
+                  <div className=" lg:w-1/2 relative transition-300 hover:scale-105">
                     <img
                       className="cursor-pointer py-5"
                       onClick={() => openImageViewer(0)}
                       src={images[0].img}
                       alt="design"
                     />
-                    <MdGridView className="text-white absolute top-10 right-5 text-2xl" />
+                    <MdGridView className="bg-white rounded p-1 text-black absolute top-7 right-2 text-3xl" />
                   </div>
                 </div>
               ),
             };
           })}
+          onChange={(activeKey) => setActiveKey(activeKey)}
         />
       ),
     },
