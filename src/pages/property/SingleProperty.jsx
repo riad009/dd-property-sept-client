@@ -10,6 +10,7 @@ import Banner from "./Banner";
 import StickySection from "./StickySection";
 import AvailableUnitSection from "./AvailableUnitSection";
 import "react-slideshow-image/dist/styles.css";
+import Facilities from "./Facilities";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -72,8 +73,9 @@ const SingleProperty = () => {
           <div className="flex-1">
             <OverviewSection />
             <AvailableUnitSection images={images} />
+            <Facilities />
           </div>
-          <div className="sm:h-screen max-h-[calc(100vh)]">
+          <div>
             <StickySection handleContactAbout={handleContactAbout} />
           </div>
         </div>

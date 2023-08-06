@@ -28,9 +28,9 @@ const StickySection = ({ handleContactAbout }) => {
           Get Developer Call.
         </Button>
       </div>
-      <div className="flex items-center justify-center gap-3 text-danger mt-3">
+      <div className="flex items-center justify-center gap-3 text-danger mt-3 text-sm">
         <div className="cursor-pointer flex items-center gap-2">
-          <CiHeart className="text-xl" />
+          <CiHeart className="text-lg" />
           Shortlist
         </div>
         <div className="cursor-pointer flex items-center gap-2">
