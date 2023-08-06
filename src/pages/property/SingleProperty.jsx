@@ -11,6 +11,7 @@ import StickySection from "./StickySection";
 import AvailableUnitSection from "./AvailableUnitSection";
 import "react-slideshow-image/dist/styles.css";
 import Facilities from "./Facilities";
+import HomeFinance from "./HomeFinance";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -79,6 +80,7 @@ const SingleProperty = () => {
             <StickySection handleContactAbout={handleContactAbout} />
           </div>
         </div>
+        <HomeFinance />
       </SmallContainer>
     </div>
   );
