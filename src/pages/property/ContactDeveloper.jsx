@@ -7,7 +7,7 @@ import { Content } from "./StickySection";
 const ContactDeveloper = () => {
   return (
     <div>
-      <div className="text-2xl font-semibold">Contact Developer</div>
+      <h1 className="text-2xl font-semibold">Contact Developer</h1>
       <div className="sm:flex gap-5 mt-5 bg-dark/5 p-5 sm:p-10 rounded-lg text-xs">
         <div className="flex-1 text-justify">
           <h6>How can the developer reach you?</h6>
@@ -47,6 +47,10 @@ const ContactDeveloper = () => {
         <div className="flex-0">
           <Content handleContactAbout={() => {}} />
         </div>
+      </div>
+      <div className="text-center text-xs my-2">
+        Legal Disclaimer: The advertiser assumes all responsibility for the
+        advertisement details
       </div>
     </div>
   );

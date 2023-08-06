@@ -14,6 +14,8 @@ import Facilities from "./Facilities";
 import HomeFinance from "./HomeFinance";
 import Location from "./Location";
 import ContactDeveloper from "./ContactDeveloper";
+import SimilarListings from "./SimilarListings";
+import FAQ from "./FAQ";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -85,6 +87,10 @@ const SingleProperty = () => {
         <HomeFinance />
         <Location />
         <ContactDeveloper />
+      </SmallContainer>
+      <SimilarListings />
+      <SmallContainer>
+        <FAQ />
       </SmallContainer>
     </div>
   );
