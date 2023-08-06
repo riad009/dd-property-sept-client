@@ -13,3 +13,8 @@ svg {
 .transition-300 {
   @apply transition-all duration-300;
 }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}

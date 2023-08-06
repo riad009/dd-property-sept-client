@@ -65,7 +65,7 @@ const SingleProperty = () => {
     <div>
       <Banner breadCrumbItems={breadCrumbItems} images={images} />
       {/* Body Navbar */}
-      <div className="sm:sticky top-0 sm:max-h-[calc(60vh-40px)]">
+      <div className="sm:sticky top-0 z-50 sm:max-h-[calc(60vh-40px)]">
         <BodyNav />
       </div>
       <SmallContainer extraClasses="relative p-10">

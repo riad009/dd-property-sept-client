@@ -24,8 +24,8 @@ const StickySection = ({ handleContactAbout }) => {
           <Checkbox value="room/house plan">room/house plan</Checkbox>
           <Checkbox value="brochure">brochure</Checkbox>
         </Checkbox.Group>
-        <Button extraClasses="bg-danger hover:bg-danger/90 text-white mt-5">
-          Let the project developer contact you back.
+        <Button extraClasses="mx-auto bg-danger hover:bg-danger/90 text-white mt-5">
+          Get Developer Call.
         </Button>
       </div>
       <div className="flex items-center justify-center gap-3 text-danger mt-3">

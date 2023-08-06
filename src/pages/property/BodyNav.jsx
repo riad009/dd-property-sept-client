@@ -8,8 +8,8 @@ const bodyNavItems = [
     path: "#overview",
   },
   {
-    label: "room layout",
-    path: "#roomLayout",
+    label: "Unit Types",
+    path: "#unitTypes",
   },
   {
     label: "Facilities & Nearby Places",
@@ -31,9 +31,9 @@ const BodyNav = () => {
       <SmallContainer extraClasses="flex justify-between items-center p-5">
         <div className="flex items-center gap-3 sm:overflow-auto overflow-x-scroll">
           {bodyNavItems.map((item, index) => (
-            <Link key={index} to={item.path} className="hover:text-danger">
+            <a key={index} href={item.path} className="hover:text-danger">
               {item.label}
-            </Link>
+            </a>
           ))}
         </div>
         <div className="flex items-center gap-3">

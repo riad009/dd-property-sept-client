@@ -99,7 +99,7 @@ const AvailableUnitSection = ({ images }) => {
   ];
 
   return (
-    <div id="roomLayout" className="my-10">
+    <section id="unitTypes" className="my-10">
       <h1 className="text-2xl">Available Unit Section</h1>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} tab />
       {/* Image Viewer */}
@@ -112,7 +112,7 @@ const AvailableUnitSection = ({ images }) => {
           onClose={closeImageViewer}
         />
       )}
-    </div>
+    </section>
   );
 };
 
