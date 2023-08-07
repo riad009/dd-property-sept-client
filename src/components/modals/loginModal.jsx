@@ -30,11 +30,11 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
 
     try {
       if (nameInput && nameInput.length !== 0) {
-        const response = await signup(email, password, username);
-        console.log(response);
+        await signup(email, password, username);
+        handleCancel();
       } else {
-        const response = await login(email, password);
-        console.log(response);
+        await login(email, password);
+        handleCancel();
       }
     } catch (error) {
       if (error.code === "auth/user-not-found") {

@@ -23,12 +23,15 @@ export function useAuth() {
 const auth = getAuth();
 
 export function AuthProvider({ children }) {
+  const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
 
+  // TODO1: remove setLoading function
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
 
+      // getUsersData from Database if not found save to database
       if (user) {
         await axios
           .get(`${import.meta.env.VITE_BASE_API_URL}/users/${user.email}`)
@@ -43,7 +46,7 @@ export function AuthProvider({ children }) {
                 address: "",
                 gender: "",
                 phoneNumber: "",
-                role: "user",
+                role: "student",
               };
               axios
                 .post(`${import.meta.env.VITE_BASE_API_URL}/user`, newUser)
@@ -69,6 +72,7 @@ export function AuthProvider({ children }) {
       } else {
         localStorage.removeItem("access_token");
       }
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -114,6 +118,8 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    loading,
+    setLoading,
     signup,
     login,
     logout,
@@ -122,5 +128,9 @@ export function AuthProvider({ children }) {
     resetPassword,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }

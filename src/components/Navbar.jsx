@@ -16,8 +16,9 @@ import { RiPhoneFindFill } from "react-icons/ri";
 import { useState } from "react";
 import Brand from "./Brand";
 import NavItem from "./NavItem";
-import LoginModal from "./modals/loginModal";
+import LoginModal from "./modals/LoginModal";
 import { useAuth } from "../providers/AuthProvider";
+import { Link, useHref, useNavigation, useParams } from "react-router-dom";
 
 const ShortList = () => {
   return (
@@ -114,32 +115,6 @@ export const items = [
   },
 ];
 
-export const itemsUser = [
-  {
-    key: "0",
-    label: "Profile",
-  },
-  {
-    key: "1",
-    label: "Email Preferences",
-  },
-  {
-    key: "2",
-    label: "Ask Guru asked Questions",
-  },
-  {
-    key: "3",
-    label: "Feedback",
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "4",
-    label: "Logout",
-  },
-];
-
 export const languages = [
   {
     value: "th",
@@ -169,7 +144,9 @@ export const allItems = [
 
 const Navbar = () => {
   // check current user
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
+
+  const path = useHref();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -187,10 +164,36 @@ const Navbar = () => {
     console.log(e.target.value);
   };
 
+  const itemsUser = [
+    {
+      key: "0",
+      label: <Link to="/">Profile</Link>,
+    },
+    {
+      key: "1",
+      label: <Link to="/">Email Preferences</Link>,
+    },
+    {
+      key: "2",
+      label: <Link to="/">Ask Guru asked Questions</Link>,
+    },
+    {
+      key: "3",
+      label: <Link to="/">Feedback</Link>,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "4",
+      label: <h1 onClick={logout}>Logout</h1>,
+    },
+  ];
+
   return (
     <div className="shadow z-10 relative transition-all duration-300">
       <Container>
-        <div className="p-2">
+        <div className="p-6">
           <div className="flex items-center">
             {!sidebarOpen ? (
               <MenuOutlined
@@ -207,7 +210,7 @@ const Navbar = () => {
           </div>
           <div className="hidden w-full lg:flex lg:items-center">
             <div className="w-full lg:flex items-center gap-5">
-              <Brand />
+              {path !== "/dashboard" && <Brand />}
               <div className="lg:flex items-center gap-2">
                 {navItems.forDesktop.map((item) => (
                   <NavItem
