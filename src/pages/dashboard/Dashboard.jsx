@@ -41,7 +41,7 @@ const Dashboard = () => {
   const { currentUser } = useAuth();
 
   return (
-    <div className="dark:bg-slate-900 min-h-[90vh] p-5 md:p-10 bg-dark2/5">
+    <div className="min-h-[90vh] p-5 md:p-10 bg-dark2/5">
       <h1 className="font-bold text-3xl">
         Howdy, {currentUser?.name?.split(" ")[0]}
       </h1>
