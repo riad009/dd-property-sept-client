@@ -116,44 +116,48 @@ const sidebarItems = {
 
 const Sidebar = ({ isSidebarOpen }) => {
   return (
-    <div className="fixed w-80 bg-slate-950 h-screen text-white">
+    <div className="fixed md:w-80 w-12 bg-slate-950 h-screen text-white">
       <div className="h-20 flex items-center justify-center bg-slate-800">
         <Brand center white />
       </div>
-      <div className="p-5">
-        <h1 className="mb-2 text-dark3/50">Menu</h1>
+      <div className="md:p-5 py-10">
+        <h1 className="hidden md:block mb-2 text-dark3/50">Menu</h1>
         <div className="flex flex-col gap-2">
           {sidebarItems.main.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
               key={item.route}
             >
-              {item.icon}
-              {item.route}
+              <div>{item.icon}</div>
+              <div className="hidden md:inline">{item.route}</div>
             </Link>
           ))}
         </div>
-        <h1 className="mt-10 mb-2 text-dark3/50">Manage Listings</h1>
+        <h1 className="hidden md:block mt-10 mb-2 text-dark3/50">
+          Manage Listings
+        </h1>
         <div className="flex flex-col gap-2">
           {sidebarItems.manageListings.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
               key={item.route}
             >
-              {item.icon}
-              {item.route}
+              <div>{item.icon}</div>
+              <div className="hidden md:inline">{item.route}</div>
             </Link>
           ))}
         </div>
-        <h1 className="mt-10 mb-2 text-dark3/50">Manage Account</h1>
+        <h1 className="hidden md:block mt-10 mb-2 text-dark3/50">
+          Manage Account
+        </h1>
         <div className="flex flex-col gap-2">
           {sidebarItems.manageAccount.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
               key={item.route}
             >
-              {item.icon}
-              {item.route}
+              <div>{item.icon}</div>
+              <div className="hidden md:inline">{item.route}</div>
             </Link>
           ))}
         </div>

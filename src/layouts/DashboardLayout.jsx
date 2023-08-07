@@ -9,7 +9,7 @@ export const DashboardLayout = () => {
   return (
     <div className="lg:flex">
       <Sidebar />
-      <div className="ml-80 flex-1">
+      <div className="md:ml-80 ml-12 flex-1">
         <Navbar />
         <Outlet />
         <Footer />
