@@ -1,24 +1,24 @@
-import thi_flag from "../assets/thiland.png";
-import eng_flag from "../assets/england.png";
-import Container from "../shared/Container";
-import { Dropdown, Space, Button, Divider, Select } from "antd";
+import thi_flag from "../../assets/thiland.png";
+import eng_flag from "../../assets/england.png";
+import Container from "../../shared/Container";
+import { Dropdown, Space, Button, Divider } from "antd";
 import {
   MenuOutlined,
   HeartOutlined,
   CloseOutlined,
   SearchOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { BsBuildingAdd, BsBuildingsFill } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { RiPhoneFindFill } from "react-icons/ri";
 import { useState } from "react";
-import Brand from "./Brand";
-import NavItem from "./NavItem";
-import { useAuth } from "../providers/AuthProvider";
+import Brand from "../Brand";
+import NavItem from "../NavItem";
+import { useAuth } from "../../providers/AuthProvider";
 import { Link, useHref } from "react-router-dom";
-import LoginModal from "./LoginModal";
+import LoginModal from "../LoginModal";
+import RightSide from "./RightSide";
 
 const ShortList = () => {
   return (
@@ -249,9 +249,9 @@ const Navbar = () => {
                 </Dropdown>
               </div>
             </div>
-            <div className="lg:flex gap-5">
+            {/* <div className="lg:flex gap-5">
               <Dropdown
-                className="lg:block md:hidden border py-1 text-sm rounded px-3 cursor-pointer"
+                className="border py-1 text-sm rounded px-3 cursor-pointer"
                 menu={{
                   items,
                 }}
@@ -267,16 +267,12 @@ const Navbar = () => {
 
               <div className="flex items-center">
                 {!currentUser ? (
-                  <Button
-                    className="lg:block md:hidden"
-                    type="default"
-                    onClick={showModal}
-                  >
+                  <Button className="" type="default" onClick={showModal}>
                     Login
                   </Button>
                 ) : (
                   <Dropdown
-                    className="lg:block w-40 mx-auto md:hidden border py-1 text-sm rounded px-3 cursor-pointer"
+                    className="w-40 mx-auto border py-1 text-sm rounded px-3 cursor-pointer"
                     menu={{
                       items: itemsUser,
                     }}
@@ -302,7 +298,15 @@ const Navbar = () => {
                 defaultValue="thiland"
                 options={languages}
               />
-            </div>
+            </div> */}
+            <RightSide
+              currentUser={currentUser}
+              items={items}
+              itemsUser={itemsUser}
+              languageHandler={languageHandler}
+              languages={languages}
+              showModal={showModal}
+            />
           </div>
 
           {/* TODO:Add Transition Animation */}
@@ -345,6 +349,16 @@ const Navbar = () => {
                       icon={item.icon}
                     />
                   ))}
+                </div>
+                <div className="mx-auto pb-10">
+                  <RightSide
+                    currentUser={currentUser}
+                    items={items}
+                    itemsUser={itemsUser}
+                    languageHandler={languageHandler}
+                    languages={languages}
+                    showModal={showModal}
+                  />
                 </div>
               </div>
               <div className="flex-grow bg-dark bg-opacity-50"></div>
