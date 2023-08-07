@@ -1,12 +1,13 @@
 import thi_flag from "../assets/thiland.png";
 import eng_flag from "../assets/england.png";
 import Container from "../shared/Container";
-import { Dropdown, Space, Modal, Button, Divider, Select } from "antd";
+import { Dropdown, Space, Button, Divider, Select, Input } from "antd";
 import {
   MenuOutlined,
   HeartOutlined,
   CloseOutlined,
   SearchOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { BsBuildingAdd, BsBuildingsFill } from "react-icons/bs";
@@ -15,6 +16,8 @@ import { RiPhoneFindFill } from "react-icons/ri";
 import { useState } from "react";
 import Brand from "./Brand";
 import NavItem from "./NavItem";
+import LoginModal from "./modals/loginModal";
+import { useAuth } from "../providers/AuthProvider";
 
 const ShortList = () => {
   return (
@@ -111,6 +114,32 @@ export const items = [
   },
 ];
 
+export const itemsUser = [
+  {
+    key: "0",
+    label: "Profile",
+  },
+  {
+    key: "1",
+    label: "Email Preferences",
+  },
+  {
+    key: "2",
+    label: "Ask Guru asked Questions",
+  },
+  {
+    key: "3",
+    label: "Feedback",
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "4",
+    label: "Logout",
+  },
+];
+
 export const languages = [
   {
     value: "th",
@@ -139,16 +168,15 @@ export const allItems = [
 ];
 
 const Navbar = () => {
+  // check current user
+  const { currentUser } = useAuth();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -234,13 +262,34 @@ const Navbar = () => {
                 </a>
               </Dropdown>
 
-              <Button
-                className="lg:block md:hidden"
-                type="default"
-                onClick={showModal}
-              >
-                Login
-              </Button>
+              <div className="flex items-center">
+                {!currentUser ? (
+                  <Button
+                    className="lg:block md:hidden"
+                    type="default"
+                    onClick={showModal}
+                  >
+                    Login
+                  </Button>
+                ) : (
+                  <Dropdown
+                    className="lg:block w-40 mx-auto md:hidden border py-1 text-sm rounded px-3 cursor-pointer"
+                    menu={{
+                      items: itemsUser,
+                    }}
+                    trigger={["click"]}
+                    placement="bottomLeft"
+                  >
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <UserOutlined />
+                        My Account
+                        <MenuOutlined />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                )}
+              </div>
 
               <Select
                 className="w-32"
@@ -285,9 +334,9 @@ const Navbar = () => {
                   </Button>
                 </div>
                 <div className="p-1">
-                  {allItems.map((item) => (
+                  {allItems.map((item, index) => (
                     <NavItem
-                      key={item.key}
+                      key={index}
                       href={item.path}
                       label={item.label}
                       icon={item.icon}
@@ -300,17 +349,7 @@ const Navbar = () => {
           )}
         </div>
       </Container>
-      <Modal
-        label="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okButtonProps={{ type: "default" }}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
+      <LoginModal handleCancel={handleCancel} isModalOpen={isModalOpen} />
     </div>
   );
 };

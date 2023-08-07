@@ -36,8 +36,8 @@ const FAQ = () => {
         </p>
         <h1 className="text-sm">
           Condo For Sale: {""}
-          {forSale.map((sale) => (
-            <TextRed extraClasses="underline" to="/">
+          {forSale.map((sale, index) => (
+            <TextRed key={index} extraClasses="underline" to="/">
               {sale} {" | "}
             </TextRed>
           ))}
