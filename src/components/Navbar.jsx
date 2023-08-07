@@ -16,9 +16,9 @@ import { RiPhoneFindFill } from "react-icons/ri";
 import { useState } from "react";
 import Brand from "./Brand";
 import NavItem from "./NavItem";
-import LoginModal from "./modals/LoginModal";
 import { useAuth } from "../providers/AuthProvider";
-import { Link, useHref, useNavigation, useParams } from "react-router-dom";
+import { Link, useHref } from "react-router-dom";
+import LoginModal from "./modals/LoginModal";
 
 const ShortList = () => {
   return (
