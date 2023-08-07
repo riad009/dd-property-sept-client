@@ -1,14 +1,13 @@
 import React from "react";
-import { MdHome } from "react-icons/md";
 
-const DashCard = () => {
+const DashCard = ({ icon, bgColor, number, title }) => {
   return (
     <div className="flex items-center justify-between shadow bg-white p-10 rounded-lg">
       <div>
-        <h1 className="text-3xl">36</h1>
-        <p>All Properties</p>
+        <h1 className="text-3xl">{number}</h1>
+        <p>{title}</p>
       </div>
-      <MdHome className="rounded-full bg-dark2/10 p-2 text-6xl" />
+      <div className={`rounded-full p-4 text-4xl ${bgColor}`}>{icon}</div>
     </div>
   );
 };
