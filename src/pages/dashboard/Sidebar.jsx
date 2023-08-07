@@ -114,7 +114,7 @@ const sidebarItems = {
   ],
 };
 
-const Sidebar = ({ isSidebarOpen }) => {
+const Sidebar = () => {
   return (
     <div className="fixed md:w-80 w-12 bg-slate-950 h-screen text-white">
       <div className="h-20 flex items-center justify-center bg-slate-800">

@@ -1,4 +1,3 @@
-import React from "react";
 import SmallContainer from "../../shared/SmallContainer";
 import image1 from "../../assets/most-properties-red.svg";
 import image2 from "../../assets/user-reviews-red.svg";

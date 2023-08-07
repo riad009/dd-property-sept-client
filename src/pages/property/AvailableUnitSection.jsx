@@ -1,6 +1,5 @@
 import { useWindowWidth } from "@react-hook/window-size";
 import { Tabs } from "antd";
-import { useEffect } from "react";
 import { useCallback, useState } from "react";
 import { GiBathtub, GiBed } from "react-icons/gi";
 import { MdChevronRight } from "react-icons/md";

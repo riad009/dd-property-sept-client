@@ -1,7 +1,7 @@
 import thi_flag from "../assets/thiland.png";
 import eng_flag from "../assets/england.png";
 import Container from "../shared/Container";
-import { Dropdown, Space, Button, Divider, Select, Input } from "antd";
+import { Dropdown, Space, Button, Divider, Select } from "antd";
 import {
   MenuOutlined,
   HeartOutlined,

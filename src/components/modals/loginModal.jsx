@@ -1,5 +1,4 @@
 import { Button, Divider, Input, Modal } from "antd";
-import React from "react";
 import Brand from "../Brand";
 import { FcGoogle } from "react-icons/fc";
 import { RiAppleFill, RiFacebookCircleFill } from "react-icons/ri";
@@ -122,8 +121,9 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
         <Divider />
 
         <p className="text-xs">
-          I agree to DDproperty's Terms of Service and Privacy Policy including
-          the collection, use and disclosure of my personal information.
+          I agree to DDproperty&apos;s Terms of Service and Privacy Policy
+          including the collection, use and disclosure of my personal
+          information.
         </p>
       </div>
     </Modal>
