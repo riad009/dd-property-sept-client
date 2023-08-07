@@ -18,7 +18,7 @@ import Brand from "./Brand";
 import NavItem from "./NavItem";
 import { useAuth } from "../providers/AuthProvider";
 import { Link, useHref } from "react-router-dom";
-import LoginModal from "./modals/LoginModal";
+import LoginModal from "./LoginModal";
 
 const ShortList = () => {
   return (

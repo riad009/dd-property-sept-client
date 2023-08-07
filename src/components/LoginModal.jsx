@@ -1,10 +1,10 @@
 import { Button, Divider, Input, Modal } from "antd";
-import Brand from "../Brand";
+import Brand from "./Brand";
 import { FcGoogle } from "react-icons/fc";
 import { RiAppleFill, RiFacebookCircleFill } from "react-icons/ri";
-import TextRed from "../TextRed";
+import TextRed from "./TextRed";
 import { useState } from "react";
-import { useAuth } from "../../providers/AuthProvider";
+import { useAuth } from "../providers/AuthProvider";
 
 const LoginModal = ({ handleCancel, isModalOpen }) => {
   const { login, signup } = useAuth();
