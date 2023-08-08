@@ -6,6 +6,7 @@ import { AuthProvider } from "./providers/AuthProvider";
 import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./shared/PrivateRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
+import TermsCondition from "./pages/TermsCondition";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/terms-and-conditions",
+        element: <TermsCondition />,
       },
       {
         path: "/property/projects/:projectName",
