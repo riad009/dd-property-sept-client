@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./shared/PrivateRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import TermsCondition from "./pages/TermsCondition";
+import FindConstruction from "./pages/FindConstruction";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/terms-and-conditions",
         element: <TermsCondition />,
+      },
+      {
+        path: "/find-construction",
+        element: <FindConstruction />,
       },
       {
         path: "/property/projects/:projectName",
