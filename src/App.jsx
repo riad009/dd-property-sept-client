@@ -8,6 +8,7 @@ import PrivateRoute from "./shared/PrivateRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import TermsCondition from "./pages/TermsCondition";
 import FindConstruction from "./pages/FindConstruction";
+import FindAgent from "./pages/FindAgent";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/find-construction",
         element: <FindConstruction />,
+      },
+      {
+        path: "/find-agent",
+        element: <FindAgent />,
       },
       {
         path: "/property/projects/:projectName",
