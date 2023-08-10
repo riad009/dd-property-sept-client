@@ -13,6 +13,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
+import { Triangle } from "react-loader-spinner";
 
 const AuthContext = React.createContext();
 
@@ -130,7 +131,19 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!loading ? (
+        children
+      ) : (
+        <div className="flex items-center justify-center min-h-screen">
+          <Triangle
+            height="80"
+            width="80"
+            color="red"
+            ariaLabel="triangle-loading"
+            visible={true}
+          />
+        </div>
+      )}
     </AuthContext.Provider>
   );
 }
