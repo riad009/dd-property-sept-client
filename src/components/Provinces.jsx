@@ -55,7 +55,7 @@ const Provinces = () => {
   return (
     <div>
       <Heading>Browse by province</Heading>
-      <div className="mt-5 grid grid-cols-4 gap-5">
+      <div className="mt-5 grid md:grid-cols-4 grid-cols-2 gap-5">
         {provinces.slice(0, initial).map((province, index) => {
           return (
             <Link key={index} className="relative bg-green text-black">

@@ -1,16 +1,14 @@
-import React from "react";
 import SmallContainer from "../shared/SmallContainer";
 import Heading from "../components/Heading";
 import company from "../assets/company.webp";
 import agent from "../assets/agent_pic.jpg";
-import avatar from "../assets/avatar.png";
 import { useLocation } from "react-router-dom";
-import ConstructionCard from "../components/cards/ConstructionCard";
 import Provinces from "../components/Provinces";
 import AgentCard from "../components/cards/AgentCard";
 
 const featuredAgents = [
   {
+    id: 1,
     name: "Krittawan Talomkham",
     title: "Freelance Real Estate Agent",
     image: agent,
@@ -19,6 +17,7 @@ const featuredAgents = [
     phoneNumber: "+66 89 937 5511",
   },
   {
+    id: 2,
     name: "Krittawan Talomkham",
     title: "Freelance Real Estate Agent",
     image: agent,

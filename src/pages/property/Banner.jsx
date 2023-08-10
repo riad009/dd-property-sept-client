@@ -57,30 +57,10 @@ const Banner = ({ breadCrumbItems, images }) => {
               </span>
             ))}
           </div>
-          <div className="text-3xl flex gap-2 sm:mt-0 mt-5">
-            <Tooltip
-              color="white"
-              style={{
-                width: "25%",
-              }}
-              placement="bottom"
-              title={
-                <div className="grid grid-cols-2 gap-5 p-5">
-                  <div className="cursor-pointer flex rounded-md items-center bg-sky-600 py-1 px-3">
-                    <CiTwitter className="text-2xl" />
-                    <p className="md:hidden">Twitter</p>
-                  </div>
-                  <div className="cursor-pointer flex rounded-md items-center bg-sky-600 py-1 px-3">
-                    <MdFacebook className="text-2xl" />
-                    <p className="md:hidden">Facebook</p>
-                  </div>
-                </div>
-              }
-            >
-              <PiShareFatThin className="hover:bg-dark hover:text-white transition-300 border border-dark/50 rounded p-1" />
-            </Tooltip>
+          <div className="flex gap-2 sm:mt-0 mt-5">
+            <Share />
             {/* <PiHeartFill className="border border-dark/50 rounded p-1" /> */}
-            <PiHeart className="hover:bg-dark hover:text-white border border-dark/50 rounded p-1 transition-300 " />
+            <PiHeart className="hover:bg-dark hover:text-white border border-dark/50 text-3xl rounded p-1 transition-300 " />
           </div>
         </div>
       </SmallContainer>

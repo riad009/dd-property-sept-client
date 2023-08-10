@@ -9,6 +9,7 @@ import { DashboardLayout } from "./layouts/DashboardLayout";
 import TermsCondition from "./pages/TermsCondition";
 import FindConstruction from "./pages/FindConstruction";
 import FindAgent from "./pages/FindAgent";
+import AgentProfile from "./pages/AgentProfile";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/find-agent",
         element: <FindAgent />,
+      },
+      {
+        path: "/agent/:id",
+        element: <AgentProfile />,
       },
       {
         path: "/property/projects/:projectName",
