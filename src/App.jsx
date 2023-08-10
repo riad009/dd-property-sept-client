@@ -10,6 +10,7 @@ import TermsCondition from "./pages/TermsCondition";
 import FindConstruction from "./pages/FindConstruction";
 import FindAgent from "./pages/FindAgent";
 import AgentProfile from "./pages/AgentProfile";
+import PropertyForSale from "./pages/PropertyForSale";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/agent/:id",
         element: <AgentProfile />,
+      },
+      {
+        path: "/property-for-sale",
+        element: <PropertyForSale />,
       },
       {
         path: "/property/projects/:projectName",

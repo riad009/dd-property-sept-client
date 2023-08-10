@@ -33,14 +33,14 @@ export const navItems = {
   forDesktop: [
     {
       key: 0,
-      label: "Buy",
-      path: "/",
+      label: "Find Constructor",
+      path: "/find-construction",
       icon: <SearchOutlined />,
     },
     {
       key: 1,
-      label: "Rent",
-      path: "/",
+      label: "Find Agent",
+      path: "/find-agent",
       icon: <SearchOutlined />,
     },
     {

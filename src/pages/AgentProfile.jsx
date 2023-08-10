@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import banner from "../assets/greyBanner.svg";
 import SmallContainer from "../shared/SmallContainer";
 import Share from "../components/Share";
-import Button from "../components/Button";
 import Verified from "../components/Verified";
 import { MdQuestionMark, MdVerified } from "react-icons/md";
 import Heading from "../components/Heading";
@@ -106,7 +105,16 @@ const AgentProfile = () => {
             </div>
           </div>
           {/* TODO: MAP IMPLEMENTATION */}
-          <div className="text-9xl border flex-1">Map</div>
+          <div className="text-9xl border flex-1">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3643498.6688220683!2d103.95957680162029!3d26.900188946830937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36bf67eaae6dd399%3A0xec9c1d7600abd55e!2sGuizhou%2C%20China!5e0!3m2!1sen!2sbd!4v1691653396893!5m2!1sen!2sbd"
+              width="600"
+              height="350"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </section>
       </SmallContainer>
     </div>
@@ -114,3 +122,5 @@ const AgentProfile = () => {
 };
 
 export default AgentProfile;
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;

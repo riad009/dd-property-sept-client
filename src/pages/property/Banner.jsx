@@ -7,6 +7,7 @@ import { PiHeart, PiShareFatThin } from "react-icons/pi";
 import { Slide } from "react-slideshow-image";
 import thumb from "../../assets/singleProjectThumb.jpg";
 import { useCallback, useState } from "react";
+import Share from "../../components/Share";
 
 const Details = ({ children, icon }) => (
   <p className="font-semibold flex items-center gap-x-2 gap-y-20">

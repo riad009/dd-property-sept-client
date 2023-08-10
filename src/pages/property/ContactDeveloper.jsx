@@ -6,7 +6,7 @@ import { Content } from "./StickySection";
 
 const ContactDeveloper = () => {
   return (
-    <div>
+    <div className="mt-10">
       <h1 className="text-2xl font-semibold">Contact Developer</h1>
       <div className="sm:flex gap-5 mt-5 bg-dark/5 p-5 sm:p-10 rounded-lg text-xs">
         <div className="flex-1 text-justify">

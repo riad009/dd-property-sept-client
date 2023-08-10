@@ -1,7 +1,10 @@
-import { Button, Checkbox, Divider, InputNumber } from "antd";
+import { Divider, InputNumber } from "antd";
 import { useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import ApplyFilterButtons from "../../components/ApplyFilterButtons";
+import AllResidentialDropdown from "../../components/AllResidentialDropdown";
+import AnyPrice from "../../components/AnyPriceDropdown";
+import BedroomDropdown from "../../components/BedroomDropdown";
 
 const SearchLocation = () => {
   const [propertyType, setPropertyType] = useState("residential");
@@ -112,158 +115,31 @@ const SearchLocation = () => {
       {/* Footer */}
       <div className="text-sm mt-5 flex items-center gap-5 justify-center">
         {/* Footer 1 */}
-        <div className="relative">
-          <h6
-            onClick={footer1Handler}
-            className="flex items-center gap-1 cursor-pointer"
-          >
-            All Residential
-            {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
-          </h6>
-          {footer1Open && (
-            <div className="absolute shadow-md rounded-lg top-7 left-0 bg-white">
-              <div className="p-3">
-                <h1 className="text-dark">Property Type</h1>
-                <div className="flex gap-2 mt-3">
-                  {/* Footer Header */}
-                  <h6
-                    onClick={() => setPropertyType("residential")}
-                    className={`${
-                      propertyType === "residential"
-                        ? "bg-danger bg-opacity-10 text-danger"
-                        : "bg-dark bg-opacity-10 text-dark"
-                    } cursor-pointer  py-1 px-3 rounded-full`}
-                  >
-                    Residential
-                  </h6>
-                  <h6
-                    onClick={() => setPropertyType("commercial")}
-                    className={`${
-                      propertyType === "commercial"
-                        ? "bg-danger bg-opacity-10 text-danger"
-                        : "bg-dark bg-opacity-10 text-dark"
-                    } cursor-pointer  py-1 px-3 rounded-full`}
-                  >
-                    Commertial
-                  </h6>
-                </div>
-              </div>
-              {/* Footer Body */}
-              {/* Footer Items */}
-              <div className="overflow-scroll h-52 overflow-x-hidden w-80 bg-dark2 bg-opacity-5">
-                {footer1Items.map((item) => (
-                  <div key={item.key}>
-                    <label
-                      className={`p-3 w-full flex items-center mb-2 cursor-pointer ${
-                        item.label === value && "bg-dark2"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        value={item.label}
-                        checked={item.label === value}
-                        onChange={radioHandler}
-                        className="form-radio h-5 w-5 text-blue-600"
-                      />
-                      <span
-                        className={`ml-2 ${
-                          item.label === value ? "text-white" : "text-dark"
-                        }`}
-                      >
-                        {item.label}
-                      </span>
-                    </label>
-                    {item.label === value && item.options && (
-                      <Checkbox.Group
-                        className="px-10"
-                        style={{ width: "100%" }}
-                        onChange={checkBoxHandler}
-                      >
-                        {item.options?.map((option, index) => (
-                          <Checkbox value="A">{option}</Checkbox>
-                        ))}
-                      </Checkbox.Group>
-                    )}
-                  </div>
-                ))}
-              </div>
-              {/* Footer Footer */}
-              {/* Footer Footer */}
-              <ApplyFilterButtons />
-            </div>
-          )}
-        </div>
+        <AllResidentialDropdown
+          footer1Handler={footer1Handler}
+          footer1Items={footer1Items}
+          footer1Open={footer1Open}
+          propertyType={propertyType}
+          radioHandler={radioHandler}
+          value={value}
+          setPropertyType={setPropertyType}
+          checkBoxHandler={checkBoxHandler}
+        />
         {/* Footer 2 */}
-        <div className="relative">
-          <h6
-            onClick={footer2Handler}
-            className="flex items-center gap-1 cursor-pointer"
-          >
-            Any Price
-            {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
-          </h6>
-          {footer2Open && (
-            <div className="absolute shadow-md rounded-lg top-7 -right-28 bg-white w-80">
-              <div className="p-3">
-                <h1 className="text-dark text-sm">Price</h1>
-                <div className="flex text-sm gap-5 mt-5">
-                  {/* Footer Header */}
-
-                  <InputNumber
-                    type="number"
-                    addonBefore={<span>&#3647;</span>}
-                    placeholder="Min Price"
-                    onChange={minPriceHandler}
-                  />
-
-                  <InputNumber
-                    type="number"
-                    addonBefore={<span>&#3647;</span>}
-                    placeholder="Max Price"
-                    onChange={maxPriceHandler}
-                  />
-                </div>
-              </div>
-              <Divider />
-              {/* Footer Footer */}
-              <ApplyFilterButtons />
-            </div>
-          )}
-        </div>
+        <AnyPrice
+          footer2Handler={footer2Handler}
+          footer2Open={footer2Open}
+          maxPriceHandler={maxPriceHandler}
+          minPriceHandler={minPriceHandler}
+        />
         {/* Footer 3 */}
-        <div className="relative">
-          <h6
-            onClick={footer3Handler}
-            className="flex items-center gap-1 cursor-pointer"
-          >
-            Bedroom
-            {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
-          </h6>
-          {footer3Open && (
-            <div className="absolute shadow-md rounded-lg top-7 right-0 bg-white w-80">
-              <div className="p-3">
-                <h1 className="text-dark text-sm">Bedroom</h1>
-                <div className="flex flex-wrap gap-5 mt-5 text-dark">
-                  {bedRoomSizes.map((option) => (
-                    <div
-                      key={option}
-                      className={`px-4 py-1 border rounded-lg cursor-pointer ${
-                        bedroomsSelected.includes(option) &&
-                        "bg-dark text-white"
-                      } border border-dark`}
-                      onClick={() => handleBedroomSizeFilter(option)}
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <Divider />
-              {/* Footer Footer */}
-              <ApplyFilterButtons />
-            </div>
-          )}
-        </div>
+        <BedroomDropdown
+          bedRoomSizes={bedRoomSizes}
+          bedroomsSelected={bedroomsSelected}
+          footer3Handler={footer3Handler}
+          footer3Open={footer3Open}
+          handleBedroomSizeFilter={handleBedroomSizeFilter}
+        />
       </div>
     </div>
   );
