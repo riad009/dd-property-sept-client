@@ -13,7 +13,7 @@ const PropertyCard = ({ property }) => {
   const { image, title, location, startingPrice, listedBy, companyLogo } =
     property;
   return (
-    <div className="bg-white w-4/6">
+    <div className="bg-white w-full md:w-4/6">
       <img src={image} alt="property_cover" className="rounded-t-lg w-full" />
       <div className="p-2">
         <h1 className="mt-3 font-semibold text-xl">{title}</h1>
