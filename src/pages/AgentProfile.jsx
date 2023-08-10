@@ -4,6 +4,8 @@ import SmallContainer from "../shared/SmallContainer";
 import Share from "../components/Share";
 import Button from "../components/Button";
 import Verified from "../components/Verified";
+import { MdQuestionMark, MdVerified } from "react-icons/md";
+import Heading from "../components/Heading";
 
 const AgentProfile = () => {
   const { id: agentId } = useParams();
@@ -26,8 +28,8 @@ const AgentProfile = () => {
         src={banner}
         alt="grey_banner"
       />
-      <SmallContainer>
-        <div className="-mt-28 flex items-center p-10">
+      <SmallContainer extraClasses="p-10">
+        <section className="-mt-28 flex items-center">
           <div className="relative">
             <img
               className="h-40 border-4 border-white object-cover w-40 rounded-full"
@@ -60,7 +62,52 @@ const AgentProfile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </section>
+        <section className="bg-dark2/5 grid grid-cols-4 items-center gap-5 p-10 my-10">
+          <div className="">
+            <h1>Less than a year</h1>
+            <h1>Years with DDProperty</h1>
+          </div>
+          <div className="">
+            <h1 className="text-3xl font-semibold">70</h1>
+            <h1>Listing for sale</h1>
+          </div>
+          <div className="">
+            <h1 className="text-3xl font-semibold">6</h1>
+            <h1>Listing for rent</h1>
+          </div>
+          <div className="">
+            <h1 className="flex items-center gap-2">
+              <MdVerified /> Certified{" "}
+              <MdQuestionMark className="bg-dark text-white rounded-full p-1 text-lg" />
+            </h1>
+            <h1>Issued on June 2023</h1>
+          </div>
+        </section>
+        <section className="flex gap-10">
+          <div>
+            <Heading>Where Chartchai Operates</Heading>
+            <p className="text-xs text-dark2">Show only properties</p>
+            <div className="text-xs flex gap-5 my-3">
+              <h1 className="bg-dark2/10 py-1 px-4 rounded-full">
+                47 for sale
+              </h1>
+              <h1 className="bg-dark2/10 py-1 px-4 rounded-full">
+                47 for sale
+              </h1>
+            </div>
+            <div>
+              <h1 className="font-bold">Bankok</h1>
+              <p className="text-xs">19 For Sale, 2 For Rent</p>
+              <h1 className="font-bold mt-5">Chorake Bua</h1>
+              <p className="text-xs">1 For Sale</p>
+              <h1 className="font-bold mt-5">Lat Phrao</h1>
+              <p className="text-xs">1 For Sale</p>
+            </div>
+          </div>
+          {/* TODO: MAP IMPLEMENTATION */}
+          <div className="text-9xl border flex-1">Map</div>
+        </section>
       </SmallContainer>
     </div>
   );
