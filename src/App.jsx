@@ -11,6 +11,8 @@ import FindConstruction from "./pages/FindConstruction";
 import FindAgent from "./pages/FindAgent";
 import AgentProfile from "./pages/AgentProfile";
 import PropertyForSale from "./pages/PropertyForSale";
+import MyProperties from "./pages/dashboard/MyProperties";
+import MyReviews from "./pages/dashboard/MyReviews";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-properties",
+        element: (
+          <PrivateRoute>
+            <MyProperties />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-reviews",
+        element: (
+          <PrivateRoute>
+            <MyReviews />
           </PrivateRoute>
         ),
       },

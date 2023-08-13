@@ -115,6 +115,21 @@ const PropertyForSale = () => {
       companyLogo:
         "https://th1-cdn.pgimgs.com/agent/15851271/APHO.116495626.V120B.jpg",
     },
+    {
+      image:
+        "https://th1-cdn.pgimgs.com/project-listing-project/10776592/PLPHO.115004197.R400X300/Home-Sweet-Home-The-Forest-Muang-Chon-Buri-Thailand.jpg",
+      title: "Home Sweet Home The Forest, Chon Buri",
+      location: "Lorem ipsum dolor sit amet",
+      startingPrice: 13500000,
+      bedRoom: 4,
+      bathRoom: 5,
+      size: 316,
+      tags: ["New Project", "townhouse", "singlehouse"],
+      postedAt: "4h",
+      listedBy: "Home sweet Home Estate",
+      companyLogo:
+        "https://th1-cdn.pgimgs.com/agent/15851271/APHO.116495626.V120B.jpg",
+    },
   ];
 
   return (
@@ -188,9 +203,11 @@ const PropertyForSale = () => {
         </div>
 
         <div>
-          {properties.map((property) => (
-            <PropertyCard property={property} />
-          ))}
+          <div className="flex flex-col gap-5">
+            {properties.map((property) => (
+              <PropertyCard property={property} />
+            ))}
+          </div>
         </div>
       </SmallContainer>
     </div>

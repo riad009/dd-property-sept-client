@@ -16,17 +16,20 @@ import { Link } from "react-router-dom";
 const sidebarItems = {
   main: [
     {
+      id: 1,
       route: "Dashboard",
       path: "/dashboard",
       icon: <MdSpaceDashboard />,
     },
     {
+      id: 2,
       route: "Create Listing",
       path: "create-listing",
       icon: <MdAddBox />,
       role: "user",
     },
     {
+      id: 3,
       route: "Message",
       path: "message",
       icon: <MdMessage />,
@@ -35,6 +38,7 @@ const sidebarItems = {
   ],
   manageListings: [
     {
+      id: 4,
       route: "My Properties",
       path: "my-properties",
       icon: <MdHome />,
@@ -61,6 +65,7 @@ const sidebarItems = {
       ],
     },
     {
+      id: 5,
       route: "Reviews",
       path: "reviews",
       icon: <MdReviews />,
@@ -81,12 +86,14 @@ const sidebarItems = {
       ],
     },
     {
+      id: 6,
       route: "My Favorites",
       path: "my-favorites",
       icon: <MdFavorite />,
       role: "user",
     },
     {
+      id: 7,
       route: "Saved Search",
       path: "saved-search",
       icon: <MdSearch />,
@@ -95,17 +102,20 @@ const sidebarItems = {
   ],
   manageAccount: [
     {
+      id: 8,
       route: "My package",
       path: "my-package",
       icon: <BiPackage />,
     },
     {
+      id: 9,
       route: "My Profile",
       path: "my-profile",
       icon: <MdVerifiedUser />,
       role: "user",
     },
     {
+      id: 10,
       route: "Logout",
       path: "#",
       icon: <MdLogout />,
@@ -116,7 +126,7 @@ const sidebarItems = {
 
 const Sidebar = () => {
   return (
-    <div className="fixed md:w-80 w-12 bg-slate-950 h-screen text-white">
+    <div className="fixed lg:w-80 md:w-56 w-12 bg-slate-950 h-screen text-white">
       <div className="h-20 flex items-center justify-center bg-slate-800">
         <Brand center white />
       </div>
@@ -126,7 +136,8 @@ const Sidebar = () => {
           {sidebarItems.main.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
-              key={item.route}
+              to={item.path}
+              key={item.id}
             >
               <div>{item.icon}</div>
               <div className="hidden md:inline">{item.route}</div>
@@ -140,7 +151,8 @@ const Sidebar = () => {
           {sidebarItems.manageListings.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
-              key={item.route}
+              to={item.path}
+              key={item.id}
             >
               <div>{item.icon}</div>
               <div className="hidden md:inline">{item.route}</div>
@@ -154,7 +166,8 @@ const Sidebar = () => {
           {sidebarItems.manageAccount.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
-              key={item.route}
+              to={item.path}
+              key={item.id}
             >
               <div>{item.icon}</div>
               <div className="hidden md:inline">{item.route}</div>

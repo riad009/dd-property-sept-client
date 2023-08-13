@@ -1,4 +1,3 @@
-import AskGuru from "./AskGuru";
 import Banner from "./Banner";
 import BelowAskGuru from "./BelowAskGuru";
 import BuyCondos from "./BuyCondos";
@@ -16,7 +15,6 @@ const Home = () => {
       <VirtualTours />
       <HandPicked />
       <BuyCondos />
-      <AskGuru />
       <BelowAskGuru />
     </div>
   );

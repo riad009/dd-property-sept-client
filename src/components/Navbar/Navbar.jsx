@@ -29,84 +29,50 @@ const ShortList = () => {
   );
 };
 
-export const navItems = {
-  forDesktop: [
-    {
-      key: 0,
-      label: "Find Constructor",
-      path: "/find-construction",
-      icon: <SearchOutlined />,
-    },
-    {
-      key: 1,
-      label: "Find Agent",
-      path: "/find-agent",
-      icon: <SearchOutlined />,
-    },
-    {
-      key: 2,
-      label: "Condos",
-      path: "/",
-      icon: <BiChevronDown />,
-    },
-    {
-      key: 3,
-      label: "New Projects",
-      path: "/",
-      icon: <BsBuildingAdd />,
-    },
-    {
-      key: 4,
-      label: "Commercial",
-      path: "/",
-      icon: <BsBuildingsFill />,
-    },
-    {
-      key: 5,
-      label: "Guides",
-      path: "/",
-      icon: <HiOutlineLightBulb className="text-xl" />,
-    },
-    {
-      key: 6,
-      label: "Find Agents",
-      path: "/",
-      icon: <RiPhoneFindFill className="text-xl" />,
-    },
-  ],
-  forMobile: [
-    {
-      key: 7,
-      label: "News",
-      path: "/",
-      icon: <SearchOutlined />,
-    },
-    {
-      key: 8,
-      label: "Home Loan Tools",
-      path: "/",
-      icon: <SearchOutlined />,
-    },
-    {
-      key: 9,
-      label: "Ask Guru",
-      path: "/",
-      icon: <SearchOutlined />,
-    },
-  ],
-  forAgent: [
-    {
-      key: 10,
-      label: "Agent Offerings",
-      path: "/",
-    },
-    {
-      key: 11,
-      label: "AgentNet",
-      path: "/",
-    },
-  ],
-};
+export const navItems = [
+  {
+    key: 0,
+    label: "Find Constructor",
+    path: "/find-construction",
+    icon: <SearchOutlined />,
+  },
+  {
+    key: 1,
+    label: "Find Agent",
+    path: "/find-agent",
+    icon: <SearchOutlined />,
+  },
+  {
+    key: 2,
+    label: "Condos",
+    path: "/",
+    icon: <BiChevronDown />,
+  },
+  {
+    key: 3,
+    label: "New Projects",
+    path: "/",
+    icon: <BsBuildingAdd />,
+  },
+  {
+    key: 4,
+    label: "Commercial",
+    path: "/",
+    icon: <BsBuildingsFill />,
+  },
+  {
+    key: 5,
+    label: "Guides",
+    path: "/",
+    icon: <HiOutlineLightBulb className="text-xl" />,
+  },
+  {
+    key: 5,
+    label: "News",
+    path: "/",
+    icon: <HiOutlineLightBulb className="text-xl" />,
+  },
+];
 
 export const items = [
   {
@@ -134,12 +100,6 @@ export const languages = [
       </p>
     ),
   },
-];
-
-export const allItems = [
-  ...navItems.forDesktop,
-  ...navItems.forMobile,
-  navItems.forAgent,
 ];
 
 const Navbar = () => {
@@ -212,7 +172,7 @@ const Navbar = () => {
             <div className="w-full lg:flex items-center gap-5">
               {path !== "/dashboard" && <Brand />}
               <div className="lg:flex items-center gap-2">
-                {navItems.forDesktop.map((item) => (
+                {navItems.map((item) => (
                   <NavItem
                     key={item.key}
                     href={item.path}
@@ -220,33 +180,6 @@ const Navbar = () => {
                     icon={item.icon}
                   />
                 ))}
-                <Dropdown
-                  className="lg:block hidden text-sm cursor-pointer"
-                  menu={{
-                    items: [
-                      ...navItems.forMobile,
-                      {
-                        type: "divider",
-                      },
-                      {
-                        key: navItems.length + 1,
-                        label: <h1 className="font-semibold">For Agent</h1>,
-                        disabled: true,
-                        path: "/",
-                      },
-                      ...navItems.forAgent,
-                    ],
-                  }}
-                  trigger={["click"]}
-                  placement="bottomRight"
-                >
-                  <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      More
-                      <BiChevronDown />
-                    </Space>
-                  </a>
-                </Dropdown>
               </div>
             </div>
             {/* <div className="lg:flex gap-5">
@@ -341,7 +274,7 @@ const Navbar = () => {
                   </Button>
                 </div>
                 <div className="p-1">
-                  {allItems.map((item, index) => (
+                  {navItems.map((item, index) => (
                     <NavItem
                       key={index}
                       href={item.path}
