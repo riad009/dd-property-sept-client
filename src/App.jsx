@@ -14,6 +14,7 @@ import PropertyForSale from "./pages/PropertyForSale";
 import MyProperties from "./pages/dashboard/MyProperties";
 import MyReviews from "./pages/dashboard/MyReviews";
 import MyFavorites from "./pages/dashboard/MyFavorites";
+import ProfilePage from "./pages/dashboard/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyFavorites />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-profile",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
           </PrivateRoute>
         ),
       },
