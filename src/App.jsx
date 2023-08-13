@@ -13,6 +13,7 @@ import AgentProfile from "./pages/AgentProfile";
 import PropertyForSale from "./pages/PropertyForSale";
 import MyProperties from "./pages/dashboard/MyProperties";
 import MyReviews from "./pages/dashboard/MyReviews";
+import MyFavorites from "./pages/dashboard/MyFavorites";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyReviews />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-favorites",
+        element: (
+          <PrivateRoute>
+            <MyFavorites />
           </PrivateRoute>
         ),
       },
