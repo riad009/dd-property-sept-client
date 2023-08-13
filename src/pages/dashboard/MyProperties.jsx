@@ -30,7 +30,7 @@ const MyProperties = () => {
           />
         </div>
       </div>
-      <table className="w-full mt-5">
+      <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">
           <th className="p-2">Listing Title</th>
           <th className="p-2">Date published</th>

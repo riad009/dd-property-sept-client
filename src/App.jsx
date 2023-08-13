@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-reviews",
+        path: "reviews",
         element: (
           <PrivateRoute>
             <MyReviews />
