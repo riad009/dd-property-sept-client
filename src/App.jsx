@@ -17,6 +17,7 @@ import MyFavorites from "./pages/dashboard/MyFavorites";
 import ProfilePage from "./pages/dashboard/MyProfile";
 import MyPackage from "./pages/dashboard/MyPackage";
 import CreateListing from "./pages/dashboard/CreateListing";
+import Membership from "./pages/Membership";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/find-agent",
         element: <FindAgent />,
+      },
+      {
+        path: "/membership",
+        element: <Membership />,
       },
       {
         path: "/agent/:id",

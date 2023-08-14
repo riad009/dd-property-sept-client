@@ -19,6 +19,7 @@ import { useAuth } from "../../providers/AuthProvider";
 import { Link, useHref } from "react-router-dom";
 import LoginModal from "../LoginModal";
 import RightSide from "./RightSide";
+import { MdOutlineCardMembership } from "react-icons/md";
 
 const ShortList = () => {
   return (
@@ -56,9 +57,9 @@ export const navItems = [
   },
   {
     key: 4,
-    label: "Commercial",
-    path: "/",
-    icon: <BsBuildingsFill />,
+    label: "Membership",
+    path: "/membership",
+    icon: <MdOutlineCardMembership />,
   },
   {
     key: 5,
@@ -135,17 +136,13 @@ const Navbar = () => {
     },
     {
       key: "2",
-      label: <Link to="/">Ask Guru asked Questions</Link>,
-    },
-    {
-      key: "3",
       label: <Link to="/">Feedback</Link>,
     },
     {
       type: "divider",
     },
     {
-      key: "4",
+      key: "3",
       label: <h1 onClick={logout}>Logout</h1>,
     },
   ];
