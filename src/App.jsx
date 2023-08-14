@@ -16,6 +16,7 @@ import MyReviews from "./pages/dashboard/MyReviews";
 import MyFavorites from "./pages/dashboard/MyFavorites";
 import ProfilePage from "./pages/dashboard/MyProfile";
 import MyPackage from "./pages/dashboard/MyPackage";
+import CreateListing from "./pages/dashboard/CreateListing";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "create-listing",
+        element: (
+          <PrivateRoute>
+            <CreateListing />
           </PrivateRoute>
         ),
       },
