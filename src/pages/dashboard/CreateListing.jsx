@@ -2,8 +2,9 @@ import React from "react";
 import ProfileInput from "../../components/ProfileInput";
 import DashboardHeader from "./DashboardHeader";
 import { useState } from "react";
-import { Checkbox, Select, Upload } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Select, Upload } from "antd";
+import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 const CreateListing = () => {
   const [propertyTitle, setPropertyTitle] = useState();
@@ -76,8 +77,67 @@ const CreateListing = () => {
     },
   };
 
+  // File Attachment
+  const [fileList, setFileList] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const handleUpload = () => {
+    const formData = new FormData();
+    fileList.forEach((file) => {
+      formData.append("files[]", file);
+    });
+    setUploading(true);
+    fetch("https://www.mocky.io/v2/5cc8019d300000980a055e76", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setFileList([]);
+        message.success("upload successfully.");
+      })
+      .catch(() => {
+        message.error("upload failed.");
+      })
+      .finally(() => {
+        setUploading(false);
+      });
+  };
+
+  const fileProps = {
+    onRemove: (file) => {
+      const index = fileList.indexOf(file);
+      const newFileList = fileList.slice();
+      newFileList.splice(index, 1);
+      setFileList(newFileList);
+    },
+    beforeUpload: (file) => {
+      setFileList([...fileList, file]);
+      return false;
+    },
+    fileList,
+  };
+
+  // Plan States
+  const [planDescription, setPlanDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [planBedrooms, setPlanBedrooms] = useState("");
+  const [planBathrooms, setPlanBathrooms] = useState("");
+  const [planPrice, setPlanPrice] = useState("");
+  const [pricePostfix, setPricePostfix] = useState("");
+  const [planSize, setPlanSize] = useState("");
+  const [planImage, setPlanImage] = useState(null);
+
+  const handlePlanImageChange = (info) => {
+    if (info.file.status === "done") {
+      setPlanImage(info.file.originFileObj);
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  };
+
   return (
-    <div className="p-10 bg-dark2/10">
+    <div className="lg:p-10 p-5 bg-dark2/10">
       <DashboardHeader
         title={"Add New Property"}
         description={"We are glad to see you again!"}
@@ -289,9 +349,10 @@ const CreateListing = () => {
             />
           </div>
         </div>
+
         <div className="p-10 bg-white mt-5 rounded-lg">
-          <h1 className="font-semibold mb-5 text-xl">Detailed Information</h1>
-          <div className="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+          <h1 className="font-semibold mb-5 text-xl">Property Media</h1>
+          <div className="w-full">
             <Dragger {...props}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
@@ -299,7 +360,97 @@ const CreateListing = () => {
               <p className="ant-upload-text">Drag and Drop Images here</p>
             </Dragger>
           </div>
+          <h1 className="font-semibold my-5 text-xl">Attachments</h1>
+          <div className="w-full">
+            <Upload {...fileProps}>
+              <Button size="large" icon={<UploadOutlined />}>
+                Select File
+              </Button>
+            </Upload>
+          </div>
         </div>
+
+        <div className="p-10 bg-white mt-5 rounded-lg">
+          <h1 className="font-semibold mb-5 text-xl">Property Media</h1>
+          <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-4">
+            <ProfileInput
+              label="Plan Bedrooms"
+              value={planBedrooms}
+              onChange={(e) => setPlanBedrooms(e.target.value)}
+            />
+            <ProfileInput
+              label="Plan Bathrooms"
+              value={planBathrooms}
+              onChange={(e) => setPlanBathrooms(e.target.value)}
+            />
+            <ProfileInput
+              label="Plan Price"
+              value={planPrice}
+              onChange={(e) => setPlanPrice(e.target.value)}
+            />
+            <ProfileInput
+              label="Price Postfix"
+              value={pricePostfix}
+              onChange={(e) => setPricePostfix(e.target.value)}
+            />
+            <ProfileInput
+              label="Plan Size"
+              value={planSize}
+              onChange={(e) => setPlanSize(e.target.value)}
+            />
+            <div className="md:col-span-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Plan Image
+              </label>
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                // beforeUpload={beforeUpload}
+                onChange={handlePlanImageChange}
+              >
+                {planImage ? (
+                  <img src={planImage} alt="avatar" style={{ width: "100%" }} />
+                ) : (
+                  <div>
+                    {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                    <div
+                      style={{
+                        marginTop: 8,
+                      }}
+                    >
+                      Upload
+                    </div>
+                  </div>
+                )}
+              </Upload>
+              <div className="mt-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="planDescription"
+                >
+                  Description
+                </label>
+                <textarea
+                  id="planDescription"
+                  className="w-full px-3 py-2 placeholder-gray-500 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  value={planDescription}
+                  onChange={(e) => setPlanDescription(e.target.value)}
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end">
+        <button
+          className="bg-danger text-white py-2 px-4 rounded-lg mt-4 w-full"
+          onClick={() => {}}
+        >
+          Add to List
+        </button>
       </div>
     </div>
   );
