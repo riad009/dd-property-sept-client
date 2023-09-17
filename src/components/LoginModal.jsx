@@ -5,9 +5,10 @@ import { RiAppleFill, RiFacebookCircleFill } from "react-icons/ri";
 import TextRed from "./TextRed";
 import { useState } from "react";
 import { useAuth } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
-const LoginModal = ({ handleCancel, isModalOpen }) => {
-  const { login, signup } = useAuth();
+const LoginModal = ({ handleCancel, isModalOpen}) => {
+  const { login, signup,googleSignIn } = useAuth();
 
   const [username, setUsername] = useState("");
   const [nameInput, setNameInput] = useState(false);
@@ -42,6 +43,18 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
       }
     }
   };
+  const handleGoogleSignIn=()=>{
+    googleSignIn()
+        .then(result=>{
+            const user = result.user;
+            console.log(user)
+            handleCancel()
+        })
+        .catch(error=>{
+          setError(error)
+            console.log(error)
+        })
+  }
 
   return (
     <Modal
@@ -93,12 +106,14 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
         </div>
 
         <Button
+          onClick={handleGoogleSignIn}
           className="w-full mb-2 flex items-center justify-center bg-white"
           icon={<FcGoogle className="text-xl text-" />}
         >
           Continue with Google
         </Button>
         <Button
+          
           className="w-full mb-2 flex items-center justify-center bg-white"
           icon={<RiAppleFill className="text-xl text-dark2" />}
         >

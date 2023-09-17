@@ -9,14 +9,20 @@ const AnyPrice = ({
   minPriceHandler,
   maxPriceHandler,
   border,
+  filterPrice,
+  handleApplyFilterPrice,
+  minPrice,
+  maxPrice,
+  handleClearPrice
 }) => {
+  console.log(minPrice,maxPrice)
   return (
     <div className={`relative ${border && "bg-white w-fit py-2 rounded-md"}`}>
       <h6
         onClick={footer2Handler}
         className="flex items-center gap-1 cursor-pointer"
       >
-        Any Price
+        {filterPrice ? `$ ${filterPrice.minPrice >0?filterPrice.minPrice:'Below'} -${filterPrice.maxPrice > 0 ? filterPrice.maxPrice:'Above'}`:'Any Price'}
         {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
       </h6>
       {footer2Open && (
@@ -47,7 +53,10 @@ const AnyPrice = ({
           </div>
           <Divider />
           {/* Footer Footer */}
-          <ApplyFilterButtons />
+          <ApplyFilterButtons 
+          filterClickEvent={handleApplyFilterPrice}
+          clearClickEvent={handleClearPrice}
+          />
         </div>
       )}
     </div>

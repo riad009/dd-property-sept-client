@@ -12,8 +12,48 @@ const SearchLocation = () => {
   const [footer2Open, setFooter2Open] = useState(false);
   const [footer3Open, setFooter3Open] = useState(false);
   const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
-
   const [bedroomsSelected, setBedroomsSelected] = useState([]);
+  const [filterProperty,setFilterProperty] = useState('All Residential')
+  const [value, setValue] = useState("All Residential");
+  const [filterBedRoom,setFilterBedRoom]=useState(null)
+  const [minPrice,setMinPrice]=useState('')
+  const [maxPrice,setMaxPrice]=useState('')
+  const [filterPrice,setFilterPrice]=useState(null)
+  const handleApplyFilterProperty=()=>{
+    setFilterProperty('')
+    setFilterProperty(value)
+    setFooter1Open(false)
+  }
+  const handleClearProperty =()=>{
+    setFilterProperty('')
+    setFilterProperty('All Residential')
+    setValue('All Residential')
+    setFooter1Open(false)
+  }
+  const handleApplyFilterBedRoom =()=>{
+    setFilterBedRoom(bedroomsSelected)
+    setFooter3Open(false)
+  }
+  const handleClearBedroom =()=>{
+    setFilterBedRoom(null)
+    setFooter3Open(false)
+    setBedroomsSelected([])
+  }
+  console.log(minPrice,maxPrice)
+  const handleApplyFilterPrice=()=>{
+    setMaxPrice('')
+    setMinPrice('')
+    const price = {minPrice,maxPrice}
+    setFilterPrice(price)
+    setFooter2Open(false)
+    if(minPrice==='' && maxPrice ===''){
+      setFilterPrice(null)
+    }
+  }
+  const handleClearPrice =()=>{
+    setFooter2Open(false)
+    setFilterPrice(null)
+  }
 
   const handleBedroomSizeFilter = (option) => {
     if (bedroomsSelected.includes(option)) {
@@ -24,6 +64,8 @@ const SearchLocation = () => {
       setBedroomsSelected([...bedroomsSelected, option]);
     }
   };
+  
+ 
 
   const footer1Handler = () => {
     setFooter1Open(!footer1Open);
@@ -75,25 +117,25 @@ const SearchLocation = () => {
     },
   ];
 
-  const [value, setValue] = useState("All Residential");
+  
   const radioHandler = (e) => {
     setFooter1Open(true);
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
 
   const checkBoxHandler = (checkedValues) => {
     console.log("checked = ", checkedValues);
   };
-
-  const minPriceHandler = (e) => {
-    console.log(e.target.value);
+  
+  const minPriceHandler = (event) => {
+    setMinPrice(event);
   };
-
+  
   const maxPriceHandler = (e) => {
-    console.log(e.target.value);
+    setMaxPrice(e);
   };
-
+  
+  
   return (
     <div className="sm:absolute sm:-bottom-24 sm:left-1/2 transform sm:-translate-x-1/2 lg:w-1/3 md:w-1/2 w-full mx-auto bg-dark bg-opacity-80 p-5 text-white md:rounded-lg">
       {/* Navbar */}
@@ -124,6 +166,9 @@ const SearchLocation = () => {
           value={value}
           setPropertyType={setPropertyType}
           checkBoxHandler={checkBoxHandler}
+          filterProperty={filterProperty}
+          handleApplyFilterProperty={handleApplyFilterProperty}
+          handleClearProperty={handleClearProperty}
         />
         {/* Footer 2 */}
         <AnyPrice
@@ -131,6 +176,11 @@ const SearchLocation = () => {
           footer2Open={footer2Open}
           maxPriceHandler={maxPriceHandler}
           minPriceHandler={minPriceHandler}
+          filterPrice={filterPrice}
+          handleApplyFilterPrice={handleApplyFilterPrice}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          handleClearPrice={handleClearPrice}
         />
         {/* Footer 3 */}
         <BedroomDropdown
@@ -139,6 +189,9 @@ const SearchLocation = () => {
           footer3Handler={footer3Handler}
           footer3Open={footer3Open}
           handleBedroomSizeFilter={handleBedroomSizeFilter}
+          handleApplyFilterBedRoom={handleApplyFilterBedRoom}
+          filterBedRoom={filterBedRoom}
+          handleClearBedroom={handleClearBedroom}
         />
       </div>
     </div>

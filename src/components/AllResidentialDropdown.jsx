@@ -12,6 +12,9 @@ const AllResidentialDropdown = ({
   checkBoxHandler,
   value,
   border,
+  filterProperty,
+  handleApplyFilterProperty,
+  handleClearProperty
 }) => {
   return (
     <div className={`relative ${border && "bg-white w-fit p-2 rounded-md"}`}>
@@ -19,7 +22,7 @@ const AllResidentialDropdown = ({
         onClick={footer1Handler}
         className="flex items-center gap-1 cursor-pointer"
       >
-        All Residential
+        {filterProperty}
         {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
       </h6>
       {footer1Open && (
@@ -95,7 +98,10 @@ const AllResidentialDropdown = ({
           </div>
           {/* Footer Footer */}
           {/* Footer Footer */}
-          <ApplyFilterButtons />
+          <ApplyFilterButtons 
+          clearClickEvent={handleClearProperty}
+          filterClickEvent={handleApplyFilterProperty}
+          />
         </div>
       )}
     </div>

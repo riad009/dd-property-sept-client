@@ -10,6 +10,9 @@ const BedroomDropdown = ({
   bedroomsSelected,
   handleBedroomSizeFilter,
   border,
+  handleApplyFilterBedRoom,
+  filterBedRoom,
+  handleClearBedroom
 }) => {
   return (
     <div className={`relative ${border && "bg-white w-fit p-2 rounded-md"}`}>
@@ -17,7 +20,7 @@ const BedroomDropdown = ({
         onClick={footer3Handler}
         className="flex items-center gap-1 cursor-pointer"
       >
-        Bedroom
+        {filterBedRoom ? filterBedRoom.map((bedRoom,index) => <p key={index}>{ `${bedRoom },`}</p> ) : 'Bedroom'}
         {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
       </h6>
       {footer3Open && (
@@ -44,7 +47,10 @@ const BedroomDropdown = ({
           </div>
           <Divider />
           {/* Footer Footer */}
-          <ApplyFilterButtons />
+          <ApplyFilterButtons
+          filterClickEvent={handleApplyFilterBedRoom}
+          clearClickEvent={handleClearBedroom}
+          />
         </div>
       )}
     </div>
