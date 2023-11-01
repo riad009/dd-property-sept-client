@@ -25,6 +25,7 @@ const auth = getAuth();
 
 export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
+  const [name, setname] = useState('riad');
   const [currentUser, setCurrentUser] = useState(null);
 
   // TODO1: remove setLoading function
@@ -35,7 +36,7 @@ export function AuthProvider({ children }) {
       // getUsersData from Database if not found save to database
       if (user) {
         await axios
-          .get(`${import.meta.env.VITE_BASE_API_URL}/users/${user.email}`)
+          .get(`http://localhost:4000/users/${user.email}`)
           .then(({ data: userData }) => {
             if (userData) {
               setCurrentUser(userData);
@@ -50,7 +51,8 @@ export function AuthProvider({ children }) {
                 role: "student",
               };
               axios
-                .post(`${import.meta.env.VITE_BASE_API_URL}/user`, newUser)
+                .post(`$http://localhost:4000/user`, newUser)
+                console.log('newUser')
                 .then((response) => {
                   if (response.status === 200) {
                     setCurrentUser(newUser);
@@ -64,7 +66,7 @@ export function AuthProvider({ children }) {
 
       if (user) {
         axios
-          .post(`${import.meta.env.VITE_BASE_API_URL}/jwt`, {
+          .post(`http://localhost:4000/jwt`, {
             email: user.email,
           })
           .then((response) => {
@@ -127,6 +129,7 @@ export function AuthProvider({ children }) {
     googleSignIn,
     updateUserProfile,
     resetPassword,
+    name,
   };
 
   return (

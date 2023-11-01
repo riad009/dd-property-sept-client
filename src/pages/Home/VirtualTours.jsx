@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import SectionHeader from "../../components/SectionHeader";
 import CardOne from "../../components/cards/CardOne";
 import SmallContainer from "../../shared/SmallContainer";
+import { useNavigate } from "react-router-dom";
 
 const virtualToursData = [
   {
@@ -31,6 +32,7 @@ const virtualToursData = [
 ];
 
 const VirtualTours = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
@@ -38,6 +40,7 @@ const VirtualTours = () => {
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
           {virtualToursData?.map((project, index) => (
             <CardOne
+              clickEvent={() => navigate(`/property/projects/${project.title}`)}
               key={index}
               image={project.image}
               type={project.type}

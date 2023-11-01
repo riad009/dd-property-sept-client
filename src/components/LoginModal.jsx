@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useAuth } from "../providers/AuthProvider";
 
 const LoginModal = ({ handleCancel, isModalOpen }) => {
-  const { login, signup } = useAuth();
+  const { login, signup,name } = useAuth();
 
   const [username, setUsername] = useState("");
   const [nameInput, setNameInput] = useState(false);
@@ -17,7 +17,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-
+  console.log('check')
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setError("Enter valid email address");
       return;
