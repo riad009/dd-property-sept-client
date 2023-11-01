@@ -47,7 +47,10 @@ const Offers = () => {
         </div>
         <div className="md:flex-1 md:mt-0 mt-5 flex flex-col">
           <h1 className="text-2xl mb-2 font-semibold">
-            Begin Your Home Journey main  1234
+
+
+
+            Begin Your Home Journey main
           </h1>
           <img
             src={beginHome}
