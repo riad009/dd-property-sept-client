@@ -65,17 +65,13 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          <PrivateRoute>
             <Dashboard />
-          </PrivateRoute>
         ),
       },
       {
         path: "create-listing",
         element: (
-          <PrivateRoute>
             <CreateListing />
-          </PrivateRoute>
         ),
       },
       {

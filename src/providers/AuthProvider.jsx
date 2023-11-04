@@ -28,69 +28,28 @@ export function AuthProvider({ children }) {
   const [name, setname] = useState('riad');
   const [currentUser, setCurrentUser] = useState(null);
 
-  // TODO1: remove setLoading function
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setCurrentUser(user);
-
-      // getUsersData from Database if not found save to database
-      if (user) {
-        await axios
-          .get(`http://localhost:4000/users/${user.email}`)
-          .then(({ data: userData }) => {
-            if (userData) {
-              setCurrentUser(userData);
-            } else {
-              const newUser = {
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                address: "",
-                gender: "",
-                phoneNumber: "",
-                role: "student",
-              };
-              axios
-                .post(`$http://localhost:4000/user`, newUser)
-                console.log('newUser')
-                .then((response) => {
-                  if (response.status === 200) {
-                    setCurrentUser(newUser);
-                  }
-                });
-            }
-          });
-      } else {
-        setCurrentUser(user);
-      }
-
-      if (user) {
-        axios
-          .post(`http://localhost:4000/jwt`, {
-            email: user.email,
-          })
-          .then((response) => {
-            localStorage.setItem("access_token", response.data.token);
-          });
-      } else {
-        localStorage.removeItem("access_token");
-      }
-      setLoading(false);
-    });
-
-    return unsubscribe;
-  }, []);
-
   //signup function
   async function signup(email, password, username) {
-    await createUserWithEmailAndPassword(auth, email, password);
+    fetch("http://localhost:4000/user/create",{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({email})
+      
+    })
+    .then(res=>res.json())
+    .then(async data=>{
+      if(data.acknowledged){
+        await createUserWithEmailAndPassword(auth, email, password)
+        .then(result=>console.log(result));
+      }
+    })
 
     // updateProfile
     await updateUserProfile(username);
 
     const user = auth.currentUser;
-
-    setCurrentUser({ ...user });
   }
 
   async function updateUserProfile(username) {
@@ -118,6 +77,16 @@ export function AuthProvider({ children }) {
   function resetPassword(email) {
     sendPasswordResetEmail(auth, email);
   }
+
+  // monitor user
+  useEffect(()=>{
+    const unSubscribe = onAuthStateChanged(auth,(user)=>{
+      setCurrentUser(user)
+      setLoading(false)
+    })
+    return ()=> unSubscribe()
+  },[])
+
 
   const value = {
     currentUser,

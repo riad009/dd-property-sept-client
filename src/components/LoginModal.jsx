@@ -17,7 +17,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-  console.log('check')
+    console.log('check')
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setError("Enter valid email address");
       return;
@@ -26,15 +26,24 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
       setError("Password must be at least 6 characters");
       return;
     }
+    console.log(email,password)
 
     try {
-      if (nameInput && nameInput.length !== 0) {
-        await signup(email, password, username);
-        handleCancel();
-      } else {
-        await login(email, password);
-        handleCancel();
-      }
+      fetch(`http://localhost:4000/user/exist?email=${email}`)
+      .then(res=>res.json())
+      .then(async data=>{
+        if(data.userExist){
+          console.log("exist")
+          login(email,password)
+          handleCancel();
+          return
+        }else{
+          console.log("notExist")
+          await signup(email, password, username)
+          handleCancel();
+        }
+      })
+
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         setNameInput(true);
@@ -60,6 +69,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
         <form onSubmit={loginHandler} className="my-5 flex flex-col gap-2">
           <Input
             required
+            type="email"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email address"
           />
