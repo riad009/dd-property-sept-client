@@ -28,13 +28,6 @@ const sidebarItems = {
       icon: <MdAddBox />,
       role: "user",
     },
-    {
-      id: 3,
-      route: "Message",
-      path: "message",
-      icon: <MdMessage />,
-      role: "user",
-    },
   ],
   manageListings: [
     {
@@ -92,36 +85,8 @@ const sidebarItems = {
       icon: <MdFavorite />,
       role: "user",
     },
-    {
-      id: 7,
-      route: "Saved Search",
-      path: "saved-search",
-      icon: <MdSearch />,
-      role: "user",
-    },
   ],
-  manageAccount: [
-    {
-      id: 8,
-      route: "My package",
-      path: "my-package",
-      icon: <BiPackage />,
-    },
-    {
-      id: 9,
-      route: "My Profile",
-      path: "my-profile",
-      icon: <MdVerifiedUser />,
-      role: "user",
-    },
-    {
-      id: 10,
-      route: "Logout",
-      path: "#",
-      icon: <MdLogout />,
-      role: "user",
-    },
-  ],
+  
 };
 
 const Sidebar = () => {
@@ -149,21 +114,6 @@ const Sidebar = () => {
         </h1>
         <div className="flex flex-col gap-2">
           {sidebarItems.manageListings.map((item) => (
-            <Link
-              className="flex p-3 gap-2 hover:bg-slate-800 items-center"
-              to={item.path}
-              key={item.id}
-            >
-              <div>{item.icon}</div>
-              <div className="hidden md:inline">{item.route}</div>
-            </Link>
-          ))}
-        </div>
-        <h1 className="hidden md:block mt-10 mb-2 text-dark3/50">
-          Manage Account
-        </h1>
-        <div className="flex flex-col gap-2">
-          {sidebarItems.manageAccount.map((item) => (
             <Link
               className="flex p-3 gap-2 hover:bg-slate-800 items-center"
               to={item.path}

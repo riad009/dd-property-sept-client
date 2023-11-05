@@ -29,7 +29,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
     console.log(email,password)
 
     try {
-      fetch(`http://localhost:4000/user/exist?email=${email}`)
+      fetch(`https://dd-property-server.vercel.app/user/exist?email=${email}`)
       .then(res=>res.json())
       .then(async data=>{
         if(data.userExist){

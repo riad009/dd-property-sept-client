@@ -15,7 +15,7 @@ import {
 } from "firebase/auth";
 import { Triangle } from "react-loader-spinner";
 
-const AuthContext = React.createContext();
+export const AuthContext = React.createContext();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
 
   //signup function
   async function signup(email, password, username) {
-    fetch("http://localhost:4000/user/create",{
+    fetch("https://dd-property-server.vercel.app/user/create",{
       method:"POST",
       headers:{
         'Content-Type': 'application/json'

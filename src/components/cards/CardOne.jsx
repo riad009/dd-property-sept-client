@@ -15,13 +15,13 @@ const CardOne = ({
       onClick={clickEvent}
       className={`${
         shadow && "md:min-w-min min-w-full shadow bg-white rounded-b"
-      } cursor-pointer`}
+      } cursor-pointer bg-white p-2`}
     >
       <div className="relative">
         <img
           src={image}
           alt="card_image"
-          className={`${shadow && "rounded-t"}`}
+          className={`${shadow && "rounded-t"} h-[200px] w-full`}
         />
         {!shadow && (
           <span

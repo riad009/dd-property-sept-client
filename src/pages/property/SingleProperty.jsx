@@ -16,51 +16,19 @@ import Location from "./Location";
 import ContactDeveloper from "./ContactDeveloper";
 import SimilarListings from "./SimilarListings";
 import FAQ from "./FAQ";
+import { useEffect, useState } from "react";
 
 const SingleProperty = () => {
-  const { projectName } = useParams();
-
-  const breadCrumbItems = [
-    {
-      href: "/",
-      title: <HomeOutlined />,
-    },
-    {
-      title: "Property",
-      href: "/",
-    },
-    {
-      title: "Projects",
-      href: "/",
-    },
-    {
-      title: projectName,
-    },
-  ];
-
-  const images = [
-    {
-      img: img1,
-    },
-    {
-      img: img2,
-    },
-    {
-      img: img3,
-    },
-    {
-      img: img1,
-    },
-    {
-      img: img2,
-    },
-    {
-      img: img3,
-    },
-    {
-      img: img1,
-    },
-  ];
+  const [property,setProperty]=useState([])
+  const { id } = useParams();
+  const {propertyTitle,carouselImages,location,propertyType} = property || {}
+  
+  console.log(id)
+  useEffect(()=>{
+    fetch(`https://dd-property-server.vercel.app/property/${id}`)
+    .then(res=>res.json())
+    .then(data=>setProperty(data))
+  },[])
 
   const handleContactAbout = (checkedValues) => {
     console.log("checked = ", checkedValues);
@@ -68,16 +36,16 @@ const SingleProperty = () => {
 
   return (
     <div>
-      <Banner breadCrumbItems={breadCrumbItems} images={images} />
+      <Banner location={location} propertyTitle={propertyTitle} propertyType={propertyType} carouselImages={carouselImages} />
       {/* Body Navbar */}
       <div className="sm:sticky top-0 z-50 sm:max-h-[calc(60vh-40px)]">
-        <BodyNav />
+        {/* <BodyNav /> */}
       </div>
       <SmallContainer extraClasses="relative p-10">
         <div className="sm:flex gap-5">
           <div className="flex-1">
-            <OverviewSection />
-            <AvailableUnitSection images={images} />
+            <OverviewSection property={property} />
+            {/* <AvailableUnitSection images={images} /> */}
             <Facilities />
           </div>
           <div>
@@ -88,7 +56,7 @@ const SingleProperty = () => {
         <Location />
         <ContactDeveloper />
       </SmallContainer>
-      <SimilarListings />
+      {/* <SimilarListings /> */}
       <SmallContainer>
         <FAQ />
       </SmallContainer>

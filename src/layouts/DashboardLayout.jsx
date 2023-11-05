@@ -12,7 +12,7 @@ export const DashboardLayout = () => {
       <div className="md:ml-56 lg:ml-80 ml-12 flex-1 transition-all duration-200">
         <Navbar />
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

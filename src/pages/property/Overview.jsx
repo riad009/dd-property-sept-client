@@ -4,7 +4,9 @@ import { MdLocationOn } from "react-icons/md";
 import { RiCommunityFill } from "react-icons/ri";
 import { GiBathtub, GiBed } from "react-icons/gi";
 
-const Overview = () => {
+const Overview = ({property}) => {
+  const {address,state,city,country}=property?.location ||{};
+  const {startPrice ,monthlyInstallments,bedrooms,bathrooms, area} =property?.detailInformation ||{};
   return (
     <div>
       <h1 className="text-2xl mb-5">Overview</h1>
@@ -12,13 +14,13 @@ const Overview = () => {
       <div className="flex gap-5">
         <div>
           <p className="text-sm text-dark2">Start</p>
-          <p className="text-sm text-dark font-[500]">฿4,000,000</p>
+          <p className="text-sm text-dark font-[500]">฿{startPrice}</p>
         </div>
         <Divider type="vertical h-10" />
         <div>
           <p className="text-sm text-dark2">Estimated Monthly Installments</p>
           <p className="text-sm text-dark font-[500]">
-            ฿17,187 Month <TextRed to="#">See More Details</TextRed>
+            ฿{monthlyInstallments} Month <TextRed to="#">See More Details</TextRed>
           </p>
         </div>
       </div>
@@ -28,36 +30,29 @@ const Overview = () => {
         <div>
           <p className="text-sm text-dark2">Bedroom</p>
           <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <GiBed className="text-xl" /> 3,4
+            <GiBed className="text-xl" /> {bedrooms}
           </p>
         </div>
         <div>
           <p className="text-sm text-dark2">Bathroom</p>
           <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <GiBathtub className="text-xl" /> 3,5
+            <GiBathtub className="text-xl" /> {bathrooms}
           </p>
         </div>
         <div>
           <p className="text-sm text-dark2">Unit</p>
           <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <RiCommunityFill className="text-xl" /> 123 sq.m. - 236 sq.m.
+            <RiCommunityFill className="text-xl" /> {area} sq.m.
           </p>
         </div>
       </div>
-      <TextRed to="#">View details of room types and prices.</TextRed>
 
       {/* Location */}
       <div>
         <p className="text-sm text-dark2 mt-4">Location</p>
         <p className="flex items-center gap-1 text-sm text-dark font-[500]">
-          <MdLocationOn className="text-xl" /> Sheria Vicinity Ratchaphruek -
-          Jesadabodin : Sheria Vicinity Ratchaphruek - Jesadabodin, Nonthaburi
+          <MdLocationOn className="text-xl" /> {address}, {state}, {city}, {country}
         </p>
-        <p className="text-xs text-dark2 mb-3">
-          Ratchaphruek - Nonthaburi Road, Bang Krang, Muang Nonthaburi,
-          Nonthaburi
-        </p>
-        <TextRed to="/">open map</TextRed>
       </div>
       <Divider className="bg-dark2/50" />
     </div>

@@ -18,6 +18,7 @@ import ProfilePage from "./pages/dashboard/MyProfile";
 import MyPackage from "./pages/dashboard/MyPackage";
 import CreateListing from "./pages/dashboard/CreateListing";
 import Membership from "./pages/Membership";
+import{ Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
         element: <PropertyForSale />,
       },
       {
-        path: "/property/projects/:projectName",
+        path: "/property/projects/:id",
         element: <SingleProperty />,
       },
     ],
@@ -65,13 +66,17 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-            <Dashboard />
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
         ),
       },
       {
         path: "create-listing",
         element: (
-            <CreateListing />
+            <PrivateRoute>
+              <CreateListing />
+            </PrivateRoute>
         ),
       },
       {
@@ -121,6 +126,7 @@ const router = createBrowserRouter([
 const App = () => (
   <AuthProvider>
     <RouterProvider router={router} />
+    <Toaster />
   </AuthProvider>
 );
 
