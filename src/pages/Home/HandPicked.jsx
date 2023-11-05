@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import image1 from "../../assets/banner1.jpg";
 import Button from "../../components/Button";
 import SectionHeader from "../../components/SectionHeader";
 import CardOne from "../../components/cards/CardOne";
 import SmallContainer from "../../shared/SmallContainer";
+import { useEffect, useState } from "react";
 
 const handPicked = [
   {
@@ -36,20 +38,28 @@ const handPicked = [
 ];
 
 const HandPicked = () => {
+  const navigate = useNavigate();
+  const [property,setProperty]=useState([])
+
+  useEffect(()=>{
+    fetch(`https://dd-property-server.vercel.app/property`)
+    .then(res=>res.json())
+    .then(data=>setProperty(data))
+    console.log(property)
+  },[])
   return (
     <div className="bg-dark2/10">
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
         <SectionHeader title="Handpicked for you" />
-        <div className="md:overflow-x-hidden overflow-x-scroll flex gap-5">
-          {handPicked?.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        {property?.map((project, index) => (
             <CardOne
+              clickEvent={() => navigate(`/property/projects/${project._id}`)}
               key={index}
-              shadow
-              image={project.image}
-              price={project.price}
-              type={project.type}
-              title={project.title}
-              text={project.text}
+              image={project.propertyProfile}
+              type={project.propertyType}
+              title={project.propertyTitle}
+              text={project.descripton}
             />
           ))}
         </div>

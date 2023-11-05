@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useAuth } from "../providers/AuthProvider";
 
 const LoginModal = ({ handleCancel, isModalOpen }) => {
-  const { login, signup,name } = useAuth();
+  const { login, signup,googleSignIn } = useAuth();
 
   const [username, setUsername] = useState("");
   const [nameInput, setNameInput] = useState(false);
@@ -17,7 +17,6 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    console.log('check')
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setError("Enter valid email address");
       return;
@@ -26,7 +25,6 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
       setError("Password must be at least 6 characters");
       return;
     }
-    console.log(email,password)
 
     try {
       fetch(`https://dd-property-server.vercel.app/user/exist?email=${email}`)
@@ -51,6 +49,11 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
       }
     }
   };
+
+  const handleGoogleLogin =()=>{
+    googleSignIn()
+    handleCancel()
+  }
 
   return (
     <Modal
@@ -103,12 +106,13 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
         </div>
 
         <Button
+          onClick={()=>handleGoogleLogin()}
           className="w-full mb-2 flex items-center justify-center bg-white"
           icon={<FcGoogle className="text-xl text-" />}
         >
           Continue with Google
         </Button>
-        <Button
+        {/* <Button
           className="w-full mb-2 flex items-center justify-center bg-white"
           icon={<RiAppleFill className="text-xl text-dark2" />}
         >
@@ -126,7 +130,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
           <TextRed extraClasses="hover:text-danger/80">
             Log In to Agent Net
           </TextRed>
-        </div>
+        </div> */}
 
         <Divider />
 

@@ -66,7 +66,22 @@ export function AuthProvider({ children }) {
   // signin with google
   async function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
+    return signInWithPopup(auth, googleAuthProvider)
+    .then(async result=>{
+      if(result?.user?.uid){
+        console.log(result?.user?.email)
+        const email = result?.user?.email || ""
+        const res = await fetch(`https://dd-property-server.vercel.app/user/create`,{
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body:JSON.stringify({email})
+        })
+        const data = await res.json()
+        console.log(data)
+      }
+    });
   }
 
   //logout function

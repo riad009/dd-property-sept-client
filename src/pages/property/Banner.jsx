@@ -80,7 +80,7 @@ const Banner = ({ propertyTitle,  carouselImages,location,propertyType }) => {
         >
           {
             carouselImages && carouselImages?.map((url,index)=>(
-              <img className="h-[400px]" key={index} src={url} />
+              <img className="h-[400px] w-full" key={index} src={url} />
             ))
           }
         </Carousel>

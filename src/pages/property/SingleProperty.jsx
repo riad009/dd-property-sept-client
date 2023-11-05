@@ -17,11 +17,17 @@ import ContactDeveloper from "./ContactDeveloper";
 import SimilarListings from "./SimilarListings";
 import FAQ from "./FAQ";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const SingleProperty = () => {
+  const { pathname } = useLocation();
   const [property,setProperty]=useState([])
   const { id } = useParams();
   const {propertyTitle,carouselImages,location,propertyType} = property || {}
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   
   console.log(id)
   useEffect(()=>{

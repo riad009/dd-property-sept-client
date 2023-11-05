@@ -48,7 +48,7 @@ const LatestProjects = () => {
     <div className="bg-dark2/10">
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
         <SectionHeader title="Latest Projects" />
-        <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5">
           {property?.map((project, index) => (
             <CardOne
               clickEvent={() => navigate(`/property/projects/${project._id}`)}

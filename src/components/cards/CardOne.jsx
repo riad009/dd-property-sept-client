@@ -1,4 +1,4 @@
-import Button from "../Button";
+
 
 const CardOne = ({
   image,
@@ -10,11 +10,13 @@ const CardOne = ({
   typeColor = "bg-danger",
   clickEvent,
 }) => {
+
+
   return (
     <div
       onClick={clickEvent}
-      className={`${
-        shadow && "md:min-w-min min-w-full shadow bg-white rounded-b"
+      className={`w-full md:w-[280px] ${
+        shadow && " shadow bg-white rounded-b"
       } cursor-pointer bg-white p-2`}
     >
       <div className="relative">
@@ -44,7 +46,7 @@ const CardOne = ({
         >
           {title}
         </h6>
-        <p className="text-xs text-dark2">{text}</p>
+        <p className="text-xs text-dark2">{text.slice(0,100)}...</p>
         {shadow && (
           <small className="mt-3 border w-fit border-blue-200 text-[0.7em] px-3 rounded">
             Land
