@@ -188,17 +188,17 @@ const CreateListing = () => {
             {/* monthly installments */}
             <label>
               <p className="font-semibold text-sm text-gray-700 capitalize">monthly installments</p>
-              <input required name="monthlyInstallments" className="border w-[100%] px-3 py-3 rounded-lg my-3" type="number" placeholder="" />
+              <input  name="monthlyInstallments" className="border w-[100%] px-3 py-3 rounded-lg my-3" type="number" placeholder="" />
             </label>
             {/* bedrooms */}
             <label>
               <p className="font-semibold text-sm text-gray-700 capitalize">bedrooms</p>
-              <input required name="bedrooms" className="border w-[100%] px-3 py-3 rounded-lg my-3" type="number" placeholder="" />
+              <input  name="bedrooms" className="border w-[100%] px-3 py-3 rounded-lg my-3" type="number" placeholder="" />
             </label>
             {/* bathrooms */}
             <label>
               <p className="font-semibold text-sm text-gray-700 capitalize">bathrooms</p>
-              <input required name="bathrooms" className="border w-[100%] px-3 py-3 rounded-lg my-3" type="number" placeholder="" />
+              <input  name="bathrooms" className="border w-[100%] px-3 py-3 rounded-lg my-3" type="number" placeholder="" />
             </label>
             {/* area */}
             <label>

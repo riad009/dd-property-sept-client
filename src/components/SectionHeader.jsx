@@ -1,4 +1,5 @@
 import { BiChevronRight } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const SectionHeader = ({ title, clickEvent, newItem }) => {
   return (
@@ -11,9 +12,9 @@ const SectionHeader = ({ title, clickEvent, newItem }) => {
           </span>
         )}
       </h1>
-      <p className="sm:flex hidden items-center text-danger text-sm">
+      <Link to={"/property-for-sale"} className="sm:flex hidden items-center text-danger text-sm">
         View More <BiChevronRight className="text-xl" />
-      </p>
+      </Link>
     </div>
   );
 };

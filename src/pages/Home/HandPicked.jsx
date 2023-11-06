@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import image1 from "../../assets/banner1.jpg";
 import Button from "../../components/Button";
 import SectionHeader from "../../components/SectionHeader";
@@ -52,7 +52,7 @@ const HandPicked = () => {
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
         <SectionHeader title="Handpicked for you" />
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
-        {property?.map((project, index) => (
+        { property && property?.map((project, index) => (
             <CardOne
               clickEvent={() => navigate(`/property/projects/${project._id}`)}
               key={index}
@@ -63,9 +63,9 @@ const HandPicked = () => {
             />
           ))}
         </div>
-        <Button extraClasses="sm:hidden bg-dark text-white mx-auto mt-10">
+        <Link to={"/property-for-sale"} extraClasses="sm:hidden bg-dark text-white mx-auto mt-10">
           View More
-        </Button>
+        </Link>
       </SmallContainer>
     </div>
   );

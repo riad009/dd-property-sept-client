@@ -22,6 +22,7 @@ import RightSide from "./RightSide";
 import { MdOutlineCardMembership } from "react-icons/md";
 
 const ShortList = () => {
+  const {currentUser} = useContext(AuthContext)
   return (
     <a href="/" className="flex items-center gap-2">
       <HeartOutlined />
@@ -33,6 +34,12 @@ const ShortList = () => {
 export const navItems = [
   {
     key: 0,
+    label: "Home",
+    path: "/",
+    icon: <SearchOutlined />,
+  },
+  {
+    key: 122,
     label: "Find Constructor",
     path: "/find-construction",
     icon: <SearchOutlined />,
@@ -177,6 +184,9 @@ const Navbar = () => {
                     icon={item.icon}
                   />
                 ))}
+                {
+                  currentUser?.email && <Link to={"/dashboard"}>Dashboard</Link>
+                }
               </div>
             </div>
             {/* <div className="lg:flex gap-5">
