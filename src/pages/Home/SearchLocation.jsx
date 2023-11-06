@@ -5,17 +5,15 @@ import ApplyFilterButtons from "../../components/ApplyFilterButtons";
 import AllResidentialDropdown from "../../components/AllResidentialDropdown";
 import AnyPrice from "../../components/AnyPriceDropdown";
 import BedroomDropdown from "../../components/BedroomDropdown";
+import {GoLocation} from "react-icons/go"
 import { Link } from "react-router-dom";
 
 const SearchLocation = () => {
-  const [propertyType, setPropertyType] = useState("residential");
-  const [footer1Open, setFooter1Open] = useState(false);
-  const [footer2Open, setFooter2Open] = useState(false);
-  const [footer3Open, setFooter3Open] = useState(false);
-  const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
   const [type , setType]=useState("")
   const [rooms, setRooms] = useState("")
   const [search,setsearch] = useState("")
+  const [searchSuggetion,setsearchSuggetion]=useState([])
+  const [view,setView]=useState(false)
 
   const handleRooms =(event)=>{
     const selectedValue = event.target.value;
@@ -25,9 +23,16 @@ const SearchLocation = () => {
     const selectedValue = event.target.value;
     setType(selectedValue);
   }
-  const handleSearch = (event) =>{
+  const handleSuggetion =(value)=>{
+    setsearch(value)
+    setView(false)
+  }
+  const handleSearch = async(event) =>{
     const SearchValue = event.target.value;
     setsearch(SearchValue)
+    fetch(`https://dd-property-server.vercel.app/property/search?search=${SearchValue}`)
+    .then(res=>res.json())
+    .then(data=>setsearchSuggetion(data))
   }
 
   
@@ -40,16 +45,32 @@ const SearchLocation = () => {
         <h1 className="cursor-pointer ">Rent</h1>
       </div>
       {/* Search Field */}
-      <div className="flex justify-center">
-        <input
-          onChange={handleSearch}
-          type="text"
-          className="bg-white text-dark focus:outline-none p-3 rounded-l-md w-full"
-          placeholder="Search City"
-        />
+      <div className="flex justify-center relative">
+        <div className="w-full">
+          <input
+            onChange={handleSearch}
+            onClick={()=>setView(!view)}
+            value={search}
+            type="text"
+            className="bg-white text-dark focus:outline-none p-3 rounded-l-md w-full"
+            placeholder="Search City"
+          />
+          {
+            search && <div className="w-full min-h-[200px] bg-white absolute border-b">
+                {
+            searchSuggetion && searchSuggetion.map((city,index)=><p key={index} onClick={()=>handleSuggetion(city)} className=" text-black bg-white cursor-pointer capitalize py-2 px-3 border flex items-center"><GoLocation className="text-red-500 mr-2"/> {city}</p>)
+            }
+            </div>
+          }
+
+          
+        </div>
         <Link to={`/property-for-sale?type=${type}&rooms=${rooms}&search=${search}`} className="bg-danger p-3 rounded-r-md" type="submit">
           Search
         </Link>
+        <div>
+            
+          </div>
       </div>
       {/* Footer */}
       <div className="text-sm mt-5 flex items-center gap-5 justify-center">
