@@ -15,7 +15,7 @@ import { RiPhoneFindFill } from "react-icons/ri";
 import { useState } from "react";
 import Brand from "../Brand";
 import NavItem from "../NavItem";
-import { useAuth } from "../../providers/AuthProvider";
+//import { useAuth } from "../../providers/AuthProvider";
 import { Link, useHref } from "react-router-dom";
 import LoginModal from "../LoginModal";
 import RightSide from "./RightSide";
@@ -105,7 +105,7 @@ export const languages = [
 
 const Navbar = () => {
   // check current user
-  const { currentUser, logout } = useAuth();
+  // const { currentUser, logout } = useAuth();
 
   const path = useHref();
 
@@ -143,7 +143,7 @@ const Navbar = () => {
     },
     {
       key: "3",
-      label: <h1 onClick={logout}>Logout</h1>,
+      // label: <h1 onClick={logout}>Logout</h1>,
     },
   ];
 
@@ -230,7 +230,7 @@ const Navbar = () => {
               />
             </div> */}
             <RightSide
-              currentUser={currentUser}
+              // currentUser={currentUser}
               items={items}
               itemsUser={itemsUser}
               languageHandler={languageHandler}
@@ -282,7 +282,7 @@ const Navbar = () => {
                 </div>
                 <div className="mx-auto pb-10">
                   <RightSide
-                    currentUser={currentUser}
+                    // currentUser={currentUser}
                     items={items}
                     itemsUser={itemsUser}
                     languageHandler={languageHandler}
