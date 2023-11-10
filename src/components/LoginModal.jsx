@@ -3,7 +3,9 @@ import Brand from "./Brand";
 import { FcGoogle } from "react-icons/fc";
 import { RiAppleFill, RiFacebookCircleFill } from "react-icons/ri";
 import TextRed from "./TextRed";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 //import { useAuth } from "../providers/AuthProvider";
 
 const LoginModal = ({ handleCancel, isModalOpen }) => {
@@ -14,10 +16,16 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+	const { user, loading } = useContext(AuthContext)
 
+  console.log('user',user?.email)
+	const { login } = useContext(AuthContext)
+  const navigate = useNavigate();
   const loginHandler = async (e) => {
     e.preventDefault();
+    login(email, password)
    console.log('ok')
+   navigate('/dashboard')
   };
 
   return (

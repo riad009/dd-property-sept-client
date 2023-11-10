@@ -83,17 +83,17 @@ export const AuthProvider = ({ children }) => {
     return sendEmailVerification(email)
   }
 
-  //logout
-  // const logout = () => {
+ 
+  const logout = () => {
 
-  //   return signOut(auth)
-  // }
+    return signOut(auth)
+  }
 
   useEffect(() => {
 
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
 
-      // setUser(currentUser);
+      setUser(currentUser);
       setLoading(false)
       //   setLoading(false);
 
@@ -136,7 +136,7 @@ export const AuthProvider = ({ children }) => {
   //   setWords(userData)
   // }, [words]);
 
-  const authInfo = {totalWords, words, handleWords, projectId, projectUpdateId, FullJobData, handleJobData, handlefile, file, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+  const authInfo = {totalWords, words, handleWords, projectId, projectUpdateId,logout, FullJobData, handleJobData,logout, handlefile, file, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
 
 
 
