@@ -18,7 +18,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
   const [error, setError] = useState("");
 	const { user, loading } = useContext(AuthContext)
 
-  console.log('user',user?.email)
+
 	const { login } = useContext(AuthContext)
   const navigate = useNavigate();
   const loginHandler = async (e) => {
