@@ -3,44 +3,29 @@ import Brand from "./Brand";
 import { FcGoogle } from "react-icons/fc";
 import { RiAppleFill, RiFacebookCircleFill } from "react-icons/ri";
 import TextRed from "./TextRed";
-import { useState } from "react";
-import { useAuth } from "../providers/AuthProvider";
+import { useContext, useState } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+//import { useAuth } from "../providers/AuthProvider";
 
 const LoginModal = ({ handleCancel, isModalOpen }) => {
-  const { login, signup,name } = useAuth();
+  // const { login, signup,name } = useAuth();
 
   const [username, setUsername] = useState("");
   const [nameInput, setNameInput] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+	const { user, loading } = useContext(AuthContext)
 
+
+	const { login } = useContext(AuthContext)
+  const navigate = useNavigate();
   const loginHandler = async (e) => {
     e.preventDefault();
-  console.log('check')
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      setError("Enter valid email address");
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
-
-    try {
-      if (nameInput && nameInput.length !== 0) {
-        await signup(email, password, username);
-        handleCancel();
-      } else {
-        await login(email, password);
-        handleCancel();
-      }
-    } catch (error) {
-      if (error.code === "auth/user-not-found") {
-        setNameInput(true);
-        setError("User not found. Enter your name and continue registration");
-      }
-    }
+    login(email, password)
+   console.log('ok')
+   navigate('/dashboard')
   };
 
   return (

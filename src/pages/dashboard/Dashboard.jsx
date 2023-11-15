@@ -5,7 +5,7 @@ import {
   MdOutlineRemoveRedEye,
 } from "react-icons/md";
 import DashCard from "../../components/cards/DashCard";
-import { useAuth } from "../../providers/AuthProvider";
+//import { useAuth } from "../../providers/AuthProvider";
 import DashboardHeader from "./DashboardHeader";
 
 const activites = [
@@ -39,12 +39,12 @@ const activites = [
 ];
 
 const Dashboard = () => {
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
 
   return (
     <div className="min-h-[90vh] p-5 md:p-10 bg-dark2/5">
       <DashboardHeader
-        title={`Howdy, ${currentUser?.name?.split(" ")[0]}`}
+        // title={`Howdy, ${currentUser?.name?.split(" ")[0]}`}
         description={"We are glad to see you again"}
       />
 

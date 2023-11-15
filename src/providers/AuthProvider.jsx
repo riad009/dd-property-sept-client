@@ -1,152 +1,159 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
-import "../firebase";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile,
-  GoogleAuthProvider,
-  signInWithPopup,
-  sendPasswordResetEmail,
-} from "firebase/auth";
-import { Triangle } from "react-loader-spinner";
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const AuthContext = React.createContext();
+import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
+import app from '../firebase';
+import axios from 'axios';
+const auth = getAuth(app)
+const auth2 = getAuth(app)
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+// Create the UserContext
+export const AuthContext = createContext();
 
-const auth = getAuth();
-
-export function AuthProvider({ children }) {
-  const [loading, setLoading] = useState(true);
-  const [name, setname] = useState('riad');
-  const [currentUser, setCurrentUser] = useState(null);
-
-  // TODO1: remove setLoading function
+// Create a UserContextProvider component
+export const AuthProvider = ({ children }) => {
+  // You can initialize your global data here
+  const [projectId, setprojectId] = useState(localStorage.getItem('projectId') || 'context');
+  //('projectId',projectId)
+  // Update localStorage whenever projectId changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setCurrentUser(user);
+    localStorage.setItem('projectId', projectId);
+  }, [projectId]);
 
-      // getUsersData from Database if not found save to database
-      if (user) {
-        await axios
-          .get(`http://localhost:4000/users/${user.email}`)
-          .then(({ data: userData }) => {
-            if (userData) {
-              setCurrentUser(userData);
-            } else {
-              const newUser = {
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                address: "",
-                gender: "",
-                phoneNumber: "",
-                role: "student",
-              };
-              axios
-                .post(`$http://localhost:4000/user`, newUser)
-                console.log('newUser')
-                .then((response) => {
-                  if (response.status === 200) {
-                    setCurrentUser(newUser);
-                  }
-                });
-            }
-          });
-      } else {
-        setCurrentUser(user);
-      }
+  const [FullJobData, setJobData] = useState("FullJobData");
+  const [file, setfile] = useState("");
 
-      if (user) {
-        axios
-          .post(`http://localhost:4000/jwt`, {
-            email: user.email,
-          })
-          .then((response) => {
-            localStorage.setItem("access_token", response.data.token);
-          });
-      } else {
-        localStorage.removeItem("access_token");
-      }
-      setLoading(false);
-    });
 
-    return unsubscribe;
-  }, []);
-
-  //signup function
-  async function signup(email, password, username) {
-    await createUserWithEmailAndPassword(auth, email, password);
-
-    // updateProfile
-    await updateUserProfile(username);
-
-    const user = auth.currentUser;
-
-    setCurrentUser({ ...user });
-  }
-
-  async function updateUserProfile(username) {
-    await updateProfile(auth.currentUser, {
-      displayName: username,
-    });
-  }
-
-  //login function
-  function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
-  }
-
-  // signin with google
-  async function googleSignIn() {
-    const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
-  }
-
-  //logout function
-  function logout() {
-    return signOut(auth);
-  }
-
-  function resetPassword(email) {
-    sendPasswordResetEmail(auth, email);
-  }
-
-  const value = {
-    currentUser,
-    loading,
-    setLoading,
-    signup,
-    login,
-    logout,
-    googleSignIn,
-    updateUserProfile,
-    resetPassword,
-    name,
+  // You can provide functions to update the data as needed
+  const projectUpdateId = (newData) => {
+    setprojectId(newData);
   };
 
+  const handleJobData = (newData) => {
+    setJobData(newData);
+  };
+
+  const handlefile = (newData) => {
+    setfile(newData);
+  };
+
+  //firebase------------------------------
+
+  const [user, setUser] = useState({});
+
+  const [loading, setLoading] = useState(true);
+
+  //registration pop
+  const providerLogin = (provider) => {
+    setUser(user)
+    return signInWithPopup(auth, provider)
+
+  }
+  //login button
+  const creatUser = (email, password) => {
+    setUser(user)
+    setLoading(true)
+    return createUserWithEmailAndPassword(auth, email, password)
+
+  }
+  //login - create new  user
+  const creatNewUser = (email, password) => {
+
+
+    return createUserWithEmailAndPassword(auth2, email, password)
+
+  }
+
+  //login button
+  const login = (email, password) => {
+    setUser(user)
+    setLoading(true)
+    return signInWithEmailAndPassword(auth, email, password)
+  }
+
+  //reset 
+  const reset = (email) => {
+
+
+    return sendPasswordResetEmail(auth, email)
+  }
+
+  //send verification
+  const verification = (email) => {
+
+    return sendEmailVerification(email)
+  }
+
+ 
+  const logout = () => {
+
+    return signOut(auth)
+  }
+
+  useEffect(() => {
+
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+
+      setUser(currentUser);
+      setLoading(false)
+      //   setLoading(false);
+
+      return () => {
+
+        unsubscribe()
+      }
+    })
+
+  }, [])
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 1000); // Increment every second (1000 milliseconds)
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+  const userId = user?.email; // Replace with the actual user ID
+
+  const [totalWords, setUserData] = useState(0);
+ 
+  const [words, setWords] = useState();
+
+ 
+
+
+
+  // Function to update words and save it to localStorage
+  const handleWords = (newData) => {
+    // const newWords = parseInt(words + newData);
+    setWords(newData);
+    // Save the updated 'words' to localStorage
+  };
+
+  // useEffect(() => {
+  //   setWords(userData)
+  // }, [words]);
+
+  const authInfo = {totalWords, words, handleWords, projectId, projectUpdateId,logout, FullJobData, handleJobData,logout, handlefile, file, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+
+
+
+
+
+  //firebase-------------------------------
   return (
-    <AuthContext.Provider value={value}>
-      {!loading ? (
-        children
-      ) : (
-        <div className="flex items-center justify-center min-h-screen">
-          <Triangle
-            height="80"
-            width="80"
-            color="red"
-            ariaLabel="triangle-loading"
-            visible={true}
-          />
-        </div>
-      )}
+    <AuthContext.Provider value={authInfo}>
+      {children}
     </AuthContext.Provider>
   );
-}
+};
+
+// Custom hook to easily access the UserContext
+export const useUserContext = () => {
+  return useContext(AuthContext);
+};
+
+export default AuthProvider;
+

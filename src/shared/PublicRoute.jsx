@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../providers/AuthProvider";
+import { AuthContext } from "../providers/AuthProvider";
+//import { useAuth } from "../providers/AuthProvider";
 
 export default function PublicRoute({ children }) {
-  const { currentUser } = useAuth();
+  const { user } = useContext(AuthContext)
 
   const { state } = useLocation();
   const route = state?.from?.pathname || "/";
 
-  return !currentUser ? children : <Navigate to={route} />;
+  return !user ? children : <Navigate to={route} />;
 }

@@ -12,14 +12,15 @@ import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { BsBuildingAdd, BsBuildingsFill } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { RiPhoneFindFill } from "react-icons/ri";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Brand from "../Brand";
 import NavItem from "../NavItem";
-import { useAuth } from "../../providers/AuthProvider";
+
 import { Link, useHref } from "react-router-dom";
 import LoginModal from "../LoginModal";
 import RightSide from "./RightSide";
 import { MdOutlineCardMembership } from "react-icons/md";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const ShortList = () => {
   return (
@@ -105,7 +106,7 @@ export const languages = [
 
 const Navbar = () => {
   // check current user
-  const { currentUser, logout } = useAuth();
+	const { user, loading,logout } = useContext(AuthContext)
 
   const path = useHref();
 
@@ -131,6 +132,14 @@ const Navbar = () => {
       label: <Link to="/">Profile</Link>,
     },
     {
+      type: "divider",
+    },
+    {
+      key: "0",
+    
+      label: <Link to="/dashboard">Dashboard</Link>,
+    },
+    {
       key: "1",
       label: <Link to="/">Email Preferences</Link>,
     },
@@ -138,9 +147,7 @@ const Navbar = () => {
       key: "2",
       label: <Link to="/">Feedback</Link>,
     },
-    {
-      type: "divider",
-    },
+  
     {
       key: "3",
       label: <h1 onClick={logout}>Logout</h1>,
@@ -230,7 +237,7 @@ const Navbar = () => {
               />
             </div> */}
             <RightSide
-              currentUser={currentUser}
+              currentUser={user?.email}
               items={items}
               itemsUser={itemsUser}
               languageHandler={languageHandler}
@@ -282,7 +289,7 @@ const Navbar = () => {
                 </div>
                 <div className="mx-auto pb-10">
                   <RightSide
-                    currentUser={currentUser}
+                    currentUser={user?.email}
                     items={items}
                     itemsUser={itemsUser}
                     languageHandler={languageHandler}

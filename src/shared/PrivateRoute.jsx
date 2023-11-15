@@ -1,11 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../providers/AuthProvider";
+import { AuthContext } from "../providers/AuthProvider";
+import { useContext } from "react";
 
 export default function ({ children }) {
-  const { currentUser } = useAuth();
+
+  const { user } = useContext(AuthContext)
   const location = useLocation();
 
-  if (currentUser) {
+  if (user) {
     return children;
   }
 
