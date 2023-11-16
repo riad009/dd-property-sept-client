@@ -25,7 +25,7 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
     e.preventDefault();
     login(email, password)
    console.log('ok')
-   navigate('/dashboard')
+   handleCancel();
   };
 
   return (

@@ -51,14 +51,14 @@ const RightSide = ({
         )}
       </div>
 
-      <Select
+      {/* <Select
         className="w-32"
         optionFilterProp="children"
         onChange={languageHandler}
         defaultActiveFirstOption={true}
         defaultValue="thiland"
         options={languages}
-      />
+      /> */}
     </div>
   );
 };

@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Button, Checkbox, Select, Upload } from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useContext } from "react";
 
 const CreateListing = () => {
   const [propertyTitle, setPropertyTitle] = useState();
@@ -133,6 +135,79 @@ const CreateListing = () => {
       message.success(`${info.file.name} file uploaded successfully`);
     } else if (info.file.status === "error") {
       message.error(`${info.file.name} file upload failed.`);
+    }
+  };
+
+
+  // handleclick
+
+	const { user } = useContext(AuthContext)
+
+  const handleAddToList = async (e) => {
+    console.log('post')
+
+    try {
+      const userData = {
+       
+        email:user?.email ,
+        planDescription,
+        loading,
+        planBedrooms,
+        planBathrooms,
+        planPrice,
+        pricePostfix,
+        planSize,
+        planImage,
+        propertyTitle,
+        description,
+        propertyType,
+        status,
+        rooms,
+        price,
+        area,
+        address,
+        state,
+        city,
+        neighborhood,
+        zip,
+        country,
+        googleMapStreetView,
+        propertyId,
+        areaSize,
+        sizePrefix,
+        landArea,
+        landAreaSizePostfix,
+        bedrooms,
+        bathrooms,
+        garages,
+        garageSize,
+        yearBuild,
+        videoUrl,
+        virtualTourUrl,
+        amenities,
+      };
+      
+
+      const response = await fetch('http://localhost:5000/post/property', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      // Handle the response as needed
+      const result = await response.json();
+      console.log(result);
+
+      // Clear the form or perform other actions after successful submission
+      setUsername("");
+      setNameInput(false);
+      setEmail("");
+      setPassword("");
+      setError("");
+    } catch (error) {
+      console.error('Error submitting form:', error);
     }
   };
 
@@ -447,7 +522,7 @@ const CreateListing = () => {
       <div className="flex justify-end">
         <button
           className="bg-danger text-white py-2 px-4 rounded-lg mt-4 w-full"
-          onClick={() => {}}
+          onClick={handleAddToList}
         >
           Add to List
         </button>
