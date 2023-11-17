@@ -7,7 +7,7 @@ import { MdGridView } from "react-icons/md";
 import ImageViewer from "react-simple-image-viewer";
 import Brochure from "./Brochure";
 
-const AvailableUnitSection = ({ images }) => {
+const AvailableUnitSection = ({ images,p }) => {
   const onChange = (key) => {
     console.log(key);
   };
@@ -49,7 +49,7 @@ const AvailableUnitSection = ({ images }) => {
                       activeKey === i ? "text-white/50" : "text-dark2"
                     }`}
                   >
-                    30sqm
+                   {p.landArea}
                   </p>
                 </div>
               ),
@@ -57,7 +57,7 @@ const AvailableUnitSection = ({ images }) => {
               children: (
                 <div>
                   <div className="flex gap-3 items-center">
-                    <h3 className="font-semibold">฿3,939,000</h3>
+                    <h3 className="font-semibold">฿{p.price}</h3>
                     <span className="bg-dark2/10 text-[0.7em] px-2 rounded">
                       Starting from
                     </span>
@@ -65,17 +65,17 @@ const AvailableUnitSection = ({ images }) => {
                   <div className="flex gap-5 my-2">
                     <div>
                       <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                        1 <GiBed className="text-xl" />
+                       {p.bedrooms}<GiBed className="text-xl" />
                       </p>
                     </div>
                     <div>
                       <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                        1 <GiBathtub className="text-xl" />
+                        {p.bathrooms} <GiBathtub className="text-xl" />
                       </p>
                     </div>
                     <div>
                       <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                        ฿131,300 / sqm
+                        ฿{p.area}
                       </p>
                     </div>
                   </div>

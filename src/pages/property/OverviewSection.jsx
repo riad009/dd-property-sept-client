@@ -3,12 +3,12 @@ import Overview from "./Overview";
 import Details from "./Details";
 import About from "./About";
 
-const OverviewSection = () => {
+const OverviewSection = ({property}) => {
   return (
     <div id="overview">
-      <Overview />
-      <Details />
-      <About />
+      <Overview property={property} />
+      <Details p={property}/>
+      <About p={property} />
     </div>
   );
 };

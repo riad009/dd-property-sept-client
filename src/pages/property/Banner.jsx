@@ -16,7 +16,7 @@ const Details = ({ children, icon }) => (
   </p>
 );
 
-const Banner = ({ breadCrumbItems, images }) => {
+const Banner = ({ breadCrumbItems, images, p }) => {
   const openImageViewer = useCallback((index) => {
     setCurrentImage(index);
     setIsViewerOpen(true);
@@ -38,13 +38,14 @@ const Banner = ({ breadCrumbItems, images }) => {
         <div className="flex items-center">
           <img className="w-20" src={thumb} alt="Thumb" />
           <h1 className="sm:text-2xl font-semibold">
-            Sheria Vicinity Ratchaphruek - Jesadabodin : Sheria Vicinity
-            Ratchaphruek - Jesadabodin, Nonthaburi
+            {p.propertyTitle} ,
+
           </h1>
         </div>
         <h1 className="sm:text-xl text-xs">
-          Premium New Project Next To The Main Road, 6 Lanes, On The Location Of
-          Ratchaphruek - Nonthaburi 1
+          {p.city},
+          {p.district}  ,
+          {p.address}
         </h1>
         {/* Social Media */}
         <div className="sm:flex items-start justify-between text-xs sm:my-5 my-2">
@@ -100,22 +101,22 @@ const Banner = ({ breadCrumbItems, images }) => {
         ))}
       </Slide>
 
-      <SmallContainer extraClasses="p-10">
+      <SmallContainer extraClasses="p-2">
         {/* Important Details */}
         <div className="sm:flex gap-5 justify-between text-justify">
           <Details icon={<CiCircleChevRight />}>
-            Good location, next to the main road, 6 lanes, 5 minutes to the BTS,
-            20 minutes to Sathorn
+            {p.description}
+           
           </Details>
           <Divider type="vertical h-20 my-auto hidden sm:block" />
 
-          <Details icon={<CiCircleChevRight />}>
+          {/* <Details icon={<CiCircleChevRight />}>
             There is a multipurpose room. downstairs to adjust functions
             according to lifestyle
           </Details>
-          <Divider type="vertical h-20 my-auto hidden sm:block" />
+          <Divider type="vertical h-20 my-auto hidden sm:block" /> */}
 
-          <Details icon={<CiCircleChevRight />}>
+          {/* <Details icon={<CiCircleChevRight />}>
             Central area, large green area throughout the project Access to
             every green space
           </Details>
@@ -123,7 +124,7 @@ const Banner = ({ breadCrumbItems, images }) => {
 
           <Details icon={<CiCircleChevRight />}>
             24-hour security system with Easy pass access
-          </Details>
+          </Details> */}
         </div>
       </SmallContainer>
 

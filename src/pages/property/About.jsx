@@ -1,7 +1,7 @@
-const About = () => {
+const About = ({p}) => {
   return (
     <div>
-      <h1 className="text-2xl">About Layan Green Park, Phuket</h1>-
+      <h1 className="text-2xl">About {p.propertyTitle}</h1>-
     </div>
   );
 };

@@ -26,6 +26,8 @@ const CreateListing = () => {
   const [googleMapStreetView, setGoogleMapStreetView] = useState("");
 
   const [propertyId, setPropertyId] = useState("");
+  const [developer, setDeveloper] = useState("");
+  const [tenure, setTenure] = useState("");
   const [areaSize, setAreaSize] = useState("");
   const [sizePrefix, setSizePrefix] = useState("");
   const [landArea, setLandArea] = useState("");
@@ -185,6 +187,8 @@ const CreateListing = () => {
         videoUrl,
         virtualTourUrl,
         amenities,
+        tenure,
+        developer,
       };
       
 
@@ -358,6 +362,16 @@ const CreateListing = () => {
               label="Property ID"
               value={propertyId}
               onChange={(e) => setPropertyId(e.target.value)}
+            />
+            <ProfileInput
+              label="Tenure"
+              value={tenure}
+              onChange={(e) => setTenure(e.target.value)}
+            />
+            <ProfileInput
+              label="Developer"
+              value={developer}
+              onChange={(e) => setDeveloper(e.target.value)}
             />
             <ProfileInput
               label="Area Size"

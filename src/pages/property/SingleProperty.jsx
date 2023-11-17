@@ -18,6 +18,7 @@ import SimilarListings from "./SimilarListings";
 import FAQ from "./FAQ";
 import { useEffect } from "react";
 import { useState } from "react";
+import MoreDetails from "./MoreDetails";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -69,7 +70,7 @@ const SingleProperty = () => {
   };
   //get by propterty
   const property = useLoaderData()
-console.log('property',property)
+
 
 
 
@@ -77,7 +78,7 @@ console.log('property',property)
 
   return (
     <div>
-      <Banner breadCrumbItems={breadCrumbItems} images={images} />
+      <Banner p={property} breadCrumbItems={breadCrumbItems} images={images} />
       {/* Body Navbar */}
       <div className="sm:sticky top-0 z-50 sm:max-h-[calc(60vh-40px)]">
         <BodyNav />
@@ -85,16 +86,17 @@ console.log('property',property)
       <SmallContainer extraClasses="relative p-10">
         <div className="sm:flex gap-5">
           <div className="flex-1">
-            <OverviewSection />
-            <AvailableUnitSection images={images} />
-            <Facilities />
+            <OverviewSection property={property} />
+            <MoreDetails property={property}></MoreDetails>
+            {/* <AvailableUnitSection p={property} images={images} /> */}
+            <Facilities property={property} />
           </div>
           <div>
             <StickySection handleContactAbout={handleContactAbout} />
           </div>
         </div>
-        <HomeFinance />
-        <Location />
+        {/* <HomeFinance /> */}
+        <Location property={property} />
         <ContactDeveloper />
       </SmallContainer>
       <SimilarListings />
