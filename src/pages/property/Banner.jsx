@@ -108,7 +108,7 @@ const Banner = ({ breadCrumbItems, images, p }) => {
             {p.description}
            
           </Details>
-          <Divider type="vertical h-20 my-auto hidden sm:block" />
+          <Divider type="vertical  my-auto hidden sm:block" />
 
           {/* <Details icon={<CiCircleChevRight />}>
             There is a multipurpose room. downstairs to adjust functions
