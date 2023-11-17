@@ -1,5 +1,5 @@
 import SmallContainer from "../../shared/SmallContainer";
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
 import img1 from "../../assets/banner1.jpg";
 import img2 from "../../assets/banner2.jpg";
@@ -16,6 +16,8 @@ import Location from "./Location";
 import ContactDeveloper from "./ContactDeveloper";
 import SimilarListings from "./SimilarListings";
 import FAQ from "./FAQ";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -65,6 +67,13 @@ const SingleProperty = () => {
   const handleContactAbout = (checkedValues) => {
     console.log("checked = ", checkedValues);
   };
+  //get by propterty
+  const property = useLoaderData()
+console.log('property',property)
+
+
+
+    
 
   return (
     <div>

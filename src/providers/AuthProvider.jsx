@@ -12,29 +12,17 @@ export const AuthContext = createContext();
 // Create a UserContextProvider component
 export const AuthProvider = ({ children }) => {
   // You can initialize your global data here
-  const [projectId, setprojectId] = useState(localStorage.getItem('projectId') || 'context');
-  //('projectId',projectId)
-  // Update localStorage whenever projectId changes
-  useEffect(() => {
-    localStorage.setItem('projectId', projectId);
-  }, [projectId]);
 
-  const [FullJobData, setJobData] = useState("FullJobData");
-  const [file, setfile] = useState("");
+  
+
+  const [searchvalue, setsearchvalue] = useState("");
+ 
 
 
-  // You can provide functions to update the data as needed
-  const projectUpdateId = (newData) => {
-    setprojectId(newData);
+  const handleSearchvalue = (newData) => {
+    setsearchvalue(newData);
   };
 
-  const handleJobData = (newData) => {
-    setJobData(newData);
-  };
-
-  const handlefile = (newData) => {
-    setfile(newData);
-  };
 
   //firebase------------------------------
 
@@ -104,39 +92,13 @@ export const AuthProvider = ({ children }) => {
     })
 
   }, [])
-  const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount + 1);
-    }, 1000); // Increment every second (1000 milliseconds)
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-  const userId = user?.email; // Replace with the actual user ID
 
-  const [totalWords, setUserData] = useState(0);
- 
-  const [words, setWords] = useState();
 
  
 
-
-
-  // Function to update words and save it to localStorage
-  const handleWords = (newData) => {
-    // const newWords = parseInt(words + newData);
-    setWords(newData);
-    // Save the updated 'words' to localStorage
-  };
-
-  // useEffect(() => {
-  //   setWords(userData)
-  // }, [words]);
-
-  const authInfo = {totalWords, words, handleWords, projectId, projectUpdateId,logout, FullJobData, handleJobData,logout, handlefile, file, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+  const authInfo = { searchvalue, handleSearchvalue, logout,logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
 
 
 

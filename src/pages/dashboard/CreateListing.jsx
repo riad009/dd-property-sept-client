@@ -18,7 +18,7 @@ const CreateListing = () => {
   const [area, setArea] = useState();
 
   const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
+  const [district, setdistrict] = useState("");
   const [city, setCity] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
   const [zip, setZip] = useState("");
@@ -166,7 +166,7 @@ const CreateListing = () => {
         price,
         area,
         address,
-        state,
+        district,
         city,
         neighborhood,
         zip,
@@ -319,9 +319,9 @@ const CreateListing = () => {
               onChange={(e) => setAddress(e.target.value)}
             />
             <ProfileInput
-              label="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
+              label="District"
+              value={district}
+              onChange={(e) => setdistrict(e.target.value)}
             />
             <ProfileInput
               label="City"

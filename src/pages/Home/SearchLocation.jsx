@@ -6,8 +6,14 @@ import AllResidentialDropdown from "../../components/AllResidentialDropdown";
 import AnyPrice from "../../components/AnyPriceDropdown";
 import BedroomDropdown from "../../components/BedroomDropdown";
 import axios from "axios";
+import { useUserContext } from "../../providers/AuthProvider";
+import { Link, Navigate } from "react-router-dom";
 
 const SearchLocation = () => {
+
+  const { searchvalue, handleSearchvalue } = useUserContext();
+
+  console.log('searchvalue', searchvalue)
   const [propertyType, setPropertyType] = useState("residential");
 
   const [footer1Open, setFooter1Open] = useState(false);
@@ -97,9 +103,10 @@ const SearchLocation = () => {
   };
 
 
-// Search start
+  // Search start
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  console.log('suggestions', suggestions)
   const [isActive, setIsActive] = useState(false);
   const searchRef = useRef(null);
 
@@ -115,16 +122,18 @@ const SearchLocation = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [searchRef]);
+
   useEffect(() => {
     // Fetch suggestions when the search term changes
     if (search.trim() !== '') {
-      axios.get(`http://localhost:5000/get/search/${search}`)
-        .then(response => {
+      axios
+        .get(`http://localhost:5000/get/search/${search}`)
+        .then((response) => {
           // Update the suggestions based on the backend response
           setSuggestions(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error:', error);
         });
     } else {
@@ -133,12 +142,20 @@ const SearchLocation = () => {
     }
   }, [search]);
 
-  function highlightMatch(text, search) {
-    const regex = new RegExp(`(${search})`, 'gi');
-    const highlightedText = text.replace(regex, (match) => `<span class="text-red-500">${match}</span>`);
-    return { __html: highlightedText };
+  //  Search button
+
+  const handleSearch = () => {
+    console.log('click')
+
   }
 
+  const [city, setCity] = useState("");
+
+  useEffect(() => {
+    handleSearchvalue({city,state:search});
+  }, [search]);
+
+  //  Search button
 
   // Search end
   return (
@@ -152,7 +169,6 @@ const SearchLocation = () => {
       <div className="flex justify-center">
 
         {/*  */}
-
         <div className="relative inline-block w-full" ref={searchRef}>
           <input
             type="text"
@@ -162,57 +178,74 @@ const SearchLocation = () => {
             onChange={(e) => {
               setSearch(e.target.value);
               setIsActive(true);
-              // Your logic for suggestions goes here
             }}
           />
-          {isActive && suggestions.length > 0 && (
+          {isActive && search.length > 0 && (
             <ul className="absolute top-full left-0 w-full border border-solid border-gray-300 bg-white rounded-b-md shadow-md z-10 font-serif max-h-72 overflow-y-auto">
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  className="hover:bg-gray-100 text-gray-500 flex items-center p-4 border-b border-solid border-gray-300 cursor-pointer text-black"
-                >
-                  {/* SVG Icon */}
-                  <svg
-                    className="w-3 h-3 text-gray-500 mr-3 mb-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              {suggestions.map((suggestion, index) => {
+                // Split the suggestion text into parts before and after the search term
+                const parts = suggestion.district.split(new RegExp(`(${search})`, 'gi'));
+
+                return (
+                  <li
+                    key={index}
+                    className="hover:bg-gray-100 text-gray-500 flex items-center p-4 border-b border-solid border-gray-300 cursor-pointer text-black"
+                    onClick={() => {
+                      setSearch(suggestion.district);
+                      setCity(suggestion.city);
+                      setIsActive(false); // Close the suggestions after selecting a city
+                    }}
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 2C7.48 2 4 5.48 4 10c0 5.25 8 13 8 13s8-7.75 8-13c0-4.52-3.48-8-8-8z"
-                    />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
+                    {/* SVG Icon */}
+                    <svg
+                      className="w-3 h-3 text-gray-500 mr-3 mb-2"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 2C7.48 2 4 5.48 4 10c0 5.25 8 13 8 13s8-7.75 8-13c0-4.52-3.48-8-8-8z"
+                      />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
 
-                  {/* Property Title */}
-                  <span className="flex-grow">
-                    <span
-                      className="text-gray-600 hover:bg-gray-200"
-                      dangerouslySetInnerHTML={highlightMatch(suggestion.propertyTitle, search)}
-                    />
-                    {/* Small text below property title */}
-                    <span className="text-sm text-gray-500 block">{suggestion.address}</span>
-                  </span>
+                    {/* Property Title */}
+                    <span className="flex-grow">
+                      <span className="text-gray-600 hover:bg-gray-200">
+                        {parts.map((part, i) => (
+                          // Highlight the matching part in red
+                          part.toLowerCase() === search.toLowerCase() ? (
+                            <span key={i} className="text-red-500">
+                              {part}
+                            </span>
+                          ) : (
+                            <span key={i}>{part}</span>
+                          )
+                        ))}
+                      </span>
 
-                  <h1 className="">{suggestion.propertyType}</h1>
-                </li>
-              ))}
+                      {/* Small text below property title */}
+                      <span className="text-sm text-gray-500 block">{suggestion.district}</span>
+                    </span>
+
+                    <h1 className="">{suggestion.city}</h1>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>
 
-
-
-
         {/*  */}
-        <button className="bg-danger p-3 rounded-r-md" type="submit">
-          Search
-        </button>
+        <Link to={'/property-for-sale'}>
+          <button onClick={handleSearch} className="bg-danger p-3 rounded-r-md" type="submit">
+            Search
+          </button>
+        </Link>
       </div>
       {/* Footer */}
       <div className="text-sm mt-5 flex items-center gap-5 justify-center">
