@@ -96,12 +96,18 @@ const SearchLocation = () => {
     console.log("checked = ", checkedValues);
   };
 
+  const [minprice, setminprice] = useState('');
+  const [maxprice, setmaxprice] = useState('');
+
+  
+  const price =  { maxprice, minprice } 
+  
   const minPriceHandler = (e) => {
-    console.log(e.target.value);
+    setminprice(e)
   };
 
   const maxPriceHandler = (e) => {
-    console.log(e.target.value);
+    setmaxprice(e)
   };
 
 
@@ -281,6 +287,7 @@ const SearchLocation = () => {
           footer2Open={footer2Open}
           maxPriceHandler={maxPriceHandler}
           minPriceHandler={minPriceHandler}
+          price={price}
         />
         {/* Footer 3 */}
         <BedroomDropdown

@@ -9,7 +9,10 @@ const AnyPrice = ({
   minPriceHandler,
   maxPriceHandler,
   border,
+  price,
 }) => {
+
+
   return (
     <div className={`relative ${border && "bg-white w-fit py-2 rounded-md"}`}>
       <h6
@@ -47,7 +50,8 @@ const AnyPrice = ({
           </div>
           <Divider />
           {/* Footer Footer */}
-          <ApplyFilterButtons />
+   
+          <ApplyFilterButtons price={price} />
         </div>
       )}
     </div>

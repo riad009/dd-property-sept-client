@@ -167,7 +167,7 @@ const CreateListing = () => {
         propertyType,
 
         unit,
-        price,
+        price: parseInt(price),
         area,
         address,
         district,

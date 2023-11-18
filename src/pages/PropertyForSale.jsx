@@ -13,7 +13,7 @@ import { useLoaderData } from "react-router-dom";
 
 const PropertyForSale = () => {
 
-  const { searchvalue, handleSearchvalue, category, bedrooms } = useUserContext();
+  const { searchvalue, handleSearchvalue, category, bedrooms,pricefilter } = useUserContext();
 
 
   const [propertyType, setPropertyType] = useState("residential");
@@ -142,29 +142,42 @@ const PropertyForSale = () => {
   // get property
 
   const [searchResults, setSearchResults] = useState([]);
+  const [isDataLoading, setIsDataLoading] = useState(true);
+
   useEffect(() => {
-    // Define the search object
-
-    // Check if bedrooms is present
-    // Check if bedrooms is present
-    const apiUrl = bedrooms?.length
-      ? `http://localhost:5000/get/search/property/${JSON.stringify(searchvalue)}/${bedrooms}`
-      : `http://localhost:5000/get/search/property/${JSON.stringify(searchvalue)}`;
-      
-
-
-    // Send the search object to the server
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Handle the received data
-        setSearchResults(data);
+    const apiUrl = 'http://localhost:5000/get/search/property/new';
+  
+    const requestData = {
+      searchvalue: JSON.stringify(searchvalue),
+      bedrooms: bedrooms,
+      maxprice: pricefilter?.maxprice,
+      minprice: pricefilter?.minprice,
+    };
+  
+    // Fetch data only if isDataLoading is true
+    if (isDataLoading) {
+      // Send the search object to the server using POST method
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
       })
-      .catch(error => {
-        console.error('Error:', error);
-        // Handle errors if needed
-      });
-  }, [searchResults]); // Empty dependency array to run the effect only once when the component mounts
+        .then(response => response.json())
+        .then(data => {
+          // Handle the received data
+          setSearchResults(data);
+          // Set isDataLoading to false after the data is loaded
+          setIsDataLoading(false);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // Handle errors if needed
+          setIsDataLoading(false); // Set isDataLoading to false in case of an error
+        });
+    }
+  }, [isDataLoading]); // Dependency array with isDataLoading to run the effect when isDataLoading changes
 
   // get property
 

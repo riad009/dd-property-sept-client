@@ -20,6 +20,8 @@ export const AuthProvider = ({ children }) => {
   const [category, setcategory] = useState("");
 
   const [bedrooms, setbedrooms] = useState("");
+
+  const [pricefilter, setpricefilter] = useState("");
  
 
 
@@ -31,6 +33,10 @@ export const AuthProvider = ({ children }) => {
   };
   const handlebedrooms = (newData) => {
     setbedrooms(newData);
+  };
+
+  const handlePrice = (newData) => {
+    setpricefilter(newData);
   };
 
 
@@ -109,6 +115,7 @@ export const AuthProvider = ({ children }) => {
     const handleBackButton = () => {
       handlebedrooms()
       handleSearchvalue()
+      handlePrice()
      
     };
 
@@ -120,7 +127,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
 
-  const authInfo = {bedrooms,handlebedrooms, searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+  const authInfo = {pricefilter,handlePrice, bedrooms,handlebedrooms, searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
 
 
 
