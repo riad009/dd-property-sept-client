@@ -22,6 +22,9 @@ export const AuthProvider = ({ children }) => {
   const [bedrooms, setbedrooms] = useState("");
 
   const [pricefilter, setpricefilter] = useState("");
+
+
+  const [propertyUpdateId, setPropertyid] = useState("");
  
 
 
@@ -33,6 +36,10 @@ export const AuthProvider = ({ children }) => {
   };
   const handlebedrooms = (newData) => {
     setbedrooms(newData);
+  };
+
+  const handlePropertyid = (newData) => {
+    setPropertyid(newData);
   };
 
   const handlePrice = (newData) => {
@@ -116,6 +123,7 @@ export const AuthProvider = ({ children }) => {
       handlebedrooms()
       handleSearchvalue()
       handlePrice()
+      handlePropertyid()
      
     };
 
@@ -127,7 +135,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
 
-  const authInfo = {pricefilter,handlePrice, bedrooms,handlebedrooms, searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+  const authInfo = {propertyUpdateId,handlePropertyid,pricefilter,handlePrice, bedrooms,handlebedrooms, searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
 
 
 

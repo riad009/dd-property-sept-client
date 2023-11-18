@@ -228,7 +228,7 @@ const PropertyForSale = () => {
   return (
     <div className="p-10 bg-dark2/5">
       <SmallContainer>
-        <div className="bg-white/10 p-2 md:flex items-center gap-4 mb-10">
+        {/* <div className="bg-white/10 p-2 md:flex items-center gap-4 mb-10">
           <Search
             placeholder="input search text"
             allowClear
@@ -253,7 +253,7 @@ const PropertyForSale = () => {
               minPriceHandler={minPriceHandler}
               border
             />
-            {/* Footer 3 */}
+           
             <BedroomDropdown
               bedRoomSizes={bedRoomSizes}
               bedroomsSelected={bedroomsSelected}
@@ -263,7 +263,9 @@ const PropertyForSale = () => {
               border
             />
           </div>
-        </div>
+        </div> */}
+
+        
         <div className="flex items-center justify-between">
           <p>
 
@@ -271,7 +273,7 @@ const PropertyForSale = () => {
               length > 0 ?
                 <> {length} Results of Property For Sale in, {categoryproperty[0]?.category}, {categoryproperty[0]?.category2}</>
                 :
-                <>   <p className="m-6"> please Wait ...</p></>
+                <>  </>
             }
             {/* <TextRed>     Create Alert.</TextRed> */}
           </p>

@@ -5,8 +5,9 @@ import { useState } from "react";
 import { Button, Checkbox, Select, Upload } from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext, useUserContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
+import axios from "axios";
 
 const CreateListing = () => {
   const [propertyTitle, setPropertyTitle] = useState();
@@ -132,6 +133,7 @@ const CreateListing = () => {
   const [planSize, setPlanSize] = useState("");
   const [planImage, setPlanImage] = useState(null);
   const [category2, setCategory2] = useState(null);
+  const [mainImg, setmainImg] = useState();
 
   const handlePlanImageChange = (info) => {
     if (info.file.status === "done") {
@@ -146,6 +148,7 @@ const CreateListing = () => {
   // handleclick
 
   const { user } = useContext(AuthContext)
+  const { propertyUpdateId } = useUserContext();
 
   const handleAddToList = async (e) => {
     console.log('post')
@@ -194,6 +197,8 @@ const CreateListing = () => {
         category2,
         category,
         status: status ? status : "verify",
+        mainImg: mainImg ? mainImg : "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        
         // category: category ? category : "condos",
       };
 
@@ -221,6 +226,77 @@ const CreateListing = () => {
     }
   };
 
+
+  // update
+
+  const handleUpdateButton = async (e) => {
+    console.log('click')
+
+    const userdata = {
+      propertyTitle,
+      email,
+      planDescription,
+      loading,
+      planBedrooms,
+      planBathrooms,
+      planPrice,
+      pricePostfix,
+      planSize,
+      planImage,
+      description,
+      propertyType,
+      unit,
+      price: parseInt(price),
+      area,
+      address,
+      district,
+      city,
+      neighborhood,
+      zip,
+      country,
+      googleMapStreetView,
+      propertyId,
+      areaSize,
+      sizePrefix,
+      landArea,
+      landAreaSizePostfix,
+      bedrooms,
+      bathrooms,
+      garages,
+      garageSize,
+      yearBuild,
+      videoUrl,
+      virtualTourUrl,
+      amenities,
+      tenure,
+      developer,
+      category2,
+      category,
+      mainImg,
+    };
+
+
+    try {
+      const response = await axios.put(`http://localhost:5000/update/property/${propertyUpdateId}`, userdata);
+
+
+    } catch (error) {
+      if (error.response) {
+
+        console.error('Error Status:', error.response.status);
+        console.error('Error Data:', error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received:', error.request);
+      } else {
+
+        console.error('Error message:', error.message);
+      }
+
+    }
+  };
+
+  // update
   return (
     <div className="lg:p-10 p-5 bg-dark2/10">
       <DashboardHeader
@@ -235,6 +311,14 @@ const CreateListing = () => {
             value={propertyTitle}
             onChange={(e) => setPropertyTitle(e.target.value)}
           />
+          <ProfileInput
+            label="Property thumbnail - ( provide img link) "
+          
+            
+            onChange={(e) => setmainImg(e.target.value)}
+          
+          />
+
           <div className="mt-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -259,7 +343,7 @@ const CreateListing = () => {
                 // defaultValue="condos"
                 onChange={(value) => setCategory(value)}
                 options={[
-                 
+
                   { value: "condos", label: "Buy Condos Near BTS/MRT" },
                   { value: "curated", label: "Curated Collections" },
 
@@ -310,12 +394,12 @@ const CreateListing = () => {
           {/* group field */}
 
           {
-            category=='condos' ?
+            category == 'condos' ?
               <><div className="w-1/2 my-5">
                 <h1 className="block text-gray-700 text-sm font-bold mb-2">
-                
+
                   Category 2- <span className="text-red-400"> Area By condos</span>
-                  
+
                 </h1>
                 <Select
                   defaultValue=""
@@ -335,32 +419,32 @@ const CreateListing = () => {
               </div>
               </>
               :
-              category=='curated' ?
-              <>
-              <><div className="w-1/2 my-5">
-                <h1 className="block text-gray-700 text-sm font-bold mb-2">
-                  Category 2 - <span className="text-red-400">Area By Curated Collections</span>
-                </h1>
-                <Select
-                  defaultValue=""
-                  onChange={(value) => setCategory2(value)}
-                  options={[
-                    { value: "Affordable condo in Thailand", label: "Affordable condo in Thailand" },
-                    { value: "Stay in the bustling Bangkok", label: "Stay in the bustling Bangkok" },
-                    { value: "Condo near BTS Thong Lo", label: "Condo near BTS Thong Lo" },
-                    { value: "Luxury stay in Bangkok", label: "Luxury stay in Bangkok" },
+              category == 'curated' ?
+                <>
+                  <><div className="w-1/2 my-5">
+                    <h1 className="block text-gray-700 text-sm font-bold mb-2">
+                      Category 2 - <span className="text-red-400">Area By Curated Collections</span>
+                    </h1>
+                    <Select
+                      defaultValue=""
+                      onChange={(value) => setCategory2(value)}
+                      options={[
+                        { value: "Affordable condo in Thailand", label: "Affordable condo in Thailand" },
+                        { value: "Stay in the bustling Bangkok", label: "Stay in the bustling Bangkok" },
+                        { value: "Condo near BTS Thong Lo", label: "Condo near BTS Thong Lo" },
+                        { value: "Luxury stay in Bangkok", label: "Luxury stay in Bangkok" },
 
-                  ]}
-                  size="large"
-                  className="w-full"
-                />
+                      ]}
+                      size="large"
+                      className="w-full"
+                    />
 
 
-              </div>
-              </>
-              </>
-              :
-              <>Category Not selected</>
+                  </div>
+                  </>
+                </>
+                :
+                <>Category Not selected</>
           }
 
 
@@ -393,7 +477,7 @@ const CreateListing = () => {
                   { value: "5", label: "5" },
                   { value: "6", label: "6" },
                   { value: "7", label: "7" },
-               
+
                 ]}
                 size="large"
                 className="w-full"
@@ -622,12 +706,26 @@ const CreateListing = () => {
         </div>
       </div>
       <div className="flex justify-end">
-        <button
-          className="bg-danger text-white py-2 px-4 rounded-lg mt-4 w-full"
-          onClick={handleAddToList}
-        >
-          Add to List
-        </button>
+        {propertyUpdateId ?
+          <>
+            <button
+              className="bg-green-400 text-black  py-2 px-4 rounded-lg mt-4 w-full"
+              onClick={handleUpdateButton}
+            >
+              Update
+            </button>
+          </>
+          :
+          <>
+            <button
+              className="bg-danger text-white py-2 px-4 rounded-lg mt-4 w-full"
+              onClick={handleAddToList}
+            >
+              Add to List
+            </button>
+          </>
+
+        }
       </div>
     </div>
   );

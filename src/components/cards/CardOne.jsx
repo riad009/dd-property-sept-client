@@ -19,7 +19,7 @@ const CardOne = ({
     >
       <div className="relative">
         <img
-          src="https://photos.zillowstatic.com/fp/700731fde9d8bc354c5fea78d8a3a755-p_e.jpg"
+         src={property?.mainImg}
           alt="card_image"
           className={`${shadow && "rounded-t"}`}
           style={{ height: '200px', width: '300px' }} // Adjust the height and width as needed

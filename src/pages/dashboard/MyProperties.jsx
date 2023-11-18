@@ -4,11 +4,14 @@ import { Pagination, Select } from "antd";
 import img1 from "../../assets/banner1.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext, useUserContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const MyProperties = () => {
   const { user } = useContext(AuthContext);
+  const { handlePropertyid } = useUserContext();
   const [email, setEmail] = useState(user?.email);
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +72,13 @@ const MyProperties = () => {
     }
   };
 
-  
+  const navigate = useNavigate();
+
+  const handleUpdate = (p) => {
+    
+    handlePropertyid(p)
+    navigate(`/dashboard/create-listing`);
+  };
 
   return (
     <div className="p-10">
@@ -78,7 +87,7 @@ const MyProperties = () => {
           title={"My Properties"}
           description={"We are glad to see you again"}
         />
-        <div className="flex items-center gap-3 lg:mt-0 mt-3">
+        {/* <div className="flex items-center gap-3 lg:mt-0 mt-3">
           <Search placeholder="Search" allowClear />
           <Select
             defaultValue="lucy"
@@ -91,21 +100,21 @@ const MyProperties = () => {
               { value: "disabled", label: "Disabled", disabled: true },
             ]}
           />
-        </div>
+        </div> */}
       </div>
       <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">
           <th className="p-2">Listing Title</th>
           <th className="p-2">Date published</th>
           <th className="p-2">Category</th>
-          <th className="p-2">View</th>
+          {/* <th className="p-2">View</th> */}
           <th className="p-2">Action</th>
         </tr>
 
         {currentItems.map((p) => (
           <tr key={p.email} className="border">
             <td className="p-2 lg:flex gap-3 items-center">
-              <img className="w-40 inline rounded-lg" src={img1} alt="cover" />
+              <Link to={`/property/projects/${p._id}`}><img className="w-40 inline rounded-lg" src={img1} alt="cover" /></Link>
               <div>
                 <h1 className="font-semibold">{p.propertyTitle}</h1>
                 <p className="text-xs">Address: Lorem, ipsum dolor.</p>
@@ -118,10 +127,11 @@ const MyProperties = () => {
                 pending
               </span>
             </td>
-            <td>2345</td>
+            {/* <td>2345</td> */}
             <td>
               <div className="flex gap-2 text-danger">
-                <MdEdit className="bg-danger/10 p-1 text-2xl rounded-md" />
+             <Link onClick={()=>handleUpdate(p._id)}> <MdEdit  className="bg-danger/10 p-1 text-2xl rounded-md" /></Link>
+            
                 <MdDelete  onClick={() => handleDelete(p._id)} className="bg-danger/10 p-1 text-2xl rounded-md" />
               </div>
             </td>

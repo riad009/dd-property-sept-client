@@ -16,7 +16,7 @@ const PropertyCard = ({ property }) => {
   return (
     <Link to={`/property/projects/${property._id}`}>
       <div className="bg-white w-full md:w-4/6">
-        <img src='https://th1-cdn.pgimgs.com/project-listing-project/10776592/PLPHO.115004197.R400X300/Home-Sweet-Home-The-Forest-Muang-Chon-Buri-Thailand.jpg' alt="property_cover" className="rounded-t-lg w-full" />
+        <img src={property.mainImg} alt="property_cover" className="rounded-t-lg w-full" />
         <div className="p-2">
           <h1 className="mt-3 font-semibold text-xl">{propertyTitle}</h1>
           <h1 className="text-sm my-1">{property.address}</h1>
