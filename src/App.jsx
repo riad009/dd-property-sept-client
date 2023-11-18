@@ -52,10 +52,13 @@ const router = createBrowserRouter([
         path: "/property-for-sale",
         element: <PropertyForSale />,
       },
+   
       // {
-      //   path: "/property/projects/:projectName",
-      //   element: <SingleProperty />,
+      //   path: "/property-for-sale/:id/:id2",
+      //   element: <PropertyForSale />,
+      //   loader:({params})=>fetch(`http://localhost:5000/get/categoryproperty/${params.id}/${params.id2}`)
       // },
+   
       {
         path: '/property/projects/:id',
         element: <SingleProperty />,

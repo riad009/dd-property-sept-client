@@ -32,7 +32,7 @@ const buyCondosData = [
   },
 ];
 
-const BuyCondos = () => {
+const CurtaredCollection = () => {
 
   const { searchvalue, handleCategory ,handleSearchvalue} = useUserContext();
   const [properties, setProperties] = useState([]);
@@ -42,7 +42,7 @@ console.log('properties',properties)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/get/condos');
+        const response = await fetch('http://localhost:5000/get/curated');
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
@@ -112,4 +112,4 @@ console.log('properties',properties)
   );
 };
 
-export default BuyCondos;
+export default CurtaredCollection;

@@ -9,10 +9,11 @@ import { Switch } from "antd";
 import PropertyCard from "../components/cards/PropertyCard";
 import { useUserContext } from "../providers/AuthProvider";
 import { useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 
 const PropertyForSale = () => {
 
-  const { searchvalue, handleSearchvalue } = useUserContext();
+  const { searchvalue, handleSearchvalue, category } = useUserContext();
 
 
   const [propertyType, setPropertyType] = useState("residential");
@@ -141,7 +142,7 @@ const PropertyForSale = () => {
   // get property
 
   const [searchResults, setSearchResults] = useState([]);
- 
+
   useEffect(() => {
     // Define the search object
 
@@ -161,6 +162,50 @@ const PropertyForSale = () => {
 
   // get property
 
+
+
+  //category
+
+  const [categoryproperty, setcategory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    // Define the search object
+    const userData = {
+      category: category.combinedFields?.category,
+      category2: category.combinedFields?.category2,
+
+    }
+    
+
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/get/categoryproperty/${userData.category}/${userData.category2}`);
+        const data = await response.json();
+        setcategory(data);
+        setLoading(false); // Set loading to false after data is fetched
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    // Fetch data only on the initial render
+    if (loading) {
+      fetchData();
+    }
+
+  }, [loading]);
+
+  //category
+
+  //loader data
+
+  const property = useLoaderData()
+
+  const length = categoryproperty.length
+  //loader data
   return (
     <div className="p-10 bg-dark2/5">
       <SmallContainer>
@@ -203,8 +248,13 @@ const PropertyForSale = () => {
         <div className="flex items-center justify-between">
           <p>
 
-            93,018 Results of Property For Sale in, {searchvalue.state}, {searchvalue.city}
-            <TextRed>     Create Alert.</TextRed>
+            {
+              length > 0 ?
+                <> {length} Results of Property For Sale in, {categoryproperty[0]?.category}, {categoryproperty[0]?.category2}</>
+                :
+                <>   <p className="m-6"> please Wait ...</p></>
+            }
+            {/* <TextRed>     Create Alert.</TextRed> */}
           </p>
           <Switch
             checked={map}
@@ -233,11 +283,45 @@ const PropertyForSale = () => {
         </div>
 
         <div>
-          <div className="flex flex-col gap-5">
+          {/* <div className="flex flex-col gap-5">
             {searchResults.map((property) => (
               <PropertyCard property={property} />
             ))}
-          </div>
+          </div> */}
+          <section>
+            {
+              (searchResults.length > 0) ? (
+                <>
+                  <div className="flex flex-col gap-5">
+                    {searchResults.map((property) => (
+                      <PropertyCard key={property.id} property={property} />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  {(categoryproperty.length > 0) ? (
+                    <>
+                      <div className="flex flex-col gap-5">
+                        {categoryproperty.map((property) => (
+                          <PropertyCard key={property.id} property={property} />
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-center h-24">
+                        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 border-solid h-12 w-12"></div>
+                      </div>
+                    </>
+                  )}
+                </>
+              )
+            }
+
+
+
+          </section>
         </div>
       </SmallContainer>
     </div>

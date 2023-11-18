@@ -13,14 +13,19 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // You can initialize your global data here
 
-  
+
 
   const [searchvalue, setsearchvalue] = useState("");
+
+  const [category, setcategory] = useState("");
  
 
 
   const handleSearchvalue = (newData) => {
     setsearchvalue(newData);
+  };
+  const handleCategory = (newData) => {
+    setcategory(newData);
   };
 
 
@@ -71,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     return sendEmailVerification(email)
   }
 
- 
+
   const logout = () => {
 
     return signOut(auth)
@@ -96,9 +101,9 @@ export const AuthProvider = ({ children }) => {
 
 
 
- 
 
-  const authInfo = { searchvalue, handleSearchvalue, logout,logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+
+  const authInfo = { searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
 
 
 

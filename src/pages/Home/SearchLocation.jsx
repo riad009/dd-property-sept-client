@@ -7,11 +7,11 @@ import AnyPrice from "../../components/AnyPriceDropdown";
 import BedroomDropdown from "../../components/BedroomDropdown";
 import axios from "axios";
 import { useUserContext } from "../../providers/AuthProvider";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const SearchLocation = () => {
 
-  const { searchvalue, handleSearchvalue } = useUserContext();
+  const { searchvalue, handleSearchvalue,handleCategory } = useUserContext();
 
   console.log('searchvalue', searchvalue)
   const [propertyType, setPropertyType] = useState("residential");
@@ -144,8 +144,13 @@ const SearchLocation = () => {
 
   //  Search button
 
+  const navigate = useNavigate();
   const handleSearch = () => {
-    console.log('click')
+    
+    handleCategory('')
+    navigate(`/property-for-sale`);
+    
+   
 
   }
 
@@ -241,11 +246,11 @@ const SearchLocation = () => {
         </div>
 
         {/*  */}
-        <Link to={'/property-for-sale'}>
+        <div >
           <button onClick={handleSearch} className="bg-danger p-3 rounded-r-md" type="submit">
             Search
           </button>
-        </Link>
+        </div>
       </div>
       {/* Footer */}
       <div className="text-sm mt-5 flex items-center gap-5 justify-center">

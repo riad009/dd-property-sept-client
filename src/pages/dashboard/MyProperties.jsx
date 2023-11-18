@@ -97,7 +97,7 @@ const MyProperties = () => {
         <tr className="bg-dark text-white text-left">
           <th className="p-2">Listing Title</th>
           <th className="p-2">Date published</th>
-          <th className="p-2">Status</th>
+          <th className="p-2">Category</th>
           <th className="p-2">View</th>
           <th className="p-2">Action</th>
         </tr>

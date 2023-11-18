@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import image1 from "../../assets/banner1.jpg";
 import Button from "../../components/Button";
 import SectionHeader from "../../components/SectionHeader";
@@ -33,19 +34,45 @@ const virtualToursData = [
 
 const VirtualTours = () => {
   const navigate = useNavigate();
+
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/get/videos');
+        const data = await response.json();
+        setProperties(data);
+        setLoading(false); // Set loading to false after data is fetched
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    // Fetch data only on the initial render
+    if (loading) {
+      fetchData();
+    }
+  }, [loading]); // Dependency array includes 'loading' to ensure the effect runs when 'loading' changes
+
+  
+
   return (
     <div>
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
         <SectionHeader newItem title="Videos & Virtual Tours" />
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
-          {virtualToursData?.map((project, index) => (
+          {properties?.map((property, index) => (
             <CardOne
-              clickEvent={() => navigate(`/property/projects/${project.title}`)}
+            clickEvent={() => navigate(`/property/projects/${property._id}`)}
+              property={property}
               key={index}
-              image={project.image}
-              type={project.type}
-              title={project.title}
-              text={project.text}
+              // image={project.image}
+              // type={project.type}
+              // title={project.title}
+              // text={project.text}
             />
           ))}
         </div>
