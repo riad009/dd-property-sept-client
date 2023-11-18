@@ -41,7 +41,7 @@ const Overview = ({property}) => {
         <div>
           <p className="text-sm text-dark2">Unit</p>
           <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <RiCommunityFill className="text-xl" /> {property.area}
+            <RiCommunityFill className="text-xl" /> {property.unit}
           </p>
         </div>
       </div>

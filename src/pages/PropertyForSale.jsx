@@ -13,7 +13,7 @@ import { useLoaderData } from "react-router-dom";
 
 const PropertyForSale = () => {
 
-  const { searchvalue, handleSearchvalue, category } = useUserContext();
+  const { searchvalue, handleSearchvalue, category, bedrooms } = useUserContext();
 
 
   const [propertyType, setPropertyType] = useState("residential");
@@ -142,13 +142,19 @@ const PropertyForSale = () => {
   // get property
 
   const [searchResults, setSearchResults] = useState([]);
-
   useEffect(() => {
     // Define the search object
 
+    // Check if bedrooms is present
+    // Check if bedrooms is present
+    const apiUrl = bedrooms?.length
+      ? `http://localhost:5000/get/search/property/${JSON.stringify(searchvalue)}/${bedrooms}`
+      : `http://localhost:5000/get/search/property/${JSON.stringify(searchvalue)}`;
+      
+
 
     // Send the search object to the server
-    fetch(`http://localhost:5000/get/search/property/${JSON.stringify(searchvalue)}`)
+    fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
         // Handle the received data
@@ -168,7 +174,7 @@ const PropertyForSale = () => {
 
   const [categoryproperty, setcategory] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     // Define the search object
     const userData = {
@@ -176,7 +182,7 @@ const PropertyForSale = () => {
       category2: category.combinedFields?.category2,
 
     }
-    
+
 
 
     const fetchData = async () => {

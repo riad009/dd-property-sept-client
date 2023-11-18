@@ -13,6 +13,8 @@ const SearchLocation = () => {
 
   const { searchvalue, handleSearchvalue,handleCategory } = useUserContext();
 
+ 
+
   console.log('searchvalue', searchvalue)
   const [propertyType, setPropertyType] = useState("residential");
 
@@ -147,10 +149,17 @@ const SearchLocation = () => {
   const navigate = useNavigate();
   const handleSearch = () => {
     
+   if(search){
     handleCategory('')
     navigate(`/property-for-sale`);
-    
-   
+ 
+
+   }
+   else{
+    alert("Please Enter City or district in the search box")
+   }
+     
+ 
 
   }
 
@@ -177,8 +186,9 @@ const SearchLocation = () => {
         <div className="relative inline-block w-full" ref={searchRef}>
           <input
             type="text"
+           
             className="bg-white text-dark focus:outline-none p-3 rounded-l-md w-full"
-            placeholder="Search Location"
+            placeholder="Search City or District"
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -279,6 +289,7 @@ const SearchLocation = () => {
           footer3Handler={footer3Handler}
           footer3Open={footer3Open}
           handleBedroomSizeFilter={handleBedroomSizeFilter}
+          setBedroomsSelected={setBedroomsSelected}
         />
       </div>
     </div>

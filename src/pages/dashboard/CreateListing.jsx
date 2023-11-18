@@ -13,7 +13,7 @@ const CreateListing = () => {
   const [description, setDescription] = useState();
   const [propertyType, setPropertyType] = useState();
   const [status, setStatus] = useState();
-  const [rooms, setRooms] = useState();
+  const [unit, setunit] = useState();
   const [price, setPrice] = useState();
   const [area, setArea] = useState();
 
@@ -166,7 +166,7 @@ const CreateListing = () => {
         description,
         propertyType,
 
-        rooms,
+        unit,
         price,
         area,
         address,
@@ -380,18 +380,20 @@ const CreateListing = () => {
             />
             <div>
               <h1 className="block text-gray-700 text-sm font-bold mb-2">
-                Rooms
+                Unit
               </h1>
               <Select
                 defaultValue=""
-                onChange={(value) => setRooms(value)}
+                onChange={(value) => setunit(value)}
                 options={[
                   { value: "1", label: "1" },
                   { value: "2", label: "2" },
                   { value: "3", label: "3" },
                   { value: "4", label: "4" },
                   { value: "5", label: "5" },
-                  { value: "others", label: "Others" },
+                  { value: "6", label: "6" },
+                  { value: "7", label: "7" },
+               
                 ]}
                 size="large"
                 className="w-full"

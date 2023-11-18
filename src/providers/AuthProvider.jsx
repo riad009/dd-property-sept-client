@@ -18,6 +18,8 @@ export const AuthProvider = ({ children }) => {
   const [searchvalue, setsearchvalue] = useState("");
 
   const [category, setcategory] = useState("");
+
+  const [bedrooms, setbedrooms] = useState("");
  
 
 
@@ -26,6 +28,9 @@ export const AuthProvider = ({ children }) => {
   };
   const handleCategory = (newData) => {
     setcategory(newData);
+  };
+  const handlebedrooms = (newData) => {
+    setbedrooms(newData);
   };
 
 
@@ -100,10 +105,22 @@ export const AuthProvider = ({ children }) => {
 
 
 
+  useEffect(() => {
+    const handleBackButton = () => {
+      handlebedrooms()
+      handleSearchvalue()
+     
+    };
+
+    window.addEventListener('popstate', handleBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, []);
 
 
-
-  const authInfo = { searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
+  const authInfo = {bedrooms,handlebedrooms, searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
 
 
 

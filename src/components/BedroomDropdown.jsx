@@ -9,6 +9,8 @@ const BedroomDropdown = ({
   bedRoomSizes,
   bedroomsSelected,
   handleBedroomSizeFilter,
+  
+  setBedroomsSelected,
   border,
 }) => {
   return (
@@ -44,7 +46,7 @@ const BedroomDropdown = ({
           </div>
           <Divider />
           {/* Footer Footer */}
-          <ApplyFilterButtons />
+          <ApplyFilterButtons setBedroomsSelected={setBedroomsSelected}  bedroomsSelected={bedroomsSelected} />
         </div>
       )}
     </div>

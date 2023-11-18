@@ -76,7 +76,7 @@ console.log('properties',properties)
   return (
     <div>
       <SmallContainer extraClasses="px-10 py-16">
-        <SectionHeader newItem title="Buy Condos Near BTS/MRT" />
+        <SectionHeader newItem title="Curated Collections" />
    <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
       {loading && <h1>Loading...</h1>}
       {!loading &&
