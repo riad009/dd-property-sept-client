@@ -202,7 +202,7 @@ const UpdateProperty = () => {
 
 
     try {
-      const response = await axios.put(`http://localhost:5000/update/property/${propertyUpdateId}`, userdata);
+      const response = await axios.put(`https://server-khaki-kappa.vercel.app/update/property/${propertyUpdateId}`, userdata);
 
 
     } catch (error) {

@@ -42,7 +42,7 @@ console.log('properties',properties)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/get/condos');
+        const response = await fetch('https://server-khaki-kappa.vercel.app/get/condos');
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched

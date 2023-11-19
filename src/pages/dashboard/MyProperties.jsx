@@ -21,7 +21,7 @@ const MyProperties = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/get/emailWise?email=${user?.email}`
+          `https://server-khaki-kappa.vercel.app/get/emailWise?email=${user?.email}`
         );
         const result = await response.json();
         setData(result);
@@ -51,7 +51,7 @@ const MyProperties = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/delete/property/${id}`,
+        `https://server-khaki-kappa.vercel.app/delete/property/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -43,7 +43,7 @@ const LatestProjects = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/get/latestprojects');
+        const response = await fetch('https://server-khaki-kappa.vercel.app/get/latestprojects');
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched

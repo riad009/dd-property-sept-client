@@ -47,7 +47,7 @@ const HandPicked = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/get/handpicked');
+        const response = await fetch('https://server-khaki-kappa.vercel.app/get/handpicked');
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched

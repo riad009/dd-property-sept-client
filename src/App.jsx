@@ -57,14 +57,14 @@ const router = createBrowserRouter([
       // {
       //   path: "/property-for-sale/:id/:id2",
       //   element: <PropertyForSale />,
-      //   loader:({params})=>fetch(`http://localhost:5000/get/categoryproperty/${params.id}/${params.id2}`)
+      //   loader:({params})=>fetch(`https://server-khaki-kappa.vercel.app/get/categoryproperty/${params.id}/${params.id2}`)
       // },
    
       {
         path: '/property/projects/:id',
         element: <SingleProperty />,
      
-        loader:({params})=>fetch(`http://localhost:5000/get/property/idWise/${params.id}`)
+        loader:({params})=>fetch(`https://server-khaki-kappa.vercel.app/get/property/idWise/${params.id}`)
       },
     ],
   },

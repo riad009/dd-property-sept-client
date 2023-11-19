@@ -145,7 +145,7 @@ const PropertyForSale = () => {
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
-    const apiUrl = 'http://localhost:5000/get/search/property/new';
+    const apiUrl = 'https://server-khaki-kappa.vercel.app/get/search/property/new';
   
     const requestData = {
       searchvalue: JSON.stringify(searchvalue),
@@ -200,7 +200,7 @@ const PropertyForSale = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/get/categoryproperty/${userData.category}/${userData.category2}`);
+        const response = await fetch(`https://server-khaki-kappa.vercel.app/get/categoryproperty/${userData.category}/${userData.category2}`);
         const data = await response.json();
         setcategory(data);
         setLoading(false); // Set loading to false after data is fetched

@@ -203,7 +203,7 @@ const CreateListing = () => {
       };
 
 
-      const response = await fetch('http://localhost:5000/post/property', {
+      const response = await fetch('https://server-khaki-kappa.vercel.app/post/property', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -277,7 +277,7 @@ const CreateListing = () => {
 
 
     try {
-      const response = await axios.put(`http://localhost:5000/update/property/${propertyUpdateId}`, userdata);
+      const response = await axios.put(`https://server-khaki-kappa.vercel.app/update/property/${propertyUpdateId}`, userdata);
 
 
     } catch (error) {

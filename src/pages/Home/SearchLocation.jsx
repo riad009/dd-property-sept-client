@@ -136,7 +136,7 @@ const SearchLocation = () => {
     // Fetch suggestions when the search term changes
     if (search.trim() !== '') {
       axios
-        .get(`http://localhost:5000/get/search/${search}`)
+        .get(`https://server-khaki-kappa.vercel.app/get/search/${search}`)
         .then((response) => {
           // Update the suggestions based on the backend response
           setSuggestions(response.data);
