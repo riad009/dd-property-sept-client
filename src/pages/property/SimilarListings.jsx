@@ -65,7 +65,7 @@ const similarListings = [
 const SimilarListings = () => {
   return (
     <div className="bg-dark/10 px-10">
-      <SmallContainer extraClasses="sm:py-16 py-10">
+      {/* <SmallContainer extraClasses="sm:py-16 py-10">
         <SectionHeader title="Similar Listings" />
         <div className="md:overflow-x-hidden overflow-x-scroll flex gap-5">
           {similarListings?.map((project, index) => (
@@ -80,7 +80,7 @@ const SimilarListings = () => {
             />
           ))}
         </div>
-      </SmallContainer>
+      </SmallContainer> */}
     </div>
   );
 };

@@ -9,7 +9,7 @@ import { AuthContext, useUserContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 import axios from "axios";
 
-const CreateListing = () => {
+const UpdateProperty = () => {
   const [propertyTitle, setPropertyTitle] = useState();
   const [description, setDescription] = useState();
   const [propertyType, setPropertyType] = useState();
@@ -150,82 +150,7 @@ const CreateListing = () => {
   const { user } = useContext(AuthContext)
   const { propertyUpdateId } = useUserContext();
 
-  const handleAddToList = async (e) => {
-    console.log('post')
-
-    try {
-      const userData = {
-
-        email: user?.email,
-        planDescription,
-        loading,
-        planBedrooms,
-        planBathrooms,
-        planPrice,
-        pricePostfix,
-        planSize,
-        planImage,
-        propertyTitle,
-        description,
-        propertyType,
-
-        unit,
-        price: parseInt(price),
-        area,
-        address,
-        district,
-        city,
-        neighborhood,
-        zip,
-        country,
-        googleMapStreetView,
-        propertyId,
-        areaSize,
-        sizePrefix,
-        landArea,
-        landAreaSizePostfix,
-        bedrooms,
-        bathrooms,
-        garages,
-        garageSize,
-        yearBuild,
-        videoUrl,
-        virtualTourUrl,
-        amenities,
-        tenure,
-        developer,
-        category2: category2 ? category2 : "Condos Near BTS Silom Line",
-        category: category ? category : "condos",
-        status: status ? status : "verify",
-        mainImg: mainImg ? mainImg : "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        
-        // category: category ? category : "condos",
-      };
-
-
-      const response = await fetch('http://localhost:5000/post/property', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-
-      // Handle the response as needed
-      const result = await response.json();
-      console.log(result);
-
-      // Clear the form or perform other actions after successful submission
-      setUsername("");
-      setNameInput(false);
-      setEmail("");
-      setPassword("");
-      setError("");
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
-
+ 
 
   // update
 
@@ -234,7 +159,7 @@ const CreateListing = () => {
 
     const userdata = {
       propertyTitle,
-      email,
+      email: user?.email,
       planDescription,
       loading,
       planBedrooms,
@@ -706,18 +631,20 @@ const CreateListing = () => {
         </div>
       </div>
       <div className="flex justify-end">
-     
-         
-            <button
-              className="bg-danger text-white py-2 px-4 rounded-lg mt-4 w-full"
-              onClick={handleAddToList}
-            >
-              Add to List
-            </button>
        
+            <button
+              className="bg-green-400 text-black  py-2 px-4 rounded-lg mt-4 w-full"
+              onClick={handleUpdateButton}
+            >
+              Update
+            </button>
+        
+       
+
+        
       </div>
     </div>
   );
 };
 
-export default CreateListing;
+export default UpdateProperty;

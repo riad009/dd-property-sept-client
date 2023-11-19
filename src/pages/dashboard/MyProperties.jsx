@@ -77,7 +77,7 @@ const MyProperties = () => {
   const handleUpdate = (p) => {
     
     handlePropertyid(p)
-    navigate(`/dashboard/create-listing`);
+    navigate(`/dashboard/update`);
   };
 
   return (

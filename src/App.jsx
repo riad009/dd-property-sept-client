@@ -18,6 +18,7 @@ import ProfilePage from "./pages/dashboard/MyProfile";
 import MyPackage from "./pages/dashboard/MyPackage";
 import CreateListing from "./pages/dashboard/CreateListing";
 import Membership from "./pages/Membership";
+import UpdateProperty from "./pages/dashboard/UpdateProperty";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateListing />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "update",
+        element: (
+          <PrivateRoute>
+           <UpdateProperty></UpdateProperty>
           </PrivateRoute>
         ),
       },
