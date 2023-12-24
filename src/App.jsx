@@ -19,6 +19,8 @@ import MyPackage from "./pages/dashboard/MyPackage";
 import CreateListing from "./pages/dashboard/CreateListing";
 import Membership from "./pages/Membership";
 import UpdateProperty from "./pages/dashboard/UpdateProperty";
+import CreateListingSteps from "./pages/dashboard/CreateListingSteps";
+import CreateListingFront from "./pages/CreateListingFront";
 
 const router = createBrowserRouter([
   {
@@ -53,18 +55,21 @@ const router = createBrowserRouter([
         path: "/property-for-sale",
         element: <PropertyForSale />,
       },
-   
+
       // {
       //   path: "/property-for-sale/:id/:id2",
       //   element: <PropertyForSale />,
       //   loader:({params})=>fetch(`https://server-khaki-kappa.vercel.app/get/categoryproperty/${params.id}/${params.id2}`)
       // },
-   
+
       {
-        path: '/property/projects/:id',
+        path: "/property/projects/:id",
         element: <SingleProperty />,
-     
-        loader:({params})=>fetch(`https://server-khaki-kappa.vercel.app/get/property/idWise/${params.id}`)
+
+        loader: ({ params }) =>
+          fetch(
+            `https://server-khaki-kappa.vercel.app/get/property/idWise/${params.id}`
+          ),
       },
     ],
   },
@@ -84,7 +89,18 @@ const router = createBrowserRouter([
         path: "create-listing",
         element: (
           <PrivateRoute>
-            <CreateListing />
+            {/* <CreateListing /> */}
+            {/* <CreateListingSteps /> */}
+            <CreateListingFront />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "create-listing-steps",
+        element: (
+          <PrivateRoute>
+            {/* <CreateListing /> */}
+            <CreateListingSteps />
           </PrivateRoute>
         ),
       },
@@ -92,7 +108,7 @@ const router = createBrowserRouter([
         path: "update",
         element: (
           <PrivateRoute>
-           <UpdateProperty></UpdateProperty>
+            <UpdateProperty></UpdateProperty>
           </PrivateRoute>
         ),
       },

@@ -18,3 +18,22 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
+
+.ant-steps-item-icon:where {
+  /* background-color: orange !important;
+  border-color: orange !important; */
+}
+
+/* :where(.css-dev-only-do-not-override-txh9fw).ant-steps
+  .ant-steps-item-finish
+  .ant-steps-item-icon {
+  background-color: rgba(245, 178, 39, 0.24) !important;
+  border-color: rgba(245, 178, 39, 0.24) !important;
+}
+
+:where(.css-dev-only-do-not-override-txh9fw).ant-steps
+  .ant-steps-item-finish
+  .ant-steps-item-icon
+  > .ant-steps-icon {
+  color: orange;
+} */
