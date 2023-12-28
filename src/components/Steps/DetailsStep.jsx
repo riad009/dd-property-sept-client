@@ -1,90 +1,160 @@
 import React from "react";
 import ProfileInput from "../ProfileInput";
 import { Checkbox } from "antd";
+import FormCheckbox from "../forms/FormCheckbox";
+import FormInput from "../forms/FormInput";
 
 const DetailsStep = () => {
+  const plainOptions = [
+    "Air Conditionning",
+    "Barbeque",
+    "Dryer",
+    "Gym",
+    "Laundry",
+    "Microwave",
+    "Outdoor Shower",
+    "Refrigerator",
+    "Sauna",
+    "Lawn",
+    "TV Cable",
+    "Washer",
+    "Wifi",
+    "Window Coverings",
+    "Swimming Pool",
+  ];
   return (
-    <div className="lg:p-10 p-5 bg-white rounded-lg">
-      <h1 className="font-semibold mb-5 text-xl">Detailed Information</h1>
-      <div className="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-        <ProfileInput
-          label="Property ID"
-          // value={propertyId}
-          // onChange={(e) => setPropertyId(e.target.value)}
-        />
-        <ProfileInput
-          label="Tenure"
-          // value={tenure}
-          // onChange={(e) => setTenure(e.target.value)}
-        />
-        <ProfileInput
-          label="Developer"
-          // value={developer}
-          // onChange={(e) => setDeveloper(e.target.value)}
-        />
-        <ProfileInput
-          label="Area Size"
-          // value={areaSize}
-          // onChange={(e) => setAreaSize(e.target.value)}
-        />
-        <ProfileInput
-          label="Size Prefix"
-          // value={sizePrefix}
-          // onChange={(e) => setSizePrefix(e.target.value)}
-        />
-        <ProfileInput
-          label="Land Area"
-          // value={landArea}
-          // onChange={(e) => setLandArea(e.target.value)}
-        />
-        <ProfileInput
-          label="Land Area Size Postfix"
-          // value={landAreaSizePostfix}
-          // onChange={(e) => setLandAreaSizePostfix(e.target.value)}
-        />
-        <ProfileInput
-          label="Bedrooms"
-          // value={bedrooms}
-          // onChange={(e) => setBedrooms(e.target.value)}
-        />
-        <ProfileInput
-          label="Bathrooms"
-          // value={bathrooms}
-          // onChange={(e) => setBathrooms(e.target.value)}
-        />
-        <ProfileInput
-          label="Garages"
-          // value={garages}
-          // onChange={(e) => setGarages(e.target.value)}
-        />
-        <ProfileInput
-          label="Garage Size"
-          // value={garageSize}
-          // onChange={(e) => setGarageSize(e.target.value)}
-        />
-        <ProfileInput
-          label="Year Build"
-          // value={yearBuild}
-          // onChange={(e) => setYearBuild(e.target.value)}
-        />
-        <ProfileInput
-          label="Video URL"
-          // value={videoUrl}
-          // onChange={(e) => setVideoUrl(e.target.value)}
-        />
-        <ProfileInput
-          label="360 Degree Virtual Tour"
-          // value={virtualTourUrl}
-          // onChange={(e) => setVirtualTourUrl(e.target.value)}
-        />
-      </div>
-      <div className="mt-5">
-        <h1 className="block text-gray-700 font-bold mb-2">Amenities</h1>
-        <Checkbox.Group
-          className="md:grid grid-cols-4 gap-5"
-          // options={plainOptions}
-          // onChange={(value) => setAmenities(value)}
-        />
+    <div
+      className="bg-white"
+      style={{
+        border: "1px solid #d9d9d9",
+        borderRadius: "5px",
+        padding: "15px",
+        marginBottom: "10px",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "18px",
+          marginBottom: "10px",
+        }}
+      >
+        Detailed Information
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="mb-[10px]">
+          <FormInput type="text" name="address" size="large" label="Address" />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="propertyId"
+            size="large"
+            label="Property Id"
+          />
+        </div>
+
+        <div className="mb-[10px]">
+          <FormInput type="text" name="tenure" size="large" label="Tenure" />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="developer"
+            size="large"
+            label="Developer"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="areaSize"
+            size="large"
+            label="Area Size"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="sizePrefix"
+            size="large"
+            label="Size Prefix"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="landArea"
+            size="large"
+            label="Land Area"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="landAreaSizePostfix"
+            size="large"
+            label="Land Area Size Postfix"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="bedrooms"
+            size="large"
+            label="bedrooms"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="bathrooms"
+            size="large"
+            label="Bathrooms"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput type="text" name="garages" size="large" label="Garages" />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="garageSize"
+            size="large"
+            label="Garage Size"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="yearBuild"
+            size="large"
+            label="Year Build"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="videoUrl"
+            size="large"
+            label="Video Url"
+          />
+        </div>
+        <div className="mb-[10px]">
+          <FormInput
+            type="text"
+            name="virtualTourUrl"
+            size="large"
+            label="360 Degree Virtual Tour"
+          />
+        </div>
+        <div className="mb-[10px] md:col-span-3">
+          <FormCheckbox
+            options={plainOptions}
+            name="amenities"
+            label="Amenities"
+          />
+        </div>
       </div>
     </div>
   );

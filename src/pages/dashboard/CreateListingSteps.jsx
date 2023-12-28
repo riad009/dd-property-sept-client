@@ -3,7 +3,7 @@ import DetailsStep from "../../components/Steps/DetailsStep";
 import LocationStep from "../../components/Steps/LocationStep";
 import PropertyDetails from "../../components/Steps/PropertyDetails";
 import PropertyMedia from "../../components/Steps/PropertyMedia";
-import Stepper from "./Stepper";
+import Stepper from "../../components/stepper/Stepper";
 
 const CreateListingSteps = () => {
   const steps = [
@@ -19,10 +19,10 @@ const CreateListingSteps = () => {
       title: "Details",
       content: <DetailsStep />,
     },
-    {
-      title: "Property Media",
-      content: <PropertyMedia />,
-    },
+    // {
+    //   title: "Property Media",
+    //   content: <PropertyMedia />,
+    // },
     {
       title: "Property Details",
       content: <PropertyDetails />,
