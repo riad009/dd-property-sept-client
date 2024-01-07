@@ -33,6 +33,7 @@ const FormInput = ({
               size={size}
               value={value ? value : field.value}
               placeholder={placeholder}
+              // className="py-3"
             />
           ) : (
             <Input
@@ -41,6 +42,7 @@ const FormInput = ({
               size={size}
               value={value ? value : field.value}
               placeholder={placeholder}
+              // className="py-3"
             />
           )
         }

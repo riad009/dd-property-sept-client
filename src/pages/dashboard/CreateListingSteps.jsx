@@ -8,13 +8,14 @@ import Stepper from "../../components/stepper/Stepper";
 const CreateListingSteps = () => {
   const steps = [
     {
-      title: "Create Listing",
-      content: <CreateListingStep />,
-    },
-    {
       title: "Location",
       content: <LocationStep />,
     },
+    {
+      title: "Create Listing",
+      content: <CreateListingStep />,
+    },
+
     {
       title: "Details",
       content: <DetailsStep />,

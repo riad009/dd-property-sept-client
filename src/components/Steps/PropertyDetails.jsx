@@ -28,9 +28,6 @@ const PropertyDetails = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="mb-[10px]">
-          <FormInput type="text" name="address" size="large" label="Address" />
-        </div>
-        <div className="mb-[10px]">
           <FormInput
             type="text"
             name="planBedrooms"

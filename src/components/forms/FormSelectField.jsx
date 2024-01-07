@@ -9,7 +9,7 @@ const FormSelectField = ({
   placeholder,
   label,
   defaultValue,
-  onChange,
+  customOnChange,
 }) => {
   const { control } = useFormContext();
 
@@ -21,7 +21,8 @@ const FormSelectField = ({
         name={name}
         render={({ field: { value, onChange } }) => (
           <Select
-            onChange={onChange}
+            showSearch
+            onChange={customOnChange ? customOnChange : onChange}
             options={options}
             value={value}
             size={size}

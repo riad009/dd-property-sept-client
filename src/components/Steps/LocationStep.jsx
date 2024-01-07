@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfileInput from "../ProfileInput";
 import FormInput from "../forms/FormInput";
+import FormSelectField from "../forms/FormSelectField";
 
 const LocationStep = () => {
+  const [location, setLocation] = useState("");
+
+  console.log({ location });
   return (
     <div
       className="bg-white"
@@ -15,51 +19,89 @@ const LocationStep = () => {
     >
       <p
         style={{
-          fontSize: "18px",
+          fontSize: "28px",
           marginBottom: "10px",
         }}
+        className="font-semibold"
       >
-        Location
+        Create Listing: Location
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="mb-[10px]">
-          <FormInput type="text" name="address" size="large" label="Address" />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="district"
-            size="large"
-            label="District"
-          />
-        </div>
+      <p
+        style={{
+          fontSize: "29px",
+          marginBottom: "14px",
+        }}
+        className="inline-flex items-center gap-2 font-medium"
+      >
+        Listing Location{" "}
+        <span className="text-red-600 text-sm">(Required*)</span>
+      </p>
 
-        <div className="mb-[10px]">
-          <FormInput type="text" name="city" size="large" label="City" />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
+      <p
+        style={{
+          fontSize: "18px",
+          marginBottom: "14px",
+        }}
+        className=""
+      >
+        Search by property name, street address or postal code
+      </p>
+
+      <div className="grid grid-cols-1 max-w-[600px]">
+        <div className="mb-[12px]">
+          <FormSelectField
             type="text"
-            name="neighborhood"
+            name="location"
             size="large"
-            label="Neighborhood"
+            label="Location"
+            customOnChange={(value) => setLocation(value)}
+            options={[
+              {
+                value: "Value1",
+                label: "Value 1",
+              },
+              {
+                value: "Value2",
+                label: "Value 2",
+              },
+              {
+                value: "Value3",
+                label: "Value 3",
+              },
+              {
+                value: "Value4",
+                label: "Value 4",
+              },
+            ]}
           />
+          <p className="text-[14px] text-gray-400 py-2">
+            You can't edit this after your listing has been published
+          </p>
         </div>
-        <div className="mb-[10px]">
-          <FormInput type="text" name="zip" size="large" label="Zip" />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput type="text" name="country" size="large" label="country" />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="googleMapStreetView"
-            size="large"
-            label="Google Map Street View"
-          />
-        </div>
+        {location && (
+          <div>
+            <div className="mb-[10px]">
+              <FormInput
+                type="text"
+                name="postalCode"
+                size="large"
+                label="Postal Code"
+              />
+            </div>
+            <div>
+              <FormInput
+                type="text"
+                name="propertyType"
+                size="large"
+                label="Property Type"
+              />
+            </div>
+            <p className="text-[14px] text-gray-400 py-2">
+              You can't edit this after your listing has been published
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
