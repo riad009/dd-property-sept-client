@@ -1,4 +1,4 @@
-const ProfileInput = ({ label, value, onChange }) => {
+const ProfileInput = ({ label, value, onChange, name }) => {
   return (
     <div>
       <label
@@ -11,6 +11,7 @@ const ProfileInput = ({ label, value, onChange }) => {
         type="text"
         id={label}
         value={value}
+        name={name}
         onChange={onChange}
         className="w-full px-3 py-2 placeholder-gray-500 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
       />
