@@ -9,7 +9,8 @@ import { useState } from "react";
 
 const latesProjects = [
   {
-    image: "https://photos.zillowstatic.com/fp/700731fde9d8bc354c5fea78d8a3a755-p_e.jpg",
+    image:
+      "https://photos.zillowstatic.com/fp/700731fde9d8bc354c5fea78d8a3a755-p_e.jpg",
     type: "New Project",
     title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
     text: "Hua Hin, Prachuap Khiri Khan",
@@ -34,7 +35,6 @@ const latesProjects = [
   },
 ];
 
-
 const LatestProjects = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
@@ -43,12 +43,14 @@ const LatestProjects = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://server-khaki-kappa.vercel.app/get/latestprojects');
+        const response = await fetch(
+          "https://dd-property-sept-server.vercel.app/get/latestprojects"
+        );
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -58,7 +60,6 @@ const LatestProjects = () => {
       fetchData();
     }
   }, [loading]); // Dependency array includes 'loading' to ensure the effect runs when 'loading' changes
-
 
   return (
     <div className="bg-dark2/10">

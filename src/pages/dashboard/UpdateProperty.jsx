@@ -144,18 +144,15 @@ const UpdateProperty = () => {
     }
   };
 
-
   // handleclick
 
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const { propertyUpdateId } = useUserContext();
-
- 
 
   // update
 
   const handleUpdateButton = async (e) => {
-    console.log('click')
+    console.log("click");
 
     const userdata = {
       propertyTitle,
@@ -200,24 +197,21 @@ const UpdateProperty = () => {
       mainImg,
     };
 
-
     try {
-      const response = await axios.put(`https://server-khaki-kappa.vercel.app/update/property/${propertyUpdateId}`, userdata);
-
-
+      const response = await axios.put(
+        `https://dd-property-sept-server.vercel.app/update/property/${propertyUpdateId}`,
+        userdata
+      );
     } catch (error) {
       if (error.response) {
-
-        console.error('Error Status:', error.response.status);
-        console.error('Error Data:', error.response.data);
+        console.error("Error Status:", error.response.status);
+        console.error("Error Data:", error.response.data);
       } else if (error.request) {
         // The request was made but no response was received
-        console.error('No response received:', error.request);
+        console.error("No response received:", error.request);
       } else {
-
-        console.error('Error message:', error.message);
+        console.error("Error message:", error.message);
       }
-
     }
   };
 
@@ -238,10 +232,7 @@ const UpdateProperty = () => {
           />
           <ProfileInput
             label="Property thumbnail - ( provide img link) "
-          
-            
             onChange={(e) => setmainImg(e.target.value)}
-          
           />
 
           <div className="mt-4">
@@ -268,16 +259,12 @@ const UpdateProperty = () => {
                 // defaultValue="condos"
                 onChange={(value) => setCategory(value)}
                 options={[
-
                   { value: "condos", label: "Buy Condos Near BTS/MRT" },
                   { value: "curated", label: "Curated Collections" },
-
                 ]}
                 size="large"
                 className="w-full"
               />
-
-
             </div>
 
             <div className="w-full">
@@ -291,13 +278,10 @@ const UpdateProperty = () => {
                   { value: "handpicked", label: "Handpicked for you" },
                   { value: "videos", label: "Videos & Virtual Tours " },
                   { value: "", label: "null" },
-
                 ]}
                 size="large"
                 className="w-full"
               />
-
-
             </div>
             <div className="w-full">
               <h1 className="block text-gray-700 text-sm font-bold mb-2">
@@ -310,7 +294,6 @@ const UpdateProperty = () => {
                 options={[
                   { value: "verify", label: "verify" },
                   { value: "not verify", label: "not verify" },
-
                 ]}
                 className="w-full"
               />
@@ -318,62 +301,79 @@ const UpdateProperty = () => {
           </div>
           {/* group field */}
 
-          {
-            category == 'condos' ?
-              <><div className="w-1/2 my-5">
+          {category == "condos" ? (
+            <>
+              <div className="w-1/2 my-5">
                 <h1 className="block text-gray-700 text-sm font-bold mb-2">
-
-                  Category 2- <span className="text-red-400"> Area By condos</span>
-
+                  Category 2-{" "}
+                  <span className="text-red-400"> Area By condos</span>
                 </h1>
                 <Select
                   defaultValue=""
                   onChange={(value) => setCategory2(value)}
                   options={[
-                    { value: "Condos Near BTS Silom Line", label: "Condos Near BTS Silom Line" },
-                    { value: "Condos Near Airport Link", label: "Condos Near Airport Link" },
-                    { value: "Condos Near MRT Purple Line", label: "Condos Near MRT Purple Line" },
-                    { value: "Condos Near BTS Sukhumvit Line", label: "Condos Near BTS Sukhumvit Line" },
-
+                    {
+                      value: "Condos Near BTS Silom Line",
+                      label: "Condos Near BTS Silom Line",
+                    },
+                    {
+                      value: "Condos Near Airport Link",
+                      label: "Condos Near Airport Link",
+                    },
+                    {
+                      value: "Condos Near MRT Purple Line",
+                      label: "Condos Near MRT Purple Line",
+                    },
+                    {
+                      value: "Condos Near BTS Sukhumvit Line",
+                      label: "Condos Near BTS Sukhumvit Line",
+                    },
                   ]}
                   size="large"
                   className="w-full"
                 />
-
-
               </div>
+            </>
+          ) : category == "curated" ? (
+            <>
+              <>
+                <div className="w-1/2 my-5">
+                  <h1 className="block text-gray-700 text-sm font-bold mb-2">
+                    Category 2 -{" "}
+                    <span className="text-red-400">
+                      Area By Curated Collections
+                    </span>
+                  </h1>
+                  <Select
+                    defaultValue=""
+                    onChange={(value) => setCategory2(value)}
+                    options={[
+                      {
+                        value: "Affordable condo in Thailand",
+                        label: "Affordable condo in Thailand",
+                      },
+                      {
+                        value: "Stay in the bustling Bangkok",
+                        label: "Stay in the bustling Bangkok",
+                      },
+                      {
+                        value: "Condo near BTS Thong Lo",
+                        label: "Condo near BTS Thong Lo",
+                      },
+                      {
+                        value: "Luxury stay in Bangkok",
+                        label: "Luxury stay in Bangkok",
+                      },
+                    ]}
+                    size="large"
+                    className="w-full"
+                  />
+                </div>
               </>
-              :
-              category == 'curated' ?
-                <>
-                  <><div className="w-1/2 my-5">
-                    <h1 className="block text-gray-700 text-sm font-bold mb-2">
-                      Category 2 - <span className="text-red-400">Area By Curated Collections</span>
-                    </h1>
-                    <Select
-                      defaultValue=""
-                      onChange={(value) => setCategory2(value)}
-                      options={[
-                        { value: "Affordable condo in Thailand", label: "Affordable condo in Thailand" },
-                        { value: "Stay in the bustling Bangkok", label: "Stay in the bustling Bangkok" },
-                        { value: "Condo near BTS Thong Lo", label: "Condo near BTS Thong Lo" },
-                        { value: "Luxury stay in Bangkok", label: "Luxury stay in Bangkok" },
-
-                      ]}
-                      size="large"
-                      className="w-full"
-                    />
-
-
-                  </div>
-                  </>
-                </>
-                :
-                <>Category Not selected</>
-          }
-
-
-
+            </>
+          ) : (
+            <>Category Not selected</>
+          )}
 
           {/* group field */}
           <div className="md:grid grid-cols-3 gap-5 my-10">
@@ -402,7 +402,6 @@ const UpdateProperty = () => {
                   { value: "5", label: "5" },
                   { value: "6", label: "6" },
                   { value: "7", label: "7" },
-
                 ]}
                 size="large"
                 className="w-full"
@@ -631,17 +630,12 @@ const UpdateProperty = () => {
         </div>
       </div>
       <div className="flex justify-end">
-       
-            <button
-              className="bg-green-400 text-black  py-2 px-4 rounded-lg mt-4 w-full"
-              onClick={handleUpdateButton}
-            >
-              Update
-            </button>
-        
-       
-
-        
+        <button
+          className="bg-green-400 text-black  py-2 px-4 rounded-lg mt-4 w-full"
+          onClick={handleUpdateButton}
+        >
+          Update
+        </button>
       </div>
     </div>
   );

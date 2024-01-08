@@ -1,9 +1,13 @@
 import { Button, Upload } from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import UploadDragger from "../UploadDragger";
+import { useEffect } from "react";
 const { Dragger } = Upload;
 
 const MediaStep = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, {});
   return (
     <div
       className="bg-white"

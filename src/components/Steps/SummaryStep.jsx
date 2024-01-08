@@ -1,7 +1,11 @@
 import { Popover, Progress, Select } from "antd";
+import { useEffect } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
 
 const SummaryStep = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, {});
   return (
     <div
       className="bg-white"

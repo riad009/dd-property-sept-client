@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProfileInput from "../ProfileInput";
 import { Checkbox, Radio } from "antd";
 import FormCheckbox from "../forms/FormCheckbox";
@@ -23,6 +23,10 @@ const DetailsStep = () => {
     "Window Coverings",
     "Swimming Pool",
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, {});
   return (
     <div
       className="bg-white"

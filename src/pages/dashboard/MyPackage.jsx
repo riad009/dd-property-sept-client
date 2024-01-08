@@ -1,6 +1,7 @@
 import Search from "antd/es/input/Search";
 import DashboardHeader from "./DashboardHeader";
 import { Pagination } from "antd";
+import { Link } from "react-router-dom";
 
 const MyPackage = () => {
   const handleChange = (value) => {
@@ -46,12 +47,13 @@ const MyPackage = () => {
           </tr>
         </table>
         <div className="flex justify-end">
-          <button
+          <Link
+            to="membership"
             className="bg-danger text-white py-2 px-4 rounded-lg mt-4"
-            onClick={() => {}}
+            // onClick={() => {}}
           >
             Change Package
-          </button>
+          </Link>
         </div>
       </div>
       <Pagination

@@ -10,12 +10,9 @@ import { useUserContext } from "../../providers/AuthProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const SearchLocation = () => {
+  const { searchvalue, handleSearchvalue, handleCategory } = useUserContext();
 
-  const { searchvalue, handleSearchvalue,handleCategory } = useUserContext();
-
- 
-
-  console.log('searchvalue', searchvalue)
+  console.log("searchvalue", searchvalue);
   const [propertyType, setPropertyType] = useState("residential");
 
   const [footer1Open, setFooter1Open] = useState(false);
@@ -96,25 +93,23 @@ const SearchLocation = () => {
     console.log("checked = ", checkedValues);
   };
 
-  const [minprice, setminprice] = useState('');
-  const [maxprice, setmaxprice] = useState('');
+  const [minprice, setminprice] = useState("");
+  const [maxprice, setmaxprice] = useState("");
 
-  
-  const price =  { maxprice, minprice } 
-  
+  const price = { maxprice, minprice };
+
   const minPriceHandler = (e) => {
-    setminprice(e)
+    setminprice(e);
   };
 
   const maxPriceHandler = (e) => {
-    setmaxprice(e)
+    setmaxprice(e);
   };
 
-
   // Search start
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  console.log('suggestions', suggestions)
+  console.log("suggestions", suggestions);
   const [isActive, setIsActive] = useState(false);
   const searchRef = useRef(null);
 
@@ -125,24 +120,24 @@ const SearchLocation = () => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [searchRef]);
 
   useEffect(() => {
     // Fetch suggestions when the search term changes
-    if (search.trim() !== '') {
+    if (search.trim() !== "") {
       axios
-        .get(`https://server-khaki-kappa.vercel.app/get/search/${search}`)
+        .get(`https://dd-property-sept-server.vercel.app/get/search/${search}`)
         .then((response) => {
           // Update the suggestions based on the backend response
           setSuggestions(response.data);
         })
         .catch((error) => {
-          console.error('Error:', error);
+          console.error("Error:", error);
         });
     } else {
       // Clear suggestions when the search term is empty
@@ -154,25 +149,18 @@ const SearchLocation = () => {
 
   const navigate = useNavigate();
   const handleSearch = () => {
-    
-   if(search){
-    handleCategory('')
-    navigate(`/property-for-sale`);
- 
-
-   }
-   else{
-    alert("Please Enter City or district in the search box")
-   }
-     
- 
-
-  }
+    if (search) {
+      handleCategory("");
+      navigate(`/property-for-sale`);
+    } else {
+      alert("Please Enter City or district in the search box");
+    }
+  };
 
   const [city, setCity] = useState("");
 
   useEffect(() => {
-    handleSearchvalue({city,state:search});
+    handleSearchvalue({ city, state: search });
   }, [search]);
 
   //  Search button
@@ -187,12 +175,10 @@ const SearchLocation = () => {
       </div>
       {/* Search Field */}
       <div className="flex justify-center">
-
         {/*  */}
         <div className="relative inline-block w-full" ref={searchRef}>
           <input
             type="text"
-           
             className="bg-white text-dark focus:outline-none p-3 rounded-l-md w-full"
             placeholder="Search City or District"
             value={search}
@@ -205,7 +191,9 @@ const SearchLocation = () => {
             <ul className="absolute top-full left-0 w-full border border-solid border-gray-300 bg-white rounded-b-md shadow-md z-10 font-serif max-h-72 overflow-y-auto">
               {suggestions.map((suggestion, index) => {
                 // Split the suggestion text into parts before and after the search term
-                const parts = suggestion.district.split(new RegExp(`(${search})`, 'gi'));
+                const parts = suggestion.district.split(
+                  new RegExp(`(${search})`, "gi")
+                );
 
                 return (
                   <li
@@ -237,7 +225,7 @@ const SearchLocation = () => {
                     {/* Property Title */}
                     <span className="flex-grow">
                       <span className="text-gray-600 hover:bg-gray-200">
-                        {parts.map((part, i) => (
+                        {parts.map((part, i) =>
                           // Highlight the matching part in red
                           part.toLowerCase() === search.toLowerCase() ? (
                             <span key={i} className="text-red-500">
@@ -246,11 +234,13 @@ const SearchLocation = () => {
                           ) : (
                             <span key={i}>{part}</span>
                           )
-                        ))}
+                        )}
                       </span>
 
                       {/* Small text below property title */}
-                      <span className="text-sm text-gray-500 block">{suggestion.district}</span>
+                      <span className="text-sm text-gray-500 block">
+                        {suggestion.district}
+                      </span>
                     </span>
 
                     <h1 className="">{suggestion.city}</h1>
@@ -262,8 +252,12 @@ const SearchLocation = () => {
         </div>
 
         {/*  */}
-        <div >
-          <button onClick={handleSearch} className="bg-danger p-3 rounded-r-md" type="submit">
+        <div>
+          <button
+            onClick={handleSearch}
+            className="bg-danger p-3 rounded-r-md"
+            type="submit"
+          >
             Search
           </button>
         </div>

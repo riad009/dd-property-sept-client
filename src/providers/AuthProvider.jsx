@@ -1,10 +1,20 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
-import app from '../firebase';
-import axios from 'axios';
-const auth = getAuth(app)
-const auth2 = getAuth(app)
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import app from "../firebase";
+import axios from "axios";
+const auth = getAuth(app);
+const auth2 = getAuth(app);
 
 // Create the UserContext
 export const AuthContext = createContext();
@@ -12,8 +22,6 @@ export const AuthContext = createContext();
 // Create a UserContextProvider component
 export const AuthProvider = ({ children }) => {
   // You can initialize your global data here
-
-
 
   const [searchvalue, setsearchvalue] = useState("");
 
@@ -23,10 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const [pricefilter, setpricefilter] = useState("");
 
-
   const [propertyUpdateId, setPropertyid] = useState("");
- 
-
 
   const handleSearchvalue = (newData) => {
     setsearchvalue(newData);
@@ -46,106 +51,110 @@ export const AuthProvider = ({ children }) => {
     setpricefilter(newData);
   };
 
-
   //firebase------------------------------
 
   const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const gettoken = async () => {
+      const token = await auth?.currentUser?.getIdToken();
+      console.log({ token });
+    };
+    gettoken();
+  }, []);
 
   const [loading, setLoading] = useState(true);
 
   //registration pop
   const providerLogin = (provider) => {
-    setUser(user)
-    return signInWithPopup(auth, provider)
-
-  }
+    setUser(user);
+    return signInWithPopup(auth, provider);
+  };
   //login button
   const creatUser = (email, password) => {
-    setUser(user)
-    setLoading(true)
-    return createUserWithEmailAndPassword(auth, email, password)
-
-  }
+    setUser(user);
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
   //login - create new  user
   const creatNewUser = (email, password) => {
-
-
-    return createUserWithEmailAndPassword(auth2, email, password)
-
-  }
+    return createUserWithEmailAndPassword(auth2, email, password);
+  };
 
   //login button
   const login = (email, password) => {
-    setUser(user)
-    setLoading(true)
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+    setUser(user);
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-  //reset 
+  //reset
   const reset = (email) => {
-
-
-    return sendPasswordResetEmail(auth, email)
-  }
+    return sendPasswordResetEmail(auth, email);
+  };
 
   //send verification
   const verification = (email) => {
-
-    return sendEmailVerification(email)
-  }
-
+    return sendEmailVerification(email);
+  };
 
   const logout = () => {
-
-    return signOut(auth)
-  }
+    return signOut(auth);
+  };
 
   useEffect(() => {
-
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false)
+      setLoading(false);
       //   setLoading(false);
 
       return () => {
-
-        unsubscribe()
-      }
-    })
-
-  }, [])
-
-
+        unsubscribe();
+      };
+    });
+  }, []);
 
   useEffect(() => {
     const handleBackButton = () => {
-      handlebedrooms()
-      handleSearchvalue()
-      handlePrice()
-      handlePropertyid()
-     
+      handlebedrooms();
+      handleSearchvalue();
+      handlePrice();
+      handlePropertyid();
     };
 
-    window.addEventListener('popstate', handleBackButton);
+    window.addEventListener("popstate", handleBackButton);
 
     return () => {
-      window.removeEventListener('popstate', handleBackButton);
+      window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
 
-
-  const authInfo = {propertyUpdateId,handlePropertyid,pricefilter,handlePrice, bedrooms,handlebedrooms, searchvalue, handleSearchvalue, category, handleCategory, logout, logout, user, loading, providerLogin, creatUser, login, creatNewUser, reset, verification }
-
-
-
-
+  const authInfo = {
+    propertyUpdateId,
+    handlePropertyid,
+    pricefilter,
+    handlePrice,
+    bedrooms,
+    handlebedrooms,
+    searchvalue,
+    handleSearchvalue,
+    category,
+    handleCategory,
+    logout,
+    logout,
+    user,
+    loading,
+    providerLogin,
+    creatUser,
+    login,
+    creatNewUser,
+    reset,
+    verification,
+  };
 
   //firebase-------------------------------
   return (
-    <AuthContext.Provider value={authInfo}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 
@@ -155,4 +164,3 @@ export const useUserContext = () => {
 };
 
 export default AuthProvider;
-

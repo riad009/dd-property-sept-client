@@ -36,8 +36,7 @@ const handPicked = [
     text: "Hua Hin, Prachuap Khiri Khan",
   },
 ];
-// 
-
+//
 
 const HandPicked = () => {
   const [properties, setProperties] = useState([]);
@@ -47,12 +46,14 @@ const HandPicked = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://server-khaki-kappa.vercel.app/get/handpicked');
+        const response = await fetch(
+          "https://dd-property-sept-server.vercel.app/get/handpicked"
+        );
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -62,9 +63,8 @@ const HandPicked = () => {
       fetchData();
     }
   }, [loading]); // Dependency array includes 'loading' to ensure the effect runs when 'loading' changes
-  
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   return (
     <div className="bg-dark2/10">
@@ -76,12 +76,12 @@ const HandPicked = () => {
               clickEvent={() => Navigate(`/property/projects/${property._id}`)}
               key={index}
               property={property}
-            // shadow
-            // image={project.image}
-            // price={project.price}
-            // type={project.type}
-            // title={project.title}
-            // text={project.text}
+              // shadow
+              // image={project.image}
+              // price={project.price}
+              // type={project.type}
+              // title={project.title}
+              // text={project.text}
             />
           ))}
         </div>

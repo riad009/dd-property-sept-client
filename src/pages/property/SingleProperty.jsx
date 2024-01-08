@@ -69,12 +69,7 @@ const SingleProperty = () => {
     console.log("checked = ", checkedValues);
   };
   //get by propterty
-  const property = useLoaderData()
-
-
-
-
-    
+  const property = useLoaderData();
 
   return (
     <div>
@@ -92,7 +87,10 @@ const SingleProperty = () => {
             <Facilities property={property} />
           </div>
           <div>
-            <StickySection handleContactAbout={handleContactAbout} />
+            <StickySection
+              handleContactAbout={handleContactAbout}
+              property={property}
+            />
           </div>
         </div>
         {/* <HomeFinance /> */}

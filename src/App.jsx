@@ -21,7 +21,6 @@ import Membership from "./pages/Membership";
 import UpdateProperty from "./pages/dashboard/UpdateProperty";
 import CreateListingSteps from "./pages/dashboard/CreateListingSteps";
 import CreateListingFront from "./pages/CreateListingFront";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,7 +58,7 @@ const router = createBrowserRouter([
       // {
       //   path: "/property-for-sale/:id/:id2",
       //   element: <PropertyForSale />,
-      //   loader:({params})=>fetch(`https://server-khaki-kappa.vercel.app/get/categoryproperty/${params.id}/${params.id2}`)
+      //   loader:({params})=>fetch(`https://dd-property-sept-server.vercel.app/get/categoryproperty/${params.id}/${params.id2}`)
       // },
 
       {
@@ -68,7 +67,7 @@ const router = createBrowserRouter([
 
         loader: ({ params }) =>
           fetch(
-            `https://server-khaki-kappa.vercel.app/get/property/idWise/${params.id}`
+            `https://dd-property-sept-server.vercel.app/get/property/idWise/${params.id}`
           ),
       },
     ],
@@ -117,6 +116,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyProperties />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "membership",
+        element: (
+          <PrivateRoute>
+            <Membership />
           </PrivateRoute>
         ),
       },

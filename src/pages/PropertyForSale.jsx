@@ -12,9 +12,8 @@ import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const PropertyForSale = () => {
-
-  const { searchvalue, handleSearchvalue, category, bedrooms,pricefilter } = useUserContext();
-
+  const { searchvalue, handleSearchvalue, category, bedrooms, pricefilter } =
+    useUserContext();
 
   const [propertyType, setPropertyType] = useState("residential");
   const [footer1Open, setFooter1Open] = useState(false);
@@ -145,34 +144,35 @@ const PropertyForSale = () => {
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
-    const apiUrl = 'https://server-khaki-kappa.vercel.app/get/search/property/new';
-  
+    const apiUrl =
+      "https://dd-property-sept-server.vercel.app/get/search/property/new";
+
     const requestData = {
       searchvalue: JSON.stringify(searchvalue),
       bedrooms: bedrooms,
       maxprice: pricefilter?.maxprice,
       minprice: pricefilter?.minprice,
     };
-  
+
     // Fetch data only if isDataLoading is true
     if (isDataLoading) {
       // Send the search object to the server using POST method
       fetch(apiUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           // Handle the received data
           setSearchResults(data);
           // Set isDataLoading to false after the data is loaded
           setIsDataLoading(false);
         })
-        .catch(error => {
-          console.error('Error:', error);
+        .catch((error) => {
+          console.error("Error:", error);
           // Handle errors if needed
           setIsDataLoading(false); // Set isDataLoading to false in case of an error
         });
@@ -180,8 +180,6 @@ const PropertyForSale = () => {
   }, [isDataLoading]); // Dependency array with isDataLoading to run the effect when isDataLoading changes
 
   // get property
-
-
 
   //category
 
@@ -193,19 +191,18 @@ const PropertyForSale = () => {
     const userData = {
       category: category.combinedFields?.category,
       category2: category.combinedFields?.category2,
-
-    }
-
-
+    };
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://server-khaki-kappa.vercel.app/get/categoryproperty/${userData.category}/${userData.category2}`);
+        const response = await fetch(
+          `https://dd-property-sept-server.vercel.app/get/categoryproperty/${userData.category}/${userData.category2}`
+        );
         const data = await response.json();
         setcategory(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -214,16 +211,15 @@ const PropertyForSale = () => {
     if (loading) {
       fetchData();
     }
-
   }, [loading]);
 
   //category
 
   //loader data
 
-  const property = useLoaderData()
+  const property = useLoaderData();
 
-  const length = categoryproperty.length
+  const length = categoryproperty.length;
   //loader data
   return (
     <div className="p-10 bg-dark2/5">
@@ -265,16 +261,18 @@ const PropertyForSale = () => {
           </div>
         </div> */}
 
-        
         <div className="flex items-center justify-between">
           <p>
-
-            {
-              length > 0 ?
-                <> {length} Results of Property For Sale in, {categoryproperty[0]?.category}, {categoryproperty[0]?.category2}</>
-                :
-                <>  </>
-            }
+            {length > 0 ? (
+              <>
+                {" "}
+                {length} Results of Property For Sale in,{" "}
+                {categoryproperty[0]?.category},{" "}
+                {categoryproperty[0]?.category2}
+              </>
+            ) : (
+              <> </>
+            )}
             {/* <TextRed>     Create Alert.</TextRed> */}
           </p>
           <Switch
@@ -310,38 +308,33 @@ const PropertyForSale = () => {
             ))}
           </div> */}
           <section>
-            {
-              (searchResults.length > 0) ? (
-                <>
-                  <div className="flex flex-col gap-5">
-                    {searchResults.map((property) => (
-                      <PropertyCard key={property.id} property={property} />
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <>
-                  {(categoryproperty.length > 0) ? (
-                    <>
-                      <div className="flex flex-col gap-5">
-                        {categoryproperty.map((property) => (
-                          <PropertyCard key={property.id} property={property} />
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex items-center justify-center h-24">
-                        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 border-solid h-12 w-12"></div>
-                      </div>
-                    </>
-                  )}
-                </>
-              )
-            }
-
-
-
+            {searchResults.length > 0 ? (
+              <>
+                <div className="flex flex-col gap-5">
+                  {searchResults.map((property) => (
+                    <PropertyCard key={property.id} property={property} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                {categoryproperty.length > 0 ? (
+                  <>
+                    <div className="flex flex-col gap-5">
+                      {categoryproperty.map((property) => (
+                        <PropertyCard key={property.id} property={property} />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center justify-center h-24">
+                      <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 border-solid h-12 w-12"></div>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </section>
         </div>
       </SmallContainer>
@@ -354,8 +347,9 @@ export default PropertyForSale;
 const FilterOption = ({ text, seleted, setFilterOption }) => (
   <div
     onClick={() => setFilterOption(text)}
-    className={`${seleted ? "bg-danger/10 text-danger" : "bg-dark2/10 text-dark"
-      } py-1 px-6 rounded-full`}
+    className={`${
+      seleted ? "bg-danger/10 text-danger" : "bg-dark2/10 text-dark"
+    } py-1 px-6 rounded-full`}
   >
     {text}
   </div>

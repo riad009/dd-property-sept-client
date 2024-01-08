@@ -8,7 +8,6 @@ import { AuthContext, useUserContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-
 const MyProperties = () => {
   const { user } = useContext(AuthContext);
   const { handlePropertyid } = useUserContext();
@@ -21,7 +20,7 @@ const MyProperties = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://server-khaki-kappa.vercel.app/get/emailWise?email=${user?.email}`
+          `https://dd-property-sept-server.vercel.app/get/emailWise?email=${user?.email}`
         );
         const result = await response.json();
         setData(result);
@@ -51,7 +50,7 @@ const MyProperties = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://server-khaki-kappa.vercel.app/delete/property/${id}`,
+        `https://dd-property-sept-server.vercel.app/delete/property/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -75,8 +74,7 @@ const MyProperties = () => {
   const navigate = useNavigate();
 
   const handleUpdate = (p) => {
-    
-    handlePropertyid(p)
+    handlePropertyid(p);
     navigate(`/dashboard/update`);
   };
 
@@ -114,7 +112,13 @@ const MyProperties = () => {
         {currentItems.map((p) => (
           <tr key={p.email} className="border">
             <td className="p-2 lg:flex gap-3 items-center">
-              <Link to={`/property/projects/${p._id}`}><img className="w-40 inline rounded-lg" src={img1} alt="cover" /></Link>
+              <Link to={`/property/projects/${p._id}`}>
+                <img
+                  className="w-40 inline rounded-lg"
+                  src={img1}
+                  alt="cover"
+                />
+              </Link>
               <div>
                 <h1 className="font-semibold">{p.propertyTitle}</h1>
                 <p className="text-xs">Address: Lorem, ipsum dolor.</p>
@@ -130,9 +134,15 @@ const MyProperties = () => {
             {/* <td>2345</td> */}
             <td>
               <div className="flex gap-2 text-danger">
-             <Link onClick={()=>handleUpdate(p._id)}> <MdEdit  className="bg-danger/10 p-1 text-2xl rounded-md" /></Link>
-            
-                <MdDelete  onClick={() => handleDelete(p._id)} className="bg-danger/10 p-1 text-2xl rounded-md" />
+                <Link onClick={() => handleUpdate(p._id)}>
+                  {" "}
+                  <MdEdit className="bg-danger/10 p-1 text-2xl rounded-md" />
+                </Link>
+
+                <MdDelete
+                  onClick={() => handleDelete(p._id)}
+                  className="bg-danger/10 p-1 text-2xl rounded-md"
+                />
               </div>
             </td>
           </tr>

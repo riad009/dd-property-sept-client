@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileInput from "../ProfileInput";
 import FormInput from "../forms/FormInput";
 import FormSelectField from "../forms/FormSelectField";
 
 const LocationStep = () => {
   const [location, setLocation] = useState("");
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, {});
   return (
     <div
       className="bg-white"

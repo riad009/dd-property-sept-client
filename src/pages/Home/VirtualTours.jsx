@@ -41,12 +41,14 @@ const VirtualTours = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://server-khaki-kappa.vercel.app/get/videos');
+        const response = await fetch(
+          "https://dd-property-sept-server.vercel.app/get/videos"
+        );
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -57,8 +59,6 @@ const VirtualTours = () => {
     }
   }, [loading]); // Dependency array includes 'loading' to ensure the effect runs when 'loading' changes
 
-  
-
   return (
     <div>
       <SmallContainer extraClasses="px-10 sm:py-16 py-10">
@@ -66,7 +66,7 @@ const VirtualTours = () => {
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
           {properties?.map((property, index) => (
             <CardOne
-            clickEvent={() => navigate(`/property/projects/${property._id}`)}
+              clickEvent={() => navigate(`/property/projects/${property._id}`)}
               property={property}
               key={index}
               // image={project.image}
