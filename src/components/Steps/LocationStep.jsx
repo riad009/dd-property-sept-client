@@ -6,7 +6,6 @@ import FormSelectField from "../forms/FormSelectField";
 const LocationStep = () => {
   const [location, setLocation] = useState("");
 
-  console.log({ location });
   return (
     <div
       className="bg-white"
@@ -29,7 +28,7 @@ const LocationStep = () => {
 
       <p
         style={{
-          fontSize: "29px",
+          fontSize: "24px",
           marginBottom: "14px",
         }}
         className="inline-flex items-center gap-2 font-medium"
@@ -40,7 +39,7 @@ const LocationStep = () => {
 
       <p
         style={{
-          fontSize: "18px",
+          fontSize: "16px",
           marginBottom: "14px",
         }}
         className=""

@@ -1,8 +1,9 @@
 import React from "react";
 import ProfileInput from "../ProfileInput";
-import { Checkbox } from "antd";
+import { Checkbox, Radio } from "antd";
 import FormCheckbox from "../forms/FormCheckbox";
 import FormInput from "../forms/FormInput";
+import DetailsStepForm from "../forms/DetailsStepForm";
 
 const DetailsStep = () => {
   const plainOptions = [
@@ -34,123 +35,46 @@ const DetailsStep = () => {
     >
       <p
         style={{
-          fontSize: "18px",
+          fontSize: "28px",
           marginBottom: "10px",
         }}
+        className="font-semibold"
       >
-        Detailed Information
+        Create Listing: Details
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="propertyId"
-            size="large"
-            label="Property Id"
-          />
-        </div>
+      <p
+        style={{
+          fontSize: "24px",
+          // marginBottom: "4px",
+        }}
+        className="inline-flex items-center gap-2 font-medium"
+      >
+        Listing Type <span className="text-red-600 text-sm">(Required*)</span>
+      </p>
 
-        <div className="mb-[10px]">
-          <FormInput type="text" name="tenure" size="large" label="Tenure" />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="developer"
-            size="large"
-            label="Developer"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="areaSize"
-            size="large"
-            label="Area Size"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="sizePrefix"
-            size="large"
-            label="Size Prefix"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="landArea"
-            size="large"
-            label="Land Area"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="landAreaSizePostfix"
-            size="large"
-            label="Land Area Size Postfix"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="bedrooms"
-            size="large"
-            label="bedrooms"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="bathrooms"
-            size="large"
-            label="Bathrooms"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput type="text" name="garages" size="large" label="Garages" />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="garageSize"
-            size="large"
-            label="Garage Size"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="yearBuild"
-            size="large"
-            label="Year Build"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="videoUrl"
-            size="large"
-            label="Video Url"
-          />
-        </div>
-        <div className="mb-[10px]">
-          <FormInput
-            type="text"
-            name="virtualTourUrl"
-            size="large"
-            label="360 Degree Virtual Tour"
-          />
-        </div>
-        <div className="mb-[10px] md:col-span-3">
-          <FormCheckbox
-            options={plainOptions}
-            name="amenities"
-            label="Amenities"
-          />
+      <p className="text-[14px] text-gray-400 pb-4">
+        You can't edit this after your listing has been published
+      </p>
+
+      <div className="grid grid-cols-1 max-w-[600px] mt-2">
+        <p className="text-[14px]">Select one to continue</p>
+        <Radio.Group
+          // onChange={handleModeChange}
+          // value={mode}
+          buttonStyle="solid"
+          size="large"
+          style={{
+            marginBottom: 8,
+          }}
+        >
+          <Radio.Button value="top">For Sale</Radio.Button>
+          <Radio.Button value="left">For Rent</Radio.Button>
+          <Radio.Button value="left">Option To Buy</Radio.Button>
+        </Radio.Group>
+
+        <div className="mt-4">
+          <DetailsStepForm title="You are creating a listing to sell a unit. Add more details about the unit below." />
         </div>
       </div>
     </div>

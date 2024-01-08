@@ -1,9 +1,10 @@
-import CreateListingStep from "../../components/Steps/CreateListingStep";
+import CreateListingStep from "../../components/Steps/SummaryStep";
 import DetailsStep from "../../components/Steps/DetailsStep";
 import LocationStep from "../../components/Steps/LocationStep";
-import PropertyDetails from "../../components/Steps/PropertyDetails";
-import PropertyMedia from "../../components/Steps/PropertyMedia";
+import MediaStep from "../../components/Steps/MediaStep";
+
 import Stepper from "../../components/stepper/Stepper";
+import SummaryStep from "../../components/Steps/SummaryStep";
 
 const CreateListingSteps = () => {
   const steps = [
@@ -12,22 +13,23 @@ const CreateListingSteps = () => {
       content: <LocationStep />,
     },
     {
-      title: "Create Listing",
-      content: <CreateListingStep />,
-    },
-
-    {
       title: "Details",
       content: <DetailsStep />,
     },
-    // {
-    //   title: "Property Media",
-    //   content: <PropertyMedia />,
-    // },
+
     {
-      title: "Property Details",
-      content: <PropertyDetails />,
+      title: "Media",
+      content: <MediaStep />,
     },
+    {
+      title: "Summary",
+      content: <SummaryStep />,
+    },
+
+    // {
+    //   title: "Property Details",
+    //   content: <PropertyDetails />,
+    // },
   ];
 
   const handleStudentSubmit = (data) => {

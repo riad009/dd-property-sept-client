@@ -10,12 +10,13 @@ const FormSelectField = ({
   label,
   defaultValue,
   customOnChange,
+  disabled,
 }) => {
   const { control } = useFormContext();
 
   return (
     <>
-      {label ? label : null}
+      {label ? <p className="text-[15px]">{label}</p> : null}
       <Controller
         control={control}
         name={name}
@@ -26,6 +27,7 @@ const FormSelectField = ({
             options={options}
             value={value}
             size={size}
+            disabled={disabled ? true : false}
             placeholder={placeholder}
             style={{
               width: "100%",

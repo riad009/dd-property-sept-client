@@ -11,6 +11,8 @@ const FormInput = ({
   placeholder,
   validation,
   label,
+  required,
+  count,
 }) => {
   const {
     control,
@@ -21,7 +23,16 @@ const FormInput = ({
 
   return (
     <>
-      {label ? label : null}
+      {label ? (
+        <p className="text-[15px] pb-1">
+          {label}
+
+          {required && (
+            <span className="text-red-600 text-sm">(Required*)</span>
+          )}
+        </p>
+      ) : null}
+
       <Controller
         control={control}
         name={name}
@@ -42,18 +53,24 @@ const FormInput = ({
               size={size}
               value={value ? value : field.value}
               placeholder={placeholder}
+              count={{
+                show: true,
+                max: 10,
+              }}
               // className="py-3"
             />
           )
         }
       />
-      <small
-        style={{
-          color: "red",
-        }}
-      >
-        {errorMessage}
-      </small>
+      {errorMessage && (
+        <small
+          style={{
+            color: "red",
+          }}
+        >
+          {errorMessage}
+        </small>
+      )}
     </>
   );
 };
