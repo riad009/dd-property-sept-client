@@ -5,7 +5,7 @@ import { FaCircleInfo } from "react-icons/fa6";
 const SummaryStep = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, {});
+  }, []);
   return (
     <div
       className="bg-white"

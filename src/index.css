@@ -19,6 +19,10 @@ html {
   scroll-padding-top: 100px;
 }
 
+.ant-upload {
+  width: 100% !important;
+}
+
 .ant-steps-item-icon:where {
   /* background-color: orange !important;
   border-color: orange !important; */

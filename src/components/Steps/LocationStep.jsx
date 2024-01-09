@@ -7,7 +7,8 @@ const LocationStep = () => {
   const [location, setLocation] = useState("");
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, {});
+  }, []);
+  console.log({ location });
   return (
     <div
       className="bg-white"
@@ -51,30 +52,12 @@ const LocationStep = () => {
 
       <div className="grid grid-cols-1 max-w-[600px]">
         <div className="mb-[12px]">
-          <FormSelectField
+          <FormInput
             type="text"
             name="location"
             size="large"
             label="Location"
-            customOnChange={(value) => setLocation(value)}
-            options={[
-              {
-                value: "Value1",
-                label: "Value 1",
-              },
-              {
-                value: "Value2",
-                label: "Value 2",
-              },
-              {
-                value: "Value3",
-                label: "Value 3",
-              },
-              {
-                value: "Value4",
-                label: "Value 4",
-              },
-            ]}
+            customOnChange={(e) => setLocation(e.target.value)}
           />
           <p className="text-[14px] text-gray-400 py-2">
             You can't edit this after your listing has been published

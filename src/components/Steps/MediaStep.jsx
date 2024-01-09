@@ -2,12 +2,13 @@ import { Button, Upload } from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import UploadDragger from "../UploadDragger";
 import { useEffect } from "react";
+import VideoUploadDragger from "../VideoUploadDragger";
 const { Dragger } = Upload;
 
 const MediaStep = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, {});
+  }, []);
   return (
     <div
       className="bg-white"
@@ -73,7 +74,7 @@ const MediaStep = () => {
             .divx, .3gp, .mp4, .avi, .webm, .mov, .flv, or .htm (up to 50MB
             each).
           </p>
-          <UploadDragger />
+          <VideoUploadDragger />
           <hr className="my-12" />
         </div>
         <div>

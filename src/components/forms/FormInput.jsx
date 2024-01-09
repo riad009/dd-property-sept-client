@@ -13,6 +13,7 @@ const FormInput = ({
   label,
   required,
   count,
+  customOnChange,
 }) => {
   const {
     control,
@@ -53,10 +54,7 @@ const FormInput = ({
               size={size}
               value={value ? value : field.value}
               placeholder={placeholder}
-              count={{
-                show: true,
-                max: 10,
-              }}
+              onChange={customOnChange && customOnChange}
               // className="py-3"
             />
           )
