@@ -14,15 +14,16 @@ const CardOne = ({
   return (
     <div
       onClick={clickEvent}
-      className={`${shadow && "md:min-w-min min-w-full shadow bg-white rounded-b"
-        } cursor-pointer`}
+      className={`${
+        shadow && "md:min-w-min min-w-full shadow bg-white rounded-b"
+      } cursor-pointer`}
     >
       <div className="relative">
         <img
-         src={property?.mainImg}
+          src={property?.images[0]}
           alt="card_image"
           className={`${shadow && "rounded-t"}`}
-          style={{ height: '200px', width: '300px' }} // Adjust the height and width as needed
+          style={{ height: "200px", width: "300px" }} // Adjust the height and width as needed
         />
 
         {!shadow && (
@@ -41,14 +42,12 @@ const CardOne = ({
           </h1>
         )}
         {shadow && <h1>{type}</h1>}
-        <h6
-          className={`${shadow ? "mt-0" : "mt-3"} text-lg  font-semibold`}
-        >
-          {property?.propertyTitle}
+        <h6 className={`${shadow ? "mt-0" : "mt-3"} text-lg  font-semibold`}>
+          {property?.headline}
         </h6>
-        <p className="text-sm text-dark2">{property?.city} , {property?.district}
-        
-          </p>
+        <p className="text-sm text-dark2">
+          {property?.location} {property.postalCode}
+        </p>
         {shadow && (
           <small className="mt-3 border w-fit border-blue-200 text-[0.7em] px-3 rounded">
             Land
