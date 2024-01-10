@@ -37,28 +37,17 @@ const FormInput = ({
       <Controller
         control={control}
         name={name}
-        render={({ field }) =>
-          type === "password" ? (
-            <Input.Password
-              {...field}
-              type={type}
-              size={size}
-              value={value ? value : field.value}
-              placeholder={placeholder}
-              // className="py-3"
-            />
-          ) : (
-            <Input
-              {...field}
-              type={type}
-              size={size}
-              value={value ? value : field.value}
-              placeholder={placeholder}
-              onChange={customOnChange && customOnChange}
-              // className="py-3"
-            />
-          )
-        }
+        render={({ field }) => (
+          <Input
+            {...field}
+            type={type}
+            size={size}
+            value={value ? value : field.value}
+            placeholder={placeholder}
+            onKeyDown={customOnChange && customOnChange}
+            // className="py-3"
+          />
+        )}
       />
       {errorMessage && (
         <small

@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import FormInput from "./FormInput";
 import FormSelectField from "./FormSelectField";
 import FormRadio from "./FormRadio";
 import { Radio, Space } from "antd";
 import FurnishOptions from "../FurnishOptions";
 import FormtTextarea from "./FormTextarea";
+import { AuthContext } from "../../providers/AuthProvider";
 
-const DetailsStepForm = ({ title }) => {
-  const [furnishValue, setFurnishValue] = useState("");
+const DetailsStepForm = ({ listingType }) => {
+  const {
+    availabilityForLiveTour,
+    setFurnishObjects,
+    setAvailabilityForLiveTour,
+    setUnitFeatures,
+    furnishValue,
+    setFurnishValue,
+  } = useContext(AuthContext);
+
+  const handleFurnishObj = (selectedCategories) => {
+    setFurnishObjects(selectedCategories);
+  };
+
+  const handleUnitFeatures = (selectedCategories) => {
+    setUnitFeatures(selectedCategories);
+  };
+
   return (
     <div>
-      <p className="text-[17px] ">{title}</p>
+      <p className="text-[17px] ">
+        {listingType === "forSale"
+          ? "You are creating a listing to sell a unit. Add more details about the unit below."
+          : listingType === "forRent"
+          ? "You are creating a listing to rent out an entire unit/a room only. Add more details about the unit below."
+          : "You are creating a listing for option to buy. Add more details about the unit below."}
+      </p>
       <hr className="my-6" />
 
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
@@ -270,6 +293,7 @@ const DetailsStepForm = ({ title }) => {
         {(furnishValue === "Partially Furnished" ||
           furnishValue === "Fully Furnished") && (
           <FurnishOptions
+            onCategoryChange={handleFurnishObj}
             options={[
               { label: "Audio System", id: "Audio System" },
               { label: "Bed", id: "Bed" },
@@ -314,9 +338,17 @@ const DetailsStepForm = ({ title }) => {
         <div className="w-full">
           <FormtTextarea
             type="text"
-            name="description"
+            name="descriptionThai"
             size="large"
-            placeholder="Description"
+            placeholder="Description (Thai)"
+          />
+        </div>
+        <div className="w-full">
+          <FormtTextarea
+            type="text"
+            name="descriptionEnglish"
+            size="large"
+            placeholder="Description (English)"
           />
         </div>
       </div>
@@ -329,7 +361,10 @@ const DetailsStepForm = ({ title }) => {
       </p>
 
       <div>
-        <Radio.Group>
+        <Radio.Group
+          onChange={(e) => setAvailabilityForLiveTour(e.target.value)}
+          value={availabilityForLiveTour}
+        >
           <Space direction="vertical" className="py-4">
             <Radio value="available">
               Yes, I am available for live viewing via video call
@@ -347,6 +382,7 @@ const DetailsStepForm = ({ title }) => {
       </p>
 
       <FurnishOptions
+        onCategoryChange={handleUnitFeatures}
         options={[
           { label: "Air Conditioning", id: "Air Conditioning" },
           { label: "Balcony", id: "Balcony" },

@@ -8,6 +8,7 @@ import { Button, Modal, Spin, Upload, message } from "antd";
 import { Player } from "video-react";
 import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
+import { cn } from "../utils/cn";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ const VideoUploadDragger = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = async ({ fileList }) => {
-    if (fileList?.length > 4 || imageUrls?.length > 4) {
+    if (fileList?.length > 4 || videoUrls?.length > 4) {
       messageApi.destroy();
       return messageApi.open({
         type: "error",
@@ -53,11 +54,10 @@ const VideoUploadDragger = () => {
     });
 
     const updatedVideoList = (await Promise.all(promises)).filter(Boolean);
-    latestExceededFiles = [exceededFiles[exceededFiles?.length - 1]];
-
+    latestExceededFiles = exceededFiles.slice(-1);
     if (latestExceededFiles?.length > 0) {
       const exceededFileNames = latestExceededFiles
-        .map((file) => file.name)
+        ?.map((file) => file.name)
         .join(", ");
       setError(
         `File Size Exceeded for: ${exceededFileNames}. All files must be under 50MB`
@@ -75,7 +75,7 @@ const VideoUploadDragger = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/upload",
+          "https://dd-property-sept-server.vercel.app/upload",
           formData,
           {
             headers: {
@@ -109,7 +109,7 @@ const VideoUploadDragger = () => {
   );
 
   const onRemove = (file) => {
-    const updatedFileList = imageUrls?.filter((item) => item !== file);
+    const updatedFileList = videoUrls?.filter((item) => item !== file);
     setVideoUrls(updatedFileList);
   };
 

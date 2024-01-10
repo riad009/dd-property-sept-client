@@ -73,7 +73,7 @@ const UploadDragger = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/upload",
+          "https://dd-property-sept-server.vercel.app/upload",
           formData,
           {
             headers: {

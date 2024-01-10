@@ -16,6 +16,10 @@ const FormtTextarea = ({ name, label, rows, value, height, placeholder }) => {
             placeholder={placeholder}
             {...field}
             defaultValue={value}
+            autoSize={{
+              minRows: 10,
+              maxRows: 5,
+            }}
           />
         )}
       />

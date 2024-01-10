@@ -25,6 +25,12 @@ export const AuthProvider = ({ children }) => {
 
   const [videoUrls, setVideoUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
+  const [listingType, setListingType] = useState("");
+  const [location, setLocation] = useState("");
+  const [furnishValue, setFurnishValue] = useState("");
+  const [furnishObjects, setFurnishObjects] = useState([]);
+  const [unitFeatures, setUnitFeatures] = useState([]);
+  const [availabilityForLiveTour, setAvailabilityForLiveTour] = useState("");
 
   const [searchvalue, setsearchvalue] = useState("");
 
@@ -157,6 +163,18 @@ export const AuthProvider = ({ children }) => {
     videoUrls,
     setVideoUrls,
     setImageUrls,
+    listingType,
+    setListingType,
+    location,
+    setLocation,
+    furnishValue,
+    furnishObjects,
+    setFurnishObjects,
+    unitFeatures,
+    setUnitFeatures,
+    setFurnishValue,
+    availabilityForLiveTour,
+    setAvailabilityForLiveTour,
   };
 
   //firebase-------------------------------

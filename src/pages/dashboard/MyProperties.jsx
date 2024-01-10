@@ -16,6 +16,8 @@ const MyProperties = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  console.log(user);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,6 +25,7 @@ const MyProperties = () => {
           `https://dd-property-sept-server.vercel.app/get/emailWise?email=${user?.email}`
         );
         const result = await response.json();
+        console.log({ result });
         setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -35,6 +38,8 @@ const MyProperties = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  console.log({ currentItems });
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -85,53 +90,37 @@ const MyProperties = () => {
           title={"My Properties"}
           description={"We are glad to see you again"}
         />
-        {/* <div className="flex items-center gap-3 lg:mt-0 mt-3">
-          <Search placeholder="Search" allowClear />
-          <Select
-            defaultValue="lucy"
-            style={{ width: 120 }}
-            onChange={handleChange}
-            options={[
-              { value: "jack", label: "Jack" },
-              { value: "lucy", label: "Lucy" },
-              { value: "Yiminghe", label: "yiminghe" },
-              { value: "disabled", label: "Disabled", disabled: true },
-            ]}
-          />
-        </div> */}
       </div>
       <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">
-          <th className="p-2">Listing Title</th>
+          <th className="p-2">Image</th>
+          <th className="p-2">Headline</th>
+          <th className="p-2">Property Type</th>
           <th className="p-2">Date published</th>
-          <th className="p-2">Category</th>
+          <th className="p-2">Location</th>
+          <th className="p-2">Price</th>
           {/* <th className="p-2">View</th> */}
           <th className="p-2">Action</th>
         </tr>
 
-        {currentItems.map((p) => (
+        {currentItems?.map((p) => (
           <tr key={p.email} className="border">
-            <td className="p-2 lg:flex gap-3 items-center">
+            <td className="p-2">
               <Link to={`/property/projects/${p._id}`}>
                 <img
                   className="w-40 inline rounded-lg"
-                  src={img1}
+                  src={p?.images[0]}
                   alt="cover"
                 />
               </Link>
-              <div>
-                <h1 className="font-semibold">{p.propertyTitle}</h1>
-                <p className="text-xs">Address: Lorem, ipsum dolor.</p>
-                <p className="text-danger font-semibold">{p.price}</p>
-              </div>
             </td>
-            <td>{p.date}</td>
-            <td className="text-xs">
-              <span className="bg-danger/10 text-danger py-1 px-3 rounded-full font-semibold">
-                pending
-              </span>
-            </td>
-            {/* <td>2345</td> */}
+
+            <td className="p-2">{p.headline}</td>
+            <td className="p-2">{p.propertyType}</td>
+            <td className="p-2">{p.date}</td>
+            <td className="p-2">{p.location}</td>
+            <td className="p-2">${p.listingPrice}</td>
+
             <td>
               <div className="flex gap-2 text-danger">
                 <Link onClick={() => handleUpdate(p._id)}>

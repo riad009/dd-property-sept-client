@@ -1,32 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProfileInput from "../ProfileInput";
 import { Checkbox, Radio } from "antd";
 import FormCheckbox from "../forms/FormCheckbox";
 import FormInput from "../forms/FormInput";
 import DetailsStepForm from "../forms/DetailsStepForm";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const DetailsStep = () => {
-  const plainOptions = [
-    "Air Conditionning",
-    "Barbeque",
-    "Dryer",
-    "Gym",
-    "Laundry",
-    "Microwave",
-    "Outdoor Shower",
-    "Refrigerator",
-    "Sauna",
-    "Lawn",
-    "TV Cable",
-    "Washer",
-    "Wifi",
-    "Window Coverings",
-    "Swimming Pool",
-  ];
+  // const plainOptions = [
+  //   "Air Conditionning",
+  //   "Barbeque",
+  //   "Dryer",
+  //   "Gym",
+  //   "Laundry",
+  //   "Microwave",
+  //   "Outdoor Shower",
+  //   "Refrigerator",
+  //   "Sauna",
+  //   "Lawn",
+  //   "TV Cable",
+  //   "Washer",
+  //   "Wifi",
+  //   "Window Coverings",
+  //   "Swimming Pool",
+  // ];
+
+  const { listingType, setListingType } = useContext(AuthContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleListingType = ({ target: { value } }) => {
+    setListingType(value);
+  };
   return (
     <div
       className="bg-white"
@@ -64,21 +71,21 @@ const DetailsStep = () => {
       <div className="grid grid-cols-1 max-w-[600px] mt-2">
         <p className="text-[14px]">Select one to continue</p>
         <Radio.Group
-          // onChange={handleModeChange}
-          // value={mode}
+          onChange={handleListingType}
+          value={listingType}
           buttonStyle="solid"
           size="large"
           style={{
             marginBottom: 8,
           }}
         >
-          <Radio.Button value="top">For Sale</Radio.Button>
-          <Radio.Button value="left">For Rent</Radio.Button>
-          <Radio.Button value="left">Option To Buy</Radio.Button>
+          <Radio.Button value="forSale">For Sale</Radio.Button>
+          <Radio.Button value="forRent">For Rent</Radio.Button>
+          <Radio.Button value="toBuy">Option To Buy</Radio.Button>
         </Radio.Group>
 
         <div className="mt-4">
-          <DetailsStepForm title="You are creating a listing to sell a unit. Add more details about the unit below." />
+          <DetailsStepForm listingType={listingType} />
         </div>
       </div>
     </div>
