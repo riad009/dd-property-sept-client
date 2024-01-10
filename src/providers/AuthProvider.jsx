@@ -23,6 +23,9 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // You can initialize your global data here
 
+  const [videoUrls, setVideoUrls] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
+
   const [searchvalue, setsearchvalue] = useState("");
 
   const [category, setcategory] = useState("");
@@ -150,6 +153,10 @@ export const AuthProvider = ({ children }) => {
     creatNewUser,
     reset,
     verification,
+    imageUrls,
+    videoUrls,
+    setVideoUrls,
+    setImageUrls,
   };
 
   //firebase-------------------------------

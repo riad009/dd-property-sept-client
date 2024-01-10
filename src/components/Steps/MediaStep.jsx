@@ -29,7 +29,7 @@ const MediaStep = () => {
         Create Listing: Media
       </p>
 
-      <div className="max-w-[800px]">
+      <div className="max-w-[1050px]">
         <div>
           <p
             style={{
@@ -75,10 +75,10 @@ const MediaStep = () => {
             each).
           </p>
           <VideoUploadDragger />
-          <hr className="my-12" />
+          {/* <hr className="my-12" /> */}
         </div>
         <div>
-          <p
+          {/* <p
             style={{
               fontSize: "24px",
               marginBottom: "10px",
@@ -97,7 +97,7 @@ const MediaStep = () => {
             +5% listing quality score by adding a Virtual Tour
           </p>
           <UploadDragger />
-          <hr className="my-12" />
+          <hr className="my-12" /> */}
         </div>
       </div>
     </div>
