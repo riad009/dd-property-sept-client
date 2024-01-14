@@ -22,7 +22,7 @@ const UploadDragger = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleChange = async ({ fileList }) => {
-    if (fileList?.length > 4 || imageUrls?.length > 4) {
+    if (fileList?.length > 10 || imageUrls?.length > 10) {
       messageApi.destroy();
       return messageApi.open({
         type: "error",
@@ -74,6 +74,7 @@ const UploadDragger = () => {
       try {
         const response = await axios.post(
           "https://dd-property-sept-server.vercel.app/upload",
+          // "http://localhost:5000/upload",
           formData,
           {
             headers: {
@@ -98,8 +99,8 @@ const UploadDragger = () => {
       <div style={{ marginTop: 8 }}>
         Upload Image
         {imageUrls?.length > 0 && (
-          <p className={cn(imageUrls?.length === 4 && "text-red-600")}>
-            {imageUrls?.length}/4
+          <p className={cn(imageUrls?.length === 10 && "text-red-600")}>
+            {imageUrls?.length}/10
           </p>
         )}
       </div>

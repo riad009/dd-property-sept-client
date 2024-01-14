@@ -71,9 +71,15 @@ const SingleProperty = () => {
   //get by propterty
   const property = useLoaderData();
 
+  console.log({ property });
+
   return (
     <div>
-      <Banner p={property} breadCrumbItems={breadCrumbItems} images={images} />
+      <Banner
+        p={property}
+        breadCrumbItems={breadCrumbItems}
+        images={property?.images}
+      />
       {/* Body Navbar */}
       <div className="sm:sticky top-0 z-50 sm:max-h-[calc(60vh-40px)]">
         <BodyNav />

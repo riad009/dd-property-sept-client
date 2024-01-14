@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const MoreDetails = ({ property }) => {
   return (
@@ -10,30 +10,34 @@ const MoreDetails = ({ property }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="border-b-2 border-gray-300 pb-4">
                 <div className="mb-4">
-                  <span className="font-semibold">Property Type:</span> {property.propertyType}
+                  <span className="font-semibold">Property Type:</span>{" "}
+                  {property.propertyType}
                 </div>
                 <div className="mb-4">
-                  <span className="font-semibold">Status:</span> {property.status}
+                  <span className="font-semibold">Status:</span>{" "}
+                  {property.listingType}
                 </div>
                 <div className="mb-4">
-                  <span className="font-semibold">Location:</span> {property.address}, {property.city}, {property.district}, {property.country}
+                  <span className="font-semibold">Location:</span>{" "}
+                  {property.location}, {property.postalCode}
+                  {property.country}
                 </div>
+
                 <div className="mb-4">
-                  <span className="font-semibold">Area:</span> {property.area} | <span className="font-semibold">Area Size:</span> {property.areaSize} {property.sizePrefix}
-                </div>
-                <div className="mb-4">
-                  <span className="font-semibold">Bedrooms:</span> {property.bedrooms} | <span className="font-semibold">Bathrooms:</span> {property.bathrooms}
-                </div>
-                <div className="mb-4">
-                  <span className="font-semibold">Garage:</span> {property.garages} | <span className="font-semibold">Garage Size:</span> {property.garageSize}
+                  <span className="font-semibold">Bedrooms:</span>{" "}
+                  {property.bedrooms} |{" "}
+                  <span className="font-semibold">Bathrooms:</span>{" "}
+                  {property.bathrooms}
                 </div>
               </div>
               <div>
                 <div className="mb-4">
-                  <span className="font-semibold">Land Area:</span> {property.landArea} {property.landAreaSizePostfix}
+                  <span className="font-semibold">Price:</span>{" "}
+                  {property.listingPrice}
                 </div>
                 <div className="mb-4">
-                  <span className="font-semibold">Price:</span> {property.price} {property.pricePostfix}
+                  <span className="font-semibold">Price Type:</span>{" "}
+                  {property.priceType} {property.pricePostfix}
                 </div>
               </div>
             </div>

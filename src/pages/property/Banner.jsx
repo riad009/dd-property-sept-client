@@ -35,21 +35,16 @@ const Banner = ({ breadCrumbItems, images, p }) => {
         {/* Navigations */}
         <Breadcrumb separator=">" items={breadCrumbItems} />
         {/* Header */}
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <img className="w-20" src={thumb} alt="Thumb" />
-          <h1 className="sm:text-2xl font-semibold">
-            {p.propertyTitle} ,
-
-          </h1>
-        </div>
-        <h1 className="sm:text-xl text-xs">
-          {p.city},
-          {p.district}  ,
-          {p.address}
-        </h1>
+          <h1 className="sm:text-2xl font-semibold">{p.propertyTitle} ,</h1>
+        </div> */}
+        {/* <h1 className="sm:text-xl text-xs">
+          {p.city},{p.district} ,{p.address}
+        </h1> */}
         {/* Social Media */}
         <div className="sm:flex items-start justify-between text-xs sm:my-5 my-2">
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             {["New Project", "townhouse", "singlehouse"].map((name, index) => (
               <span
                 key={index}
@@ -58,12 +53,12 @@ const Banner = ({ breadCrumbItems, images, p }) => {
                 {name}
               </span>
             ))}
-          </div>
-          <div className="flex gap-2 sm:mt-0 mt-5">
+          </div> */}
+          {/* <div className="flex gap-2 sm:mt-0 mt-5">
             <Share />
-            {/* <PiHeartFill className="border border-dark/50 rounded p-1" /> */}
+            
             <PiHeart className="hover:bg-dark hover:text-white border border-dark/50 text-3xl rounded p-1 transition-300 " />
-          </div>
+          </div> */}
         </div>
       </SmallContainer>
       {/* Image Gallery */}
@@ -95,43 +90,42 @@ const Banner = ({ breadCrumbItems, images, p }) => {
           <img
             onClick={() => openImageViewer(index)}
             key={index}
-            src={item.img}
+            src={item}
             className="cursor-pointer"
+            style={{
+              width: "432px",
+              height: "325px",
+              objectFit: "cover",
+            }}
+          />
+        ))}
+        {p?.videos?.map((item, index) => (
+          <video
+            // onClick={() => openImageViewer(index)}
+            key={index}
+            src={item}
+            controls
+            className="cursor-pointer"
+            style={{
+              width: "432px",
+              height: "325px",
+              objectFit: "cover",
+            }}
           />
         ))}
       </Slide>
 
       <SmallContainer extraClasses="p-2">
-        {/* Important Details */}
         <div className="sm:flex gap-5 justify-between text-justify">
-          <Details icon={<CiCircleChevRight />}>
-            {p.description}
-           
-          </Details>
+          <Details icon={<CiCircleChevRight />}>{p.headline}</Details>
           <Divider type="vertical  my-auto hidden sm:block" />
-
-          {/* <Details icon={<CiCircleChevRight />}>
-            There is a multipurpose room. downstairs to adjust functions
-            according to lifestyle
-          </Details>
-          <Divider type="vertical h-20 my-auto hidden sm:block" /> */}
-
-          {/* <Details icon={<CiCircleChevRight />}>
-            Central area, large green area throughout the project Access to
-            every green space
-          </Details>
-          <Divider type="vertical h-20 my-auto hidden sm:block" />
-
-          <Details icon={<CiCircleChevRight />}>
-            24-hour security system with Easy pass access
-          </Details> */}
         </div>
       </SmallContainer>
 
       {/* Image Viewer */}
       {isViewerOpen && (
         <ImageViewer
-          src={images.map((img) => img.img)}
+          src={images.map((img) => img)}
           currentIndex={currentImage}
           disableScroll={false}
           closeOnClickOutside={true}

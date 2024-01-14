@@ -25,7 +25,7 @@ const VideoUploadDragger = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = async ({ fileList }) => {
-    if (fileList?.length > 4 || videoUrls?.length > 4) {
+    if (fileList?.length > 10 || videoUrls?.length > 10) {
       messageApi.destroy();
       return messageApi.open({
         type: "error",
@@ -100,8 +100,8 @@ const VideoUploadDragger = () => {
       <div style={{ marginTop: 8 }}>
         Upload Video{" "}
         {videoUrls?.length > 0 && (
-          <p className={cn(videoUrls?.length === 4 && "text-red-600")}>
-            {videoUrls?.length}/4
+          <p className={cn(videoUrls?.length === 10 && "text-red-600")}>
+            {videoUrls?.length}/10
           </p>
         )}
       </div>

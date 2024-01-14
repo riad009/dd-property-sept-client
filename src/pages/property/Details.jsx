@@ -1,6 +1,6 @@
 import { Divider } from "antd";
 
-const Details = ({p}) => {
+const Details = ({ p }) => {
   return (
     <div>
       <h1 className="text-2xl">Details</h1>
@@ -10,31 +10,50 @@ const Details = ({p}) => {
           <p className="text-sm text-dark font-[500]">{p.propertyType}</p>
         </div>
         <div>
-          <p className="text-sm text-dark2">Developer</p>
+          <p className="text-sm text-dark2">Furnish Type</p>
+          <p className="text-sm text-dark font-[500]">{p.furnishType}</p>
+        </div>
+        <Divider />
+        <Divider />
+        <div>
+          <p className="text-sm text-dark2">Furnish Objects</p>
           <p className="text-sm text-dark font-[500]">
-            {p.developer}
+            {p.furnishObjects.map((obj) => (
+              <span key={obj}>{obj}, </span>
+            ))}
           </p>
         </div>
-        <Divider />
-        <Divider />
         <div>
-          <p className="text-sm text-dark2">Tenure</p>
-          <p className="text-sm text-dark font-[500]">{p.tenure}</p>
-        </div>
-        <div>
-          <p className="text-sm text-dark2">Completion Year</p>
-          <p className="text-sm text-dark font-[500]">{p.yearBuild}</p>
+          <p className="text-sm text-dark2">Facing Front Door</p>
+          <p className="text-sm text-dark font-[500]">{p.facingFrontDoor}</p>
         </div>
         <Divider />
         <Divider />
         <div>
-          <p className="text-sm text-dark2">Listing ID</p>
-          <p className="text-sm text-dark font-[500]">{p.propertyId}</p>
+          <p className="text-sm text-dark2">Availability For Live Tour</p>
+          <p className="text-sm text-dark font-[500]">
+            {p.availabilityForLiveTour}
+          </p>
         </div>
         <div>
           <p className="text-sm text-dark2">Listed On</p>
           <p className="text-sm text-dark font-[500]">{p.date}</p>
         </div>
+        <Divider />
+        <Divider />
+        <div>
+          <p className="text-sm text-dark2">Unit Features</p>
+          <p className="text-sm text-dark font-[500]">
+            {p.unitFeatures.map((obj) => (
+              <span key={obj}>{obj}, </span>
+            ))}
+          </p>
+        </div>
+        <div>
+          <p className="text-sm text-dark2">Listing Type</p>
+          <p className="text-sm text-dark font-[500]">{p.listingType}</p>
+        </div>
+
         <Divider />
         <Divider />
       </div>

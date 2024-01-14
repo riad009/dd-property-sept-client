@@ -1,10 +1,15 @@
 import { Divider } from "antd";
 import TextRed from "../../components/TextRed";
-import { MdLocationOn } from "react-icons/md";
+import {
+  MdFormatSize,
+  MdLocationOn,
+  MdRoom,
+  MdRoomService,
+} from "react-icons/md";
 import { RiCommunityFill } from "react-icons/ri";
 import { GiBathtub, GiBed } from "react-icons/gi";
 
-const Overview = ({property}) => {
+const Overview = ({ property }) => {
   return (
     <div>
       <h1 className="text-2xl mb-5">Overview</h1>
@@ -12,14 +17,17 @@ const Overview = ({property}) => {
       <div className="flex gap-5">
         <div>
           <p className="text-sm text-dark2">Start</p>
-          <p className="text-sm text-dark font-[500]">฿{property.price}</p>
+          <p className="text-sm text-dark font-[500]">
+            ฿{property.listingPrice}
+          </p>
         </div>
         <Divider type="vertical h-10" />
         <div>
           <p className="text-sm text-dark2">Estimated Monthly Installments</p>
           <p className="text-sm text-dark font-[500]">
-            ฿{property.price}
-             {/* <TextRed to="#">See More Details</TextRed> */}
+            {/* ฿{property.price} */}
+            {/* <TextRed to="#">See More Details</TextRed> */}
+            N/A
           </p>
         </div>
       </div>
@@ -35,13 +43,25 @@ const Overview = ({property}) => {
         <div>
           <p className="text-sm text-dark2">Bathroom</p>
           <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <GiBathtub className="text-xl" />  {property.bathrooms}
+            <GiBathtub className="text-xl" /> {property.bathrooms}
           </p>
         </div>
         <div>
-          <p className="text-sm text-dark2">Unit</p>
+          <p className="text-sm text-dark2">Maidrooms</p>
           <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <RiCommunityFill className="text-xl" /> {property.unit}
+            <MdRoomService className="text-xl" /> {property.maidrooms}
+          </p>
+        </div>
+        <div>
+          <p className="text-sm text-dark2">Floor Position</p>
+          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+            <RiCommunityFill className="text-xl" /> {property.floorPosition}
+          </p>
+        </div>
+        <div>
+          <p className="text-sm text-dark2">Floor Size</p>
+          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+            <MdFormatSize className="text-xl" /> {property.floorSize}
           </p>
         </div>
       </div>
@@ -51,11 +71,10 @@ const Overview = ({property}) => {
       <div>
         <p className="text-sm text-dark2 mt-4">Location</p>
         <p className="flex items-center gap-1 text-sm text-dark font-[500]">
-          <MdLocationOn className="text-xl" />{property.city} , {property.district}
+          <MdLocationOn className="text-xl" />
+          {property.location} , {property.postalCode}
         </p>
-        <p className="text-xs text-dark2 mb-3">
-        {property.address}
-        </p>
+        {/* <p className="text-xs text-dark2 mb-3">{property.address}</p> */}
         {/* <TextRed to="/">open map</TextRed> */}
       </div>
       <Divider className="bg-dark2/50" />
