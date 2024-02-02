@@ -84,9 +84,11 @@ const DetailsStep = () => {
           <Radio.Button value="toBuy">Option To Buy</Radio.Button>
         </Radio.Group>
 
-        <div className="mt-4">
-          <DetailsStepForm listingType={listingType} />
-        </div>
+        {listingType && (
+          <div className="mt-4">
+            <DetailsStepForm listingType={listingType} />
+          </div>
+        )}
       </div>
     </div>
   );

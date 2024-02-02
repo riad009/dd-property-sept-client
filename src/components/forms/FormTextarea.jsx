@@ -1,7 +1,15 @@
 import { Input } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
-const FormtTextarea = ({ name, label, rows, value, height, placeholder }) => {
+const FormtTextarea = ({
+  name,
+  label,
+  rows,
+  value,
+  height,
+  placeholder,
+  required,
+}) => {
   const { control } = useFormContext();
 
   return (
@@ -12,6 +20,7 @@ const FormtTextarea = ({ name, label, rows, value, height, placeholder }) => {
         name={name}
         render={({ field }) => (
           <Input.TextArea
+            required={required || false}
             rows={rows}
             placeholder={placeholder}
             {...field}

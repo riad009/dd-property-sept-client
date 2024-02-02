@@ -11,6 +11,7 @@ const FormSelectField = ({
   defaultValue,
   customOnChange,
   disabled,
+  required,
 }) => {
   const { control } = useFormContext();
 
@@ -29,6 +30,7 @@ const FormSelectField = ({
             size={size}
             disabled={disabled ? true : false}
             placeholder={placeholder}
+            required={true}
             style={{
               width: "100%",
             }}

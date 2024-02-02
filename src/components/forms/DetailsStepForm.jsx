@@ -2,11 +2,11 @@ import React, { useContext, useState } from "react";
 import FormInput from "./FormInput";
 import FormSelectField from "./FormSelectField";
 import FormRadio from "./FormRadio";
-import { Radio, Space } from "antd";
+import { Popover, Radio, Space } from "antd";
 import FurnishOptions from "../FurnishOptions";
 import FormtTextarea from "./FormTextarea";
 import { AuthContext } from "../../providers/AuthProvider";
-
+import { MdOutlineTipsAndUpdates } from "react-icons/md";
 const DetailsStepForm = ({ listingType }) => {
   const {
     availabilityForLiveTour,
@@ -24,6 +24,16 @@ const DetailsStepForm = ({ listingType }) => {
   const handleUnitFeatures = (selectedCategories) => {
     setUnitFeatures(selectedCategories);
   };
+
+  const content = (
+    <div className="max-w-[400px] text-xs">
+      <p>
+        Provide a thorough description about the property and the unit to engage
+        property seekers. This improves your listing quality score at the same
+        time. Recommended word count: at least 50.
+      </p>
+    </div>
+  );
 
   return (
     <div>
@@ -48,7 +58,7 @@ const DetailsStepForm = ({ listingType }) => {
             size="large"
             placeholder="Price"
             // label="Listing Price"
-            // required={true}
+            required={true}
           />
         </div>
         <div className="w-full">
@@ -59,12 +69,8 @@ const DetailsStepForm = ({ listingType }) => {
             placeholder="Price Type"
             options={[
               {
-                value: "baht",
-                label: "Baht",
-              },
-              {
-                value: "negotiable",
-                label: "Negotiable",
+                value: "THB",
+                label: "THB",
               },
             ]}
           />
@@ -195,6 +201,7 @@ const DetailsStepForm = ({ listingType }) => {
           name="floorSize"
           size="large"
           placeholder="Floor Size"
+          required={true}
         />
       </div>
 
@@ -325,56 +332,55 @@ const DetailsStepForm = ({ listingType }) => {
             name="referenceNote"
             size="large"
             placeholder="Reference Note"
+            required={true}
           />
         </div>
+
         <div className="w-full">
           <FormInput
             type="text"
             name="headline"
             size="large"
             placeholder="Headline"
+            required={true}
           />
         </div>
-        <div className="w-full">
-          <FormtTextarea
-            type="text"
-            name="descriptionThai"
-            size="large"
-            placeholder="Description (Thai)"
-          />
-        </div>
+
+        <Popover
+          content={content}
+          title={
+            <>
+              <div className="flex items-center gap-1 text-sm">
+                <MdOutlineTipsAndUpdates />
+                Tips
+              </div>
+            </>
+          }
+        >
+          <div className="w-full">
+            <FormtTextarea
+              type="text"
+              name="descriptionThai"
+              size="large"
+              placeholder="Description (Thai)"
+              required={true}
+            />
+          </div>
+        </Popover>
         <div className="w-full">
           <FormtTextarea
             type="text"
             name="descriptionEnglish"
             size="large"
             placeholder="Description (English)"
+            required={true}
           />
         </div>
       </div>
 
       <hr className="mt-8 mb-6" />
 
-      <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
-        Availability For Live Tour
-        <span className="text-red-600 text-sm">(Required*)</span>
-      </p>
-
-      <div>
-        <Radio.Group
-          onChange={(e) => setAvailabilityForLiveTour(e.target.value)}
-          value={availabilityForLiveTour}
-        >
-          <Space direction="vertical" className="py-4">
-            <Radio value="available">
-              Yes, I am available for live viewing via video call
-            </Radio>
-            <Radio value="unavailable">No, not available</Radio>
-          </Space>
-        </Radio.Group>
-      </div>
-
-      <hr className="mt-8 mb-6" />
+      {/*  required={true} */}
 
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
         Unit Features

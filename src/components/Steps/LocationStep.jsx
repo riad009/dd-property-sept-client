@@ -60,6 +60,7 @@ const LocationStep = () => {
             size="large"
             label="Location"
             customOnChange={(e) => setLocation(e.target.value)}
+            required={true}
           />
           <p className="text-[14px] text-gray-400 py-2">
             You can't edit this after your listing has been published
@@ -73,6 +74,7 @@ const LocationStep = () => {
                 name="postalCode"
                 size="large"
                 label="Postal Code"
+                required={true}
               />
             </div>
             <div>
@@ -81,6 +83,7 @@ const LocationStep = () => {
                 name="propertyType"
                 size="large"
                 label="Property Type"
+                required={true}
               />
             </div>
             <p className="text-[14px] text-gray-400 py-2">

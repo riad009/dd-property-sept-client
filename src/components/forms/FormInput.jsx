@@ -29,7 +29,7 @@ const FormInput = ({
           {label}
 
           {required && (
-            <span className="text-red-600 text-sm">(Required*)</span>
+            <span className="text-red-600 text-sm"> (Required*)</span>
           )}
         </p>
       ) : null}
@@ -42,9 +42,11 @@ const FormInput = ({
             {...field}
             type={type}
             size={size}
+            required={required || false}
             value={value ? value : field.value}
             placeholder={placeholder}
             onKeyDown={customOnChange && customOnChange}
+            autoComplete="off"
             // className="py-3"
           />
         )}
