@@ -15,11 +15,15 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
     furnishObjects,
     unitFeatures,
     furnishValue, //type
-    availabilityForLiveTour,
+
     imageUrls,
+    setImageUrls,
     videoUrls,
+    setVideoUrls,
     listingType,
     user,
+    coverImage,
+    setCoverImage,
   } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -44,42 +48,18 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
 
   const { handleSubmit, reset } = methods;
 
-  const allFields = {
-    availabilityForLiveTour: "",
-    bathrooms: "",
-    bedrooms: "",
-    descriptionEnglish: "",
-    descriptionThai: "",
-    email: "",
-    facingFrontDoor: "",
-    floorPosition: "",
-    floorSize: "",
-    furnishObjects: "",
-    furnishType: "",
-    headline: "",
-    images: "",
-    listingPrice: "",
-    listingType: "",
-    location: "",
-    maidrooms: "",
-    postalCode: "",
-    priceType: "",
-    propertyType: "",
-    referenceNote: "",
-    unitFeatures: "",
-    videos: "",
-  };
-
   const handleSubmitForm = async (data) => {
     if (current === steps.length - 1) {
+      imageUrls.push(coverImage);
+
       data.email = user?.email;
       data.listingType = listingType;
       data.furnishType = furnishValue;
       data.furnishObjects = furnishObjects;
       data.unitFeatures = unitFeatures;
       data.images = imageUrls;
+      data.coverImage = coverImage;
       data.videos = videoUrls;
-      data.availabilityForLiveTour = availabilityForLiveTour;
 
       console.log({ data });
 
@@ -100,10 +80,11 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
           "priceType",
           "propertyType",
           "referenceNote",
+          "coverImage",
         ];
 
         for (const key of requiredFields) {
-          const value = allFields[key];
+          const value = data[key];
 
           if (
             value === "" ||
@@ -111,6 +92,7 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
             value === undefined ||
             (Array.isArray(value) && value.length === 0)
           ) {
+            console.log({ key, value });
             // alert(`${key} is required`);
             message.error(`Please fill out all Required Fields to proceed!`);
             return false;
@@ -131,7 +113,9 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
             message.success("Property Listing Successfully!");
             submitHandler(data);
             reset();
-
+            setCoverImage("");
+            setImageUrls(null);
+            setVideoUrls(null);
             navigate("/dashboard/my-properties");
           }
         } catch (error) {

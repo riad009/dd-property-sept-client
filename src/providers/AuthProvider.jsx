@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
 
   const [videoUrls, setVideoUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
+  const [coverImage, setCoverImage] = useState("");
   const [listingType, setListingType] = useState("");
   const [location, setLocation] = useState("");
   const [furnishValue, setFurnishValue] = useState("");
@@ -175,6 +176,8 @@ export const AuthProvider = ({ children }) => {
     setFurnishValue,
     availabilityForLiveTour,
     setAvailabilityForLiveTour,
+    coverImage,
+    setCoverImage,
   };
 
   //firebase-------------------------------

@@ -109,7 +109,7 @@ const MyProperties = () => {
               <Link to={`/property/projects/${p._id}`}>
                 <img
                   className="w-40 inline rounded-lg"
-                  src={p?.images[0]}
+                  src={p?.coverImage}
                   alt="cover"
                 />
               </Link>

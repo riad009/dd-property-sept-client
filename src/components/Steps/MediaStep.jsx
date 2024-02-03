@@ -3,6 +3,7 @@ import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import UploadDragger from "../UploadDragger";
 import { useEffect } from "react";
 import VideoUploadDragger from "../VideoUploadDragger";
+import CoverUpload from "../CoverUpload";
 const { Dragger } = Upload;
 
 const MediaStep = () => {
@@ -38,7 +39,32 @@ const MediaStep = () => {
             }}
             className="inline-flex items-center gap-2 font-medium"
           >
-            Add Photos <span className="text-red-600 text-sm">(Required*)</span>
+            Add Cover Photo{" "}
+            <span className="text-red-600 text-sm">(Required*)</span>
+          </p>
+          <p
+            style={{
+              fontSize: "16px",
+              marginBottom: "14px",
+            }}
+            className=""
+          >
+            Your listing performs better by adding quality photos. File types
+            must be .jpg, .jpeg, or .png (up to 10MB each).
+          </p>
+          <CoverUpload />
+          <hr className="my-12" />
+        </div>
+        <div>
+          <p
+            style={{
+              fontSize: "24px",
+              marginBottom: "10px",
+            }}
+            className="inline-flex items-center gap-2 font-medium"
+          >
+            Add Other Photos{" "}
+            <span className="text-red-600 text-sm">(Required*)</span>
           </p>
           <p
             style={{

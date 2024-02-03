@@ -367,15 +367,27 @@ const DetailsStepForm = ({ listingType }) => {
             />
           </div>
         </Popover>
-        <div className="w-full">
-          <FormtTextarea
-            type="text"
-            name="descriptionEnglish"
-            size="large"
-            placeholder="Description (English)"
-            required={true}
-          />
-        </div>
+        <Popover
+          content={content}
+          title={
+            <>
+              <div className="flex items-center gap-1 text-sm">
+                <MdOutlineTipsAndUpdates />
+                Tips
+              </div>
+            </>
+          }
+        >
+          <div className="w-full">
+            <FormtTextarea
+              type="text"
+              name="descriptionEnglish"
+              size="large"
+              placeholder="Description (English)"
+              required={true}
+            />
+          </div>
+        </Popover>
       </div>
 
       <hr className="mt-8 mb-6" />
