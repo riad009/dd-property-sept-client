@@ -89,6 +89,13 @@ const MediaStep = () => {
           >
             Add Videos
           </p>
+
+          {/* <div
+            dangerouslySetInnerHTML={{
+              __html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/FoXyxnou2Fs?si=6_WnexeRazmrfC1k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
+            }}
+          /> */}
+
           <p
             style={{
               fontSize: "16px",
@@ -101,7 +108,30 @@ const MediaStep = () => {
             each).
           </p>
           <VideoUploadDragger />
-          {/* <hr className="my-12" /> */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}
+          >
+            <div
+              style={{
+                border: "0.5px solid #eff0f2",
+                width: "100%",
+                height: "1px",
+              }}
+            />
+
+            <div>or</div>
+            <div
+              style={{
+                border: "0.5px solid #eff0f2",
+                width: "100%",
+                height: "1px",
+              }}
+            />
+          </div>
         </div>
         <div>
           {/* <p

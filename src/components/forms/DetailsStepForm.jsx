@@ -62,17 +62,13 @@ const DetailsStepForm = ({ listingType }) => {
           />
         </div>
         <div className="w-full">
-          <FormSelectField
+          <FormInput
             type="text"
             name="priceType"
             size="large"
             placeholder="Price Type"
-            options={[
-              {
-                value: "THB",
-                label: "THB",
-              },
-            ]}
+            disabled={true}
+            value={"THB"}
           />
         </div>
       </div>

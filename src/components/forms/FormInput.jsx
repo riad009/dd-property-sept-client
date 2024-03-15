@@ -14,6 +14,7 @@ const FormInput = ({
   required,
   count,
   customOnChange,
+  disabled,
 }) => {
   const {
     control,
@@ -47,6 +48,7 @@ const FormInput = ({
             placeholder={placeholder}
             onKeyDown={customOnChange && customOnChange}
             autoComplete="off"
+            disabled={disabled}
             // className="py-3"
           />
         )}

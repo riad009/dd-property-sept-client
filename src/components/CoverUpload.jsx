@@ -90,9 +90,21 @@ const CoverUpload = () => {
       ) : (
         <>
           {coverImage && (
-            <div className="mt-6">
-              <Image src={coverImage} width={250} height={150} />
-            </div>
+            <>
+              <div className="flex flex-col md:flex-row items-center flex-wrap gap-4 mt-6">
+                <div className="flex flex-col items-center">
+                  <Image src={coverImage} width={250} height={150} />
+                  <Button
+                    type="danger"
+                    className="text-red-600"
+                    icon={<DeleteOutlined className="text-red-600" />}
+                    onClick={() => setCoverImage("")}
+                  >
+                    Remove
+                  </Button>
+                </div>
+              </div>
+            </>
           )}
         </>
       )}

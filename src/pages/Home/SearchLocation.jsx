@@ -9,10 +9,41 @@ import axios from "axios";
 import { useUserContext } from "../../providers/AuthProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
+export const footer1Items = [
+  {
+    key: 0,
+    label: "All Residential",
+  },
+  {
+    key: 1,
+    label: "Condo",
+    options: ["Condo"],
+  },
+  {
+    key: 2,
+    label: "Detached House",
+    options: ["Detached House"],
+  },
+  {
+    key: 3,
+    label: "Town House",
+    options: ["Town House"],
+  },
+  {
+    key: 4,
+    label: "land",
+    options: ["Land"],
+  },
+  {
+    key: 5,
+    label: "Apartment",
+    options: ["Apartment"],
+  },
+];
+
 const SearchLocation = () => {
   const { searchvalue, handleSearchvalue, handleCategory } = useUserContext();
 
-  console.log("searchvalue", searchvalue);
   const [propertyType, setPropertyType] = useState("residential");
 
   const [footer1Open, setFooter1Open] = useState(false);
@@ -50,48 +81,15 @@ const SearchLocation = () => {
     setFooter3Open(!footer3Open);
   };
 
-  const footer1Items = [
-    {
-      key: 0,
-      label: "All Residential",
-    },
-    {
-      key: 1,
-      label: "Condo",
-      options: ["Condo"],
-    },
-    {
-      key: 2,
-      label: "Detached House",
-      options: ["Detached House"],
-    },
-    {
-      key: 3,
-      label: "Town House",
-      options: ["Town House"],
-    },
-    {
-      key: 4,
-      label: "land",
-      options: ["Land"],
-    },
-    {
-      key: 5,
-      label: "Apartment",
-      options: ["Apartment"],
-    },
-  ];
-
   const [value, setValue] = useState("All Residential");
+
   const radioHandler = (e) => {
     setFooter1Open(true);
-    console.log("radio checked", e.target.value);
+
     setValue(e.target.value);
   };
 
-  const checkBoxHandler = (checkedValues) => {
-    console.log("checked = ", checkedValues);
-  };
+  const checkBoxHandler = (checkedValues) => {};
 
   const [minprice, setminprice] = useState("");
   const [maxprice, setmaxprice] = useState("");
@@ -109,7 +107,7 @@ const SearchLocation = () => {
   // Search start
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  console.log("suggestions", suggestions);
+
   const [isActive, setIsActive] = useState(false);
   const searchRef = useRef(null);
 
@@ -136,9 +134,7 @@ const SearchLocation = () => {
           // Update the suggestions based on the backend response
           setSuggestions(response.data);
         })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        .catch((error) => {});
     } else {
       // Clear suggestions when the search term is empty
       setSuggestions([]);

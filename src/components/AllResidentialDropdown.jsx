@@ -12,16 +12,27 @@ const AllResidentialDropdown = ({
   checkBoxHandler,
   value,
   border,
+  hideFooter,
 }) => {
   return (
     <div className={`relative ${border && "bg-white w-fit p-2 rounded-md"}`}>
-      <h6
-        onClick={footer1Handler}
-        className="flex items-center gap-1 cursor-pointer"
-      >
-        All Residential
-        {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
-      </h6>
+      {!hideFooter ? (
+        <h6
+          onClick={footer1Handler}
+          className="flex items-center gap-1 cursor-pointer"
+        >
+          {value}
+          {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
+        </h6>
+      ) : (
+        <h6
+          onClick={footer1Handler}
+          className="flex items-center gap-1 cursor-pointer rounded-[8px] border border-[lightgray] h-[40px] pl-2"
+        >
+          {value}
+          {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
+        </h6>
+      )}
       {footer1Open && (
         <div
           className={`absolute shadow-md rounded-lg ${
@@ -95,7 +106,7 @@ const AllResidentialDropdown = ({
           </div>
           {/* Footer Footer */}
           {/* Footer Footer */}
-          <ApplyFilterButtons />
+          {!hideFooter && <ApplyFilterButtons />}
         </div>
       )}
     </div>
