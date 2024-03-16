@@ -11,17 +11,29 @@ import {
 import { Link } from "react-router-dom";
 
 const PropertyCard = ({ property }) => {
-  const { image, title, location, price, propertyTitle, areaSize, bedrooms, bathrooms } =
-    property;
+  const {
+    coverImage,
+    title,
+    location,
+    listingPrice,
+    headLine,
+    floorSize,
+    bedrooms,
+    bathrooms,
+  } = property;
   return (
     <Link to={`/property/projects/${property._id}`}>
       <div className="bg-white w-full md:w-4/6">
-        <img src={property.mainImg} alt="property_cover" className="rounded-t-lg w-full" />
+        <img
+          src={coverImage[0]}
+          alt="property_cover"
+          className="rounded-t-lg w-full"
+        />
         <div className="p-2">
-          <h1 className="mt-3 font-semibold text-xl">{propertyTitle}</h1>
-          <h1 className="text-sm my-1">{property.address}</h1>
+          <h1 className="mt-3 font-semibold text-xl">{headLine}</h1>
+          <h1 className="text-sm my-1">{property.location}</h1>
           <h1 className="flex items-center gap-2 my-2">
-            ฿ {price}{" "}
+            ฿ {listingPrice}{" "}
             <span className="text-xs bg-dark2/10 py-1 px-3 rounded">
               starting from
             </span>
@@ -29,7 +41,8 @@ const PropertyCard = ({ property }) => {
           <div className="flex gap-5 my-3">
             <div>
               <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                <GiBed className="text-xl" />{property.bedrooms}
+                <GiBed className="text-xl" />
+                {property.bedrooms}
               </p>
             </div>
             <div>
@@ -39,7 +52,7 @@ const PropertyCard = ({ property }) => {
             </div>
             <div>
               <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                <RiCommunityFill className="text-xl" /> {areaSize}
+                <RiCommunityFill className="text-xl" /> {floorSize}
               </p>
             </div>
           </div>
@@ -47,7 +60,7 @@ const PropertyCard = ({ property }) => {
             <div className="flex gap-2 items-center">
               <img
                 className="w-10 h-10 object-cover rounded-full"
-                src='https://th1-cdn.pgimgs.com/agent/15851271/APHO.116495626.V120B.jpg'
+                src="https://th1-cdn.pgimgs.com/agent/15851271/APHO.116495626.V120B.jpg"
                 alt="company_logo"
               />
               <div>

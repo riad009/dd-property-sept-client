@@ -12,140 +12,19 @@ import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const PropertyForSale = () => {
-  const { searchvalue, handleSearchvalue, category, bedrooms, pricefilter } =
-    useUserContext();
-
-  const [propertyType, setPropertyType] = useState("residential");
-  const [footer1Open, setFooter1Open] = useState(false);
-  const [footer2Open, setFooter2Open] = useState(false);
-  const [footer3Open, setFooter3Open] = useState(false);
-  const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
-
-  const [bedroomsSelected, setBedroomsSelected] = useState([]);
-
-  const handleBedroomSizeFilter = (option) => {
-    if (bedroomsSelected.includes(option)) {
-      setBedroomsSelected(
-        bedroomsSelected.filter((selectedOption) => selectedOption !== option)
-      );
-    } else {
-      setBedroomsSelected([...bedroomsSelected, option]);
-    }
-  };
-
-  const footer1Handler = () => {
-    setFooter1Open(!footer1Open);
-    setFooter2Open(false);
-    setFooter3Open(false);
-  };
-
-  const footer2Handler = () => {
-    setFooter1Open(false);
-    setFooter2Open(!footer2Open);
-    setFooter3Open(false);
-  };
-
-  const footer3Handler = () => {
-    setFooter1Open(false);
-    setFooter2Open(false);
-    setFooter3Open(!footer3Open);
-  };
-
-  const footer1Items = [
-    {
-      key: 0,
-      label: "All Residential",
-    },
-    {
-      key: 1,
-      label: "Condo",
-      options: ["Condo"],
-    },
-    {
-      key: 2,
-      label: "Detached House",
-      options: ["Detached House"],
-    },
-    {
-      key: 3,
-      label: "Town House",
-      options: ["Town House"],
-    },
-    {
-      key: 4,
-      label: "land",
-      options: ["Land"],
-    },
-    {
-      key: 5,
-      label: "Apartment",
-      options: ["Apartment"],
-    },
-  ];
-
-  const [value, setValue] = useState("All Residential");
-  const radioHandler = (e) => {
-    setFooter1Open(true);
-    console.log("radio checked", e.target.value);
-    setValue(e.target.value);
-  };
-
-  const checkBoxHandler = (checkedValues) => {
-    console.log("checked = ", checkedValues);
-  };
-
-  const minPriceHandler = (e) => {
-    console.log(e.target.value);
-  };
-
-  const maxPriceHandler = (e) => {
-    console.log(e.target.value);
-  };
+  const { searchvalue, category, bedrooms, pricefilter } = useUserContext();
 
   const [map, setMap] = useState(false);
-  const [filterOption, setFilterOption] = useState("All");
-
-  const properties = [
-    {
-      image:
-        "https://th1-cdn.pgimgs.com/project-listing-project/10776592/PLPHO.115004197.R400X300/Home-Sweet-Home-The-Forest-Muang-Chon-Buri-Thailand.jpg",
-      title: "Home Sweet Home The Forest, Chon Buri",
-      location: "Lorem ipsum dolor sit amet",
-      startingPrice: 13500000,
-      bedRoom: 4,
-      bathRoom: 5,
-      size: 316,
-      tags: ["New Project", "townhouse", "singlehouse"],
-      postedAt: "4h",
-      listedBy: "Home sweet Home Estate",
-      companyLogo:
-        "https://th1-cdn.pgimgs.com/agent/15851271/APHO.116495626.V120B.jpg",
-    },
-    {
-      image:
-        "https://th1-cdn.pgimgs.com/project-listing-project/10776592/PLPHO.115004197.R400X300/Home-Sweet-Home-The-Forest-Muang-Chon-Buri-Thailand.jpg",
-      title: "Home Sweet Home The Forest, Chon Buri",
-      location: "Lorem ipsum dolor sit amet",
-      startingPrice: 13500000,
-      bedRoom: 4,
-      bathRoom: 5,
-      size: 316,
-      tags: ["New Project", "townhouse", "singlehouse"],
-      postedAt: "4h",
-      listedBy: "Home sweet Home Estate",
-      companyLogo:
-        "https://th1-cdn.pgimgs.com/agent/15851271/APHO.116495626.V120B.jpg",
-    },
-  ];
-
-  // get property
 
   const [searchResults, setSearchResults] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
 
+  console.log({ searchvalue, category, bedrooms, pricefilter });
+
   useEffect(() => {
     const apiUrl =
       "https://dd-property-sept-server.vercel.app/get/search/property/new";
+    // "http://localhost:5000/get/search/property/new";
 
     const requestData = {
       searchvalue: JSON.stringify(searchvalue),
