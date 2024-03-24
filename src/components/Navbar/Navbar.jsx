@@ -106,7 +106,7 @@ export const languages = [
 
 const Navbar = () => {
   // check current user
-	const { user, loading,logout } = useContext(AuthContext)
+  const { user, loading, logout } = useContext(AuthContext);
 
   const path = useHref();
 
@@ -136,7 +136,7 @@ const Navbar = () => {
     },
     {
       key: "0",
-    
+
       label: <Link to="/dashboard">Dashboard</Link>,
     },
     {
@@ -147,7 +147,7 @@ const Navbar = () => {
       key: "2",
       label: <Link to="/">Feedback</Link>,
     },
-  
+
     {
       key: "3",
       label: <h1 onClick={logout}>Logout</h1>,

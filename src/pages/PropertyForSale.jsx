@@ -12,14 +12,15 @@ import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const PropertyForSale = () => {
-  const { searchvalue, category, bedrooms, pricefilter } = useUserContext();
+  const { searchvalue, category, bedroomsSelected, pricefilter } =
+    useUserContext();
 
   const [map, setMap] = useState(false);
 
   const [searchResults, setSearchResults] = useState([]);
-  const [isDataLoading, setIsDataLoading] = useState(true);
+  const [isDataLoading, setIsDataLoading] = useState(false);
 
-  console.log({ searchvalue, category, bedrooms, pricefilter });
+  console.log({ searchvalue, category, bedroomsSelected, pricefilter });
 
   useEffect(() => {
     const apiUrl =
@@ -28,42 +29,43 @@ const PropertyForSale = () => {
 
     const requestData = {
       searchvalue: JSON.stringify(searchvalue),
-      bedrooms: bedrooms,
+      bedrooms: bedroomsSelected,
       maxprice: pricefilter?.maxprice,
       minprice: pricefilter?.minprice,
     };
-
+    setIsDataLoading(true);
     // Fetch data only if isDataLoading is true
-    if (isDataLoading) {
-      // Send the search object to the server using POST method
-      fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
+
+    // Send the search object to the server using POST method
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the received data
+        setSearchResults(data);
+        // Set isDataLoading to false after the data is loaded
+        setIsDataLoading(false);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the received data
-          setSearchResults(data);
-          // Set isDataLoading to false after the data is loaded
-          setIsDataLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          // Handle errors if needed
-          setIsDataLoading(false); // Set isDataLoading to false in case of an error
-        });
-    }
-  }, [isDataLoading]); // Dependency array with isDataLoading to run the effect when isDataLoading changes
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle errors if needed
+        setIsDataLoading(false); // Set isDataLoading to false in case of an error
+      });
+  }, []); // Dependency array with isDataLoading to run the effect when isDataLoading changes
 
   // get property
 
   //category
 
   const [categoryproperty, setcategory] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  console.log({ searchResults, categoryproperty });
 
   useEffect(() => {
     // Define the search object
@@ -71,7 +73,7 @@ const PropertyForSale = () => {
       category: category.combinedFields?.category,
       category2: category.combinedFields?.category2,
     };
-
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -87,10 +89,9 @@ const PropertyForSale = () => {
     };
 
     // Fetch data only on the initial render
-    if (loading) {
-      fetchData();
-    }
-  }, [loading]);
+
+    fetchData();
+  }, []);
 
   //category
 
@@ -186,35 +187,39 @@ const PropertyForSale = () => {
               <PropertyCard property={property} />
             ))}
           </div> */}
-          <section>
-            {searchResults.length > 0 ? (
-              <>
-                <div className="flex flex-col gap-5">
-                  {searchResults.map((property) => (
-                    <PropertyCard key={property.id} property={property} />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <>
-                {categoryproperty.length > 0 ? (
-                  <>
-                    <div className="flex flex-col gap-5">
-                      {categoryproperty.map((property) => (
-                        <PropertyCard key={property.id} property={property} />
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex items-center justify-center h-24">
-                      <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 border-solid h-12 w-12"></div>
-                    </div>
-                  </>
-                )}
-              </>
-            )}
-          </section>
+          {isDataLoading ? (
+            <div className="flex items-center justify-center h-24">
+              <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 border-solid h-12 w-12"></div>
+            </div>
+          ) : (
+            <section>
+              {searchResults.length > 0 ? (
+                <>
+                  <div className="flex flex-col gap-5">
+                    {searchResults.map((property) => (
+                      <PropertyCard key={property.id} property={property} />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  {categoryproperty.length > 0 ? (
+                    <>
+                      <div className="flex flex-col gap-5">
+                        {categoryproperty.map((property) => (
+                          <PropertyCard key={property.id} property={property} />
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div>No data found</div>
+                    </>
+                  )}
+                </>
+              )}
+            </section>
+          )}
         </div>
       </SmallContainer>
     </div>

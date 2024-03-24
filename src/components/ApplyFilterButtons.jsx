@@ -2,23 +2,23 @@ import { useContext } from "react";
 import Button from "./Button";
 import { AuthContext } from "../providers/AuthProvider";
 
-const ApplyFilterButtons = ({ setBedroomsSelected,price, filterClickEvent,bedroomsSelected}) => {
+const ApplyFilterButtons = ({
+  setBedroomsSelected,
+  price,
+  filterClickEvent,
+  bedroomsSelected,
+}) => {
+  const { handlebedrooms, handlePrice, pricefilter } = useContext(AuthContext);
 
-  const { handlebedrooms,handlePrice,pricefilter } = useContext(AuthContext)
+  const handleFilterButton = () => {
+    handlebedrooms(bedroomsSelected);
+    handlePrice(pricefilter);
+  };
 
-  const handleFilterButton=()=>{
-   
-    handlebedrooms(bedroomsSelected)
-    handlePrice(price)
-   
-  }
-
-  console.log('price price',price)
-  const  clearClickEvent=()=>{
-    setBedroomsSelected('')
-    handlebedrooms('')
-}
-
+  const clearClickEvent = () => {
+    setBedroomsSelected("");
+    handlebedrooms("");
+  };
 
   return (
     <div className="text-dark flex justify-between items-center p-5 text-sm">

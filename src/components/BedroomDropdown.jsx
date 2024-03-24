@@ -9,7 +9,7 @@ const BedroomDropdown = ({
   bedRoomSizes,
   bedroomsSelected,
   handleBedroomSizeFilter,
-  
+
   setBedroomsSelected,
   border,
 }) => {
@@ -35,7 +35,7 @@ const BedroomDropdown = ({
                 <div
                   key={option}
                   className={`px-4 py-1 border rounded-lg cursor-pointer ${
-                    bedroomsSelected.includes(option) && "bg-dark text-white"
+                    bedroomsSelected === option && "bg-dark text-white"
                   } border border-dark`}
                   onClick={() => handleBedroomSizeFilter(option)}
                 >
@@ -46,7 +46,10 @@ const BedroomDropdown = ({
           </div>
           <Divider />
           {/* Footer Footer */}
-          <ApplyFilterButtons setBedroomsSelected={setBedroomsSelected}  bedroomsSelected={bedroomsSelected} />
+          <ApplyFilterButtons
+            setBedroomsSelected={setBedroomsSelected}
+            bedroomsSelected={bedroomsSelected}
+          />
         </div>
       )}
     </div>

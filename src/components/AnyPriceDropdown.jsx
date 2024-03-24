@@ -2,16 +2,33 @@ import { Divider, InputNumber } from "antd";
 import React from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import ApplyFilterButtons from "./ApplyFilterButtons";
+import { useUserContext } from "../providers/AuthProvider";
 
 const AnyPrice = ({
   footer2Handler,
   footer2Open,
-  minPriceHandler,
-  maxPriceHandler,
+  // minPriceHandler,
+  // maxPriceHandler,
   border,
   price,
 }) => {
+  const { setpricefilter, pricefilter } = useUserContext();
 
+  console.log({ pricefilter });
+
+  const minPriceHandler = (e) => {
+    setpricefilter({
+      ...pricefilter,
+      minPrice: e,
+    });
+  };
+
+  const maxPriceHandler = (e) => {
+    setpricefilter({
+      ...pricefilter,
+      maxPrice: e,
+    });
+  };
 
   return (
     <div className={`relative ${border && "bg-white w-fit py-2 rounded-md"}`}>
@@ -50,7 +67,7 @@ const AnyPrice = ({
           </div>
           <Divider />
           {/* Footer Footer */}
-   
+
           <ApplyFilterButtons price={price} />
         </div>
       )}

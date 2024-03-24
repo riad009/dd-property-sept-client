@@ -39,8 +39,11 @@ export const AuthProvider = ({ children }) => {
 
   const [bedrooms, setbedrooms] = useState("");
 
-  const [pricefilter, setpricefilter] = useState("");
-
+  const [pricefilter, setpricefilter] = useState({
+    minPrice: "",
+    maxPrice: "",
+  });
+  const [bedroomsSelected, setBedroomsSelected] = useState("");
   const [propertyUpdateId, setPropertyid] = useState("");
 
   const handleSearchvalue = (newData) => {
@@ -140,6 +143,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const authInfo = {
+    bedroomsSelected,
+    setBedroomsSelected,
+    setpricefilter,
     propertyUpdateId,
     handlePropertyid,
     pricefilter,

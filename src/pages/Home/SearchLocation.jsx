@@ -42,25 +42,33 @@ export const footer1Items = [
 ];
 
 const SearchLocation = () => {
-  const { searchvalue, handleSearchvalue, handleCategory } = useUserContext();
+  const {
+    searchvalue,
+    handleSearchvalue,
+    handleCategory,
+    handlePrice,
+    bedroomsSelected,
+    setBedroomsSelected,
+  } = useUserContext();
 
   const [propertyType, setPropertyType] = useState("residential");
 
   const [footer1Open, setFooter1Open] = useState(false);
   const [footer2Open, setFooter2Open] = useState(false);
   const [footer3Open, setFooter3Open] = useState(false);
-  const bedRoomSizes = ["Studio", "1", "2", "3", "4", "5+"];
-
-  const [bedroomsSelected, setBedroomsSelected] = useState([]);
+  const bedRoomSizes = ["1", "2", "3", "4", "5+"];
 
   const handleBedroomSizeFilter = (option) => {
-    if (bedroomsSelected.includes(option)) {
-      setBedroomsSelected(
-        bedroomsSelected.filter((selectedOption) => selectedOption !== option)
-      );
-    } else {
-      setBedroomsSelected([...bedroomsSelected, option]);
-    }
+    setBedroomsSelected(option);
+
+    // if (bedroomsSelected.includes(option)) {
+    //   setBedroomsSelected(
+    //     bedroomsSelected.filter((selectedOption) => selectedOption !== option)
+    //   );
+    // } else {
+    //   // bedroomsSelected.push(option);
+    //   setBedroomsSelected([...bedroomsSelected, option]);
+    // }
   };
 
   const footer1Handler = () => {
@@ -98,10 +106,13 @@ const SearchLocation = () => {
 
   const minPriceHandler = (e) => {
     setminprice(e);
+
+    handlePrice(price);
   };
 
   const maxPriceHandler = (e) => {
     setmaxprice(e);
+    handlePrice(price);
   };
 
   // Search start

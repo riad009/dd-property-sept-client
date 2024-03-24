@@ -88,27 +88,27 @@ const DetailsStepForm = ({ listingType }) => {
             placeholder="Bedrooms"
             options={[
               {
-                value: "1bed",
+                value: "1",
                 label: "1 Bedrooms",
               },
               {
-                value: "2bed",
+                value: "2",
                 label: "2 Bedrooms",
               },
               {
-                value: "3bed",
+                value: "3",
                 label: "3 Bedrooms",
               },
               {
-                value: "4bed",
+                value: "4",
                 label: "4 Bedrooms",
               },
               {
-                value: "5bed",
+                value: "5",
                 label: "5 Bedrooms",
               },
               {
-                value: "10+bed",
+                value: "10",
                 label: "10+ Bedrooms",
               },
             ]}
