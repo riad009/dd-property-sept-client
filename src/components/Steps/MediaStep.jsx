@@ -1,10 +1,10 @@
 import { Button, Upload } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+
 import UploadDragger from "../UploadDragger";
 import { useEffect } from "react";
-import VideoUploadDragger from "../VideoUploadDragger";
+
 import CoverUpload from "../CoverUpload";
-const { Dragger } = Upload;
+import FormInput from "../forms/FormInput";
 
 const MediaStep = () => {
   useEffect(() => {
@@ -87,14 +87,8 @@ const MediaStep = () => {
             }}
             className="inline-flex items-center gap-2 font-medium"
           >
-            Add Videos
+            Add Video
           </p>
-
-          {/* <div
-            dangerouslySetInnerHTML={{
-              __html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/FoXyxnou2Fs?si=6_WnexeRazmrfC1k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
-            }}
-          /> */}
 
           <p
             style={{
@@ -103,33 +97,16 @@ const MediaStep = () => {
             }}
             className=""
           >
-            +5% listing quality score by adding a video. File types must be
-            .divx, .3gp, .mp4, .avi, .webm, .mov, .flv, or .htm (up to 50MB
-            each).
+            Provide a video link from youtube
           </p>
-          <VideoUploadDragger />
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <div
-              style={{
-                border: "0.5px solid #eff0f2",
-                width: "100%",
-                height: "1px",
-              }}
-            />
-
-            <div>or</div>
-            <div
-              style={{
-                border: "0.5px solid #eff0f2",
-                width: "100%",
-                height: "1px",
-              }}
+          {/* <VideoUploadDragger /> */}
+          <div className="w-full">
+            <FormInput
+              type="url"
+              name="video"
+              size="large"
+              placeholder="Size"
+              required={true}
             />
           </div>
         </div>

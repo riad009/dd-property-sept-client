@@ -4,8 +4,9 @@ import MediaStep from "../../components/Steps/MediaStep";
 
 import Stepper from "../../components/stepper/Stepper";
 import SummaryStep from "../../components/Steps/SummaryStep";
+import StepperLand from "../../components/stepper/StepperLand";
 
-const CreateListingSteps = () => {
+const CreateListingLand = () => {
   const steps = [
     {
       title: "Location",
@@ -40,11 +41,11 @@ const CreateListingSteps = () => {
   };
 
   return (
-    <Stepper
+    <StepperLand
       submitHandler={(value) => handleStudentSubmit(value)}
       steps={steps}
     />
   );
 };
 
-export default CreateListingSteps;
+export default CreateListingLand;

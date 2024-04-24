@@ -7,32 +7,14 @@ import DetailsStepForm from "../forms/DetailsStepForm";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const DetailsStep = () => {
-  // const plainOptions = [
-  //   "Air Conditionning",
-  //   "Barbeque",
-  //   "Dryer",
-  //   "Gym",
-  //   "Laundry",
-  //   "Microwave",
-  //   "Outdoor Shower",
-  //   "Refrigerator",
-  //   "Sauna",
-  //   "Lawn",
-  //   "TV Cable",
-  //   "Washer",
-  //   "Wifi",
-  //   "Window Coverings",
-  //   "Swimming Pool",
-  // ];
-
-  const { listingType, setListingType } = useContext(AuthContext);
+  const { propertyData, setPropertyData } = useContext(AuthContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const handleListingType = ({ target: { value } }) => {
-    setListingType(value);
+    setPropertyData((prev) => ({ ...prev, listingType: value }));
   };
   return (
     <div
@@ -72,7 +54,7 @@ const DetailsStep = () => {
         <p className="text-[14px]">Select one to continue</p>
         <Radio.Group
           onChange={handleListingType}
-          value={listingType}
+          value={propertyData?.listingType}
           buttonStyle="solid"
           size="large"
           style={{
@@ -81,12 +63,11 @@ const DetailsStep = () => {
         >
           <Radio.Button value="forSale">For Sale</Radio.Button>
           <Radio.Button value="forRent">For Rent</Radio.Button>
-          <Radio.Button value="toBuy">Option To Buy</Radio.Button>
         </Radio.Group>
 
-        {listingType && (
+        {propertyData?.listingType && (
           <div className="mt-4">
-            <DetailsStepForm listingType={listingType} />
+            <DetailsStepForm listingType={propertyData?.listingType} />
           </div>
         )}
       </div>

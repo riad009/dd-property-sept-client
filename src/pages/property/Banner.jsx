@@ -32,36 +32,11 @@ const Banner = ({ breadCrumbItems, images, p }) => {
   return (
     <div>
       <SmallContainer extraClasses="p-5">
-        {/* Navigations */}
         <Breadcrumb separator=">" items={breadCrumbItems} />
-        {/* Header */}
-        {/* <div className="flex items-center">
-          <img className="w-20" src={thumb} alt="Thumb" />
-          <h1 className="sm:text-2xl font-semibold">{p.propertyTitle} ,</h1>
-        </div> */}
-        {/* <h1 className="sm:text-xl text-xs">
-          {p.city},{p.district} ,{p.address}
-        </h1> */}
-        {/* Social Media */}
-        <div className="sm:flex items-start justify-between text-xs sm:my-5 my-2">
-          {/* <div className="flex items-center gap-2">
-            {["New Project", "townhouse", "singlehouse"].map((name, index) => (
-              <span
-                key={index}
-                className="rounded-full border border-danger py-0.5 px-3"
-              >
-                {name}
-              </span>
-            ))}
-          </div> */}
-          {/* <div className="flex gap-2 sm:mt-0 mt-5">
-            <Share />
-            
-            <PiHeart className="hover:bg-dark hover:text-white border border-dark/50 text-3xl rounded p-1 transition-300 " />
-          </div> */}
-        </div>
+
+        <div className="sm:flex items-start justify-between text-xs sm:my-5 my-2"></div>
       </SmallContainer>
-      {/* Image Gallery */}
+
       <Slide
         slidesToScroll={1}
         slidesToShow={1}
@@ -86,7 +61,7 @@ const Banner = ({ breadCrumbItems, images, p }) => {
           },
         ]}
       >
-        {images.map((item, index) => (
+        {images?.map((item, index) => (
           <img
             onClick={() => openImageViewer(index)}
             key={index}
@@ -99,20 +74,31 @@ const Banner = ({ breadCrumbItems, images, p }) => {
             }}
           />
         ))}
-        {p?.videos?.map((item, index) => (
-          <video
-            // onClick={() => openImageViewer(index)}
-            key={index}
-            src={item}
-            controls
-            className="cursor-pointer"
-            style={{
-              width: "432px",
-              height: "325px",
-              objectFit: "cover",
-            }}
-          />
-        ))}
+        {/* {
+          p?.video && (
+            <iframe
+              width="560"
+              height="315"
+              src={p?.video}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          )
+          // <video
+          //   // onClick={() => openImageViewer(index)}
+          //   key={index}
+          //   src={item}
+          //   controls
+          //   className="cursor-pointer"
+          //   style={{
+          //     width: "432px",
+          //     height: "325px",
+          //     objectFit: "cover",
+          //   }}
+          // />
+        } */}
       </Slide>
 
       <SmallContainer extraClasses="p-2">

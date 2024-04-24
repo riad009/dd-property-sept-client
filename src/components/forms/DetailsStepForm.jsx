@@ -9,21 +9,47 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 const DetailsStepForm = ({ listingType }) => {
   const {
-    availabilityForLiveTour,
     setFurnishObjects,
-    setAvailabilityForLiveTour,
+
     setUnitFeatures,
-    furnishValue,
-    setFurnishValue,
+
+    propertyData,
+    setPropertyData,
   } = useContext(AuthContext);
 
-  const handleFurnishObj = (selectedCategories) => {
-    setFurnishObjects(selectedCategories);
-  };
+  let propertyTypes;
 
-  const handleUnitFeatures = (selectedCategories) => {
-    setUnitFeatures(selectedCategories);
-  };
+  if (propertyData?.type === "property") {
+    propertyTypes = [
+      {
+        value: "House",
+        label: "House",
+      },
+      {
+        value: "Townhouse",
+        label: "Townhouse",
+      },
+      {
+        value: "Apartment",
+        label: "Apartment",
+      },
+      {
+        value: "Condo",
+        label: "Condo",
+      },
+      {
+        value: "Business and Land",
+        label: "Business and Land",
+      },
+    ];
+  } else {
+    propertyTypes = [
+      {
+        value: "Land",
+        label: "Land",
+      },
+    ];
+  }
 
   const content = (
     <div className="max-w-[400px] text-xs">
@@ -34,7 +60,10 @@ const DetailsStepForm = ({ listingType }) => {
       </p>
     </div>
   );
-
+  const floorOptions = Array.from({ length: 60 }, (_, i) => ({
+    value: `${i + 1}`,
+    label: `${i + 1}`,
+  }));
   return (
     <div>
       <p className="text-[17px] ">
@@ -46,205 +75,219 @@ const DetailsStepForm = ({ listingType }) => {
       </p>
       <hr className="my-6" />
 
+      <div className="w-full mb-4">
+        <FormSelectField
+          type="text"
+          name="propertyType"
+          size="large"
+          label={`Property Type`}
+          options={propertyTypes}
+        />
+      </div>
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
-        Listing Price
+        Price
         <span className="text-red-600 text-sm">(Required*)</span>
       </p>
       <div className="flex gap-4">
         <div className="w-full">
           <FormInput
-            type="text"
-            name="listingPrice"
+            type="number"
+            name="price"
             size="large"
-            placeholder="Price"
+            placeholder="Price (THB)"
             // label="Listing Price"
             required={true}
           />
         </div>
         <div className="w-full">
-          <FormInput
-            type="text"
-            name="priceType"
-            size="large"
-            placeholder="Price Type"
-            disabled={true}
-            value={"THB"}
-          />
+          {listingType === "forSale" || propertyData?.type === "land" ? (
+            <FormInput
+              type="text"
+              name="priceType"
+              size="large"
+              placeholder="Price Type"
+              disabled={true}
+              value={"THB"}
+            />
+          ) : (
+            <FormSelectField
+              type="text"
+              name="rentDuration"
+              size="large"
+              options={[
+                {
+                  value: "Daily",
+                  label: "Daily",
+                },
+                {
+                  value: "Monthly",
+                  label: "Monthly",
+                },
+                {
+                  value: "Yearly",
+                  label: "Yearly",
+                },
+              ]}
+            />
+          )}
         </div>
       </div>
+
+      {propertyData?.type === "property" && (
+        <>
+          <hr className="mt-8 mb-6" />
+
+          <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
+            Rooms
+            <span className="text-red-600 text-sm">(Required*)</span>
+          </p>
+          <div className="flex flex-col gap-4">
+            <div className="w-full">
+              <FormSelectField
+                type="text"
+                name="bedrooms"
+                size="large"
+                placeholder="Bedrooms"
+                options={[
+                  {
+                    value: "1",
+                    label: "1 Bedrooms",
+                  },
+                  {
+                    value: "2",
+                    label: "2 Bedrooms",
+                  },
+                  {
+                    value: "3",
+                    label: "3 Bedrooms",
+                  },
+                  {
+                    value: "4",
+                    label: "4 Bedrooms",
+                  },
+                  {
+                    value: "5",
+                    label: "5 Bedrooms",
+                  },
+                  {
+                    value: "10",
+                    label: "10+ Bedrooms",
+                  },
+                ]}
+              />
+            </div>
+            <div className="w-full">
+              <FormSelectField
+                type="text"
+                name="bathrooms"
+                size="large"
+                placeholder="Bathrooms"
+                options={[
+                  {
+                    value: "1bed",
+                    label: "1 Bathrooms",
+                  },
+                  {
+                    value: "2bed",
+                    label: "2 Bathrooms",
+                  },
+                  {
+                    value: "3bed",
+                    label: "3 Bathrooms",
+                  },
+                  {
+                    value: "4bed",
+                    label: "4 Bathrooms",
+                  },
+                  {
+                    value: "5bed",
+                    label: "5 Bathrooms",
+                  },
+                  {
+                    value: "10+bed",
+                    label: "10+ Bathrooms",
+                  },
+                ]}
+              />
+            </div>
+            <div className="w-full">
+              <FormSelectField
+                type="text"
+                name="maidrooms"
+                size="large"
+                placeholder="Maidrooms"
+                options={[
+                  {
+                    value: "1bed",
+                    label: "1 Maidrooms",
+                  },
+                  {
+                    value: "2bed",
+                    label: "2 Maidrooms",
+                  },
+                  {
+                    value: "3bed",
+                    label: "3 Maidrooms",
+                  },
+                  {
+                    value: "4bed",
+                    label: "4 Maidrooms",
+                  },
+                  {
+                    value: "5bed",
+                    label: "5 Maidrooms",
+                  },
+                  {
+                    value: "10+bed",
+                    label: "10+ Maidrooms",
+                  },
+                ]}
+              />
+            </div>
+          </div>
+        </>
+      )}
 
       <hr className="mt-8 mb-6" />
 
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
-        Rooms
-        <span className="text-red-600 text-sm">(Required*)</span>
-      </p>
-      <div className="flex flex-col gap-4">
-        <div className="w-full">
-          <FormSelectField
-            type="text"
-            name="bedrooms"
-            size="large"
-            placeholder="Bedrooms"
-            options={[
-              {
-                value: "1",
-                label: "1 Bedrooms",
-              },
-              {
-                value: "2",
-                label: "2 Bedrooms",
-              },
-              {
-                value: "3",
-                label: "3 Bedrooms",
-              },
-              {
-                value: "4",
-                label: "4 Bedrooms",
-              },
-              {
-                value: "5",
-                label: "5 Bedrooms",
-              },
-              {
-                value: "10",
-                label: "10+ Bedrooms",
-              },
-            ]}
-          />
-        </div>
-        <div className="w-full">
-          <FormSelectField
-            type="text"
-            name="bathrooms"
-            size="large"
-            placeholder="Bathrooms"
-            options={[
-              {
-                value: "1bed",
-                label: "1 Bathrooms",
-              },
-              {
-                value: "2bed",
-                label: "2 Bathrooms",
-              },
-              {
-                value: "3bed",
-                label: "3 Bathrooms",
-              },
-              {
-                value: "4bed",
-                label: "4 Bathrooms",
-              },
-              {
-                value: "5bed",
-                label: "5 Bathrooms",
-              },
-              {
-                value: "10+bed",
-                label: "10+ Bathrooms",
-              },
-            ]}
-          />
-        </div>
-        <div className="w-full">
-          <FormSelectField
-            type="text"
-            name="maidrooms"
-            size="large"
-            placeholder="Maidrooms"
-            options={[
-              {
-                value: "1bed",
-                label: "1 Maidrooms",
-              },
-              {
-                value: "2bed",
-                label: "2 Maidrooms",
-              },
-              {
-                value: "3bed",
-                label: "3 Maidrooms",
-              },
-              {
-                value: "4bed",
-                label: "4 Maidrooms",
-              },
-              {
-                value: "5bed",
-                label: "5 Maidrooms",
-              },
-              {
-                value: "10+bed",
-                label: "10+ Maidrooms",
-              },
-            ]}
-          />
-        </div>
-      </div>
-
-      <hr className="mt-8 mb-6" />
-
-      <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
-        Unit Details
+        Size m²
         <span className="text-red-600 text-sm">(Required*)</span>
       </p>
 
       <div className="w-full">
         <FormInput
-          type="text"
-          name="floorSize"
+          type="number"
+          name="size"
           size="large"
-          placeholder="Floor Size"
+          placeholder="Size"
           required={true}
         />
       </div>
 
+      {propertyData?.type === "property" && (
+        <>
+          <hr className="mt-8 mb-6" />
+
+          <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
+            Floor Size
+            <span className="text-red-600 text-sm">(Required*)</span>
+          </p>
+
+          <div className="w-full">
+            <FormSelectField
+              type="text"
+              name="floorSize"
+              size="large"
+              placeholder="Floor Size"
+              options={floorOptions}
+            />
+          </div>
+        </>
+      )}
       <hr className="mt-8 mb-6" />
 
-      <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
-        Building Details
-        <span className="text-gray-600 text-sm">(Optional)</span>
-      </p>
-
-      <div className="w-full">
-        <FormSelectField
-          type="text"
-          name="floorPosition"
-          size="large"
-          placeholder="Floor Position"
-          options={[
-            {
-              value: "1",
-              label: "1",
-            },
-            {
-              value: "2",
-              label: "2",
-            },
-            {
-              value: "3",
-              label: "3",
-            },
-            {
-              value: "4",
-              label: "4",
-            },
-            {
-              value: "5",
-              label: "5",
-            },
-            {
-              value: "6",
-              label: "6",
-            },
-          ]}
-        />
-      </div>
-      <hr className="mt-8 mb-6" />
-
-      <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
+      {/* <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
         Furnishing
         <span className="text-gray-600 text-sm">(Optional)</span>
       </p>
@@ -314,7 +357,7 @@ const DetailsStepForm = ({ listingType }) => {
         )}
       </div>
 
-      <hr className="mt-8 mb-6" />
+      <hr className="mt-8 mb-6" /> */}
 
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
         Description
@@ -386,9 +429,7 @@ const DetailsStepForm = ({ listingType }) => {
         </Popover>
       </div>
 
-      <hr className="mt-8 mb-6" />
-
-      {/*  required={true} */}
+      {/* <hr className="mt-8 mb-6" />
 
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
         Unit Features
@@ -408,7 +449,7 @@ const DetailsStepForm = ({ listingType }) => {
           { label: "Renovated", id: "Renovated" },
           { label: "Water Heater", id: "Water Heater" },
         ]}
-      />
+      /> */}
     </div>
   );
 };

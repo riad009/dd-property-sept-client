@@ -7,32 +7,28 @@ const Details = ({ p }) => {
       <div className="grid grid-cols-2 gap-x-5">
         <div>
           <p className="text-sm text-dark2">Property Type</p>
-          <p className="text-sm text-dark font-[500]">{p.propertyType}</p>
+          <p className="text-sm text-dark font-[500]">{p.type}</p>
         </div>
         <div>
-          <p className="text-sm text-dark2">Furnish Type</p>
-          <p className="text-sm text-dark font-[500]">{p.furnishType}</p>
+          <p className="text-sm text-dark2">Province</p>
+          <p className="text-sm text-dark font-[500]">{p.province}</p>
         </div>
         <Divider />
         <Divider />
         <div>
-          <p className="text-sm text-dark2">Furnish Objects</p>
+          <p className="text-sm text-dark2">City</p>
+          <p className="text-sm text-dark font-[500]">{p?.city}</p>
+        </div>
+        <div>
+          <p className="text-sm text-dark2">Location</p>
+          <p className="text-sm text-dark font-[500]">{p.location}</p>
+        </div>
+        <Divider />
+        <Divider />
+        <div>
+          <p className="text-sm text-dark2">Rent duration</p>
           <p className="text-sm text-dark font-[500]">
-            {p.furnishObjects.map((obj) => (
-              <span key={obj}>{obj}, </span>
-            ))}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-dark2">Facing Front Door</p>
-          <p className="text-sm text-dark font-[500]">{p.facingFrontDoor}</p>
-        </div>
-        <Divider />
-        <Divider />
-        <div>
-          <p className="text-sm text-dark2">Availability For Live Tour</p>
-          <p className="text-sm text-dark font-[500]">
-            {p.availabilityForLiveTour}
+            {p.rentDuration || "N/A"}
           </p>
         </div>
         <div>
@@ -42,12 +38,8 @@ const Details = ({ p }) => {
         <Divider />
         <Divider />
         <div>
-          <p className="text-sm text-dark2">Unit Features</p>
-          <p className="text-sm text-dark font-[500]">
-            {p.unitFeatures.map((obj) => (
-              <span key={obj}>{obj}, </span>
-            ))}
-          </p>
+          <p className="text-sm text-dark2">Price Type</p>
+          <p className="text-sm text-dark font-[500]">{p.priceType}</p>
         </div>
         <div>
           <p className="text-sm text-dark2">Listing Type</p>

@@ -21,6 +21,7 @@ import Membership from "./pages/Membership";
 import UpdateProperty from "./pages/dashboard/UpdateProperty";
 import CreateListingSteps from "./pages/dashboard/CreateListingSteps";
 import CreateListingFront from "./pages/CreateListingFront";
+import CreateListingLand from "./pages/dashboard/CreateListingLand";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -95,7 +96,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "create-listing-steps",
+        path: "create-property",
         element: (
           <PrivateRoute>
             {/* <CreateListing /> */}
@@ -103,6 +104,15 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // {
+      //   path: "create-land",
+      //   element: (
+      //     <PrivateRoute>
+      //       {/* <CreateListing /> */}
+      //       <CreateListingLand />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "update",
         element: (

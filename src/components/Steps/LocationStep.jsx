@@ -1,48 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
-import ProfileInput from "../ProfileInput";
+
 import FormInput from "../forms/FormInput";
-import FormSelectField from "../forms/FormSelectField";
+
 import { AuthContext } from "../../providers/AuthProvider";
-import AllResidentialDropdown from "../AllResidentialDropdown";
-import { footer1Items } from "../../pages/Home/SearchLocation";
+
 import LocationInput from "./LocationInput";
+import SearchLocationInput from "./SearchLocationInput";
+import LocationMap from "./LocationMap";
+
+import { useNavigate } from "react-router-dom";
 
 const LocationStep = () => {
-  const { location, setLocation } = useContext(AuthContext);
-  const [propertyType, setPropertyType] = useState("residential");
-  const [value, setValue] = useState("All Residential");
-
+  const { setPropertyData, propertyData } = useContext(AuthContext);
   const [placeName, setPlaceName] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState({
+    lat: 13.736717,
+    lng: 100.523186,
+  });
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!propertyData?.type) {
+      navigate("/dashboard/create-listing");
+    }
+  }, [propertyData?.type]);
 
-  const [selectedLocation, setSelectedLocation] = useState({});
-
-  const [footer1Open, setFooter1Open] = useState(false);
-  const [footer2Open, setFooter2Open] = useState(false);
-  const [footer3Open, setFooter3Open] = useState(false);
-
-  const footer1Handler = () => {
-    setFooter1Open(!footer1Open);
-    setFooter2Open(false);
-    setFooter3Open(false);
-  };
-
-  const footer2Handler = () => {
-    setFooter1Open(false);
-    setFooter2Open(!footer2Open);
-    setFooter3Open(false);
-  };
-
-  const footer3Handler = () => {
-    setFooter1Open(false);
-    setFooter2Open(false);
-    setFooter3Open(!footer3Open);
-  };
-
-  const radioHandler = (e) => {
-    setFooter1Open(true);
-
-    setValue(e.target.value);
-  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -78,75 +59,69 @@ const LocationStep = () => {
         <span className="text-red-600 text-sm">(Required*)</span>
       </p>
 
-      <p
-        style={{
-          fontSize: "16px",
-          marginBottom: "14px",
-        }}
-        className=""
-      >
-        Search by property name, street address or postal code
-      </p>
-
       <div className="grid grid-cols-1 max-w-[600px]">
-        <div className="mb-[12px]">
-          {/* <FormInput
-            type="text"
-            name="location"
-            size="large"
-            label="Location"
-            customOnChange={(e) => setLocation(e.target.value)}
-            required={true}
-          /> */}
-          <LocationInput
-            setSelectedLocation={setSelectedLocation}
-            location={location}
-            setLocation={setLocation}
-          />
+        <div>
+          <div className="mb-2">
+            <div className="w-full">
+              <FormInput
+                type="text"
+                name="propertyName"
+                size="large"
+                label={`Name of the ${
+                  propertyData?.type === "property" ? "property" : "land"
+                }`}
+                required={true}
+              />
+            </div>
+          </div>
+          <div className="mb-2">
+            <p className="text-[15px] pb-1">
+              Province
+              <span className="text-red-600 text-sm"> (Required*)</span>
+            </p>
+            <LocationInput
+              setSelectedLocation={setSelectedLocation}
+              location={propertyData}
+              setLocation={setPropertyData}
+              type="province"
+              placeholder="Enter province"
+            />
+          </div>
+
+          <div className="mb-2">
+            <p className="text-[15px] pb-1">
+              City
+              <span className="text-red-600 text-sm"> (Required*)</span>
+            </p>
+            <LocationInput
+              setSelectedLocation={setSelectedLocation}
+              location={propertyData}
+              setLocation={setPropertyData}
+              type="city"
+              placeholder="Enter city"
+            />
+          </div>
+          <div>
+            <p className="text-[15px] pb-1">
+              Location
+              <span className="text-red-600 text-sm"> (Required*)</span>
+            </p>
+            <SearchLocationInput
+              setSelectedLocation={setSelectedLocation}
+              placeName={placeName}
+              setPlaceName={setPlaceName}
+            />
+          </div>
+
+          <div>
+            {selectedLocation.lat && selectedLocation.lng && (
+              <LocationMap selectedLocation={selectedLocation} />
+            )}
+          </div>
           <p className="text-[14px] text-gray-400 py-2">
             You can't edit this after your listing has been published
           </p>
         </div>
-        {location && (
-          <div>
-            <div className="mb-[10px]">
-              <FormInput
-                type="number"
-                name="postalCode"
-                size="large"
-                label="Postal Code"
-                required={true}
-              />
-            </div>
-            <div>
-              {/* <FormInput
-                type="text"
-                name="propertyType"
-                size="large"
-                label="Property Type"
-                required={true}
-              /> */}
-              <p className="text-[15px] pb-1">
-                Property Type
-                <span className="text-red-600 text-sm"> (Required*)</span>
-              </p>
-              <AllResidentialDropdown
-                footer1Handler={footer1Handler}
-                footer1Items={footer1Items}
-                footer1Open={footer1Open}
-                propertyType={propertyType}
-                radioHandler={radioHandler}
-                value={value}
-                setPropertyType={setPropertyType}
-                // checkBoxHandler={checkBoxHandler}
-                hideFooter={true}
-              />
-            </div>
-            <p className="text-[14px] text-gray-400 py-2">
-              You can't edit this after your listing has been published
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -78,7 +78,7 @@ const SingleProperty = () => {
       <Banner
         p={property}
         breadCrumbItems={breadCrumbItems}
-        images={property?.images}
+        images={property?.imageUrls}
       />
       {/* Body Navbar */}
       <div className="sm:sticky top-0 z-50 sm:max-h-[calc(60vh-40px)]">
@@ -100,7 +100,7 @@ const SingleProperty = () => {
           </div>
         </div>
         {/* <HomeFinance /> */}
-        <Location property={property} />
+        <Location lat={property?.latLng?.lat} lng={property?.latLng?.lng} />
         <ContactDeveloper />
       </SmallContainer>
       <SimilarListings />

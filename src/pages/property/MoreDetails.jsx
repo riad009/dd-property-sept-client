@@ -23,17 +23,19 @@ const MoreDetails = ({ property }) => {
                   {property.country}
                 </div>
 
-                <div className="mb-4">
-                  <span className="font-semibold">Bedrooms:</span>{" "}
-                  {property.bedrooms} |{" "}
-                  <span className="font-semibold">Bathrooms:</span>{" "}
-                  {property.bathrooms}
-                </div>
+                {property?.type === "property" && (
+                  <div className="mb-4">
+                    <span className="font-semibold">Bedrooms:</span>{" "}
+                    {property.bedrooms} |{" "}
+                    <span className="font-semibold">Bathrooms:</span>{" "}
+                    {property.bathrooms}
+                  </div>
+                )}
               </div>
               <div>
                 <div className="mb-4">
-                  <span className="font-semibold">Price:</span>{" "}
-                  {property.listingPrice}
+                  <span className="font-semibold">Price:</span> {property.price}{" "}
+                  THB
                 </div>
                 <div className="mb-4">
                   <span className="font-semibold">Price Type:</span>{" "}

@@ -16,13 +16,13 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 const UploadDragger = () => {
-  const { imageUrls, setImageUrls } = useContext(AuthContext);
+  const { propertyData, setPropertyData } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleChange = async ({ fileList }) => {
-    if (fileList?.length > 10 || imageUrls?.length > 10) {
+    if (fileList?.length > 10 || propertyData?.imageUrls?.length > 10) {
       messageApi.destroy();
       return messageApi.open({
         type: "error",
@@ -83,7 +83,11 @@ const UploadDragger = () => {
           }
         );
 
-        setImageUrls(response?.data?.urls);
+        // setImageUrls(response?.data?.urls);
+        setPropertyData((prev) => ({
+          ...prev,
+          imageUrls: response?.data?.urls,
+        }));
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -98,9 +102,13 @@ const UploadDragger = () => {
       <PlusOutlined />
       <div style={{ marginTop: 8 }}>
         Upload Image
-        {imageUrls?.length > 0 && (
-          <p className={cn(imageUrls?.length === 10 && "text-red-600")}>
-            {imageUrls?.length}/10
+        {propertyData?.imageUrls?.length > 0 && (
+          <p
+            className={cn(
+              propertyData?.imageUrls?.length === 10 && "text-red-600"
+            )}
+          >
+            {propertyData?.imageUrls?.length}/10
           </p>
         )}
       </div>
@@ -108,8 +116,14 @@ const UploadDragger = () => {
   );
 
   const onRemove = (file) => {
-    const updatedFileList = imageUrls?.filter((item) => item !== file);
-    setImageUrls(updatedFileList);
+    const updatedFileList = propertyData?.imageUrls?.filter(
+      (item) => item !== file
+    );
+
+    setPropertyData((prev) => ({
+      ...prev,
+      imageUrls: updatedFileList,
+    }));
   };
   return (
     <>
@@ -125,7 +139,7 @@ const UploadDragger = () => {
           showUploadList={false}
           disabled={loading}
         >
-          {imageUrls?.length >= 4 ? null : uploadButton}
+          {propertyData?.imageUrls?.length >= 4 ? null : uploadButton}
         </Upload>
 
         {error && <p className="text-xs text-red-600 py-2">{error}</p>}
@@ -149,10 +163,10 @@ const UploadDragger = () => {
         </div>
       ) : (
         <div className="mt-6">
-          {imageUrls?.length > 0 && (
+          {propertyData?.imageUrls?.length > 0 && (
             <>
               <div className="flex flex-col md:flex-row items-center flex-wrap gap-4">
-                {imageUrls?.map((file, index) => (
+                {propertyData?.imageUrls?.map((file, index) => (
                   <div key={index} className="flex flex-col items-center">
                     <Image key={index} src={file} width={250} height={150} />
                     <Button

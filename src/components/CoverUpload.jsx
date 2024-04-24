@@ -6,11 +6,11 @@ import {
 } from "@ant-design/icons";
 import { Button, Image, Modal, Spin, Upload, message } from "antd";
 import { AuthContext } from "../providers/AuthProvider";
-import { cn } from "../utils/cn";
+
 import axios from "axios";
 
 const CoverUpload = () => {
-  const { coverImage, setCoverImage } = useContext(AuthContext);
+  const { propertyData, setPropertyData } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
@@ -35,8 +35,11 @@ const CoverUpload = () => {
         }
       );
 
-      console.log(response?.data);
-      setCoverImage(response?.data?.urls);
+      // setCoverImage(response?.data?.urls);
+      setPropertyData((prev) => ({
+        ...prev,
+        coverImage: response?.data?.urls,
+      }));
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -89,16 +92,22 @@ const CoverUpload = () => {
         </div>
       ) : (
         <>
-          {coverImage && (
+          {propertyData?.coverImage && (
             <>
               <div className="flex flex-col md:flex-row items-center flex-wrap gap-4 mt-6">
                 <div className="flex flex-col items-center">
-                  <Image src={coverImage} width={250} height={150} />
+                  <Image
+                    src={propertyData?.coverImage}
+                    width={250}
+                    height={150}
+                  />
                   <Button
                     type="danger"
                     className="text-red-600"
                     icon={<DeleteOutlined className="text-red-600" />}
-                    onClick={() => setCoverImage("")}
+                    onClick={() =>
+                      setPropertyData((prev) => ({ ...prev, coverImage: "" }))
+                    }
                   >
                     Remove
                   </Button>

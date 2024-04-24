@@ -1,17 +1,44 @@
-import React from "react";
+import { useRef, useEffect } from "react";
 
-const Location = ({ property }) => {
+const Location = ({ lat, lng }) => {
+  const mapRef = useRef(null);
+  const apiKey = import.meta.env.VITE_map_key;
+
+  useEffect(() => {
+    const loadMap = () => {
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+      script.defer = true;
+      script.onload = initializeMap;
+      document.head.appendChild(script);
+    };
+
+    const initializeMap = () => {
+      const map = new window.google.maps.Map(mapRef.current, {
+        center: { lat, lng },
+        zoom: 15,
+      });
+
+      new window.google.maps.Marker({
+        position: { lat, lng },
+        map: map,
+        title: "Location Marker",
+      });
+    };
+
+    if (window.google && window.google.maps) {
+      initializeMap();
+    } else {
+      loadMap();
+    }
+  }, [apiKey, lat, lng]);
+
   return (
-    <div id="location">
-      <iframe
-        title="property-location"
-        src={property.googleMapStreetView || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3643498.6688220683!2d103.95957680162029!3d26.900188946830937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36bf67eaae6dd399%3A0xec9c1d7600abd55e!2sGuizhou%2C%20China!5e0!3m2!1sen!2sbd!4v1691653669319!5m2!1sen!2sbd"}
-        width="100%"
-        height="450"
-        allowFullScreen=""
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
+    <div>
+      <div
+        ref={mapRef}
+        style={{ width: "100%", height: "400px", border: "1px solid #ccc" }}
+      ></div>
     </div>
   );
 };

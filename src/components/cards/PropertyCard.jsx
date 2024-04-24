@@ -15,11 +15,12 @@ const PropertyCard = ({ property }) => {
     coverImage,
     title,
     location,
-    listingPrice,
+    price,
     headLine,
     floorSize,
     bedrooms,
     bathrooms,
+    type,
   } = property;
   return (
     <Link to={`/property/projects/${property._id}`}>
@@ -33,29 +34,31 @@ const PropertyCard = ({ property }) => {
           <h1 className="mt-3 font-semibold text-xl">{headLine}</h1>
           <h1 className="text-sm my-1">{property.location}</h1>
           <h1 className="flex items-center gap-2 my-2">
-            ฿ {listingPrice}{" "}
+            ฿ {price}{" "}
             <span className="text-xs bg-dark2/10 py-1 px-3 rounded">
               starting from
             </span>
           </h1>
-          <div className="flex gap-5 my-3">
-            <div>
-              <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                <GiBed className="text-xl" />
-                {property.bedrooms}
-              </p>
+          {type === "property" && (
+            <div className="flex gap-5 my-3">
+              <div>
+                <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+                  <GiBed className="text-xl" />
+                  {property.bedrooms}
+                </p>
+              </div>
+              <div>
+                <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+                  <GiBathtub className="text-xl" /> {bathrooms}
+                </p>
+              </div>
+              <div>
+                <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+                  <RiCommunityFill className="text-xl" /> {floorSize}
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                <GiBathtub className="text-xl" /> {bathrooms}
-              </p>
-            </div>
-            <div>
-              <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-                <RiCommunityFill className="text-xl" /> {floorSize}
-              </p>
-            </div>
-          </div>
+          )}
           <div className="bg-dark2/10 p-2 flex items-center justify-between">
             <div className="flex gap-2 items-center">
               <img

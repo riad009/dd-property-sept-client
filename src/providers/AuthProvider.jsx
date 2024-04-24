@@ -23,6 +23,13 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // You can initialize your global data here
 
+  const [propertyData, setPropertyData] = useState({
+    latLng: {
+      lat: 13.736717,
+      lng: 100.523186,
+    },
+  });
+
   const [videoUrls, setVideoUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [coverImage, setCoverImage] = useState("");
@@ -75,6 +82,8 @@ export const AuthProvider = ({ children }) => {
     };
     gettoken();
   }, []);
+
+  console.log({ user });
 
   const [loading, setLoading] = useState(true);
 
@@ -184,6 +193,8 @@ export const AuthProvider = ({ children }) => {
     setAvailabilityForLiveTour,
     coverImage,
     setCoverImage,
+    propertyData,
+    setPropertyData,
   };
 
   //firebase-------------------------------

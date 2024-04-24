@@ -1,17 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, message, Steps } from "antd";
-import {
-  getFromLocalStorage,
-  setToLocalStorage,
-} from "../../utils/local-storage";
+
 import { FormProvider, useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 
-const Stepper = ({ steps, submitHandler, navigateLink }) => {
-  const { propertyData, setPropertyData } = useContext(AuthContext);
+const StepperLand = ({ steps, submitHandler, navigateLink }) => {
+  const {
+    furnishObjects,
+    unitFeatures,
+    furnishValue, //type
+
+    imageUrls,
+    setImageUrls,
+    videoUrls,
+    setVideoUrls,
+    listingType,
+    user,
+    coverImage,
+    setCoverImage,
+  } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -35,88 +45,52 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
 
   const { handleSubmit, reset } = methods;
 
-  let requiredFields;
-
-  if (propertyData?.type === "property") {
-    requiredFields = [
-      "propertyName",
-      "propertyType",
-      "price",
-      "bedrooms",
-      "bathrooms",
-      "maidrooms",
-      "size",
-      "floorSize",
-      "referenceNote",
-      "headline",
-      "descriptionThai",
-      "descriptionEnglish",
-      "video",
-      "latLng",
-      "province",
-      "city",
-      "location",
-      "listingType",
-      "coverImage",
-      "imageUrls",
-    ];
-  } else {
-    requiredFields = [
-      "propertyName",
-      "propertyType",
-      "price",
-      "size",
-      "referenceNote",
-      "headline",
-      "descriptionThai",
-      "descriptionEnglish",
-      "video",
-      "latLng",
-      "province",
-      "city",
-      "location",
-      "listingType",
-      "coverImage",
-      "imageUrls",
-    ];
-  }
-
   const handleSubmitForm = async (data) => {
     if (current === steps.length - 1) {
-      data.priceType = "THB";
-      if (propertyData?.type === "land") {
-        delete data.floorSize;
-      }
+      imageUrls.push(coverImage);
 
-      const combinedObject = {
-        ...data,
-        ...propertyData,
-      };
+      data.email = user?.email;
+      data.listingType = listingType;
+      data.furnishType = furnishValue;
+      data.furnishObjects = furnishObjects;
+      data.unitFeatures = unitFeatures;
+      data.images = imageUrls;
+      data.coverImage = coverImage;
+      data.videos = videoUrls;
 
-      console.log({ combinedObject, data, propertyData });
+      console.log({ data });
 
       const validateForm = () => {
-        for (const key of requiredFields) {
-          const value = combinedObject[key];
+        const requiredFields = [
+          "bathrooms",
+          "bedrooms",
+          "descriptionEnglish",
+          "descriptionThai",
+          "floorSize",
+          "headline",
+          "images",
+          "listingPrice",
+          "listingType",
+          "location",
+          "maidrooms",
+          "postalCode",
+          "priceType",
+          "propertyType",
+          "referenceNote",
+          "coverImage",
+        ];
 
-          if (key === "latLng") {
-            if (
-              value === undefined ||
-              value === null ||
-              value.lat === undefined ||
-              value.lng === undefined
-            ) {
-              console.log({ key, value });
-              message.error(`Please fill out all Required Fields to proceed!`);
-              return false;
-            }
-          } else if (
+        for (const key of requiredFields) {
+          const value = data[key];
+
+          if (
             value === "" ||
             value === null ||
             value === undefined ||
             (Array.isArray(value) && value.length === 0)
           ) {
             console.log({ key, value });
+            // alert(`${key} is required`);
             message.error(`Please fill out all Required Fields to proceed!`);
             return false;
           }
@@ -129,19 +103,16 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
         try {
           const response = await axios.post(
             "https://dd-property-sept-server.vercel.app/post/property",
-            combinedObject
+            data
           );
           console.log(response.data);
           if (response?.status === 200) {
             message.success("Property Listing Successfully!");
             submitHandler(data);
             reset();
-            setPropertyData({
-              latLng: {
-                lat: 13.736717,
-                lng: 100.523186,
-              },
-            });
+            setCoverImage("");
+            setImageUrls(null);
+            setVideoUrls(null);
             navigate("/dashboard/my-properties");
           }
         } catch (error) {
@@ -213,4 +184,4 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
   );
 };
 
-export default Stepper;
+export default StepperLand;

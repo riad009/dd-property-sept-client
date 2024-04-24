@@ -17,9 +17,7 @@ const Overview = ({ property }) => {
       <div className="flex gap-5">
         <div>
           <p className="text-sm text-dark2">Start</p>
-          <p className="text-sm text-dark font-[500]">
-            ฿{property.listingPrice}
-          </p>
+          <p className="text-sm text-dark font-[500]">฿{property.price}</p>
         </div>
         <Divider type="vertical h-10" />
         <div>
@@ -33,38 +31,40 @@ const Overview = ({ property }) => {
       </div>
       <Divider />
       {/* Room Details */}
-      <div className="flex gap-5 mb-2">
-        <div>
-          <p className="text-sm text-dark2">Bedroom</p>
-          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <GiBed className="text-xl" /> {property.bedrooms}
-          </p>
+      {property?.type === "property" && (
+        <div className="flex gap-5 mb-2">
+          <div>
+            <p className="text-sm text-dark2">Bedroom</p>
+            <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+              <GiBed className="text-xl" /> {property.bedrooms}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-dark2">Bathroom</p>
+            <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+              <GiBathtub className="text-xl" /> {property.bathrooms}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-dark2">Maidrooms</p>
+            <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+              <MdRoomService className="text-xl" /> {property.maidrooms}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-dark2">Floor Position</p>
+            <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+              <RiCommunityFill className="text-xl" /> {property.floorSize}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-dark2">Floor Size</p>
+            <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+              <MdFormatSize className="text-xl" /> {property.size}
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="text-sm text-dark2">Bathroom</p>
-          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <GiBathtub className="text-xl" /> {property.bathrooms}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-dark2">Maidrooms</p>
-          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <MdRoomService className="text-xl" /> {property.maidrooms}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-dark2">Floor Position</p>
-          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <RiCommunityFill className="text-xl" /> {property.floorPosition}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-dark2">Floor Size</p>
-          <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-            <MdFormatSize className="text-xl" /> {property.floorSize}
-          </p>
-        </div>
-      </div>
+      )}
       {/* <TextRed to="#">View details of room types and prices.</TextRed> */}
 
       {/* Location */}

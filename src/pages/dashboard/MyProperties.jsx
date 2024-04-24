@@ -1,6 +1,6 @@
 import Search from "antd/es/input/Search";
 import DashboardHeader from "./DashboardHeader";
-import { Pagination, Select } from "antd";
+import { Pagination, Segmented, Select } from "antd";
 import img1 from "../../assets/banner1.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
@@ -15,17 +15,19 @@ const MyProperties = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
-  console.log(user);
+  const [value, setValue] = useState("Property");
+  console.log({ value });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://dd-property-sept-server.vercel.app/get/emailWise?email=${user?.email}`
+          `https://dd-property-sept-server.vercel.app/get/emailWise?email=${
+            user?.email
+          }&type=${value.toLowerCase()}`
         );
         const result = await response.json();
-        console.log({ result });
+
         setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -33,13 +35,11 @@ const MyProperties = () => {
     };
 
     fetchData();
-  }, [user?.email]);
+  }, [user?.email, value]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
-  console.log({ currentItems });
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -47,7 +47,6 @@ const MyProperties = () => {
 
   // Placeholder handleChange function
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
     // Add your logic for handling the select change here
   };
 
@@ -90,6 +89,14 @@ const MyProperties = () => {
           title={"My Properties"}
           description={"We are glad to see you again"}
         />
+
+        <div className="flex gap-4 text-sm">
+          <Segmented
+            options={["Property", "Land"]}
+            value={value}
+            onChange={setValue}
+          />
+        </div>
       </div>
       <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">

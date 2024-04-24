@@ -138,7 +138,7 @@ const SearchLocation = () => {
 
   useEffect(() => {
     // Fetch suggestions when the search term changes
-    if (search.trim() !== "") {
+    if (search?.trim() !== "") {
       axios
         .get(`https://dd-property-sept-server.vercel.app/get/search/${search}`)
         .then((response) => {
@@ -196,9 +196,9 @@ const SearchLocation = () => {
           />
           {isActive && search.length > 0 && (
             <ul className="absolute top-full left-0 w-full border border-solid border-gray-300 bg-white rounded-b-md shadow-md z-10 font-serif max-h-72 overflow-y-auto">
-              {suggestions.map((suggestion, index) => {
+              {suggestions?.map((suggestion, index) => {
                 // Split the suggestion text into parts before and after the search term
-                const parts = suggestion.district.split(
+                const parts = suggestion?.district?.split(
                   new RegExp(`(${search})`, "gi")
                 );
 
@@ -207,8 +207,8 @@ const SearchLocation = () => {
                     key={index}
                     className="hover:bg-gray-100 text-gray-500 flex items-center p-4 border-b border-solid border-gray-300 cursor-pointer text-black"
                     onClick={() => {
-                      setSearch(suggestion.district);
-                      setCity(suggestion.city);
+                      setSearch(suggestion?.district);
+                      setCity(suggestion?.city);
                       setIsActive(false); // Close the suggestions after selecting a city
                     }}
                   >
@@ -232,7 +232,7 @@ const SearchLocation = () => {
                     {/* Property Title */}
                     <span className="flex-grow">
                       <span className="text-gray-600 hover:bg-gray-200">
-                        {parts.map((part, i) =>
+                        {parts?.map((part, i) =>
                           // Highlight the matching part in red
                           part.toLowerCase() === search.toLowerCase() ? (
                             <span key={i} className="text-red-500">
@@ -246,11 +246,11 @@ const SearchLocation = () => {
 
                       {/* Small text below property title */}
                       <span className="text-sm text-gray-500 block">
-                        {suggestion.district}
+                        {suggestion?.district}
                       </span>
                     </span>
 
-                    <h1 className="">{suggestion.city}</h1>
+                    <h1 className="">{suggestion?.city}</h1>
                   </li>
                 );
               })}
