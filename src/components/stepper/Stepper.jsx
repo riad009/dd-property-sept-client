@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, message, Steps } from "antd";
-import {
-  getFromLocalStorage,
-  setToLocalStorage,
-} from "../../utils/local-storage";
+
 import { FormProvider, useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
@@ -11,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 
 const Stepper = ({ steps, submitHandler, navigateLink }) => {
-  const { propertyData, setPropertyData } = useContext(AuthContext);
+  const { propertyData, setPropertyData, user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -84,6 +81,7 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
   const handleSubmitForm = async (data) => {
     if (current === steps.length - 1) {
       data.priceType = "THB";
+      data.email = user?.email;
       if (propertyData?.type === "land") {
         delete data.floorSize;
       }

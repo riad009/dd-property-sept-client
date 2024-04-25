@@ -9,7 +9,7 @@ function SearchLocationInput({ placeName, setPlaceName, setSelectedLocation }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: import.meta.env.VITE_map_key,
+    googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
     libraries: ["places"],
   });
 

@@ -2,7 +2,11 @@ import ImageViewer from "react-simple-image-viewer";
 import SmallContainer from "../../shared/SmallContainer";
 import { Breadcrumb, Divider, Tooltip } from "antd";
 import { CiCircleChevRight, CiTwitter } from "react-icons/ci";
-import { MdFacebook } from "react-icons/md";
+import {
+  MdFacebook,
+  MdOutlinePendingActions,
+  MdVerified,
+} from "react-icons/md";
 import { PiHeart, PiShareFatThin } from "react-icons/pi";
 import { Slide } from "react-slideshow-image";
 import thumb from "../../assets/singleProjectThumb.jpg";
@@ -103,7 +107,20 @@ const Banner = ({ breadCrumbItems, images, p }) => {
 
       <SmallContainer extraClasses="p-2">
         <div className="sm:flex gap-5 justify-between text-justify">
-          <Details icon={<CiCircleChevRight />}>{p.headline}</Details>
+          <Details icon={<CiCircleChevRight />}>
+            {p.headline}
+            {p?.status === "verified" ? (
+              <>
+                <MdVerified className="text-blue-600 text-xl" /> (Verified)
+              </>
+            ) : (
+              <>
+                <MdOutlinePendingActions className="text-red-600 text-xl" />{" "}
+                (Not Verified)
+              </>
+            )}
+            {/* {p?.status} */}
+          </Details>
           <Divider type="vertical  my-auto hidden sm:block" />
         </div>
       </SmallContainer>

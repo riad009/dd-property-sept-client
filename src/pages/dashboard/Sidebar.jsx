@@ -66,6 +66,13 @@ const sidebarItems = {
     },
     {
       id: 5,
+      route: "Manage Properties",
+      path: "manage-properties",
+      icon: <MdHome />,
+      role: "user",
+    },
+    {
+      id: 6,
       route: "Reviews",
       path: "reviews",
       icon: <MdReviews />,
@@ -86,14 +93,14 @@ const sidebarItems = {
       ],
     },
     {
-      id: 6,
+      id: 7,
       route: "My Favorites",
       path: "my-favorites",
       icon: <MdFavorite />,
       role: "user",
     },
     {
-      id: 7,
+      id: 8,
       route: "Saved Search",
       path: "saved-search",
       icon: <MdSearch />,
@@ -102,20 +109,20 @@ const sidebarItems = {
   ],
   manageAccount: [
     {
-      id: 8,
+      id: 9,
       route: "My package",
       path: "my-package",
       icon: <BiPackage />,
     },
     {
-      id: 9,
+      id: 10,
       route: "My Profile",
       path: "my-profile",
       icon: <MdVerifiedUser />,
       role: "user",
     },
     {
-      id: 10,
+      id: 11,
       route: "Logout",
       path: "#",
       icon: <MdLogout />,

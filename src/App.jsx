@@ -22,6 +22,8 @@ import UpdateProperty from "./pages/dashboard/UpdateProperty";
 import CreateListingSteps from "./pages/dashboard/CreateListingSteps";
 import CreateListingFront from "./pages/CreateListingFront";
 import CreateListingLand from "./pages/dashboard/CreateListingLand";
+import ManageProperties from "./pages/dashboard/ManageProperties";
+import AdminRoute from "./shared/AdminRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -127,6 +129,14 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <MyProperties />
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-properties",
+        element: (
+          <AdminRoute>
+            <ManageProperties />
+          </AdminRoute>
         ),
       },
       {

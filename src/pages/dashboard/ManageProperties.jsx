@@ -1,29 +1,26 @@
-import Search from "antd/es/input/Search";
 import DashboardHeader from "./DashboardHeader";
-import { Pagination, Segmented, Select } from "antd";
-import img1 from "../../assets/banner1.jpg";
+import { Segmented } from "antd";
+
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { AuthContext, useUserContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const MyProperties = () => {
+const ManageProperties = () => {
   const { user } = useContext(AuthContext);
-  const { handlePropertyid } = useUserContext();
-  const [email, setEmail] = useState(user?.email);
+
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+
   const [value, setValue] = useState("Property");
+  const [refetch, setrefetch] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://dd-property-sept-server.vercel.app/get/emailWise?email=${
-            user?.email
-          }&type=${value.toLowerCase()}`
+          `https://dd-property-sept-server.vercel.app/get/emailWise?type=${value.toLowerCase()}`
         );
         const result = await response.json();
 
@@ -34,46 +31,30 @@ const MyProperties = () => {
     };
 
     fetchData();
-  }, [user?.email, value]);
+  }, [user?.email, value, refetch]);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  //delete code
-  const handleDelete = async (id) => {
+  const handleVerify = async (propertyId) => {
     try {
-      const response = await fetch(
-        `https://dd-property-sept-server.vercel.app/delete/property/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const response = await axios.put(
+        `https://dd-property-sept-server.vercel.app/api/verify/${propertyId}`
       );
-
-      if (response.ok) {
-        // Update the data by refetching or updating the state
-        const updatedData = data.filter((item) => item._id !== id);
-        setData(updatedData);
-      } else {
-        console.error("Error deleting property");
-      }
+      setrefetch(!refetch);
+      alert("verified");
     } catch (error) {
-      console.error("Error deleting property", error);
+      console.log(error);
     }
   };
 
-  const navigate = useNavigate();
-
-  const handleUpdate = (p) => {
-    handlePropertyid(p);
-    navigate(`/dashboard/update`);
+  const handleDecline = async (propertyId) => {
+    try {
+      const response = await axios.put(
+        `https://dd-property-sept-server.vercel.app/api/decline/${propertyId}`
+      );
+      setrefetch(!refetch);
+      alert("declined");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -98,13 +79,14 @@ const MyProperties = () => {
           <th className="p-2">Headline</th>
           <th className="p-2">Property Type</th>
           <th className="p-2">Date published</th>
-          <th className="p-2">Location</th>
-          <th className="p-2">Price</th>
-          {/* <th className="p-2">View</th> */}
+          <th className="p-2">Status</th>
+          {/* <th className="p-2">Location</th>
+          <th className="p-2">Price</th> */}
+
           <th className="p-2">Action</th>
         </tr>
 
-        {currentItems?.map((p) => (
+        {data?.map((p) => (
           <tr key={p.email} className="border">
             <td className="p-2">
               <Link to={`/property/projects/${p._id}`}>
@@ -119,34 +101,40 @@ const MyProperties = () => {
             <td className="p-2">{p.headline}</td>
             <td className="p-2">{p.propertyType}</td>
             <td className="p-2">{p.date}</td>
-            <td className="p-2">{p.location}</td>
-            <td className="p-2">${p.listingPrice}</td>
+            <td className="p-2">{p.status}</td>
+            {/* <td className="p-2">{p.location}</td>
+            <td className="p-2">${p.price}</td> */}
 
             <td>
-              <div className="flex gap-2 text-danger">
-                <Link onClick={() => handleUpdate(p._id)}>
+              <div className="flex gap-2 text-xs">
+                <button
+                  className="text-white bg-red-600 p-1 rounded-sm"
+                  onClick={() => handleDecline(p?._id)}
+                >
+                  Decline
+                </button>
+                <button
+                  className="text-white bg-green-600 p-1 rounded-sm"
+                  onClick={() => handleVerify(p?._id)}
+                >
+                  Verify
+                </button>
+                {/* <Link onClick={() => handleUpdate(p._id)}>
                   {" "}
                   <MdEdit className="bg-danger/10 p-1 text-2xl rounded-md" />
-                </Link>
-
+                </Link> */}
+                {/* 
                 <MdDelete
                   onClick={() => handleDelete(p._id)}
                   className="bg-danger/10 p-1 text-2xl rounded-md"
-                />
+                /> */}
               </div>
             </td>
           </tr>
         ))}
       </table>
-      <Pagination
-        className="mt-5 ml-auto w-fit"
-        current={currentPage}
-        onChange={paginate}
-        defaultPageSize={itemsPerPage}
-        total={data.length}
-      />
     </div>
   );
 };
 
-export default MyProperties;
+export default ManageProperties;
