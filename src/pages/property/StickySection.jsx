@@ -38,12 +38,9 @@ const StickySection = ({ handleContactAbout, property }) => {
   const handleFavoriteClick = async () => {
     try {
       // Update user's favorites on the backend
-      const response = await axios.put(
-        `https://dd-property-sept-server.vercel.app/user/favorites/${user?.email}`,
-        {
-          propertyId: property?._id,
-        }
-      );
+      const response = await axios.put(`/user/favorites/${user?.email}`, {
+        propertyId: property?._id,
+      });
       console.log({ response });
       if (response?.status === 200) {
         alert("Property added to favourites");

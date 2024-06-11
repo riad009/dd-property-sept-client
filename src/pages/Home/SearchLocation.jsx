@@ -140,7 +140,7 @@ const SearchLocation = () => {
     // Fetch suggestions when the search term changes
     if (search?.trim() !== "") {
       axios
-        .get(`https://dd-property-sept-server.vercel.app/get/search/${search}`)
+        .get(`/get/search/${search}`)
         .then((response) => {
           // Update the suggestions based on the backend response
           setSuggestions(response.data);

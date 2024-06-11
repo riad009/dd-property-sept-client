@@ -8,48 +8,35 @@ import FormtTextarea from "./FormTextarea";
 import { AuthContext } from "../../providers/AuthProvider";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 const DetailsStepForm = ({ listingType }) => {
-  const {
-    setFurnishObjects,
+  const { propertyData, setPropertyData } = useContext(AuthContext);
 
-    setUnitFeatures,
+  let propertyTypes = [
+    {
+      value: "House",
+      label: "House",
+    },
+    {
+      value: "Townhouse",
+      label: "Townhouse",
+    },
+    {
+      value: "Apartment",
+      label: "Apartment",
+    },
+    {
+      value: "Condo",
+      label: "Condo",
+    },
+    {
+      value: "Land",
+      label: "Land",
+    },
+  ];
 
-    propertyData,
-    setPropertyData,
-  } = useContext(AuthContext);
-
-  let propertyTypes;
-
-  if (propertyData?.type === "property") {
-    propertyTypes = [
-      {
-        value: "House",
-        label: "House",
-      },
-      {
-        value: "Townhouse",
-        label: "Townhouse",
-      },
-      {
-        value: "Apartment",
-        label: "Apartment",
-      },
-      {
-        value: "Condo",
-        label: "Condo",
-      },
-      {
-        value: "Business and Land",
-        label: "Business and Land",
-      },
-    ];
-  } else {
-    propertyTypes = [
-      {
-        value: "Land",
-        label: "Land",
-      },
-    ];
-  }
+  const onChangePropertyType = (value) => {
+    console.log({ value });
+    setPropertyData((prev) => ({ ...prev, propertyType: value }));
+  };
 
   const content = (
     <div className="max-w-[400px] text-xs">
@@ -64,6 +51,9 @@ const DetailsStepForm = ({ listingType }) => {
     value: `${i + 1}`,
     label: `${i + 1}`,
   }));
+
+  console.log({ propertyData });
+
   return (
     <div>
       <p className="text-[17px] ">
@@ -82,10 +72,12 @@ const DetailsStepForm = ({ listingType }) => {
           size="large"
           label={`Property Type`}
           options={propertyTypes}
+          customOnChange={onChangePropertyType}
+          required={true}
         />
       </div>
       <p className="text-[18px] font-medium inline-flex items-center gap-x-2 pb-1">
-        Price
+        Price (THB)
         <span className="text-red-600 text-sm">(Required*)</span>
       </p>
       <div className="flex gap-4">
@@ -100,7 +92,8 @@ const DetailsStepForm = ({ listingType }) => {
           />
         </div>
         <div className="w-full">
-          {listingType === "forSale" || propertyData?.type === "land" ? (
+          {listingType === "forSale" ||
+          propertyData?.propertyType === "Land" ? (
             <FormInput
               type="text"
               name="priceType"
@@ -133,7 +126,7 @@ const DetailsStepForm = ({ listingType }) => {
         </div>
       </div>
 
-      {propertyData?.type === "property" && (
+      {propertyData?.propertyType !== "Land" && (
         <>
           <hr className="mt-8 mb-6" />
 
@@ -210,7 +203,7 @@ const DetailsStepForm = ({ listingType }) => {
                 ]}
               />
             </div>
-            <div className="w-full">
+            {/* <div className="w-full">
               <FormSelectField
                 type="text"
                 name="maidrooms"
@@ -243,7 +236,7 @@ const DetailsStepForm = ({ listingType }) => {
                   },
                 ]}
               />
-            </div>
+            </div> */}
           </div>
         </>
       )}
@@ -265,7 +258,7 @@ const DetailsStepForm = ({ listingType }) => {
         />
       </div>
 
-      {propertyData?.type === "property" && (
+      {propertyData?.propertyType !== "Land" && (
         <>
           <hr className="mt-8 mb-6" />
 
@@ -399,30 +392,9 @@ const DetailsStepForm = ({ listingType }) => {
           <div className="w-full">
             <FormtTextarea
               type="text"
-              name="descriptionThai"
-              size="large"
-              placeholder="Description (Thai)"
-              required={true}
-            />
-          </div>
-        </Popover>
-        <Popover
-          content={content}
-          title={
-            <>
-              <div className="flex items-center gap-1 text-sm">
-                <MdOutlineTipsAndUpdates />
-                Tips
-              </div>
-            </>
-          }
-        >
-          <div className="w-full">
-            <FormtTextarea
-              type="text"
               name="descriptionEnglish"
               size="large"
-              placeholder="Description (English)"
+              placeholder="Description"
               required={true}
             />
           </div>

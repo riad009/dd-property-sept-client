@@ -20,7 +20,7 @@ const PropertyCard = ({ property }) => {
     floorSize,
     bedrooms,
     bathrooms,
-    type,
+    propertyType,
   } = property;
   return (
     <Link to={`/property/projects/${property._id}`}>
@@ -39,7 +39,7 @@ const PropertyCard = ({ property }) => {
               starting from
             </span>
           </h1>
-          {type === "property" && (
+          {propertyType !== "Land" && (
             <div className="flex gap-5 my-3">
               <div>
                 <p className="flex items-center gap-2 text-sm text-dark font-[500]">

@@ -6,26 +6,80 @@ import TextRed from "./TextRed";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 //import { useAuth } from "../providers/AuthProvider";
 
-const LoginModal = ({ handleCancel, isModalOpen }) => {
-  // const { login, signup,name } = useAuth();
-
-  const [username, setUsername] = useState("");
-  const [nameInput, setNameInput] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const LoginModal = ({ handleCancel, isModalOpen, setIsOpenRegiser }) => {
   const [error, setError] = useState("");
-	const { user, loading } = useContext(AuthContext)
+  const [loading, setLoading] = useState(false);
+  const { user, userRefetch, setUserRefetch, logInWithGoogle } =
+    useContext(AuthContext);
 
-
-	const { login } = useContext(AuthContext)
   const navigate = useNavigate();
-  const loginHandler = async (e) => {
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    let res;
+    try {
+      res = await logInWithGoogle();
+    } catch (error) {
+      setLoading(false);
+      console.log({ error });
+    }
+
+    // console.log({ res });
+
+    if (res._tokenResponse.email) {
+      const payload = {
+        name: res._tokenResponse.fullName,
+        email: res._tokenResponse.email,
+        image:
+          res._tokenResponse.photoUrl || "https://i.ibb.co/mcHGwPy/dummy.jpg",
+        role: "user",
+      };
+
+      try {
+        const promise = await axios.post(`/google-login`, payload);
+
+        if (promise.status === 200) {
+          localStorage.setItem("accessToken", promise.data.token);
+          setUserRefetch(!userRefetch);
+          setError();
+          setTimeout(() => {
+            handleCancel();
+            setLoading(false);
+          }, 1000);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        setError(error.response.data.message || `Log in failed`);
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password)
-   console.log('ok')
-   handleCancel();
+    const formData = new FormData(e.target);
+    const entries = Object.fromEntries(formData.entries());
+
+    setLoading(true);
+    try {
+      const promise = await axios.post(`/login`, entries);
+      if (promise.status === 200) {
+        localStorage.setItem("accessToken", promise.data.token);
+        setUserRefetch(!userRefetch);
+        setError();
+        setTimeout(() => {
+          handleCancel();
+          setLoading(false);
+        }, 1000);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      setError(error.response.data.message || `Log in failed`);
+    }
   };
 
   return (
@@ -42,32 +96,22 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
           Log in or sign up to get the most out of your DDproperty experience.
         </p>
 
-        <form onSubmit={loginHandler} className="my-5 flex flex-col gap-2">
+        <form onSubmit={handleSubmit} className="my-5 flex flex-col gap-2">
+          <Input name="email" required placeholder="Email address" />
           <Input
+            name="password"
             required
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email address"
-          />
-          <Input
-            required
-            onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
           />
-          {nameInput && (
-            <Input
-              required
-              onChange={(e) => setUsername(e.target.value)}
-              type="text"
-              placeholder="User Name"
-            />
-          )}
+
           <Button
+            disabled={loading}
             htmlType="submit"
             type="submit"
             className="bg-danger text-white w-full hover:bg-danger/90"
           >
-            Continue
+            {loading ? "Logging in.." : "Login"}
           </Button>
 
           {error && <p className="text-danger">{error}</p>}
@@ -78,28 +122,24 @@ const LoginModal = ({ handleCancel, isModalOpen }) => {
         </div>
 
         <Button
+          onClick={handleGoogleSignIn}
+          disabled={loading}
           className="w-full mb-2 flex items-center justify-center bg-white"
           icon={<FcGoogle className="text-xl text-" />}
         >
           Continue with Google
         </Button>
-        <Button
-          className="w-full mb-2 flex items-center justify-center bg-white"
-          icon={<RiAppleFill className="text-xl text-dark2" />}
-        >
-          Continue with Apple
-        </Button>
-        <Button
-          className="w-full mb-2 flex items-center justify-center bg-white"
-          icon={<RiFacebookCircleFill className="text-xl text-sky-500" />}
-        >
-          Continue with Facebook
-        </Button>
 
         <div className="my-5">
-          <p>Are you an agent?</p>
-          <TextRed extraClasses="hover:text-danger/80">
-            Log In to Agent Net
+          <p>Dont't have an account?</p>
+          <TextRed
+            extraClasses="hover:text-danger/80"
+            onClick={() => {
+              setIsOpenRegiser(true);
+              handleCancel();
+            }}
+          >
+            Register
           </TextRed>
         </div>
 

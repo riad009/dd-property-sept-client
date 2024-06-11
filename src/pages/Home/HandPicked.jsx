@@ -5,6 +5,7 @@ import SectionHeader from "../../components/SectionHeader";
 import CardOne from "../../components/cards/CardOne";
 import SmallContainer from "../../shared/SmallContainer";
 import { Navigate, useNavigate } from "react-router-dom";
+import { baseURL } from "../../providers/AuthProvider";
 
 const handPicked = [
   {
@@ -46,9 +47,7 @@ const HandPicked = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://dd-property-sept-server.vercel.app/get/handpicked"
-        );
+        const response = await fetch(`${baseURL}/get/handpicked`);
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched

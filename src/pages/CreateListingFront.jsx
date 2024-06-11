@@ -22,15 +22,15 @@ const CreateListingFront = () => {
 
         <div className="flex gap-2 justify-center">
           <Link
-            onClick={() =>
-              setPropertyData((prev) => ({ ...prev, type: "property" }))
-            }
+            // onClick={() =>
+            //   setPropertyData((prev) => ({ ...prev, type: "property" }))
+            // }
             to="/dashboard/create-property"
             className="bg-white border-gray-400 shadow-sm border-2 rounded-lg px-5 mt-3 hover:bg-gray-50 transition-all font-bold py-2 inline-flex items-center text-orange-600"
           >
-            <BiPlusCircle className="text-lg mr-2" /> Create Property
+            <BiPlusCircle className="text-lg mr-2" /> Create Listing
           </Link>
-          <Link
+          {/* <Link
             onClick={() =>
               setPropertyData((prev) => ({ ...prev, type: "land" }))
             }
@@ -38,7 +38,7 @@ const CreateListingFront = () => {
             className="bg-white border-gray-400 shadow-sm border-2 rounded-lg px-5 mt-3 hover:bg-gray-50 transition-all font-bold py-2 inline-flex items-center text-orange-600"
           >
             <BiPlusCircle className="text-lg mr-2" /> Create Land
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import MediaStep from "../../components/Steps/MediaStep";
 
 import Stepper from "../../components/stepper/Stepper";
 import SummaryStep from "../../components/Steps/SummaryStep";
+import ContactStep from "../../components/Steps/ContactStep";
 
 const CreateListingSteps = () => {
   const steps = [
@@ -21,9 +22,13 @@ const CreateListingSteps = () => {
       content: <MediaStep />,
     },
     {
-      title: "Summary",
-      content: <SummaryStep />,
+      title: "Contact details",
+      content: <ContactStep />,
     },
+    // {
+    //   title: "Summary",
+    //   content: <SummaryStep />,
+    // },
 
     // {
     //   title: "Property Details",

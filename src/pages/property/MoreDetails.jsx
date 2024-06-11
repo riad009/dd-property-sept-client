@@ -23,7 +23,7 @@ const MoreDetails = ({ property }) => {
                   {property.country}
                 </div>
 
-                {property?.type === "property" && (
+                {property?.propertyType !== "Land" && (
                   <div className="mb-4">
                     <span className="font-semibold">Bedrooms:</span>{" "}
                     {property.bedrooms} |{" "}

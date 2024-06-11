@@ -25,7 +25,7 @@ const CoverUpload = () => {
 
     try {
       const response = await axios.post(
-        "https://dd-property-sept-server.vercel.app/upload",
+        "/upload",
         // "http://localhost:5000/upload",
         formData,
         {

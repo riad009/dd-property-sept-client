@@ -23,10 +23,19 @@ const SummaryStep = () => {
         }}
         className="font-semibold"
       >
-        Create Listing: Summary
+        Almost Done
+      </p>
+      <p
+        style={{
+          fontSize: "28px",
+          marginBottom: "10px",
+        }}
+        className="font-semibold"
+      >
+        Click on done button below to confirm your listing
       </p>
 
-      <div className="max-w-[600px]">
+      {/* <div className="max-w-[600px]">
         <p
           style={{
             fontSize: "16px",
@@ -102,7 +111,7 @@ const SummaryStep = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

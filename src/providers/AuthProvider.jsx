@@ -16,12 +16,23 @@ import axios from "axios";
 const auth = getAuth(app);
 const auth2 = getAuth(app);
 
+const googleProvider = new GoogleAuthProvider();
+
 // Create the UserContext
 export const AuthContext = createContext();
+
+// const baseURL = "https://event-backend-mauve.vercel.app"
+export const baseURL = "http://localhost:5000";
+
+// axios.defaults.baseURL = "https://event-backend-mauve.vercel.app/api/v1";
+axios.defaults.baseURL = baseURL;
 
 // Create a UserContextProvider component
 export const AuthProvider = ({ children }) => {
   // You can initialize your global data here
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [userRefetch, setUserRefetch] = useState(false);
 
   const [propertyData, setPropertyData] = useState({
     latLng: {
@@ -75,17 +86,22 @@ export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    const gettoken = async () => {
-      const token = await auth?.currentUser?.getIdToken();
-      console.log({ token });
-    };
-    gettoken();
-  }, []);
+  // useEffect(() => {
+  //   const gettoken = async () => {
+  //     const token = await auth?.currentUser?.getIdToken();
+  //     console.log({ token });
+  //   };
+  //   gettoken();
+  // }, []);
 
   console.log({ user });
 
   const [loading, setLoading] = useState(true);
+
+  const logInWithGoogle = () => {
+    // setIsLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
 
   //registration pop
   const providerLogin = (provider) => {
@@ -124,17 +140,17 @@ export const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-      //   setLoading(false);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     setLoading(false);
+  //     //   setLoading(false);
 
-      return () => {
-        unsubscribe();
-      };
-    });
-  }, []);
+  //     return () => {
+  //       unsubscribe();
+  //     };
+  //   });
+  // }, []);
 
   useEffect(() => {
     const handleBackButton = () => {
@@ -150,6 +166,33 @@ export const AuthProvider = ({ children }) => {
       window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
+
+  const token = localStorage.getItem("accessToken");
+  useEffect(() => {
+    const getProfile = async () => {
+      setIsLoading(true);
+
+      try {
+        const promise = await axios.get(`/user-profile`, {
+          headers: {
+            authorization: `${token}`,
+          },
+        });
+
+        console.log("useruser", promise.data.data);
+        setUser(promise.data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+        if (error.response.data.message === "Invalid Token!") {
+          localStorage.removeItem("accessToken");
+        }
+      }
+    };
+
+    getProfile();
+  }, [token, userRefetch]);
 
   const authInfo = {
     bedroomsSelected,
@@ -195,6 +238,11 @@ export const AuthProvider = ({ children }) => {
     setCoverImage,
     propertyData,
     setPropertyData,
+    isLoading,
+    userRefetch,
+    setUserRefetch,
+    logInWithGoogle,
+    setUser,
   };
 
   //firebase-------------------------------

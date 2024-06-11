@@ -6,6 +6,7 @@ import SmallContainer from "../../shared/SmallContainer";
 import Button from "../../components/Button";
 import { useEffect } from "react";
 import { useState } from "react";
+import { baseURL } from "../../providers/AuthProvider";
 
 const latesProjects = [
   {
@@ -43,9 +44,7 @@ const LatestProjects = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://dd-property-sept-server.vercel.app/get/latestprojects"
-        );
+        const response = await fetch(`${baseURL}/get/latestprojects`);
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched

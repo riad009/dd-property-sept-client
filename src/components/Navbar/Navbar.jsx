@@ -21,6 +21,7 @@ import LoginModal from "../LoginModal";
 import RightSide from "./RightSide";
 import { MdOutlineCardMembership } from "react-icons/md";
 import { AuthContext } from "../../providers/AuthProvider";
+import Register from "../Register";
 
 const ShortList = () => {
   return (
@@ -106,13 +107,19 @@ export const languages = [
 
 const Navbar = () => {
   // check current user
-  const { user, loading, logout } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   const path = useHref();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpenRegiser, setIsOpenRegiser] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState(false);
+
+  const logOut = () => {
+    localStorage.removeItem("accessToken");
+    setUser({});
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -120,6 +127,10 @@ const Navbar = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const handleCancelRegister = () => {
+    setIsOpenRegiser(false);
   };
 
   const languageHandler = (e) => {
@@ -150,7 +161,7 @@ const Navbar = () => {
 
     {
       key: "3",
-      label: <h1 onClick={logout}>Logout</h1>,
+      label: <h1 onClick={logOut}>Logout</h1>,
     },
   ];
 
@@ -303,7 +314,16 @@ const Navbar = () => {
           )}
         </div>
       </Container>
-      <LoginModal handleCancel={handleCancel} isModalOpen={isModalOpen} />
+      <LoginModal
+        handleCancel={handleCancel}
+        isModalOpen={isModalOpen}
+        setIsOpenRegiser={setIsOpenRegiser}
+      />
+      <Register
+        handleCancel={handleCancelRegister}
+        isModalOpen={isOpenRegiser}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 };

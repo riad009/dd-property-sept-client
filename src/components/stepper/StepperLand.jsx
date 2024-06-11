@@ -101,10 +101,7 @@ const StepperLand = ({ steps, submitHandler, navigateLink }) => {
 
       if (validateForm()) {
         try {
-          const response = await axios.post(
-            "https://dd-property-sept-server.vercel.app/post/property",
-            data
-          );
+          const response = await axios.post("/post/property", data);
           console.log(response.data);
           if (response?.status === 200) {
             message.success("Property Listing Successfully!");

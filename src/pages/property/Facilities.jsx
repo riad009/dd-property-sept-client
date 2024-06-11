@@ -1,13 +1,3 @@
-import React from "react";
-
-const facilities = [
-  "Air-conditioning",
-  "Bathtub",
-  "Corner Unit",
-  "Balcony",
-  "Cooker Hob",
-  "Sea View",
-];
 const Facilities = ({ property }) => {
   return (
     <div id="facilities">
@@ -24,7 +14,6 @@ const Facilities = ({ property }) => {
         )}
       </div>
     </div>
-
   );
 };
 

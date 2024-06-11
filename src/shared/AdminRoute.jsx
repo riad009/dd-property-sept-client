@@ -6,7 +6,7 @@ export default function ({ children }) {
   const { user } = useContext(AuthContext);
   const location = useLocation();
 
-  if (user?.email === "sevenadmin@gmail.com") {
+  if (user?.role === "admin") {
     return children;
   }
 

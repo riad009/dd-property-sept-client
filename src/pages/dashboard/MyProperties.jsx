@@ -4,7 +4,11 @@ import { Pagination, Segmented, Select } from "antd";
 import img1 from "../../assets/banner1.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { AuthContext, useUserContext } from "../../providers/AuthProvider";
+import {
+  AuthContext,
+  baseURL,
+  useUserContext,
+} from "../../providers/AuthProvider";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,9 +25,7 @@ const MyProperties = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://dd-property-sept-server.vercel.app/get/emailWise?email=${
-            user?.email
-          }&type=${value.toLowerCase()}`
+          `${baseURL}/get/emailWise?email=${user?.email}&type=${value}`
         );
         const result = await response.json();
 
@@ -47,15 +49,12 @@ const MyProperties = () => {
   //delete code
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `https://dd-property-sept-server.vercel.app/delete/property/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${baseURL}/delete/property/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         // Update the data by refetching or updating the state
@@ -73,8 +72,10 @@ const MyProperties = () => {
 
   const handleUpdate = (p) => {
     handlePropertyid(p);
-    navigate(`/dashboard/update`);
+    navigate(`/dashboard/update/${p}`);
   };
+
+  console.log({ data });
 
   return (
     <div className="p-10">
@@ -120,7 +121,7 @@ const MyProperties = () => {
             <td className="p-2">{p.propertyType}</td>
             <td className="p-2">{p.date}</td>
             <td className="p-2">{p.location}</td>
-            <td className="p-2">${p.listingPrice}</td>
+            <td className="p-2">{p.price} THB</td>
 
             <td>
               <div className="flex gap-2 text-danger">

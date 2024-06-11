@@ -7,7 +7,7 @@ import Search from "antd/es/input/Search";
 import TextRed from "../components/TextRed";
 import { Switch } from "antd";
 import PropertyCard from "../components/cards/PropertyCard";
-import { useUserContext } from "../providers/AuthProvider";
+import { baseURL, useUserContext } from "../providers/AuthProvider";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 
@@ -23,8 +23,7 @@ const PropertyForSale = () => {
   console.log({ searchvalue, category, bedroomsSelected, pricefilter });
 
   useEffect(() => {
-    const apiUrl =
-      "https://dd-property-sept-server.vercel.app/get/search/property/new";
+    const apiUrl = `${baseURL}/get/search/property/new`;
     // "http://localhost:5000/get/search/property/new";
 
     const requestData = {
@@ -77,7 +76,7 @@ const PropertyForSale = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://dd-property-sept-server.vercel.app/get/categoryproperty/${userData.category}/${userData.category2}`
+          `/get/categoryproperty/${userData.category}/${userData.category2}`
         );
         const data = await response.json();
         setcategory(data);

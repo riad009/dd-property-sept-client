@@ -19,6 +19,7 @@ import FAQ from "./FAQ";
 import { useEffect } from "react";
 import { useState } from "react";
 import MoreDetails from "./MoreDetails";
+import VideoSection from "./VideoSection";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -90,6 +91,7 @@ const SingleProperty = () => {
             <OverviewSection property={property} />
             <MoreDetails property={property}></MoreDetails>
             {/* <AvailableUnitSection p={property} images={images} /> */}
+            <VideoSection property={property} />
             <Facilities property={property} />
           </div>
           <div>
@@ -101,7 +103,7 @@ const SingleProperty = () => {
         </div>
         {/* <HomeFinance /> */}
         <Location lat={property?.latLng?.lat} lng={property?.latLng?.lng} />
-        <ContactDeveloper />
+        {property?.isVerified && <ContactDeveloper property={property} />}
       </SmallContainer>
       <SimilarListings />
       <SmallContainer>

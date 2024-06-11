@@ -4,7 +4,7 @@ import SectionHeader from "../../components/SectionHeader";
 import CardOne from "../../components/cards/CardOne";
 import SmallContainer from "../../shared/SmallContainer";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContext } from "../../providers/AuthProvider";
+import { baseURL, useUserContext } from "../../providers/AuthProvider";
 
 const buyCondosData = [
   {
@@ -41,9 +41,7 @@ const CurtaredCollection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://dd-property-sept-server.vercel.app/get/curated"
-        );
+        const response = await fetch(`${baseURL}/get/curated`);
         const data = await response.json();
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched

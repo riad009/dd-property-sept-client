@@ -109,7 +109,7 @@ const Banner = ({ breadCrumbItems, images, p }) => {
         <div className="sm:flex gap-5 justify-between text-justify">
           <Details icon={<CiCircleChevRight />}>
             {p.headline}
-            {p?.status === "verified" ? (
+            {p?.isVerified ? (
               <>
                 <MdVerified className="text-blue-600 text-xl" /> (Verified)
               </>

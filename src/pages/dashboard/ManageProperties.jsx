@@ -3,7 +3,11 @@ import { Segmented } from "antd";
 
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { AuthContext, useUserContext } from "../../providers/AuthProvider";
+import {
+  AuthContext,
+  baseURL,
+  useUserContext,
+} from "../../providers/AuthProvider";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,7 +24,7 @@ const ManageProperties = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://dd-property-sept-server.vercel.app/get/emailWise?type=${value.toLowerCase()}`
+          `${baseURL}/get/emailWise?type=${value.toLowerCase()}`
         );
         const result = await response.json();
 
@@ -35,9 +39,7 @@ const ManageProperties = () => {
 
   const handleVerify = async (propertyId) => {
     try {
-      const response = await axios.put(
-        `https://dd-property-sept-server.vercel.app/api/verify/${propertyId}`
-      );
+      const response = await axios.put(`/api/verify/${propertyId}`);
       setrefetch(!refetch);
       alert("verified");
     } catch (error) {
@@ -47,9 +49,7 @@ const ManageProperties = () => {
 
   const handleDecline = async (propertyId) => {
     try {
-      const response = await axios.put(
-        `https://dd-property-sept-server.vercel.app/api/decline/${propertyId}`
-      );
+      const response = await axios.put(`/api/decline/${propertyId}`);
       setrefetch(!refetch);
       alert("declined");
     } catch (error) {
@@ -61,7 +61,7 @@ const ManageProperties = () => {
     <div className="p-10">
       <div className="lg:flex items-center justify-between">
         <DashboardHeader
-          title={"My Properties"}
+          title={"Manage Properties"}
           description={"We are glad to see you again"}
         />
 
@@ -101,7 +101,9 @@ const ManageProperties = () => {
             <td className="p-2">{p.headline}</td>
             <td className="p-2">{p.propertyType}</td>
             <td className="p-2">{p.date}</td>
-            <td className="p-2">{p.status}</td>
+            <td className="p-2">
+              {p.isVerified ? "Verified" : "Not verified"}
+            </td>
             {/* <td className="p-2">{p.location}</td>
             <td className="p-2">${p.price}</td> */}
 

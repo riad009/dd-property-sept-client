@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home/Home";
 import SingleProperty from "./pages/property/SingleProperty";
-import { AuthProvider } from "./providers/AuthProvider";
+import { AuthProvider, baseURL } from "./providers/AuthProvider";
 import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./shared/PrivateRoute";
 import { DashboardLayout } from "./layouts/DashboardLayout";
@@ -69,9 +69,7 @@ const router = createBrowserRouter([
         element: <SingleProperty />,
 
         loader: ({ params }) =>
-          fetch(
-            `https://dd-property-sept-server.vercel.app/get/property/idWise/${params.id}`
-          ),
+          fetch(`${baseURL}/get/property/idWise/${params.id}`),
       },
     ],
   },
@@ -116,7 +114,7 @@ const router = createBrowserRouter([
       //   ),
       // },
       {
-        path: "update",
+        path: "update/:id",
         element: (
           <PrivateRoute>
             <UpdateProperty></UpdateProperty>

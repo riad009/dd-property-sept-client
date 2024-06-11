@@ -74,15 +74,11 @@ const VideoUploadDragger = () => {
       });
 
       try {
-        const response = await axios.post(
-          "https://dd-property-sept-server.vercel.app/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        const response = await axios.post("/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         setVideoUrls(response?.data?.urls);
         setLoading(false);

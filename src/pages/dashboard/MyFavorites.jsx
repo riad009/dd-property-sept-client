@@ -15,9 +15,7 @@ const MyFavorites = () => {
     window.scrollTo(0, 0);
     const fetchAllProperties = async () => {
       try {
-        const response = await axios.get(
-          "https://dd-property-sept-server.vercel.app/get/allProperties"
-        ); // Replace with your actual endpoint
+        const response = await axios.get("/get/allProperties"); // Replace with your actual endpoint
 
         setAllProperties(response?.data);
       } catch (error) {
@@ -32,9 +30,7 @@ const MyFavorites = () => {
     // Fetch user favorites
     const fetchUserFavorites = async () => {
       try {
-        const response = await axios.get(
-          `https://dd-property-sept-server.vercel.app/get/favourites/${user?.email}`
-        );
+        const response = await axios.get(`/get/favourites/${user?.email}`);
 
         setUserFavorites(response?.data.favorites);
       } catch (error) {

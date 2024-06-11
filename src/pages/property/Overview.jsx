@@ -31,7 +31,7 @@ const Overview = ({ property }) => {
       </div>
       <Divider />
       {/* Room Details */}
-      {property?.type === "property" && (
+      {property?.propertyType !== "Land" && (
         <div className="flex gap-5 mb-2">
           <div>
             <p className="text-sm text-dark2">Bedroom</p>
@@ -45,12 +45,12 @@ const Overview = ({ property }) => {
               <GiBathtub className="text-xl" /> {property.bathrooms}
             </p>
           </div>
-          <div>
+          {/* <div>
             <p className="text-sm text-dark2">Maidrooms</p>
             <p className="flex items-center gap-2 text-sm text-dark font-[500]">
               <MdRoomService className="text-xl" /> {property.maidrooms}
             </p>
-          </div>
+          </div> */}
           <div>
             <p className="text-sm text-dark2">Floor Position</p>
             <p className="flex items-center gap-2 text-sm text-dark font-[500]">

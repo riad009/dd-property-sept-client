@@ -9,6 +9,7 @@ import SearchLocationInput from "./SearchLocationInput";
 import LocationMap from "./LocationMap";
 
 import { useNavigate } from "react-router-dom";
+import { Form } from "antd";
 
 const LocationStep = () => {
   const { setPropertyData, propertyData } = useContext(AuthContext);
@@ -17,12 +18,12 @@ const LocationStep = () => {
     lat: 13.736717,
     lng: 100.523186,
   });
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!propertyData?.type) {
-      navigate("/dashboard/create-listing");
-    }
-  }, [propertyData?.type]);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!propertyData?.type) {
+  //     navigate("/dashboard/create-listing");
+  //   }
+  // }, [propertyData?.type]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -67,9 +68,7 @@ const LocationStep = () => {
                 type="text"
                 name="propertyName"
                 size="large"
-                label={`Name of the ${
-                  propertyData?.type === "property" ? "property" : "land"
-                }`}
+                label={`Name of the property`}
                 required={true}
               />
             </div>

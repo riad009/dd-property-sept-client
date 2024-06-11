@@ -34,19 +34,17 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
 
   let requiredFields;
 
-  if (propertyData?.type === "property") {
+  if (propertyData?.propertyType !== "Land") {
     requiredFields = [
       "propertyName",
       "propertyType",
       "price",
       "bedrooms",
       "bathrooms",
-      "maidrooms",
       "size",
       "floorSize",
       "referenceNote",
       "headline",
-      "descriptionThai",
       "descriptionEnglish",
       "video",
       "latLng",
@@ -56,6 +54,9 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
       "listingType",
       "coverImage",
       "imageUrls",
+      "contactName",
+      "contactEmail",
+      "contactNumber",
     ];
   } else {
     requiredFields = [
@@ -65,7 +66,6 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
       "size",
       "referenceNote",
       "headline",
-      "descriptionThai",
       "descriptionEnglish",
       "video",
       "latLng",
@@ -75,6 +75,9 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
       "listingType",
       "coverImage",
       "imageUrls",
+      "contactName",
+      "contactEmail",
+      "contactNumber",
     ];
   }
 
@@ -82,7 +85,8 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
     if (current === steps.length - 1) {
       data.priceType = "THB";
       data.email = user?.email;
-      if (propertyData?.type === "land") {
+      data.isVerified = false;
+      if (propertyData?.propertyType === "Land") {
         delete data.floorSize;
       }
 
@@ -125,10 +129,7 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
 
       if (validateForm()) {
         try {
-          const response = await axios.post(
-            "https://dd-property-sept-server.vercel.app/post/property",
-            combinedObject
-          );
+          const response = await axios.post("/post/property", combinedObject);
           console.log(response.data);
           if (response?.status === 200) {
             message.success("Property Listing Successfully!");
