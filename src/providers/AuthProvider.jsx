@@ -21,10 +21,9 @@ const googleProvider = new GoogleAuthProvider();
 // Create the UserContext
 export const AuthContext = createContext();
 
-// const baseURL = "https://event-backend-mauve.vercel.app"
+// const baseURL = "https://dd-property-sept-server.vercel.app"
 export const baseURL = "http://localhost:5000";
 
-// axios.defaults.baseURL = "https://event-backend-mauve.vercel.app/api/v1";
 axios.defaults.baseURL = baseURL;
 
 // Create a UserContextProvider component
