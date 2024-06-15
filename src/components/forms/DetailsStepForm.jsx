@@ -7,6 +7,20 @@ import FurnishOptions from "../FurnishOptions";
 import FormtTextarea from "./FormTextarea";
 import { AuthContext } from "../../providers/AuthProvider";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+export const pricingDetails = [
+  {
+    value: "Daily",
+    label: "Daily",
+  },
+  {
+    value: "Monthly",
+    label: "Monthly",
+  },
+  {
+    value: "Yearly",
+    label: "Yearly",
+  },
+]
 const DetailsStepForm = ({ listingType }) => {
   const { propertyData, setPropertyData } = useContext(AuthContext);
 
@@ -60,8 +74,8 @@ const DetailsStepForm = ({ listingType }) => {
         {listingType === "forSale"
           ? "You are creating a listing to sell a unit. Add more details about the unit below."
           : listingType === "forRent"
-          ? "You are creating a listing to rent out an entire unit/a room only. Add more details about the unit below."
-          : "You are creating a listing for option to buy. Add more details about the unit below."}
+            ? "You are creating a listing to rent out an entire unit/a room only. Add more details about the unit below."
+            : "You are creating a listing for option to buy. Add more details about the unit below."}
       </p>
       <hr className="my-6" />
 
@@ -93,7 +107,7 @@ const DetailsStepForm = ({ listingType }) => {
         </div>
         <div className="w-full">
           {listingType === "forSale" ||
-          propertyData?.propertyType === "Land" ? (
+            propertyData?.propertyType === "Land" ? (
             <FormInput
               type="text"
               name="priceType"
@@ -107,20 +121,7 @@ const DetailsStepForm = ({ listingType }) => {
               type="text"
               name="rentDuration"
               size="large"
-              options={[
-                {
-                  value: "Daily",
-                  label: "Daily",
-                },
-                {
-                  value: "Monthly",
-                  label: "Monthly",
-                },
-                {
-                  value: "Yearly",
-                  label: "Yearly",
-                },
-              ]}
+              options={pricingDetails}
             />
           )}
         </div>

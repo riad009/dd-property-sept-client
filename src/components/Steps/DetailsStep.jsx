@@ -16,6 +16,7 @@ const DetailsStep = () => {
   const handleListingType = ({ target: { value } }) => {
     setPropertyData((prev) => ({ ...prev, listingType: value }));
   };
+  console.log({propertyData})
   return (
     <div
       className="bg-white"
