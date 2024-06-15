@@ -106,7 +106,7 @@ const MediaStep = () => {
               name="video"
               size="large"
               placeholder="Link"
-              required={true}
+              required={false}
             />
           </div>
         </div>

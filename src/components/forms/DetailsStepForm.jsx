@@ -10,17 +10,17 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 export const pricingDetails = [
   {
     value: "Daily",
-    label: "Daily",
+    label: "Day Price",
   },
   {
     value: "Monthly",
-    label: "Monthly",
+    label: "Month Price",
   },
   {
     value: "Yearly",
-    label: "Yearly",
+    label: "Year Price",
   },
-]
+];
 const DetailsStepForm = ({ listingType }) => {
   const { propertyData, setPropertyData } = useContext(AuthContext);
 
@@ -74,8 +74,8 @@ const DetailsStepForm = ({ listingType }) => {
         {listingType === "forSale"
           ? "You are creating a listing to sell a unit. Add more details about the unit below."
           : listingType === "forRent"
-            ? "You are creating a listing to rent out an entire unit/a room only. Add more details about the unit below."
-            : "You are creating a listing for option to buy. Add more details about the unit below."}
+          ? "You are creating a listing to rent out an entire unit/a room only. Add more details about the unit below."
+          : "You are creating a listing for option to buy. Add more details about the unit below."}
       </p>
       <hr className="my-6" />
 
@@ -107,7 +107,7 @@ const DetailsStepForm = ({ listingType }) => {
         </div>
         <div className="w-full">
           {listingType === "forSale" ||
-            propertyData?.propertyType === "Land" ? (
+          propertyData?.propertyType === "Land" ? (
             <FormInput
               type="text"
               name="priceType"
