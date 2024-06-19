@@ -9,24 +9,24 @@ const BedroomDropdown = ({
   bedRoomSizes,
   bedroomsSelected,
   handleBedroomSizeFilter,
-
   setBedroomsSelected,
   border,
+  closeAllDropdowns,
 }) => {
+ 
   return (
     <div className={`relative ${border && "bg-white w-fit p-2 rounded-md"}`}>
       <h6
         onClick={footer3Handler}
         className="flex items-center gap-1 cursor-pointer"
       >
-        Bedroom
+        {bedroomsSelected ? bedroomsSelected : "Bedrooms"}
         {footer3Open ? <BiChevronUp /> : <BiChevronDown />}
       </h6>
       {footer3Open && (
         <div
-          className={`absolute shadow-md rounded-lg ${
-            border ? "top-12 shadow-lg" : "top-7"
-          } right-0 bg-white w-80`}
+          className={`absolute shadow-md rounded-lg ${border ? "top-12 shadow-lg" : "top-7"
+            } right-0 bg-white w-80`}
         >
           <div className="p-3">
             <h1 className="text-dark text-sm">Bedroom</h1>
@@ -34,10 +34,9 @@ const BedroomDropdown = ({
               {bedRoomSizes.map((option) => (
                 <div
                   key={option}
-                  className={`px-4 py-1 border rounded-lg cursor-pointer ${
-                    bedroomsSelected === option && "bg-dark text-white"
-                  } border border-dark`}
-                  onClick={() => handleBedroomSizeFilter(option)}
+                  className={`px-4 py-1 border rounded-lg cursor-pointer ${bedroomsSelected === option && "bg-dark text-white"
+                    } border border-dark`}
+                  onClick={() => setBedroomsSelected(option)}
                 >
                   {option}
                 </div>
@@ -45,10 +44,10 @@ const BedroomDropdown = ({
             </div>
           </div>
           <Divider />
-          {/* Footer Footer */}
           <ApplyFilterButtons
             setBedroomsSelected={setBedroomsSelected}
             bedroomsSelected={bedroomsSelected}
+            closeAllDropdowns={closeAllDropdowns}
           />
         </div>
       )}

@@ -70,6 +70,8 @@ export const AuthProvider = ({ children }) => {
     setcategory(newData);
   };
   const handlebedrooms = (newData) => {
+    // new data is
+    console.log(newData)
     setbedrooms(newData);
   };
 

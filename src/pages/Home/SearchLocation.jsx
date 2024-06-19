@@ -1,49 +1,16 @@
-import { Divider, InputNumber } from "antd";
 import { useEffect, useState, useRef } from "react";
-import { BiChevronDown, BiChevronUp } from "react-icons/bi";
-import ApplyFilterButtons from "../../components/ApplyFilterButtons";
 import AllResidentialDropdown from "../../components/AllResidentialDropdown";
 import AnyPrice from "../../components/AnyPriceDropdown";
 import BedroomDropdown from "../../components/BedroomDropdown";
 import axios from "axios";
 import { useUserContext } from "../../providers/AuthProvider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ToggleButton from "../../components/Home-components/ToggleButton";
+import { footer1Items } from './../../constants/footerItem';
 
-export const footer1Items = [
-  {
-    key: 0,
-    label: "All Residential",
-  },
-  {
-    key: 1,
-    label: "Condo",
-    options: ["Condo"],
-  },
-  {
-    key: 2,
-    label: "Detached House",
-    options: ["Detached House"],
-  },
-  {
-    key: 3,
-    label: "Town House",
-    options: ["Town House"],
-  },
-  {
-    key: 4,
-    label: "land",
-    options: ["Land"],
-  },
-  {
-    key: 5,
-    label: "Apartment",
-    options: ["Apartment"],
-  },
-];
 
 const SearchLocation = () => {
   const {
-    searchvalue,
     handleSearchvalue,
     handleCategory,
     handlePrice,
@@ -57,7 +24,15 @@ const SearchLocation = () => {
   const [footer2Open, setFooter2Open] = useState(false);
   const [footer3Open, setFooter3Open] = useState(false);
   const bedRoomSizes = ["1", "2", "3", "4", "5+"];
+  const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
+  const [isActive, setIsActive] = useState(false);
+  const searchRef = useRef(null);
+  const [isBuy, setIsBuy] = useState(true);
+  const [minprice, setminprice] = useState("");
+  const [maxprice, setmaxprice] = useState("");
+  // for buying and renting
   const handleBedroomSizeFilter = (option) => {
     setBedroomsSelected(option);
 
@@ -70,7 +45,12 @@ const SearchLocation = () => {
     //   setBedroomsSelected([...bedroomsSelected, option]);
     // }
   };
-
+  // to close dropwn while applying filter
+  const closeAllDropdowns = () => {
+    setFooter1Open(false);
+    setFooter2Open(false);
+    setFooter3Open(false);
+  };
   const footer1Handler = () => {
     setFooter1Open(!footer1Open);
     setFooter2Open(false);
@@ -97,10 +77,8 @@ const SearchLocation = () => {
     setValue(e.target.value);
   };
 
-  const checkBoxHandler = (checkedValues) => {};
-
-  const [minprice, setminprice] = useState("");
-  const [maxprice, setmaxprice] = useState("");
+  // eslint-disable-next-line 
+  const checkBoxHandler = (checkedValues) => { };
 
   const price = { maxprice, minprice };
 
@@ -116,11 +94,7 @@ const SearchLocation = () => {
   };
 
   // Search start
-  const [search, setSearch] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
 
-  const [isActive, setIsActive] = useState(false);
-  const searchRef = useRef(null);
 
   const handleClickOutside = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -145,7 +119,9 @@ const SearchLocation = () => {
           // Update the suggestions based on the backend response
           setSuggestions(response.data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          console.error(error);
+         });
     } else {
       // Clear suggestions when the search term is empty
       setSuggestions([]);
@@ -176,10 +152,8 @@ const SearchLocation = () => {
   return (
     <div className="sm:absolute sm:-bottom-24 sm:left-1/2 transform sm:-translate-x-1/2 lg:w-1/3 md:w-1/2 w-full mx-auto bg-dark bg-opacity-80 p-5 text-white md:rounded-lg">
       {/* Navbar */}
-      <div className="flex w-fit mx-auto gap-5 text-xl mb-5">
-        <h1 className="cursor-pointer border-b-2 border-danger">Buy</h1>
-        <h1 className="cursor-pointer ">Rent</h1>
-      </div>
+      {/* Toggle button  */}
+      <ToggleButton isBuy={isBuy} setIsBuy={setIsBuy} />
       {/* Search Field */}
       <div className="flex justify-center">
         {/*  */}
@@ -205,10 +179,12 @@ const SearchLocation = () => {
                 return (
                   <li
                     key={index}
+
                     className="hover:bg-gray-100 text-gray-500 flex items-center p-4 border-b border-solid border-gray-300 cursor-pointer text-black"
                     onClick={() => {
                       setSearch(suggestion?.district);
                       setCity(suggestion?.city);
+                      handleSearch()
                       setIsActive(false); // Close the suggestions after selecting a city
                     }}
                   >
@@ -281,6 +257,8 @@ const SearchLocation = () => {
           value={value}
           setPropertyType={setPropertyType}
           checkBoxHandler={checkBoxHandler}
+          closeAllDropdowns={closeAllDropdowns}
+          setValue={setValue}
         />
         {/* Footer 2 */}
         <AnyPrice
@@ -289,6 +267,7 @@ const SearchLocation = () => {
           maxPriceHandler={maxPriceHandler}
           minPriceHandler={minPriceHandler}
           price={price}
+          closeAllDropdowns={closeAllDropdowns}
         />
         {/* Footer 3 */}
         <BedroomDropdown
@@ -298,6 +277,7 @@ const SearchLocation = () => {
           footer3Open={footer3Open}
           handleBedroomSizeFilter={handleBedroomSizeFilter}
           setBedroomsSelected={setBedroomsSelected}
+          closeAllDropdowns={closeAllDropdowns}
         />
       </div>
     </div>
