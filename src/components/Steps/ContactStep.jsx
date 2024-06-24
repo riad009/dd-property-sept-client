@@ -1,9 +1,13 @@
 import { Popover, Progress, Select } from "antd";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
 import FormInput from "../forms/FormInput";
 
+import { AuthContext } from "../../providers/AuthProvider";
+
 const ContactStep = () => {
+  const  {user}  = useContext(AuthContext)
+  console.log({ user })
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

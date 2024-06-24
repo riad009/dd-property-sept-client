@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { MdAdd } from "react-icons/md";
 import ProfileInput from "../../components/ProfileInput";
+import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
 
 const ProfilePage = () => {
   const [profileImage, setProfileImage] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [position, setPosition] = useState("");
-  const [licence, setLicence] = useState("");
-  const [taxNumber, setTaxNumber] = useState("");
-  const [phone, setPhone] = useState("");
-  const [faxNumber, setFaxNumber] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [language, setLanguage] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [address, setAddress] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
   const [aboutMe, setAboutMe] = useState("");
 
   const [skype, setSkype] = useState("");
@@ -33,6 +26,7 @@ const ProfilePage = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [userId, setUserId] = useState(null);
 
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
@@ -44,11 +38,34 @@ const ProfilePage = () => {
       reader.readAsDataURL(file);
     }
   };
+  const { user } = useContext(AuthContext);
+  const handleUpdateProfile = useCallback(async () => {
+    const formData = {
+      name: username,
+      email,
+      phone: phone,
+      address,
+    };
 
-  const handleUpdateProfile = () => {
-    // Perform update profile logic here
-  };
-
+    try {
+      const response = await axios.put(`/update-profile/${userId}`, formData);
+      if (response.status === 200) {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [username, email, phone, address, userId]);
+  useEffect(() => {
+    if (user) {
+      console.log('User object:', user);
+      setUsername(user.name || '');
+      setEmail(user.email || '');
+      setPhone(user.phone || '');
+      setAddress(user.address || '');
+      setUserId(user._id);
+    }
+  }, [user]);
   return (
     <div className="p-10 bg-gray-100">
       {/* Profile Picture */}
@@ -87,73 +104,31 @@ const ProfilePage = () => {
           <ProfileInput
             label="Username"
             value={username}
+            required={true}
             onChange={(e) => setUsername(e.target.value)}
           />
           <ProfileInput
             label="Email"
             value={email}
+            required={true}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <ProfileInput
-            label="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <ProfileInput
-            label="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <ProfileInput
-            label="Position"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
-          />
-          <ProfileInput
-            label="Licence"
-            value={licence}
-            onChange={(e) => setLicence(e.target.value)}
-          />
-          <ProfileInput
-            label="Tax Number"
-            value={taxNumber}
-            onChange={(e) => setTaxNumber(e.target.value)}
-          />
+
           <ProfileInput
             label="Phone"
             value={phone}
+            required={true}
             onChange={(e) => setPhone(e.target.value)}
           />
           <ProfileInput
-            label="Fax Number"
-            value={faxNumber}
-            onChange={(e) => setFaxNumber(e.target.value)}
-          />
-          <ProfileInput
-            label="Mobile"
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-          />
-          <ProfileInput
-            label="Language"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          />
-          <ProfileInput
-            label="Company Name"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
+            label="Address"
+            value={address}
+            required={true}
+            onChange={(e) => setAddress(e.target.value)}
           />
 
-          <div className="md:col-span-2">
-            <ProfileInput
-              label="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </div>
 
-          <div className="mt-4 md:col-span-2">
+          {/* <div className="mt-4 md:col-span-2">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="aboutMe"
@@ -166,7 +141,7 @@ const ProfilePage = () => {
               value={aboutMe}
               onChange={(e) => setAboutMe(e.target.value)}
             ></textarea>
-          </div>
+          </div> */}
         </div>
         {/* Update Profile Button */}
         <button
@@ -231,7 +206,7 @@ const ProfilePage = () => {
           />
           <button
             className="bg-danger text-white py-2 px-4 rounded-lg mt-4"
-            onClick={() => {}}
+            onClick={() => { }}
           >
             Update Social Media
           </button>
@@ -264,7 +239,7 @@ const ProfilePage = () => {
 
         <button
           className="bg-danger text-white py-2 px-4 rounded-lg mt-4"
-          onClick={() => {}}
+          onClick={() => { }}
         >
           Change Password
         </button>

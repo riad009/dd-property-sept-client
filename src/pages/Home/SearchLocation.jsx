@@ -121,7 +121,7 @@ const SearchLocation = () => {
         })
         .catch((error) => {
           console.error(error);
-         });
+        });
     } else {
       // Clear suggestions when the search term is empty
       setSuggestions([]);
@@ -147,7 +147,7 @@ const SearchLocation = () => {
   }, [search]);
 
   //  Search button
-
+  
   // Search end
   return (
     <div className="sm:absolute sm:-bottom-24 sm:left-1/2 transform sm:-translate-x-1/2 lg:w-1/3 md:w-1/2 w-full mx-auto bg-dark bg-opacity-80 p-5 text-white md:rounded-lg">
@@ -270,15 +270,17 @@ const SearchLocation = () => {
           closeAllDropdowns={closeAllDropdowns}
         />
         {/* Footer 3 */}
-        <BedroomDropdown
-          bedRoomSizes={bedRoomSizes}
-          bedroomsSelected={bedroomsSelected}
-          footer3Handler={footer3Handler}
-          footer3Open={footer3Open}
-          handleBedroomSizeFilter={handleBedroomSizeFilter}
-          setBedroomsSelected={setBedroomsSelected}
-          closeAllDropdowns={closeAllDropdowns}
-        />
+        {
+          value === "Land" ? <></> : <BedroomDropdown
+            bedRoomSizes={bedRoomSizes}
+            bedroomsSelected={bedroomsSelected}
+            footer3Handler={footer3Handler}
+            footer3Open={footer3Open}
+            handleBedroomSizeFilter={handleBedroomSizeFilter}
+            setBedroomsSelected={setBedroomsSelected}
+            closeAllDropdowns={closeAllDropdowns}
+          />
+        }
       </div>
     </div>
   );

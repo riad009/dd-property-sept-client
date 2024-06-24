@@ -251,7 +251,6 @@ const DetailsStepForm = ({ listingType }) => {
 
       <div className="w-full">
         <FormInput
-          type="number"
           name="size"
           size="large"
           placeholder="Size"
