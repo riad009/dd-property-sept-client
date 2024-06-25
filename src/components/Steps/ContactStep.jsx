@@ -1,16 +1,41 @@
 import { Popover, Progress, Select } from "antd";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
 import FormInput from "../forms/FormInput";
 
 import { AuthContext } from "../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const ContactStep = () => {
-  const  {user}  = useContext(AuthContext)
-  console.log({ user })
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setUsername(user.name || '');
+      setEmail(user.email || '');
+      setPhone(user.phone || '');
+      setAddress(user.address || '');
+      setIsLoading(false);  // Indicate loading is complete
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!isLoading && (!username || !email || !phone || !address)) {
+      alert("Please update your profile and enter your address and phone number and try again.");
+      navigate('/dashboard/my-profile');
+    }
+  }, [username, email, phone, address, isLoading, navigate]);
+
   return (
     <div
       className="bg-white "
@@ -48,6 +73,8 @@ const ContactStep = () => {
             placeholder="name"
             label="Your name"
             required={true}
+            value={username}
+            disabled={true}
           />
         </div>
         <div>
@@ -58,16 +85,19 @@ const ContactStep = () => {
             placeholder="email"
             label="Your Email"
             required={true}
+            value={email}
+            disabled={true}
           />
         </div>
         <div>
           <FormInput
-            type="number"
             name="contactNumber"
             size="large"
             placeholder="number"
             label="Your number"
             required={true}
+            value={phone}
+            disabled={true}
           />
         </div>
 
@@ -79,6 +109,8 @@ const ContactStep = () => {
             placeholder="address"
             label="Your address"
             required={true}
+            value={address}
+            disabled={true}
           />
         </div>
       </div>

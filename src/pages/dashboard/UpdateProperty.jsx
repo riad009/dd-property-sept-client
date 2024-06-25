@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "./DashboardHeader";
 import axios from "axios";
-import { Form, Input, Button, Row, Col, Select, Upload } from "antd";
+import { Form, Input, Button, Row, Col, Select, Upload, Steps } from "antd";
 import { PlusOutlined } from '@ant-design/icons';
 import { useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
@@ -12,7 +12,9 @@ const UpdateProperty = () => {
   const [form] = Form.useForm();
   const [propertyData, setPropertyData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [currentStep, setCurrentStep] = useState(0);
   const [isModified, setIsModified] = useState(false);
+  const [savedFormValues, setSavedFormValues] = useState({});
   const { id } = useParams();
 
   const fetchPropertyData = async () => {
@@ -32,33 +34,48 @@ const UpdateProperty = () => {
   }, [id]);
 
   useEffect(() => {
-    form.setFieldsValue(propertyData);
-    setIsModified(false);
+    if (Object.keys(propertyData).length) {
+      form.setFieldsValue(propertyData);
+    }
   }, [propertyData, form]);
 
+  const handleNextStep = () => {
+    setSavedFormValues(prevValues => ({
+      ...prevValues,
+      ...form.getFieldsValue()
+    }));
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handlePreviousStep = () => {
+    setSavedFormValues(prevValues => ({
+      ...prevValues,
+      ...form.getFieldsValue()
+    }));
+    setCurrentStep(currentStep - 1);
+  };
+
   const handleUpdateButton = async () => {
-    setIsLoading(true);
-    const values = form.getFieldsValue();
+    const values = { ...savedFormValues, ...form.getFieldsValue() };
     const formData = new FormData();
 
     for (const key in values) {
       if (values.hasOwnProperty(key)) {
-        formData.append(key, values[key]);
+        if (values[key] !== undefined && (!Array.isArray(values[key]) || values[key].length > 0)) {
+          formData.append(key, values[key]);
+        }
       }
     }
 
-    // Append cover photo file if uploaded
     if (values.coverPhoto?.fileList?.length) {
       formData.append('coverImage', values.coverPhoto.fileList[0].originFileObj);
     }
 
-    // Append other photos files if uploaded
     if (values.otherPhotos?.fileList?.length) {
       values.otherPhotos.fileList.forEach(file => {
         formData.append('imageUrls', file.originFileObj);
       });
     }
-
     try {
       const res = await axios.put(`/update/property/${id}`, formData, {
         headers: {
@@ -67,16 +84,13 @@ const UpdateProperty = () => {
       });
       if (res.status === 201) {
         await fetchPropertyData();
+        setCurrentStep(0)
         alert(res.data.message);
       }
     } catch (error) {
       console.error("Error updating property:", error.response || error.message);
       setIsLoading(false);
     }
-  };
-
-  const handleValuesChange = () => {
-    setIsModified(true);
   };
 
   if (isLoading) {
@@ -104,22 +118,14 @@ const UpdateProperty = () => {
     url,
   }));
 
-  return (
-    <Form
-      form={form}
-      layout="vertical"
-      initialValues={{
-        propertyName, province, city, location, price, bedrooms, bathrooms,
-        floorSize, headline, video, referenceNote, descriptionEnglish, size,
-        contactName, contactEmail, contactNumber, contactAddress, rentDuration, priceType
-      }}
-      onValuesChange={handleValuesChange}
-      className="lg:p-10 p-5 bg-dark2/10"
-    >
-      <DashboardHeader title="Update Property" description="We are glad to see you again!" />
+  const handleValuesChange = () => {
+    setIsModified(true);
+  };
 
-      {/* Location Section */}
-      <div className="mt-5">
+  const sections = [
+    {
+      title: "Update Location",
+      content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Location</h1>
           <Row gutter={16}>
@@ -147,10 +153,11 @@ const UpdateProperty = () => {
             </Col>
           </Row>
         </div>
-      </div>
-
-      {/* Details Section */}
-      <div className="mt-5">
+      ),
+    },
+    {
+      title: "Update Details",
+      content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Details</h1>
           <Row gutter={16}>
@@ -227,11 +234,12 @@ const UpdateProperty = () => {
             </Col>
           </Row>
         </div>
-      </div>
-
-      {/* Media Section */}
-      <div className="mt-5">
-        <div className="bg-white p-10 rounded-lg">
+      ),
+    },
+    {
+      title: "Update Media",
+      content: (
+        <div className="bg-white p-10 rounded -lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Listing: Media</h1>
           <Form.Item
             name="coverPhoto"
@@ -249,7 +257,6 @@ const UpdateProperty = () => {
               </div>
             </Upload>
           </Form.Item>
-
           <Form.Item
             name="otherPhotos"
             label="Add Photos"
@@ -267,7 +274,6 @@ const UpdateProperty = () => {
               </div>
             </Upload>
           </Form.Item>
-
           <Form.Item
             name="video"
             label="Add Video"
@@ -276,57 +282,102 @@ const UpdateProperty = () => {
                 type: 'url',
                 message: 'Please enter a valid URL',
               },
+              { required: true }
             ]}
           >
             <Input placeholder="Provide a video link from YouTube" />
           </Form.Item>
         </div>
-      </div>
-
-      {/* Contact Information Section */}
-      <div className="mt-5">
+      ),
+    },
+    {
+      title: "Update Contact Information",
+      content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Your Contact Information</h1>
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item label="Your name" name="contactName" rules={[{ required: true }]}>
-                <Input size="large" />
+                <Input size="large" disabled />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item label="Your Email" name="contactEmail" rules={[{ required: true }]}>
-                <Input size="large" />
+                <Input size="large" disabled />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item label="Your number" name="contactNumber" rules={[{ required: true }]}>
-                <Input size="large" />
+                <Input size="large" disabled />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item label="Your address" name="contactAddress" rules={[{ required: true }]}>
-                <Input size="large" />
+                <Input size="large" disabled />
               </Form.Item>
             </Col>
           </Row>
         </div>
-      </div>
+      ),
+    },
+  ];
 
-      <div className="flex justify-end">
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleUpdateButton}
-          disabled={!isModified}
-          className="bg-green-400 text-black py-2 px-4 rounded-lg mt-4 w-full"
-        >
-          Update
-        </Button>
+  return (
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={{
+        propertyName, province, city, location, price, bedrooms, bathrooms,
+        floorSize, headline, video, referenceNote, descriptionEnglish, size,
+        contactName, contactEmail, contactNumber, contactAddress, rentDuration, priceType
+      }}
+      onValuesChange={handleValuesChange}
+      className="lg:p-10 p-5 bg-dark2/10"
+    >
+      <DashboardHeader title="Update Property" description="We are glad to see you again!" />
+      <Steps current={currentStep}>
+        {sections.map((section, index) => (
+          <Steps.Step key={index} title={section.title} />
+        ))}
+      </Steps>
+      <div className="mt-5">{sections[currentStep].content}</div>
+      <div className="flex justify-between mt-4">
+        {currentStep > 0 && (
+          <Button
+            type="default"
+            size="large"
+            onClick={handlePreviousStep}
+          >
+            Previous
+          </Button>
+        )}
+        {currentStep < sections.length - 1 && (
+          <Button
+            className="bg-blue-500 text-white"
+            type="primary"
+            size="large"
+            onClick={handleNextStep}
+          >
+            Next
+          </Button>
+        )}
+        {currentStep === sections.length - 1 && (
+          <Button
+            className="bg-blue-500 text-white"
+            type="primary"
+            size="large"
+            disabled={!isModified}
+            onClick={handleUpdateButton}
+          >
+            Update
+          </Button>
+        )}
       </div>
     </Form>
   );
 };
 
 export default UpdateProperty;
+

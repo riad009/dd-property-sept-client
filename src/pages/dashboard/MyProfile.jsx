@@ -10,7 +10,7 @@ const ProfilePage = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [aboutMe, setAboutMe] = useState("");
+
 
   const [skype, setSkype] = useState("");
   const [website, setWebsite] = useState("");
