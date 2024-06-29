@@ -21,8 +21,8 @@ const googleProvider = new GoogleAuthProvider();
 // Create the UserContext
 export const AuthContext = createContext();
 
-// export const baseURL = "https://dd-property-sept-server.vercel.app";
-export const baseURL = "http://localhost:5000";
+export const baseURL = "https://dd-property-sept-server.vercel.app";
+// export const baseURL = "http://localhost:5000";
 
 axios.defaults.baseURL = baseURL;
 
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   };
   const handlebedrooms = (newData) => {
     // new data is
-    console.log(newData)
+    console.log(newData);
     setbedrooms(newData);
   };
 
