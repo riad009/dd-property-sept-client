@@ -95,7 +95,7 @@ const UpdateProperty = () => {
         formData.append('imageUrls', file.originFileObj);
       });
     }
-    console.log({ values })
+
     try {
       const res = await axios.put(`/update/property/${id}`, formData, {
         headers: {
@@ -132,7 +132,7 @@ const UpdateProperty = () => {
   if (isLoading) {
     return <Loader />;
   }
-
+  console.log(propertyData)
   const {
     propertyName, province, city, location, price, bedrooms,
     bathrooms, floorSize, headline, video, coverImage = [], imageUrls = [], referenceNote,
@@ -212,84 +212,83 @@ const UpdateProperty = () => {
               <Radio.Button value="forRent">For Rent</Radio.Button>
             </Radio.Group>
           </Form.Item>
-          {
-            listingType === null ? <></> : <>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Price" name="price" rules={[{ required: true }]}>
-                    <Input size="large" />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  {listingType === "forRent" && (
-                    <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
-                      <Select size="large" placeholder="Select Type" required>
-                        <Option value="Daily">Daily</Option>
-                        <Option value="Monthly">Monthly</Option>
-                        <Option value="Yearly">Yearly</Option>
-                      </Select>
-                    </Form.Item>
-                  )}
-                  {listingType === "forSale" && (
-                    <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
-                      <Input size="large" disabled defaultValue={"THB"} />
-                    </Form.Item>
-                  )}
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
-                    <Select size="large" placeholder="Select Bedrooms" required>
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
-                    <Select size="large" placeholder="Select Bathrooms">
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Size m²" name="size" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Floor Size" name="floorSize" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Reference Note" name="referenceNote" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Headline" name="headline" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24}>
-                  <Form.Item label="Description" name="descriptionEnglish" rules={[{ required: true }]}>
-                    <Input.TextArea size="large" rows={4} required />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </>
-          }
+
+
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Price" name="price" rules={[{ required: true }]}>
+                <Input size="large" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              {listingType === "forRent" && (
+                <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
+                  <Select size="large" placeholder="Select Type" required>
+                    <Option value="Daily">Daily</Option>
+                    <Option value="Monthly">Monthly</Option>
+                    <Option value="Yearly">Yearly</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {listingType === "forSale" && (
+                <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
+                  <Input size="large" disabled defaultValue={"THB"} />
+                </Form.Item>
+              )}
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
+                <Select size="large" placeholder="Select Bedrooms" required>
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
+                <Select size="large" placeholder="Select Bathrooms">
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Size m²" name="size" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Floor Size" name="floorSize" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Reference Note" name="referenceNote" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Headline" name="headline" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24}>
+              <Form.Item label="Description" name="descriptionEnglish" rules={[{ required: true }]}>
+                <Input.TextArea size="large" rows={4} required />
+              </Form.Item>
+            </Col>
+          </Row>
+
         </div>
       ),
     },

@@ -66,7 +66,7 @@ const router = createBrowserRouter([
       // },
 
       {
-        path: "/property/projects/:id",
+        path: "/property/projects/:name/:location/:province/:city/:listingType/:id",
         element: <SingleProperty />,
 
         loader: ({ params }) =>

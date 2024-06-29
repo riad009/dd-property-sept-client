@@ -25,7 +25,6 @@ const CreateProperty = () => {
     lat: 13.736717,
     lng: 100.523186,
   });
-  const [locationInputValue, setLocationInputValue] = useState("");
   const { user } = useContext(AuthContext)
   console.log(user);
 
@@ -82,6 +81,11 @@ const CreateProperty = () => {
       }
     }
     formData.append('email', user.email);
+    formData.append('latLng', JSON.stringify({
+      lat: 13.736717,
+      lng: 100.523186,
+    }));
+
     // Append files to FormData
     if (fileList.length) {
       formData.append('coverImage', fileList[0].originFileObj);
@@ -134,7 +138,6 @@ const CreateProperty = () => {
   const handleValuesChange = () => {
     setIsModified(true);
   };
-  console.log(propertyData)
   const sections = [
     {
       title: "Create Location",
@@ -170,7 +173,7 @@ const CreateProperty = () => {
             <MapLoaction location={selectedLocation} setMap={setMap} />
           </div>
           <Form.Item>
-            
+
           </Form.Item>
 
         </div>
@@ -431,7 +434,7 @@ const CreateProperty = () => {
             size="large"
             onClick={handleUpdateButton}
           >
-            Update
+            Create
           </Button>
         )}
       </div>

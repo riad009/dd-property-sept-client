@@ -53,7 +53,7 @@ const LatestProjects = () => {
         setLoading(false); // Set loading to false in case of an error
       }
     };
-
+    console.log(properties)
     // Fetch data only on the initial render
     if (loading) {
       fetchData();
@@ -67,7 +67,17 @@ const LatestProjects = () => {
         <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
           {properties?.map((property, index) => (
             <CardOne
+              clickEvent={() => {
+                navigate(`/property/projects/${property.propertyName.toLowerCase().replace(/ /g, '-')}/${property.location.toLowerCase().replace(/ /g, '-')}/${property.province.toLowerCase().replace(/ /g, '-')}/${property.city.toLowerCase().replace(/ /g, '-')}/${property.listingType}/${property._id}`);
+              }}
+              key={index}
+              property={property}
+            />
+          ))}
+          {/* {properties?.map((property, index) => (
+            <CardOne
               clickEvent={() => navigate(`/property/projects/${property._id}`)}
+              // clickEvent={() => navigate(`/property/projects/${property.name.toLowerCase().replace(/ /g, '-')}/${property.listingType}/${property._id}`)}
               key={index}
               property={property}
               // image={project.image}
@@ -75,7 +85,7 @@ const LatestProjects = () => {
               // title={project.title}
               // text={project.text}
             />
-          ))}
+          ))} */}
         </div>
         <Button extraClasses="sm:hidden bg-dark text-white mx-auto mt-10">
           View More
