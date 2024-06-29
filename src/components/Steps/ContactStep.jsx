@@ -74,7 +74,6 @@ const ContactStep = () => {
             label="Your name"
             required={true}
             value={username}
-            disabled={true}
           />
         </div>
         <div>
@@ -86,7 +85,6 @@ const ContactStep = () => {
             label="Your Email"
             required={true}
             value={email}
-            disabled={true}
           />
         </div>
         <div>
@@ -97,7 +95,6 @@ const ContactStep = () => {
             label="Your number"
             required={true}
             value={phone}
-            disabled={true}
           />
         </div>
 
@@ -110,7 +107,6 @@ const ContactStep = () => {
             label="Your address"
             required={true}
             value={address}
-            disabled={true}
           />
         </div>
       </div>

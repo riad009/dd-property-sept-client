@@ -128,24 +128,25 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
       };
 
       if (validateForm()) {
-        try {
-          const response = await axios.post("/post/property", combinedObject);
-          console.log(response.data);
-          if (response?.status === 200) {
-            message.success("Property Listing Successfully!");
-            submitHandler(data);
-            reset();
-            setPropertyData({
-              latLng: {
-                lat: 13.736717,
-                lng: 100.523186,
-              },
-            });
-            navigate("/dashboard/my-properties");
-          }
-        } catch (error) {
-          console.log(error);
-        }
+        console.log(combinedObject)
+        // try {
+        //   const response = await axios.post("/post/property", combinedObject);
+        //   console.log(response.data);
+        //   if (response?.status === 200) {
+        //     message.success("Property Listing Successfully!");
+        //     submitHandler(data);
+        //     reset();
+        //     setPropertyData({
+        //       latLng: {
+        //         lat: 13.736717,
+        //         lng: 100.523186,
+        //       },
+        //     });
+        //     navigate("/dashboard/my-properties");
+        //   }
+        // } catch (error) {
+        //   console.log(error);
+        // }
       } else {
         console.log("failed");
       }
@@ -189,7 +190,7 @@ const Stepper = ({ steps, submitHandler, navigateLink }) => {
                     className="bg-blue-500"
                     type="primary"
                     htmlType="submit"
-                    // onClick={() => next()}
+                  // onClick={() => next()}
                   >
                     Next
                   </Button>
