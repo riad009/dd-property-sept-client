@@ -1,3 +1,97 @@
+// import React, { useState } from 'react';
+// import { Form, Upload, Input } from 'antd';
+// import { PlusOutlined } from '@ant-design/icons';
+
+// const MediaStep = () => {
+//   const [fileList, setFileList] = useState([]);
+
+//   const handleChange = ({ fileList }) => setFileList(fileList);
+
+//   const handleImageClick = (index) => {
+//     if (index !== 0) {
+//       const newFileList = [...fileList];
+//       const [clickedImage] = newFileList.splice(index, 1);
+//       newFileList.unshift(clickedImage);
+//       setFileList(newFileList);
+//     }
+//   };
+
+//   return (
+//     <div className="bg-white p-10 rounded-lg">
+//       <h1 className="mb-5 font-semibold text-2xl">Update Listing: Media</h1>
+//       <Form.Item label="Add Photos">
+//         <Upload
+//           listType="picture-card"
+//           multiple
+//           maxCount={10}
+//           beforeUpload={() => false}
+//           fileList={fileList}
+//           onChange={handleChange}
+//           itemRender={(originNode, file, currFileList) => (
+//             <div onClick={() => handleImageClick(currFileList.indexOf(file))}>
+//               {originNode}
+//             </div>
+//           )}
+//         >
+//           {fileList.length >= 10 ? null : (
+//             <div>
+//               <PlusOutlined />
+//               <div style={{ marginTop: 8 }}>Upload Image</div>
+//             </div>
+//           )}
+//         </Upload>
+//       </Form.Item>
+
+//       {fileList.length > 0 && (
+//         <Form.Item label="Cover Photo">
+//           <Upload
+//             listType="picture-card"
+//             fileList={[fileList[0]]}
+//             showUploadList={{ showPreviewIcon: false, showRemoveIcon: false }}
+//             itemRender={(originNode) => (
+//               <div onClick={() => handleImageClick(0)}>
+//                 {originNode}
+//               </div>
+//             )}
+//           />
+//         </Form.Item>
+//       )}
+
+//       {fileList.length > 1 && (
+//         <Form.Item label="Other Photos">
+//           <Upload
+//             listType="picture-card"
+//             fileList={fileList.slice(1)}
+//             showUploadList={{ showPreviewIcon: false, showRemoveIcon: false }}
+//             itemRender={(originNode, file) => (
+//               <div onClick={() => handleImageClick(fileList.indexOf(file))}>
+//                 {originNode}
+//               </div>
+//             )}
+//           />
+//         </Form.Item>
+//       )}
+
+//       <Form.Item
+//         name="video"
+//         label="Add Video"
+//         rules={[
+//           {
+//             type: 'url',
+//             message: 'Please enter a valid URL',
+//           },
+//           { required: true },
+//         ]}
+//       >
+//         <Input placeholder="Provide a video link from YouTube" />
+//       </Form.Item>
+//     </div>
+//   );
+// };
+
+// export default MediaStep;
+
+
 import { Button, Upload } from "antd";
 
 import UploadDragger from "../UploadDragger";

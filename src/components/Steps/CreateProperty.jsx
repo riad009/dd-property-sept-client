@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
-import DashboardHeader from "./DashboardHeader";
 import axios from "axios";
 import { Form, Input, Button, Row, Col, Select, Upload, Steps, Radio } from "antd";
 import { PlusOutlined } from '@ant-design/icons';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
-import LocationMap from "../../components/Steps/LocationMap";
-import MapLoaction from "../../components/Steps/MapLoaction";
-import AutocompleteInput from "../../components/Steps/AutoCompleate";
+import DashboardHeader from './../../pages/dashboard/DashboardHeader';
+import { AuthContext } from "../../providers/AuthProvider";
+import { useContext } from "react";
+import AutocompleteInput from './AutoCompleate';
+import MapLoaction from "./MapLoaction";
 
 const { Option } = Select;
 
-const UpdateProperty = () => {
+const CreateProperty = () => {
   const [form] = Form.useForm();
   const [propertyData, setPropertyData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isModified, setIsModified] = useState(false);
   const [savedFormValues, setSavedFormValues] = useState({});
@@ -24,23 +25,8 @@ const UpdateProperty = () => {
     lat: 13.736717,
     lng: 100.523186,
   });
-  const { id } = useParams();
-
-  const fetchPropertyData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`/property/${id}`);
-      setPropertyData(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching property data:", error);
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPropertyData();
-  }, [id]);
+  const { user } = useContext(AuthContext)
+  console.log(user);
 
   useEffect(() => {
     if (Object.keys(propertyData).length) {
@@ -71,45 +57,64 @@ const UpdateProperty = () => {
     setCurrentStep(currentStep - 1);
   };
   const [fileList, setFileList] = useState([]);
-  // const [form] = Form.useForm();
 
   const handleChange = ({ fileList }) => {
     setFileList(fileList);
   };
-
+  const navigate = useNavigate();
   const handleUpdateButton = async () => {
+    setIsLoading(true)
+    // Collect form values
     const values = { ...savedFormValues, ...form.getFieldsValue() };
+
+
     const formData = new FormData();
 
+
     for (const key in values) {
-      if (values.hasOwnProperty(key)) {
-        if (values[key] !== undefined && (!Array.isArray(values[key]) || values[key].length > 0)) {
+      if (values.hasOwnProperty(key) && values[key] !== undefined) {
+        if (Array.isArray(values[key])) {
+          values[key].forEach(item => formData.append(key, item));
+        } else {
           formData.append(key, values[key]);
         }
       }
     }
+    formData.append('email', user.email);
+    formData.append('latLng', JSON.stringify({
+      lat: 13.736717,
+      lng: 100.523186,
+    }));
 
+    // Append files to FormData
     if (fileList.length) {
       formData.append('coverImage', fileList[0].originFileObj);
       fileList.slice(1).forEach(file => {
         formData.append('imageUrls', file.originFileObj);
       });
     }
-
+    console.log({ values, formData });
     try {
-      const res = await axios.put(`/update/property/${id}`, formData, {
+      // Send POST request to create property
+      const res = await axios.post(`/create/property`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
+
       if (res.status === 201) {
-        await fetchPropertyData();
-        setCurrentStep(0);
-        console.log(res.data)
+        setIsLoading(false);
         alert(res.data.message);
+        navigate("/dashboard/my-properties")
+        formData.reset();
+
+        setCurrentStep(0);
       }
     } catch (error) {
-      console.error("Error updating property:", error.response || error.message);
+      console.error("Error creating property:", error.response || error.message);
+      formData.reset();
+      setIsLoading(false);
+      alert("Error creating property. Please try again."); // Show error message
     }
   };
   const handleImageClick = (file) => {
@@ -121,49 +126,25 @@ const UpdateProperty = () => {
       setFileList(newFileList);
     }
   };
-  useEffect(() => {
-    if (propertyData && propertyData.listType) {
-      setListingType(propertyData.listType);
-    }
-  }, [propertyData]);
+
   const handleListingTypeChange = (e) => {
     setListingType(e.target.value);
   };
   if (isLoading) {
     return <Loader />;
   }
-  console.log(propertyData)
-  const {
-    propertyName, province, city, location, price, bedrooms,
-    bathrooms, floorSize, headline, video, coverImage = [], imageUrls = [], referenceNote,
-    descriptionEnglish, size, propertyType, rentDuration, contactName, contactEmail,
-    contactNumber, contactAddress, priceType
-  } = propertyData;
 
-  const cover = coverImage.map((url, index) => ({
-    uid: `${-1}`,
-    name: `cover_photo${index}.png`,
-    status: 'done',
-    url,
-  }));
 
-  const images = imageUrls.map((url, index) => ({
-    uid: `${-1}`,
-    name: `other_photo${index}.png`,
-    status: 'done',
-    url,
-  }));
-  console.log({ cover, images })
   const handleValuesChange = () => {
     setIsModified(true);
   };
-  console.log(propertyData)
   const sections = [
     {
-      title: "Update Location",
+      title: "Create Location",
       content: (
         <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">Update Location</h1>
+          <h1 className="mb-5 font-semibold text-2xl">Location</h1>
+
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item label="Name of the property" name="propertyName" rules={[{ required: true }]}>
@@ -172,30 +153,34 @@ const UpdateProperty = () => {
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item label="Province" name="province" rules={[{ required: true }]}>
-                <AutocompleteInput prefilledValue={province} name="province" onPlaceChanged={handlePlaceChanged} placeholder="Please Enter province" />
+                <AutocompleteInput name="province" onPlaceChanged={handlePlaceChanged} placeholder="Please Enter province" />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item label="City" name="city" rules={[{ required: true }]}>
-                <AutocompleteInput prefilledValue={city} name="city" onPlaceChanged={handlePlaceChanged} placeholder="Please Enter city" />
+                <AutocompleteInput name="city" onPlaceChanged={handlePlaceChanged} placeholder="Please Enter city" />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item label="Location" name="location" rules={[{ required: true }]}>
-                <AutocompleteInput prefilledValue={location} name="location" onPlaceChanged={handlePlaceChanged} placeholder="Please Enter location" />
+                <AutocompleteInput name="location" onPlaceChanged={handlePlaceChanged} placeholder="Please Enter location" />
               </Form.Item>
             </Col>
           </Row>
           <div style={{ width: "350px" }}>
             <MapLoaction location={selectedLocation} setMap={setMap} />
           </div>
+          <Form.Item>
+
+          </Form.Item>
+
         </div>
       ),
     },
     {
-      title: "Update Details",
+      title: "Create Details",
       content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Enter Property Details</h1>
@@ -212,88 +197,89 @@ const UpdateProperty = () => {
               <Radio.Button value="forRent">For Rent</Radio.Button>
             </Radio.Group>
           </Form.Item>
-
-
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Price" name="price" rules={[{ required: true }]}>
-                <Input size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              {listingType === "forRent" && (
-                <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
-                  <Select size="large" placeholder="Select Type" required>
-                    <Option value="Daily">Daily</Option>
-                    <Option value="Monthly">Monthly</Option>
-                    <Option value="Yearly">Yearly</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {listingType === "forSale" && (
-                <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
-                  <Input size="large" disabled defaultValue={"THB"} />
-                </Form.Item>
-              )}
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
-                <Select size="large" placeholder="Select Bedrooms" required>
-                  <Option value="1">1</Option>
-                  <Option value="2">2</Option>
-                  <Option value="3">3</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
-                <Select size="large" placeholder="Select Bathrooms">
-                  <Option value="1">1</Option>
-                  <Option value="2">2</Option>
-                  <Option value="3">3</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Size m²" name="size" rules={[{ required: true }]}>
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Floor Size" name="floorSize" rules={[{ required: true }]}>
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Reference Note" name="referenceNote" rules={[{ required: true }]}>
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Headline" name="headline" rules={[{ required: true }]}>
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24}>
-              <Form.Item label="Description" name="descriptionEnglish" rules={[{ required: true }]}>
-                <Input.TextArea size="large" rows={4} required />
-              </Form.Item>
-            </Col>
-          </Row>
-
+          {
+            listingType === null ? <></> : <>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Price" name="price" rules={[{ required: true }]}>
+                    <Input size="large" />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  {listingType === "forRent" && (
+                    <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
+                      <Select size="large" placeholder="Select Type" required>
+                        <Option value="Daily">Daily</Option>
+                        <Option value="Monthly">Monthly</Option>
+                        <Option value="Yearly">Yearly</Option>
+                      </Select>
+                    </Form.Item>
+                  )}
+                  {listingType === "forSale" && (
+                    <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
+                      <Input size="large" disabled defaultValue={"THB"} />
+                    </Form.Item>
+                  )}
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
+                    <Select size="large" placeholder="Select Bedrooms" required>
+                      <Option value="1">1</Option>
+                      <Option value="2">2</Option>
+                      <Option value="3">3</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
+                    <Select size="large" placeholder="Select Bathrooms">
+                      <Option value="1">1</Option>
+                      <Option value="2">2</Option>
+                      <Option value="3">3</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Size m²" name="size" rules={[{ required: true }]}>
+                    <Input size="large" required />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Floor Size" name="floorSize" rules={[{ required: true }]}>
+                    <Input size="large" required />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Reference Note" name="referenceNote" rules={[{ required: true }]}>
+                    <Input size="large" required />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Headline" name="headline" rules={[{ required: true }]}>
+                    <Input size="large" required />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col xs={24}>
+                  <Form.Item label="Description" name="descriptionEnglish" rules={[{ required: true }]}>
+                    <Input.TextArea size="large" rows={4} required />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </>
+          }
         </div>
       ),
     },
     {
-      title: "Update Media",
+      title: "Create Media",
       content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Listing: Media</h1>
@@ -367,7 +353,7 @@ const UpdateProperty = () => {
       ),
     },
     {
-      title: "Update Contact Information",
+      title: "Contact Information",
       content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Your Contact Information</h1>
@@ -405,14 +391,16 @@ const UpdateProperty = () => {
       form={form}
       layout="vertical"
       initialValues={{
-        propertyName, province, city, location, price, bedrooms, bathrooms,
-        floorSize, headline, video, referenceNote, descriptionEnglish, size,
-        contactName, contactEmail, contactNumber, contactAddress, rentDuration, priceType
+        contactName: user?.name || '',
+        contactEmail: user?.email || '',
+        contactNumber: user?.phone || '',
+        contactAddress: user?.address || '',
+        priceType: "THB"
       }}
       onValuesChange={handleValuesChange}
       className="lg:p-10 p-5 bg-dark2/10"
     >
-      <DashboardHeader title="Update Property" description="We are glad to see you again!" />
+      <DashboardHeader title="Create Property" description="We are glad to see you again!" />
       <Steps current={currentStep}>
         {sections.map((section, index) => (
           <Steps.Step key={index} title={section.title} />
@@ -446,7 +434,7 @@ const UpdateProperty = () => {
             size="large"
             onClick={handleUpdateButton}
           >
-            Update
+            Create
           </Button>
         )}
       </div>
@@ -454,5 +442,5 @@ const UpdateProperty = () => {
   );
 };
 
-export default UpdateProperty;
+export default CreateProperty;
 

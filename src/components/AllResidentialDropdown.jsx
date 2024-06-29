@@ -103,7 +103,7 @@ const AllResidentialDropdown = ({
             {footer1Items.map((item) => (
               <FooterItem
                 key={item.key}
-                item={item}
+                item={item.label}
                 value={value}
                 radioHandler={radioHandler}
                 checkBoxHandler={checkBoxHandler}

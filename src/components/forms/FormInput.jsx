@@ -15,6 +15,7 @@ const FormInput = ({
   count,
   customOnChange,
   disabled,
+  defaultValue
 }) => {
   const {
     control,
@@ -49,6 +50,7 @@ const FormInput = ({
             onKeyDown={customOnChange && customOnChange}
             autoComplete="off"
             disabled={disabled}
+            defaultValue={defaultValue}
             // className="py-3"
           />
         )}
