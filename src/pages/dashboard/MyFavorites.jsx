@@ -26,6 +26,7 @@ const MyFavorites = () => {
     fetchAllProperties();
   }, []);
 
+  console.log(allProperties);
   useEffect(() => {
     // Fetch user favorites
     const fetchUserFavorites = async () => {

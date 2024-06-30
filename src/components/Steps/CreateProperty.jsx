@@ -9,6 +9,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 import AutocompleteInput from './AutoCompleate';
 import MapLoaction from "./MapLoaction";
+import { defaultProperType } from "../../constants/footerItem";
 
 const { Option } = Select;
 
@@ -19,7 +20,8 @@ const CreateProperty = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isModified, setIsModified] = useState(false);
   const [savedFormValues, setSavedFormValues] = useState({});
-  const [listingType, setListingType] = useState(null)
+  const [listingType, setListingType] = useState("forSale")
+  const [propertyType, setPropertyType] = useState('');
   const [map, setMap] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 13.736717,
@@ -81,7 +83,7 @@ const CreateProperty = () => {
         }
       }
     }
-    // console.log({ values, formData, selectedLocation });
+    console.log({ values });
     formData.append('email', user.email);
     const latLng = {
       lat: selectedLocation.lat,
@@ -91,7 +93,6 @@ const CreateProperty = () => {
     const jsonLatLng = JSON.stringify(latLng);
 
     formData.append('latLng', jsonLatLng);
-
     // Append files to FormData
     if (fileList.length) {
       formData.append('coverImage', fileList[0].originFileObj);
@@ -145,6 +146,10 @@ const CreateProperty = () => {
   const handleValuesChange = () => {
     setIsModified(true);
   };
+  const handlePropertyTypeChange = (value) => {
+    console.log("propertyType", value);
+    setPropertyType(value);
+  };
   const sections = [
     {
       title: "Create Location",
@@ -186,6 +191,7 @@ const CreateProperty = () => {
       content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Enter Property Details</h1>
+
           <Form.Item label="Listing Type" name="listingType" rules={[{ required: true }]}>
             <Radio.Group
               buttonStyle="solid"
@@ -199,86 +205,92 @@ const CreateProperty = () => {
               <Radio.Button value="forRent">For Rent</Radio.Button>
             </Radio.Group>
           </Form.Item>
-          {
-            listingType === null ? <></> : <>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Price" name="price" rules={[{ required: true }]}>
-                    <Input size="large" />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  {listingType === "forRent" && (
-                    <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
-                      <Select size="large" placeholder="Select Type" required>
-                        <Option value="Daily">Daily</Option>
-                        <Option value="Monthly">Monthly</Option>
-                        <Option value="Yearly">Yearly</Option>
-                      </Select>
-                    </Form.Item>
-                  )}
-                  {listingType === "forSale" && (
-                    <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
-                      <Input size="large" disabled defaultValue={"THB"} />
-                    </Form.Item>
-                  )}
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
-                    <Select size="large" placeholder="Select Bedrooms" required={true}>
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
-                    <Select size="large" placeholder="Select Bathrooms">
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Size m²" name="size" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Floor Size" name="floorSize" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Reference Note" name="referenceNote" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Headline" name="headline" rules={[{ required: true }]}>
-                    <Input size="large" required />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col xs={24}>
-                  <Form.Item label="Description" name="descriptionEnglish">
-                    <Input.TextArea size="large" rows={4} required />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </>
-          }
+
+          <Form.Item label="Property Type" name="propertyType" rules={[{ required: true }]}>
+            <Select size="large" placeholder="Select Property Type" value={propertyType} onChange={handlePropertyTypeChange} required>
+              {defaultProperType.map(type => (
+                <Option key={type} value={type}>{type}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Price" name="price" rules={[{ required: true }]}>
+                <Input size="large" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              {listingType === "forSale" || propertyType === "land" ?
+
+                <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
+                  <Input size="large" disabled defaultValue={"THB"} />
+                </Form.Item>
+                :
+                <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
+                  <Select size="large" placeholder="Select Type" required>
+                    <Option value="Daily">Daily</Option>
+                    <Option value="Monthly">Monthly</Option>
+                    <Option value="Yearly">Yearly</Option>
+                  </Select>
+                </Form.Item>
+              }
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
+                <Select size="large" placeholder="Select Bedrooms" required>
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
+                <Select size="large" placeholder="Select Bathrooms">
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Size m²" name="size" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Floor Size" name="floorSize" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Reference Note" name="referenceNote" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item label="Headline" name="headline" rules={[{ required: true }]}>
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24}>
+              <Form.Item label="Description" name="descriptionEnglish" rules={[{ required: true }]}>
+                <Input.TextArea size="large" rows={4} required />
+              </Form.Item>
+            </Col>
+          </Row>
+
         </div>
-      ),
+      )
     },
     {
       title: "Create Media",
@@ -403,7 +415,11 @@ const CreateProperty = () => {
         contactEmail: user?.email || '',
         contactNumber: user?.phone || '',
         contactAddress: user?.address || '',
-        priceType: "THB"
+        priceType: "THB",
+        bathrooms: "1",
+        bedrooms: "1",
+        listingType: "forSale",
+        propertyType: propertyType || "condo"
       }}
       onValuesChange={handleValuesChange}
       className="lg:p-10 p-5 bg-dark2/10"

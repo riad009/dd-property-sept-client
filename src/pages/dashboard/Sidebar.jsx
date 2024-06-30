@@ -30,11 +30,18 @@ const sidebarItems = {
     },
     {
       id: 3,
-      route: "Message",
-      path: "message",
-      icon: <MdMessage />,
+      route: "My Profile",
+      path: "my-profile",
+      icon: <MdVerifiedUser />,
       role: "user",
     },
+    // {
+    //   id: 3,
+    //   route: "Message",
+    //   path: "message",
+    //   icon: <MdMessage />,
+    //   role: "user",
+    // },
   ],
   manageListings: [
     {
@@ -114,13 +121,13 @@ const sidebarItems = {
       path: "my-package",
       icon: <BiPackage />,
     },
-    {
-      id: 10,
-      route: "My Profile",
-      path: "my-profile",
-      icon: <MdVerifiedUser />,
-      role: "user",
-    },
+    // {
+    //   id: 10,
+    //   route: "My Profile",
+    //   path: "my-profile",
+    //   icon: <MdVerifiedUser />,
+    //   role: "user",
+    // },
     {
       id: 11,
       route: "Logout",

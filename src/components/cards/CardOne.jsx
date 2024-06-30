@@ -43,7 +43,7 @@ const CardOne = ({
         )}
         {shadow && <h1>{type}</h1>}
         <h6 className={`${shadow ? "mt-0" : "mt-3"} text-lg  font-semibold`}>
-          {property?.headline}
+          {property?.propertyName}
         </h6>
         <p className="text-sm text-dark2">
           {property?.location} {property.postalCode}

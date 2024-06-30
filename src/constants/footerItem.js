@@ -6,3 +6,5 @@ export const footer1Items = [
     { key: 4, label: "Land", options: ["Land"] },
     { key: 5, label: "Apartment", options: ["Apartment"] },
 ];
+
+export const defaultProperType = ["condo", "detached house", "town house", "land", "apartment"]

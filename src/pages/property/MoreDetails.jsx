@@ -37,10 +37,10 @@ const MoreDetails = ({ property }) => {
                   <span className="font-semibold">Price:</span> {property.price}{" "}
                   THB
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <span className="font-semibold">Price Type:</span>{" "}
                   {property.priceType} {property.pricePostfix}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

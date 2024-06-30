@@ -131,14 +131,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "manage-properties",
-        element: (
-          <AdminRoute>
-            <ManageProperties />
-          </AdminRoute>
-        ),
-      },
+      // {
+      //   path: "manage-properties",
+      //   element: (
+      //     <AdminRoute>
+      //       <ManageProperties />
+      //     </AdminRoute>
+      //   ),
+      // },
       {
         path: "membership",
         element: (
@@ -155,14 +155,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "my-favorites",
-        element: (
-          <PrivateRoute>
-            <MyFavorites />
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "my-favorites",
+      //   element: (
+      //     <PrivateRoute>
+      //       <MyFavorites />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "my-profile",
         element: (

@@ -5,6 +5,7 @@ const Location = ({ lat, lng }) => {
   const apiKey = import.meta.env.VITE_map_key;
 
   useEffect(() => {
+    
     const loadMap = () => {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
@@ -12,7 +13,7 @@ const Location = ({ lat, lng }) => {
       script.onload = initializeMap;
       document.head.appendChild(script);
     };
-
+    console.log(lat, lng)
     const initializeMap = () => {
       const map = new window.google.maps.Map(mapRef.current, {
         center: { lat, lng },

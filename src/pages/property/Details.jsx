@@ -25,28 +25,30 @@ const Details = ({ p }) => {
         </div>
         <Divider />
         <Divider />
-        <div>
-          <p className="text-sm text-dark2">Rent duration</p>
-          <p className="text-sm text-dark font-[500]">
-            {p.rentDuration || "N/A"}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-dark2">Listed On</p>
-          <p className="text-sm text-dark font-[500]">{p.date}</p>
-        </div>
-        <Divider />
-        <Divider />
-        <div>
-          <p className="text-sm text-dark2">Price Type</p>
-          <p className="text-sm text-dark font-[500]">{p.priceType}</p>
-        </div>
+        {p.rentDuration ?
+          <div>
+            <p className="text-sm text-dark2">Rent duration</p>
+            <p className="text-sm text-dark font-[500]">
+              {p.rentDuration || "N/A"}
+            </p>
+          </div> : <></>
+        }
         <div>
           <p className="text-sm text-dark2">Listing Type</p>
           <p className="text-sm text-dark font-[500]">{p.listingType}</p>
         </div>
-
         <Divider />
+        {/* <Divider />
+        <div>
+          <p className="text-sm text-dark2">Listed On</p>
+          <p className="text-sm text-dark font-[500]">{p.date}</p>
+        </div>
+        <div>
+          <p className="text-sm text-dark2">Price Type</p>
+          <p className="text-sm text-dark font-[500]">{p.priceType}</p>
+        </div> */}
+
+        {/* <Divider /> */}
         <Divider />
       </div>
     </div>
