@@ -72,22 +72,24 @@ const SingleProperty = () => {
   const handleContactAbout = (checkedValues) => {
     console.log("checked = ", checkedValues);
   };
-  
+
   //get by propterty
   const property = useLoaderData();
 
   const parseLatLng = (latLngString) => {
     try {
       const parsed = JSON.parse(latLngString);
-      return parsed; 
+      return parsed;
     } catch (error) {
       console.error("Failed to parse latLng:", error);
-      return { lat: 0, lng: 0 }; 
+      return { lat: 0, lng: 0 };
     }
   };
-  
+
   // Assuming property is defined and has latLng
-  const loc = property.latLng ? parseLatLng(property.latLng) : { lat: 0, lng: 0 };
+  const loc = property.latLng
+    ? parseLatLng(property.latLng)
+    : { lat: 0, lng: 0 };
   return (
     <div>
       <Banner
@@ -106,7 +108,7 @@ const SingleProperty = () => {
             <MoreDetails property={property}></MoreDetails>
             {/* <AvailableUnitSection p={property} images={images} /> */}
             <VideoSection property={property} />
-            <Facilities property={property} />
+            {/* <Facilities property={property} /> */}
           </div>
           <div>
             <StickySection
@@ -116,8 +118,8 @@ const SingleProperty = () => {
           </div>
         </div>
         {/* <HomeFinance /> */}
-        {/* <MapLocation location={loc} setMap={()=>{}}/>
-        <Location lat={loc?.lat} lng={loc?.lng} /> */}
+        <MapLocation location={loc} setMap={() => {}} />
+        {/* <Location lat={loc?.lat} lng={loc?.lng} /> */}
         {property?.isVerified && <ContactDeveloper property={property} />}
       </SmallContainer>
       <SimilarListings />
