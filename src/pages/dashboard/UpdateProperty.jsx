@@ -20,10 +20,7 @@ const UpdateProperty = () => {
   const [savedFormValues, setSavedFormValues] = useState({});
   const [listingType, setListingType] = useState(null)
   const [map, setMap] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState({
-    lat: 13.736717,
-    lng: 100.523186,
-  });
+  const [selectedLocation, setSelectedLocation] = useState({});
   const { id } = useParams();
 
   const fetchPropertyData = async () => {
@@ -31,6 +28,7 @@ const UpdateProperty = () => {
     try {
       const response = await axios.get(`/property/${id}`);
       setPropertyData(response.data);
+      setSelectedLocation(JSON.parse(response.data.latLng))
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching property data:", error);
@@ -41,20 +39,22 @@ const UpdateProperty = () => {
   useEffect(() => {
     fetchPropertyData();
   }, [id]);
-
+  console.log({ map });
   useEffect(() => {
     if (Object.keys(propertyData).length) {
       form.setFieldsValue(propertyData);
     }
   }, [propertyData, form]);
-  const handlePlaceChanged = (name, newLocation) => {
-    // console.log(`Updating form field ${name} with value`, newLocation.name);
-    form.setFieldsValue({ [name]: newLocation.name });
+  const handlePlaceChanged = (name, place, newLocation) => {
+    console.log(`Updating form field ${name} with value`, place.name);
+    form.setFieldsValue({ [name]: place.name });
     setSelectedLocation(newLocation);
     if (map) {
       map.panTo(newLocation);
     }
   };
+
+
   const handleNextStep = () => {
     setSavedFormValues(prevValues => ({
       ...prevValues,
@@ -71,7 +71,6 @@ const UpdateProperty = () => {
     setCurrentStep(currentStep - 1);
   };
   const [fileList, setFileList] = useState([]);
-  // const [form] = Form.useForm();
 
   const handleChange = ({ fileList }) => {
     setFileList(fileList);
@@ -88,6 +87,14 @@ const UpdateProperty = () => {
         }
       }
     }
+    const latLng = {
+      lat: selectedLocation.lat,
+      lng: selectedLocation.lng,
+    };
+
+    const jsonLatLng = JSON.stringify(latLng);
+
+    formData.append('latLng', jsonLatLng);
 
     if (fileList.length) {
       formData.append('coverImage', fileList[0].originFileObj);
@@ -95,7 +102,7 @@ const UpdateProperty = () => {
         formData.append('imageUrls', file.originFileObj);
       });
     }
-
+    // console.log({latLng,jsonLatLng})
     try {
       const res = await axios.put(`/update/property/${id}`, formData, {
         headers: {

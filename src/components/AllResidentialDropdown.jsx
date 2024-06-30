@@ -12,8 +12,8 @@ const PropertyTypeHeader = ({ propertyType, setPropertyType }) => (
           key={type}
           onClick={() => setPropertyType(type)}
           className={`cursor-pointer py-1 px-3 rounded-full ${propertyType === type
-              ? "bg-danger bg-opacity-10 text-danger"
-              : "bg-dark bg-opacity-10 text-dark"
+            ? "bg-danger bg-opacity-10 text-danger"
+            : "bg-dark bg-opacity-10 text-dark"
             }`}
         >
           {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -26,8 +26,7 @@ const PropertyTypeHeader = ({ propertyType, setPropertyType }) => (
 const FooterItem = ({ item, value, radioHandler, checkBoxHandler }) => (
   <div key={item.key}>
     <label
-      className={`p-3 w-full flex items-center mb-2 cursor-pointer ${item.label === value && "bg-dark2"
-        }`}
+      className={`p-3 w-full flex items-center mb-2 cursor-pointer ${item.label === value && "bg-dark2"}`}
     >
       <input
         type="radio"
@@ -42,7 +41,7 @@ const FooterItem = ({ item, value, radioHandler, checkBoxHandler }) => (
         className="form-radio h-5 w-5 text-blue-600"
       />
       <span
-        className={`ml-2 ${item.label === value ? "text-white" : "text-dark"}`}
+        className={`ml-2 ${item.label === value ? "text-dark" : "text-dark"}`}
       >
         {item.label}
       </span>
@@ -78,13 +77,14 @@ const AllResidentialDropdown = ({
   setValue,
   closeAllDropdowns
 }) => {
+  console.log({ footer1Items })
   return (
     <div className={`relative ${border && "bg-white w-fit p-2 rounded-md"}`}>
       <h6
         onClick={footer1Handler}
         className={`flex items-center gap-1 cursor-pointer ${hideFooter
-            ? "rounded-[8px] border border-[lightgray] h-[40px] pl-2"
-            : ""
+          ? "rounded-[8px] border border-[lightgray] h-[40px] pl-2"
+          : ""
           }`}
       >
         {value}
@@ -103,14 +103,14 @@ const AllResidentialDropdown = ({
             {footer1Items.map((item) => (
               <FooterItem
                 key={item.key}
-                item={item.label}
+                item={item}
                 value={value}
                 radioHandler={radioHandler}
                 checkBoxHandler={checkBoxHandler}
               />
             ))}
           </div>
-          {!hideFooter && <ApplyFilterButtons closeAllDropdowns={closeAllDropdowns} setValue={setValue}/>}
+          {!hideFooter && <ApplyFilterButtons closeAllDropdowns={closeAllDropdowns} setValue={setValue} />}
         </div>
       )}
     </div>

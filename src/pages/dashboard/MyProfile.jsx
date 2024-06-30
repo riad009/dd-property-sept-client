@@ -38,19 +38,23 @@ const ProfilePage = () => {
       reader.readAsDataURL(file);
     }
   };
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const handleUpdateProfile = useCallback(async () => {
-    const formData = {
+    let formData = {
       name: username,
       email,
       phone: phone,
-      address,
+      address: address,
     };
 
     try {
       const response = await axios.put(`/update-profile/${userId}`, formData);
       if (response.status === 200) {
         alert(response.data.message);
+        formData = {}
+        setUser(response.data.data);
+        console.log(response.data.data);
+        console.log({ user })
       }
     } catch (error) {
       console.error(error);

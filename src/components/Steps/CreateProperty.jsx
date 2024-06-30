@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Input, Button, Row, Col, Select, Upload, Steps, Radio } from "antd";
 import { PlusOutlined } from '@ant-design/icons';
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
 import DashboardHeader from './../../pages/dashboard/DashboardHeader';
 import { AuthContext } from "../../providers/AuthProvider";
@@ -26,21 +26,22 @@ const CreateProperty = () => {
     lng: 100.523186,
   });
   const { user } = useContext(AuthContext)
-  console.log(user);
+  console.log({ selectedLocation });
 
   useEffect(() => {
     if (Object.keys(propertyData).length) {
       form.setFieldsValue(propertyData);
     }
   }, [propertyData, form]);
-  const handlePlaceChanged = (name, newLocation) => {
-    // console.log(`Updating form field ${name} with value`, newLocation.name);
-    form.setFieldsValue({ [name]: newLocation.name });
+  const handlePlaceChanged = (name, place, newLocation) => {
+    console.log(`Updating form field ${name} with value`, place.name);
+    form.setFieldsValue({ [name]: place.name });
     setSelectedLocation(newLocation);
     if (map) {
       map.panTo(newLocation);
     }
   };
+
   const handleNextStep = () => {
     setSavedFormValues(prevValues => ({
       ...prevValues,
@@ -80,11 +81,16 @@ const CreateProperty = () => {
         }
       }
     }
+    // console.log({ values, formData, selectedLocation });
     formData.append('email', user.email);
-    formData.append('latLng', JSON.stringify({
-      lat: 13.736717,
-      lng: 100.523186,
-    }));
+    const latLng = {
+      lat: selectedLocation.lat,
+      lng: selectedLocation.lng,
+    };
+
+    const jsonLatLng = JSON.stringify(latLng);
+
+    formData.append('latLng', jsonLatLng);
 
     // Append files to FormData
     if (fileList.length) {
@@ -93,7 +99,7 @@ const CreateProperty = () => {
         formData.append('imageUrls', file.originFileObj);
       });
     }
-    console.log({ values, formData });
+
     try {
       // Send POST request to create property
       const res = await axios.post(`/create/property`, formData, {
@@ -130,6 +136,7 @@ const CreateProperty = () => {
   const handleListingTypeChange = (e) => {
     setListingType(e.target.value);
   };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -143,8 +150,7 @@ const CreateProperty = () => {
       title: "Create Location",
       content: (
         <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">Location</h1>
-
+          <h1 className="mb-5 font-semibold text-2xl">Update Location</h1>
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item label="Name of the property" name="propertyName" rules={[{ required: true }]}>
@@ -172,12 +178,8 @@ const CreateProperty = () => {
           <div style={{ width: "350px" }}>
             <MapLoaction location={selectedLocation} setMap={setMap} />
           </div>
-          <Form.Item>
-
-          </Form.Item>
-
         </div>
-      ),
+      )
     },
     {
       title: "Create Details",
@@ -225,7 +227,7 @@ const CreateProperty = () => {
               <Row gutter={16}>
                 <Col xs={24} sm={12}>
                   <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
-                    <Select size="large" placeholder="Select Bedrooms" required>
+                    <Select size="large" placeholder="Select Bedrooms" required={true}>
                       <Option value="1">1</Option>
                       <Option value="2">2</Option>
                       <Option value="3">3</Option>
@@ -268,7 +270,7 @@ const CreateProperty = () => {
               </Row>
               <Row gutter={16}>
                 <Col xs={24}>
-                  <Form.Item label="Description" name="descriptionEnglish" rules={[{ required: true }]}>
+                  <Form.Item label="Description" name="descriptionEnglish">
                     <Input.TextArea size="large" rows={4} required />
                   </Form.Item>
                 </Col>
@@ -357,6 +359,12 @@ const CreateProperty = () => {
       content: (
         <div className="bg-white p-10 rounded-lg">
           <h1 className="mb-5 font-semibold text-2xl">Update Your Contact Information</h1>
+          {
+            (user.phone && user.address) ? <></> : <div>
+              <p className="text-rose-500">Please Updete your Profile nad Provide - Username,Email,Phone and Address to create Property. </p>
+              <Link className="text-sky-600 underline" to="/dashboard/my-profile">Click Here-Update Profile</Link>
+            </div>
+          }
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item label="Your name" name="contactName" rules={[{ required: true }]}>
@@ -432,6 +440,7 @@ const CreateProperty = () => {
             className="bg-blue-500 text-white"
             type="primary"
             size="large"
+            disabled={!(user.phone && user.address)}
             onClick={handleUpdateButton}
           >
             Create
