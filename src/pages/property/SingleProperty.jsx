@@ -20,9 +20,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import MoreDetails from "./MoreDetails";
 import VideoSection from "./VideoSection";
+import MapLocation from "../../components/Steps/MapLoaction";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
+  const [selectedLocation, setSelectedLocation] = useState({});
+  const [map, setMap] = useState(null);
 
   const breadCrumbItems = [
     {
@@ -69,11 +72,22 @@ const SingleProperty = () => {
   const handleContactAbout = (checkedValues) => {
     console.log("checked = ", checkedValues);
   };
+  
   //get by propterty
   const property = useLoaderData();
 
-  console.log({ property });
-
+  const parseLatLng = (latLngString) => {
+    try {
+      const parsed = JSON.parse(latLngString);
+      return parsed; 
+    } catch (error) {
+      console.error("Failed to parse latLng:", error);
+      return { lat: 0, lng: 0 }; 
+    }
+  };
+  
+  // Assuming property is defined and has latLng
+  const loc = property.latLng ? parseLatLng(property.latLng) : { lat: 0, lng: 0 };
   return (
     <div>
       <Banner
@@ -102,7 +116,8 @@ const SingleProperty = () => {
           </div>
         </div>
         {/* <HomeFinance /> */}
-        <Location lat={property?.latLng?.lat} lng={property?.latLng?.lng} />
+        {/* <MapLocation location={loc} setMap={()=>{}}/>
+        <Location lat={loc?.lat} lng={loc?.lng} /> */}
         {property?.isVerified && <ContactDeveloper property={property} />}
       </SmallContainer>
       <SimilarListings />

@@ -41,7 +41,7 @@ const MyProperties = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
+  console.log({ currentItems })
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -117,7 +117,7 @@ const MyProperties = () => {
               </Link>
             </td>
 
-            <td className="p-2">{p.headline}</td>
+            <td className="p-2">{p.propertyName}</td>
             <td className="p-2">{p.propertyType}</td>
             <td className="p-2">{p.date}</td>
             <td className="p-2">{p.location}</td>

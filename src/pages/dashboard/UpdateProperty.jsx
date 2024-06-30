@@ -8,6 +8,7 @@ import Loader from "../../components/Loader";
 import LocationMap from "../../components/Steps/LocationMap";
 import MapLoaction from "../../components/Steps/MapLoaction";
 import AutocompleteInput from "../../components/Steps/AutoCompleate";
+import { defaultProperType } from "../../constants/footerItem";
 
 const { Option } = Select;
 
@@ -144,7 +145,7 @@ const UpdateProperty = () => {
     propertyName, province, city, location, price, bedrooms,
     bathrooms, floorSize, headline, video, coverImage = [], imageUrls = [], referenceNote,
     descriptionEnglish, size, propertyType, rentDuration, contactName, contactEmail,
-    contactNumber, contactAddress, priceType
+    contactNumber, contactAddress, priceType,
   } = propertyData;
 
   const cover = coverImage.map((url, index) => ({
@@ -220,6 +221,13 @@ const UpdateProperty = () => {
             </Radio.Group>
           </Form.Item>
 
+          <Form.Item label="Property Type" name="propertyType" rules={[{ required: true }]}>
+            <Select size="large" placeholder="Select Property Type" required>
+              {defaultProperType.map(type => (
+                <Option key={type} value={type}>{type}</Option>
+              ))}
+            </Select>
+          </Form.Item>
 
           <Row gutter={16}>
             <Col xs={24} sm={12}>
@@ -228,7 +236,13 @@ const UpdateProperty = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
-              {listingType === "forRent" && (
+
+              {listingType === "forSale" || propertyType === "land" ?
+
+                <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
+                  <Input size="large" disabled defaultValue={"THB"} />
+                </Form.Item>
+                :
                 <Form.Item label="Rent Duration" name="rentDuration" rules={[{ required: true }]}>
                   <Select size="large" placeholder="Select Type" required>
                     <Option value="Daily">Daily</Option>
@@ -236,12 +250,8 @@ const UpdateProperty = () => {
                     <Option value="Yearly">Yearly</Option>
                   </Select>
                 </Form.Item>
-              )}
-              {listingType === "forSale" && (
-                <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
-                  <Input size="large" disabled defaultValue={"THB"} />
-                </Form.Item>
-              )}
+              }
+
             </Col>
           </Row>
           <Row gutter={16}>
@@ -414,7 +424,7 @@ const UpdateProperty = () => {
       initialValues={{
         propertyName, province, city, location, price, bedrooms, bathrooms,
         floorSize, headline, video, referenceNote, descriptionEnglish, size,
-        contactName, contactEmail, contactNumber, contactAddress, rentDuration, priceType
+        contactName, contactEmail, contactNumber, contactAddress, rentDuration, priceType, propertyType
       }}
       onValuesChange={handleValuesChange}
       className="lg:p-10 p-5 bg-dark2/10"

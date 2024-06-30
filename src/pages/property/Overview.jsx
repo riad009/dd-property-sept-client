@@ -10,6 +10,7 @@ import { RiCommunityFill } from "react-icons/ri";
 import { GiBathtub, GiBed } from "react-icons/gi";
 
 const Overview = ({ property }) => {
+  console.log({property})
   return (
     <div>
       <h1 className="text-2xl mb-5">Overview</h1>

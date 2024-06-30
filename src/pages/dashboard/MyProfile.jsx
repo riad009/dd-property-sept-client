@@ -39,6 +39,7 @@ const ProfilePage = () => {
     }
   };
   const { user, setUser } = useContext(AuthContext);
+
   const handleUpdateProfile = useCallback(async () => {
     let formData = {
       name: username,
@@ -51,15 +52,21 @@ const ProfilePage = () => {
       const response = await axios.put(`/update-profile/${userId}`, formData);
       if (response.status === 200) {
         alert(response.data.message);
-        formData = {}
-        setUser(response.data.data);
-        console.log(response.data.data);
+        formData = {
+          name: response.data.name,
+          email: response.data.email,
+          phone: response.data.phone,
+          address: response.data.address
+        }
+
         console.log({ user })
+        console.log(response.data.data);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [username, email, phone, address, userId]);
+  }, [username, email, phone, address, userId, setUser, user]);
+
   useEffect(() => {
     if (user) {
       console.log('User object:', user);
