@@ -12,6 +12,7 @@ const AutocompleteInput = ({ name, onPlaceChanged, placeholder, prefilledValue }
         googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
         libraries: ["places"],
     });
+
     useEffect(() => {
         if (prefilledValue) {
             setInputValue(prefilledValue);
@@ -25,19 +26,22 @@ const AutocompleteInput = ({ name, onPlaceChanged, placeholder, prefilledValue }
     const handlePlaceChanged = () => {
         if (autocomplete) {
             const place = autocomplete.getPlace();
+            console.log(place);
             if (place.geometry) {
                 const newLocation = {
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                 };
-                setInputValue(`${place.name} ${place.vicinity}`);
+                setInputValue(`${place.formatted_address}`);
                 onPlaceChanged(name, place, newLocation);
             }
         }
     };
+
     if (!isLoaded) {
-        return <Loader />
+        return <Loader />;
     }
+
     return (
         <Autocomplete onLoad={handleOnLoad} onPlaceChanged={handlePlaceChanged}>
             <Input

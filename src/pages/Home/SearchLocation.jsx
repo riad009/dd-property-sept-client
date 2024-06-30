@@ -111,6 +111,7 @@ const SearchLocation = () => {
   }, [searchRef]);
 
   useEffect(() => {
+    console.log(search);
     // Fetch suggestions when the search term changes
     if (search?.trim() !== "") {
       axios
@@ -147,7 +148,7 @@ const SearchLocation = () => {
   }, [search]);
 
   //  Search button
-  
+
   // Search end
   return (
     <div className="sm:absolute sm:-bottom-24 sm:left-1/2 transform sm:-translate-x-1/2 lg:w-1/3 md:w-1/2 w-full mx-auto bg-dark bg-opacity-80 p-5 text-white md:rounded-lg">
