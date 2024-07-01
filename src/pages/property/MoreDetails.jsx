@@ -15,12 +15,12 @@ const MoreDetails = ({ property }) => {
                 </div>
                 <div className="mb-4">
                   <span className="font-semibold">Status:</span>{" "}
-                  {property.listingType}
+                  {property.listingType.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, function (str) { return str.toUpperCase() })}
                 </div>
                 <div className="mb-4">
                   <span className="font-semibold">Location:</span>{" "}
-                  {property.location}, {property.postalCode}
-                  {property.country}
+                  {property.province}, {property.location},
+                  {property.city}
                 </div>
 
                 {property?.propertyType !== "Land" && (

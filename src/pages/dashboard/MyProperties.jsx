@@ -75,7 +75,7 @@ const MyProperties = () => {
     navigate(`/dashboard/update/${p}`);
   };
 
-  console.log({ data });
+  console.log(currentItems.date);
 
   return (
     <div className="p-10">
@@ -105,39 +105,44 @@ const MyProperties = () => {
           <th className="p-2">Action</th>
         </tr>
 
-        {currentItems?.map((p) => (
-          <tr key={p.email} className="border">
-            <td className="p-2">
-              <Link to={`/property/projects/${p._id}`}>
-                <img
-                  className="w-40 inline rounded-lg"
-                  src={p?.coverImage}
-                  alt="cover"
-                />
-              </Link>
-            </td>
-
-            <td className="p-2">{p.propertyName}</td>
-            <td className="p-2">{p.propertyType}</td>
-            <td className="p-2">{p.date}</td>
-            <td className="p-2">{p.location}</td>
-            <td className="p-2">{p.price} THB</td>
-
-            <td>
-              <div className="flex gap-2 text-danger">
-                <Link onClick={() => handleUpdate(p._id)}>
-                  {" "}
-                  <MdEdit className="bg-danger/10 p-1 text-2xl rounded-md" />
+        {currentItems?.map((p) => {
+          const date = new Date(p.date);
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const formattedDate = date.toLocaleDateString('en-US', options);
+          return (
+            <tr key={p.email} className="border">
+              <td className="p-2">
+                <Link to={`/property/projects/${p._id}`}>
+                  <img
+                    className="w-40 inline rounded-lg"
+                    src={p?.coverImage}
+                    alt="cover"
+                  />
                 </Link>
+              </td>
 
-                <MdDelete
-                  onClick={() => handleDelete(p._id)}
-                  className="bg-danger/10 p-1 text-2xl rounded-md"
-                />
-              </div>
-            </td>
-          </tr>
-        ))}
+              <td className="p-2">{p.propertyName}</td>
+              <td className="p-2">{p.propertyType}</td>
+              <td className="p-2">{formattedDate}</td>
+              <td className="p-2">{p.location}</td>
+              <td className="p-2">{p.price} THB</td>
+
+              <td>
+                <div className="flex gap-2 text-danger">
+                  <Link onClick={() => handleUpdate(p._id)}>
+                    {" "}
+                    <MdEdit className="bg-danger/10 p-1 text-2xl rounded-md" />
+                  </Link>
+
+                  <MdDelete
+                    onClick={() => handleDelete(p._id)}
+                    className="bg-danger/10 p-1 text-2xl rounded-md"
+                  />
+                </div>
+              </td>
+            </tr>
+          )
+        })}
       </table>
       <Pagination
         className="mt-5 ml-auto w-fit"

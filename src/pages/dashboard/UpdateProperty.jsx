@@ -21,6 +21,7 @@ const UpdateProperty = () => {
   const [savedFormValues, setSavedFormValues] = useState({});
   const [listingType, setListingType] = useState(null)
   const [map, setMap] = useState(null);
+  const [staticPropertyType, setStaticPropertyType] = useState()
   const [selectedLocation, setSelectedLocation] = useState({});
   const { id } = useParams();
 
@@ -40,12 +41,13 @@ const UpdateProperty = () => {
   useEffect(() => {
     fetchPropertyData();
   }, [id]);
-  console.log({ map });
+
   useEffect(() => {
     if (Object.keys(propertyData).length) {
       form.setFieldsValue(propertyData);
     }
-  }, [propertyData, form]);
+    setStaticPropertyType(propertyData.propertyType)
+  }, [propertyData, form, setStaticPropertyType]);
   const handlePlaceChanged = (name, place, newLocation) => {
     console.log(`Updating form field ${name} with value`, place.name);
     form.setFieldsValue({ [name]: place.name });
@@ -140,7 +142,10 @@ const UpdateProperty = () => {
   if (isLoading) {
     return <Loader />;
   }
-  console.log(propertyData)
+  const handlePropertyTypeChange = (value) => {
+    console.log("propertyType", value);
+    setStaticPropertyType(value);
+  };
   const {
     propertyName, province, city, location, price, bedrooms,
     bathrooms, floorSize, headline, video, coverImage = [], imageUrls = [], referenceNote,
@@ -222,7 +227,7 @@ const UpdateProperty = () => {
           </Form.Item>
 
           <Form.Item label="Property Type" name="propertyType" rules={[{ required: true }]}>
-            <Select size="large" placeholder="Select Property Type" required>
+            <Select size="large" placeholder="Select Property Type" onChange={handlePropertyTypeChange} required>
               {defaultProperType.map(type => (
                 <Option key={type} value={type}>{type}</Option>
               ))}
@@ -237,7 +242,7 @@ const UpdateProperty = () => {
             </Col>
             <Col xs={24} sm={12}>
 
-              {listingType === "forSale" || propertyType === "land" ?
+              {listingType === "forSale" || staticPropertyType === "land" ?
 
                 <Form.Item label="Price Type" name="priceType" rules={[{ required: true }]}>
                   <Input size="large" disabled defaultValue={"THB"} />
@@ -255,24 +260,33 @@ const UpdateProperty = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
-                <Select size="large" placeholder="Select Bedrooms" required>
-                  <Option value="1">1</Option>
-                  <Option value="2">2</Option>
-                  <Option value="3">3</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
-                <Select size="large" placeholder="Select Bathrooms">
-                  <Option value="1">1</Option>
-                  <Option value="2">2</Option>
-                  <Option value="3">3</Option>
-                </Select>
-              </Form.Item>
-            </Col>
+            {
+              staticPropertyType === "land" ? <></> :
+                <>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
+                      <Select size="large" placeholder="Select Bedrooms" required>
+                        <Option value="1">1</Option>
+                        <Option value="2">2</Option>
+                        <Option value="3">3</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
+                      <Select size="large" placeholder="Select Bathrooms">
+                        <Option value="1">1</Option>
+                        <Option value="2">2</Option>
+                        <Option value="3">3</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                </>
+
+
+            }
+
+
           </Row>
           <Row gutter={16}>
             <Col xs={24} sm={12}>

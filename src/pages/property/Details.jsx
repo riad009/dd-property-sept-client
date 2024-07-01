@@ -1,13 +1,19 @@
 import { Divider } from "antd";
 
 const Details = ({ p }) => {
+  const date = new Date(p.date);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-US', options);
+  const makeUppercase = (str) =>{
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   return (
     <div>
       <h1 className="text-2xl">Details</h1>
       <div className="grid grid-cols-2 gap-x-5">
         <div>
-          <p className="text-sm text-dark2">Property Type</p>
-          <p className="text-sm text-dark font-[500]">{p.type}</p>
+          <p className="text-sm text-dark2 mb-2">Property Type</p>
+          <p className="text-sm text-dark font-[500]">{makeUppercase(p.propertyType)}</p>
         </div>
         <div>
           <p className="text-sm text-dark2">Province</p>
@@ -35,18 +41,19 @@ const Details = ({ p }) => {
         }
         <div>
           <p className="text-sm text-dark2">Listing Type</p>
-          <p className="text-sm text-dark font-[500]">{p.listingType}</p>
+          <p className="text-sm text-dark font-[500]">{p.listingType.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, function (str) { return str.toUpperCase() })}</p>
         </div>
-        <Divider />
-        {/* <Divider />
+
+        {/* <Divider /> */}
         <div>
           <p className="text-sm text-dark2">Listed On</p>
-          <p className="text-sm text-dark font-[500]">{p.date}</p>
+          <p className="text-sm text-dark font-[500]">{formattedDate}</p>
         </div>
-        <div>
+        <Divider />
+        {/* <div>
           <p className="text-sm text-dark2">Price Type</p>
           <p className="text-sm text-dark font-[500]">{p.priceType}</p>
-        </div> */}
+        </div>  */}
 
         {/* <Divider /> */}
         <Divider />

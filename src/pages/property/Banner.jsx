@@ -20,7 +20,7 @@ const Details = ({ children, icon }) => (
   </p>
 );
 
-const Banner = ({ breadCrumbItems, images, p }) => {
+const Banner = ({ breadCrumbItems, images, p, coverImage }) => {
   const openImageViewer = useCallback((index) => {
     setCurrentImage(index);
     setIsViewerOpen(true);
@@ -41,69 +41,59 @@ const Banner = ({ breadCrumbItems, images, p }) => {
         <div className="sm:flex items-start justify-between text-xs sm:my-5 my-2"></div>
       </SmallContainer>
 
-      <Slide
-        slidesToScroll={1}
-        slidesToShow={1}
-        indicators={true}
-        duration={100}
-        autoplay={false}
-        infinite={false}
-        responsive={[
-          {
-            breakpoint: 1366,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
+      <div className="slide-container" style={{ textAlign: images.length === 1 ? 'center' : 'left' }}>
+        <Slide
+          slidesToScroll={1}
+          slidesToShow={1}
+          indicators={true}
+          duration={100}
+          autoplay={false}
+          infinite={false}
+          responsive={[
+            {
+              breakpoint: 1366,
+              settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4,
+              },
             },
-          },
-          {
-            breakpoint: 500,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+            {
+              breakpoint: 500,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
             },
-          },
-        ]}
-      >
-        {images?.map((item, index) => (
-          <img
-            onClick={() => openImageViewer(index)}
-            key={index}
-            src={item}
+          ]}
+        >
+          {coverImage && <img
+            src={coverImage}
+            onClick={() => openImageViewer(0)}
+            alt="cover-Image"
             className="cursor-pointer"
             style={{
               width: "432px",
               height: "325px",
               objectFit: "cover",
+              margin: '0 auto' 
             }}
-          />
-        ))}
-        {/* {
-          p?.video && (
-            <iframe
-              width="560"
-              height="315"
-              src={p?.video}
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          )
-          // <video
-          //   // onClick={() => openImageViewer(index)}
-          //   key={index}
-          //   src={item}
-          //   controls
-          //   className="cursor-pointer"
-          //   style={{
-          //     width: "432px",
-          //     height: "325px",
-          //     objectFit: "cover",
-          //   }}
-          // />
-        } */}
-      </Slide>
+          />}
+          {images?.map((item, index) => (
+            <img
+              onClick={() => openImageViewer(index)}
+              key={index}
+              src={item}
+              className="cursor-pointer"
+              style={{
+                width: "432px",
+                height: "325px",
+                objectFit: "cover",
+                margin: '0 auto'  
+              }}
+            />
+          ))}
+        </Slide>
+      </div>
 
       <SmallContainer extraClasses="p-2">
         <div className="sm:flex gap-5 justify-between text-justify">
@@ -119,13 +109,11 @@ const Banner = ({ breadCrumbItems, images, p }) => {
                 (Not Verified)
               </>
             )}
-            {/* {p?.status} */}
           </Details>
-          <Divider type="vertical  my-auto hidden sm:block" />
+          <Divider type="vertical" className="my-auto hidden sm:block" />
         </div>
       </SmallContainer>
 
-      {/* Image Viewer */}
       {isViewerOpen && (
         <ImageViewer
           src={images.map((img) => img)}

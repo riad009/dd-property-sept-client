@@ -238,24 +238,31 @@ const CreateProperty = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
-                <Select size="large" placeholder="Select Bedrooms" required>
-                  <Option value="1">1</Option>
-                  <Option value="2">2</Option>
-                  <Option value="3">3</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
-                <Select size="large" placeholder="Select Bathrooms">
-                  <Option value="1">1</Option>
-                  <Option value="2">2</Option>
-                  <Option value="3">3</Option>
-                </Select>
-              </Form.Item>
-            </Col>
+          {
+              propertyType === "land" ? <></> :
+                <>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Bedrooms" name="bedrooms" rules={[{ required: true }]}>
+                      <Select size="large" placeholder="Select Bedrooms" required>
+                        <Option value="1">1</Option>
+                        <Option value="2">2</Option>
+                        <Option value="3">3</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Bathrooms" name="bathrooms" rules={[{ required: true }]}>
+                      <Select size="large" placeholder="Select Bathrooms">
+                        <Option value="1">1</Option>
+                        <Option value="2">2</Option>
+                        <Option value="3">3</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                </>
+
+
+            }
           </Row>
           <Row gutter={16}>
             <Col xs={24} sm={12}>

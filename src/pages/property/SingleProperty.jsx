@@ -92,11 +92,17 @@ const SingleProperty = () => {
     : { lat: 0, lng: 0 };
   return (
     <div>
-      <Banner
-        p={property}
-        breadCrumbItems={breadCrumbItems}
-        images={property?.imageUrls}
-      />
+      <div style={{
+        marginLeft: "15px",
+        marginRight: "15px"
+      }}>
+        <Banner
+          p={property}
+          breadCrumbItems={breadCrumbItems}
+          images={property?.imageUrls}
+          coverImage={property?.coverImage}
+        />
+      </div>
       {/* Body Navbar */}
       <div className="sm:sticky top-0 z-50 sm:max-h-[calc(60vh-40px)]">
         <BodyNav />
@@ -118,7 +124,7 @@ const SingleProperty = () => {
           </div>
         </div>
         {/* <HomeFinance /> */}
-        <MapLocation location={loc} setMap={() => {}} />
+        <MapLocation location={loc} setMap={() => { }} />
         {/* <Location lat={loc?.lat} lng={loc?.lng} /> */}
         {property?.isVerified && <ContactDeveloper property={property} />}
       </SmallContainer>
