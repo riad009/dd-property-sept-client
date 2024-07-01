@@ -10,7 +10,7 @@ import { RiCommunityFill } from "react-icons/ri";
 import { GiBathtub, GiBed } from "react-icons/gi";
 
 const Overview = ({ property }) => {
-  console.log({property})
+  console.log({ property })
   return (
     <div>
       <h1 className="text-2xl mb-5">Overview</h1>
@@ -73,7 +73,7 @@ const Overview = ({ property }) => {
         <p className="text-sm text-dark2 mt-4">Location</p>
         <p className="flex items-center gap-1 text-sm text-dark font-[500]">
           <MdLocationOn className="text-xl" />
-          {property.location} , {property.postalCode}
+          {property.city} , {property.province}
         </p>
         {/* <p className="text-xs text-dark2 mb-3">{property.address}</p> */}
         {/* <TextRed to="/">open map</TextRed> */}
