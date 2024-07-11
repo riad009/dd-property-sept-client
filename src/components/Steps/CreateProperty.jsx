@@ -214,7 +214,7 @@ const CreateProperty = () => {
               </Form.Item>
             </Col>
           </Row>
-          <div style={{ width: "350px" }}>
+          <div>
             <MapLoaction location={selectedLocation} setMap={setMap} />
           </div>
         </div>
@@ -277,7 +277,7 @@ const CreateProperty = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
-              {listingType === "forSale" || propertyType === "land" ? (
+              {/* {listingType === "forSale" || propertyType === "land" ? (
                 <Form.Item
                   label="Price Type"
                   name="priceType"
@@ -285,7 +285,9 @@ const CreateProperty = () => {
                 >
                   <Input size="large" disabled defaultValue={"THB"} />
                 </Form.Item>
-              ) : (
+              ) : ( */}
+
+              {listingType === "forRent" && (
                 <Form.Item
                   label="Rent Duration"
                   name="rentDuration"
@@ -298,6 +300,7 @@ const CreateProperty = () => {
                   </Select>
                 </Form.Item>
               )}
+              {/* )} */}
             </Col>
           </Row>
           <Row gutter={16}>
@@ -337,25 +340,31 @@ const CreateProperty = () => {
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item
-                label="Size m²"
+                label={
+                  listingType === "forRent" || propertyType === "land"
+                    ? "Land Size m²"
+                    : "Size m²"
+                }
                 name="size"
                 rules={[{ required: true }]}
               >
                 <Input size="large" required />
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Floor Size"
-                name="floorSize"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
+            {propertyType !== "land" && (
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  label={"House Size m²"}
+                  name="floorSize"
+                  rules={[{ required: true }]}
+                >
+                  <Input size="large" required />
+                </Form.Item>
+              </Col>
+            )}
           </Row>
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
+            {/* <Col xs={24} sm={12}>
               <Form.Item
                 label="Reference Note"
                 name="referenceNote"
@@ -363,7 +372,7 @@ const CreateProperty = () => {
               >
                 <Input size="large" required />
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col xs={24} sm={12}>
               <Form.Item
                 label="Headline"
@@ -434,7 +443,7 @@ const CreateProperty = () => {
             </Form.Item>
           )}
 
-          {fileList.length > 1 && (
+          {/* {fileList.length > 1 && (
             <Form.Item label="Other Photos">
               <Upload
                 listType="picture-card"
@@ -450,7 +459,7 @@ const CreateProperty = () => {
                 )}
               />
             </Form.Item>
-          )}
+          )} */}
 
           <Form.Item
             name="video"
@@ -468,72 +477,72 @@ const CreateProperty = () => {
         </div>
       ),
     },
-    {
-      title: "Contact Information",
-      content: (
-        <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">
-            Update Your Contact Information
-          </h1>
-          {user.phone && user.address ? (
-            <></>
-          ) : (
-            <div>
-              <p className="text-rose-500">
-                Please Updete your Profile nad Provide - Username,Email,Phone
-                and Address to create Property.{" "}
-              </p>
-              <Link
-                className="text-sky-600 underline"
-                to="/dashboard/my-profile"
-              >
-                Click Here-Update Profile
-              </Link>
-            </div>
-          )}
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your name"
-                name="contactName"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your Email"
-                name="contactEmail"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your number"
-                name="contactNumber"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your address"
-                name="contactAddress"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-      ),
-    },
+    // {
+    //   title: "Contact Information",
+    //   content: (
+    //     <div className="bg-white p-10 rounded-lg">
+    //       <h1 className="mb-5 font-semibold text-2xl">
+    //         Update Your Contact Information
+    //       </h1>
+    //       {user.phone && user.address ? (
+    //         <></>
+    //       ) : (
+    //         <div>
+    //           <p className="text-rose-500">
+    //             Please Updete your Profile nad Provide - Username,Email,Phone
+    //             and Address to create Property.{" "}
+    //           </p>
+    //           <Link
+    //             className="text-sky-600 underline"
+    //             to="/dashboard/my-profile"
+    //           >
+    //             Click Here-Update Profile
+    //           </Link>
+    //         </div>
+    //       )}
+    //       <Row gutter={16}>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your name"
+    //             name="contactName"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your Email"
+    //             name="contactEmail"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //       </Row>
+    //       <Row gutter={16}>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your number"
+    //             name="contactNumber"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your address"
+    //             name="contactAddress"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //       </Row>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (
@@ -564,7 +573,11 @@ const CreateProperty = () => {
         ))}
       </Steps>
       <div className="mt-5">{sections[currentStep].content}</div>
-      <div className="flex justify-between mt-4">
+      <div
+        className={`flex ${
+          currentStep > 0 ? "justify-between" : "justify-end"
+        } justify-end mt-4`}
+      >
         {currentStep > 0 && (
           <Button type="default" size="large" onClick={handlePreviousStep}>
             Previous
@@ -576,6 +589,7 @@ const CreateProperty = () => {
             type="primary"
             size="large"
             onClick={handleNextStep}
+            htmlType="submit"
           >
             Next
           </Button>

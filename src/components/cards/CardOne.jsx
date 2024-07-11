@@ -7,6 +7,7 @@ const CardOne = ({
   title,
   text,
   shadow,
+
   price,
   typeColor = "bg-danger",
   clickEvent,
@@ -43,7 +44,7 @@ const CardOne = ({
         )}
         {shadow && <h1>{type}</h1>}
         <h6 className={`${shadow ? "mt-0" : "mt-3"} text-lg  font-semibold`}>
-          {property?.propertyName}
+          {property?.headline}
         </h6>
         <p className="text-sm text-dark2">
           {property?.location} {property.postalCode}

@@ -261,7 +261,7 @@ const UpdateProperty = () => {
               </Form.Item>
             </Col>
           </Row>
-          <div style={{ width: "350px" }}>
+          <div>
             <MapLoaction location={selectedLocation} setMap={setMap} />
           </div>
         </div>
@@ -382,7 +382,7 @@ const UpdateProperty = () => {
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item
-                label="Size m²"
+                label="Land Size m²"
                 name="size"
                 rules={[{ required: true }]}
               >
@@ -513,56 +513,56 @@ const UpdateProperty = () => {
         </div>
       ),
     },
-    {
-      title: "Update Contact Information",
-      content: (
-        <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">
-            Update Your Contact Information
-          </h1>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your name"
-                name="contactName"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your Email"
-                name="contactEmail"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your number"
-                name="contactNumber"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Your address"
-                name="contactAddress"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" disabled />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-      ),
-    },
+    // {
+    //   title: "Update Contact Information",
+    //   content: (
+    //     <div className="bg-white p-10 rounded-lg">
+    //       <h1 className="mb-5 font-semibold text-2xl">
+    //         Update Your Contact Information
+    //       </h1>
+    //       <Row gutter={16}>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your name"
+    //             name="contactName"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your Email"
+    //             name="contactEmail"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //       </Row>
+    //       <Row gutter={16}>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your number"
+    //             name="contactNumber"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //         <Col xs={24} sm={12}>
+    //           <Form.Item
+    //             label="Your address"
+    //             name="contactAddress"
+    //             rules={[{ required: true }]}
+    //           >
+    //             <Input size="large" disabled />
+    //           </Form.Item>
+    //         </Col>
+    //       </Row>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (

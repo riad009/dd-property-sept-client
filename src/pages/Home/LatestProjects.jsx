@@ -8,34 +8,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { baseURL } from "../../providers/AuthProvider";
 
-const latesProjects = [
-  {
-    image:
-      "https://photos.zillowstatic.com/fp/700731fde9d8bc354c5fea78d8a3a755-p_e.jpg",
-    type: "New Project",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
-  },
-  {
-    image: image1,
-    type: "New Project",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
-  },
-  {
-    image: image1,
-    type: "New Project",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
-  },
-  {
-    image: image1,
-    type: "New Project",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
-  },
-];
-
 const LatestProjects = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
@@ -53,7 +25,7 @@ const LatestProjects = () => {
         setLoading(false); // Set loading to false in case of an error
       }
     };
-    console.log(properties)
+    console.log(properties);
     // Fetch data only on the initial render
     if (loading) {
       fetchData();
@@ -68,7 +40,19 @@ const LatestProjects = () => {
           {properties?.map((property, index) => (
             <CardOne
               clickEvent={() => {
-                navigate(`/property/projects/${property.propertyName.toLowerCase().replace(/ /g, '-')}/${property.location.toLowerCase().replace(/ /g, '-')}/${property.province.toLowerCase().replace(/ /g, '-')}/${property.city.toLowerCase().replace(/ /g, '-')}/${property.listingType}/${property._id}`);
+                navigate(
+                  `/property/projects/${property.propertyName
+                    .toLowerCase()
+                    .replace(/ /g, "-")}/${property.location
+                    .toLowerCase()
+                    .replace(/ /g, "-")}/${property.province
+                    .toLowerCase()
+                    .replace(/ /g, "-")}/${property.city
+                    .toLowerCase()
+                    .replace(/ /g, "-")}/${property.listingType}/${
+                    property._id
+                  }`
+                );
               }}
               key={index}
               property={property}
