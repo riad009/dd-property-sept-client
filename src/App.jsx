@@ -131,14 +131,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "manage-properties",
-      //   element: (
-      //     <AdminRoute>
-      //       <ManageProperties />
-      //     </AdminRoute>
-      //   ),
-      // },
+      {
+        path: "manage-properties",
+        element: (
+          <AdminRoute>
+            <ManageProperties />
+          </AdminRoute>
+        ),
+      },
       {
         path: "membership",
         element: (
