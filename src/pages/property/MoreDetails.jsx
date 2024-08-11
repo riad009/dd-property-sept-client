@@ -15,12 +15,15 @@ const MoreDetails = ({ property }) => {
                 </div>
                 <div className="mb-4">
                   <span className="font-semibold">Status:</span>{" "}
-                  {property.listingType.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, function (str) { return str.toUpperCase() })}
+                  {property.listingType
+                    .replace(/([a-z])([A-Z])/g, "$1 $2")
+                    .replace(/^./, function (str) {
+                      return str.toUpperCase();
+                    })}
                 </div>
                 <div className="mb-4">
                   <span className="font-semibold">Location:</span>{" "}
-                  {property.province}, {property.location},
-                  {property.city}
+                  {property.province}, {property.location},{property.city}
                 </div>
 
                 {property?.propertyType !== "Land" && (
@@ -34,7 +37,10 @@ const MoreDetails = ({ property }) => {
               </div>
               <div>
                 <div className="mb-4">
-                  <span className="font-semibold">Price:</span> {property.price}{" "}
+                  <span className="font-semibold">Price:</span>{" "}
+                  {property.listingType === "forRent"
+                    ? `${property.dailyPrice} Daily, ${property.monthlyPrice} monthly, ${property.yearlyPrice} yearly,`
+                    : property.price}
                   THB
                 </div>
                 {/* <div className="mb-4">

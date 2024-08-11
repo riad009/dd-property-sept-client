@@ -267,77 +267,50 @@ const CreateProperty = () => {
           </Form.Item>
 
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Price (THB)"
-                name="price"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              {/* {listingType === "forSale" || propertyType === "land" ? (
-                <Form.Item
-                  label="Price Type"
-                  name="priceType"
-                  rules={[{ required: true }]}
-                >
-                  <Input size="large" disabled defaultValue={"THB"} />
-                </Form.Item>
-              ) : ( */}
-
-              {listingType === "forRent" && (
-                <Form.Item
-                  label="Rent Duration"
-                  name="rentDuration"
-                  rules={[{ required: true }]}
-                >
-                  <Select size="large" placeholder="Select Type" required>
-                    <Option value="Daily">Daily</Option>
-                    <Option value="Monthly">Monthly</Option>
-                    <Option value="Yearly">Yearly</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {/* )} */}
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            {propertyType === "land" ? (
-              <></>
-            ) : (
+            {listingType === "forRent" ? (
               <>
+                {propertyType !== "land" && (
+                  <Col xs={24} sm={12}>
+                    <Form.Item
+                      label="Daily Price (THB)"
+                      name="dailyPrice"
+                      rules={[{ required: true }]}
+                    >
+                      <Input size="large" />
+                    </Form.Item>
+                  </Col>
+                )}
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label="Bedrooms"
-                    name="bedrooms"
+                    label="Monthly Price (THB)"
+                    name="monthlyPrice"
                     rules={[{ required: true }]}
                   >
-                    <Select size="large" placeholder="Select Bedrooms" required>
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
-                    </Select>
+                    <Input size="large" />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label="Bathrooms"
-                    name="bathrooms"
+                    label="Yearly Price (THB)"
+                    name="yearlyPrice"
                     rules={[{ required: true }]}
                   >
-                    <Select size="large" placeholder="Select Bathrooms">
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
-                    </Select>
+                    <Input size="large" />
                   </Form.Item>
                 </Col>
               </>
+            ) : (
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  label="Price (THB)"
+                  name="price"
+                  rules={[{ required: true }]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
             )}
-          </Row>
-          <Row gutter={16}>
+
             <Col xs={24} sm={12}>
               <Form.Item
                 label={
@@ -351,6 +324,7 @@ const CreateProperty = () => {
                 <Input size="large" required />
               </Form.Item>
             </Col>
+
             {propertyType !== "land" && (
               <Col xs={24} sm={12}>
                 <Form.Item
@@ -362,7 +336,18 @@ const CreateProperty = () => {
                 </Form.Item>
               </Col>
             )}
+
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Headline"
+                name="headline"
+                rules={[{ required: true }]}
+              >
+                <Input size="large" required />
+              </Form.Item>
+            </Col>
           </Row>
+
           <Row gutter={16}>
             {/* <Col xs={24} sm={12}>
               <Form.Item
@@ -373,15 +358,6 @@ const CreateProperty = () => {
                 <Input size="large" required />
               </Form.Item>
             </Col> */}
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Headline"
-                name="headline"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
           </Row>
           <Row gutter={16}>
             <Col xs={24}>

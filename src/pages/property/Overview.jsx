@@ -10,16 +10,18 @@ import { RiCommunityFill } from "react-icons/ri";
 import { GiBathtub, GiBed } from "react-icons/gi";
 
 const Overview = ({ property }) => {
-  console.log({ property })
+  console.log({ property });
   return (
     <div>
       <h1 className="text-2xl mb-5">Overview</h1>
       {/* Cost */}
       <div className="flex gap-5">
-        <div>
-          <p className="text-sm text-dark2">Start</p>
-          <p className="text-sm text-dark font-[500]">฿{property.price}</p>
-        </div>
+        {property.price && (
+          <div>
+            <p className="text-sm text-dark2">Start</p>
+            <p className="text-sm text-dark font-[500]">฿{property.price}</p>
+          </div>
+        )}
         <Divider type="vertical h-10" />
         <div>
           <p className="text-sm text-dark2">Estimated Monthly Installments</p>

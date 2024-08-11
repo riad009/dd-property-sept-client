@@ -41,16 +41,16 @@ const LatestProjects = () => {
             <CardOne
               clickEvent={() => {
                 navigate(
-                  `/property/projects/${property.propertyName
-                    .toLowerCase()
-                    .replace(/ /g, "-")}/${property.location
-                    .toLowerCase()
-                    .replace(/ /g, "-")}/${property.province
-                    .toLowerCase()
-                    .replace(/ /g, "-")}/${property.city
-                    .toLowerCase()
-                    .replace(/ /g, "-")}/${property.listingType}/${
-                    property._id
+                  `/property/projects/${property?.propertyName
+                    ?.toLowerCase()
+                    .replace(/ /g, "-")}/${property?.location
+                    ?.toLowerCase()
+                    .replace(/ /g, "-")}/${property?.province
+                    ?.toLowerCase()
+                    .replace(/ /g, "-")}/${property?.city
+                    ?.toLowerCase()
+                    .replace(/ /g, "-")}/${property?.listingType}/${
+                    property?._id
                   }`
                 );
               }}
@@ -61,7 +61,7 @@ const LatestProjects = () => {
           {/* {properties?.map((property, index) => (
             <CardOne
               clickEvent={() => navigate(`/property/projects/${property._id}`)}
-              // clickEvent={() => navigate(`/property/projects/${property.name.toLowerCase().replace(/ /g, '-')}/${property.listingType}/${property._id}`)}
+              // clickEvent={() => navigate(`/property/projects/${property.name?.toLowerCase().replace(/ /g, '-')}/${property.listingType}/${property._id}`)}
               key={index}
               property={property}
               // image={project.image}

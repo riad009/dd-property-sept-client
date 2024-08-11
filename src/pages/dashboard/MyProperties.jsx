@@ -41,7 +41,7 @@ const MyProperties = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-  console.log({ currentItems })
+  console.log({ currentItems });
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -100,15 +100,15 @@ const MyProperties = () => {
           <th className="p-2">Property Type</th>
           <th className="p-2">Date published</th>
           <th className="p-2">Location</th>
-          <th className="p-2">Price</th>
+          {/* <th className="p-2">Price</th> */}
           {/* <th className="p-2">View</th> */}
           <th className="p-2">Action</th>
         </tr>
 
         {currentItems?.map((p) => {
           const date = new Date(p.date);
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          const formattedDate = date.toLocaleDateString('en-US', options);
+          const options = { year: "numeric", month: "long", day: "numeric" };
+          const formattedDate = date.toLocaleDateString("en-US", options);
           return (
             <tr key={p.email} className="border">
               <td className="p-2">
@@ -125,7 +125,7 @@ const MyProperties = () => {
               <td className="p-2">{p.propertyType}</td>
               <td className="p-2">{formattedDate}</td>
               <td className="p-2">{p.location}</td>
-              <td className="p-2">{p.price} THB</td>
+              {/* <td className="p-2">{p.price} THB</td> */}
 
               <td>
                 <div className="flex gap-2 text-danger">
@@ -141,7 +141,7 @@ const MyProperties = () => {
                 </div>
               </td>
             </tr>
-          )
+          );
         })}
       </table>
       <Pagination

@@ -11,6 +11,7 @@ import {
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
 
 const ManageProperties = () => {
   const { user } = useContext(AuthContext);
@@ -100,9 +101,16 @@ const ManageProperties = () => {
 
             <td className="p-2">{p.headline}</td>
             <td className="p-2">{p.propertyType}</td>
-            <td className="p-2">{p.date}</td>
             <td className="p-2">
-              {p.isVerified ? "Verified" : "Not verified"}
+              {" "}
+              {moment(p.date).format("MMMM Do YYYY, h:mm:ss A")}
+            </td>
+            <td className="p-2">
+              {p.isVerified ? (
+                <button className="font-bold text-green-600">Verified</button>
+              ) : (
+                <button className="font-bold text-red-600">Not verified</button>
+              )}
             </td>
             {/* <td className="p-2">{p.location}</td>
             <td className="p-2">${p.price}</td> */}
@@ -110,13 +118,13 @@ const ManageProperties = () => {
             <td>
               <div className="flex gap-2 text-xs">
                 <button
-                  className="text-white bg-red-600 p-1 rounded-sm"
+                  className="text-white bg-red-600 px-2 py-1.5 rounded-sm"
                   onClick={() => handleDecline(p?._id)}
                 >
                   Decline
                 </button>
                 <button
-                  className="text-white bg-green-600 p-1 rounded-sm"
+                  className="text-white bg-green-600 px-2 py-1.5 rounded-sm"
                   onClick={() => handleVerify(p?._id)}
                 >
                   Verify
