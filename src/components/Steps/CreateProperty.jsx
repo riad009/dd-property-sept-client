@@ -119,7 +119,7 @@ const CreateProperty = () => {
 
       if (res.status === 201) {
         setIsLoading(false);
-        alert(res.data.message);
+        // alert(res.data.message);
         navigate("/dashboard/my-properties");
         formData.reset();
 

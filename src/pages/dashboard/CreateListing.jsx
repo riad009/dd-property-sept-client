@@ -215,7 +215,7 @@ const CreateListing = () => {
 
       // Handle the response as needed
       const result = await response.json();
-      alert("Property created");
+      // alert("Property created");
       console.log(result);
 
       // Clear the form or perform other actions after successful submission
