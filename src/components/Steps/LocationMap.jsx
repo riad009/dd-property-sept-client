@@ -5,7 +5,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 const LocationMap = () => {
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
+    googleMapsApiKey: "AIzaSyD59nvKAjfbGsXeVaWE-klnJplh9CW8HF4",
+    // googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
     libraries: ["places"],
   });
   const { setPropertyData, propertyData } = useContext(AuthContext);

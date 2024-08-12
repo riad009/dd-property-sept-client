@@ -575,7 +575,7 @@ const CreateProperty = () => {
             className="bg-blue-500 text-white"
             type="primary"
             size="large"
-            disabled={!(user.phone && user.address)}
+            // disabled={!(user.phone && user.address)}
             onClick={handleUpdateButton}
           >
             Create
