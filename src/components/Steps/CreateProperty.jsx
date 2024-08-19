@@ -18,21 +18,22 @@ import DashboardHeader from "./../../pages/dashboard/DashboardHeader";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
 import AutocompleteInput from "./AutoCompleate";
-import MapLoaction from "./MapLoaction";
 import { defaultProperType } from "../../constants/footerItem";
+import MapLocation from "./MapLocation";
 
 const { Option } = Select;
 
 const CreateProperty = () => {
   const [form] = Form.useForm();
-  const [propertyData, setPropertyData] = useState({});
+
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [isModified, setIsModified] = useState(false);
+  const [prices, setPrices] = useState({});
   const [savedFormValues, setSavedFormValues] = useState({});
   const [listingType, setListingType] = useState("forSale");
   const [propertyType, setPropertyType] = useState("");
   const [map, setMap] = useState(null);
+  const [draggedData, setDraggedData] = useState({});
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 13.736717,
     lng: 100.523186,
@@ -40,11 +41,6 @@ const CreateProperty = () => {
   const { user } = useContext(AuthContext);
   console.log({ selectedLocation });
 
-  useEffect(() => {
-    if (Object.keys(propertyData).length) {
-      form.setFieldsValue(propertyData);
-    }
-  }, [propertyData, form]);
   const handlePlaceChanged = (name, place, newLocation) => {
     console.log(`Updating form field ${name} with value`, place.name);
     form.setFieldsValue({ [name]: place.name });
@@ -75,66 +71,78 @@ const CreateProperty = () => {
     setFileList(fileList);
   };
   const navigate = useNavigate();
-  const handleUpdateButton = async () => {
-    setIsLoading(true);
-    // Collect form values
-    const values = { ...savedFormValues, ...form.getFieldsValue() };
+  const handleUpdateButton = async (type) => {
+    console.log({ type });
 
-    const formData = new FormData();
+    if (type === "next") {
+      setSavedFormValues((prevValues) => ({
+        ...prevValues,
+        ...form.getFieldsValue(),
+      }));
+      setCurrentStep(currentStep + 1);
+    } else {
+      setIsLoading(true);
+      // Collect form values
+      const values = { ...savedFormValues, ...form.getFieldsValue() };
 
-    for (const key in values) {
-      if (values.hasOwnProperty(key) && values[key] !== undefined) {
-        if (Array.isArray(values[key])) {
-          values[key].forEach((item) => formData.append(key, item));
-        } else {
-          formData.append(key, values[key]);
+      const formData = new FormData();
+
+      for (const key in values) {
+        if (values.hasOwnProperty(key) && values[key] !== undefined) {
+          if (Array.isArray(values[key])) {
+            values[key].forEach((item) => formData.append(key, item));
+          } else {
+            formData.append(key, values[key]);
+          }
         }
       }
-    }
-    console.log({ values });
-    formData.append("email", user.email);
-    const latLng = {
-      lat: selectedLocation.lat,
-      lng: selectedLocation.lng,
-    };
+      console.log({ values });
+      formData.append("email", user.email);
+      const latLng = {
+        lat: selectedLocation.lat,
+        lng: selectedLocation.lng,
+      };
 
-    const jsonLatLng = JSON.stringify(latLng);
+      const jsonLatLng = JSON.stringify(latLng);
 
-    formData.append("latLng", jsonLatLng);
-    // Append files to FormData
-    if (fileList.length) {
-      formData.append("coverImage", fileList[0].originFileObj);
-      fileList.slice(1).forEach((file) => {
-        formData.append("imageUrls", file.originFileObj);
-      });
-    }
-
-    try {
-      // Send POST request to create property
-      const res = await axios.post(`/create/property`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (res.status === 201) {
-        setIsLoading(false);
-        // alert(res.data.message);
-        navigate("/dashboard/my-properties");
-        formData.reset();
-
-        setCurrentStep(0);
+      formData.append("latLng", jsonLatLng);
+      // Append files to FormData
+      if (fileList.length) {
+        formData.append("coverImage", fileList[0].originFileObj);
+        fileList.slice(1).forEach((file) => {
+          formData.append("imageUrls", file.originFileObj);
+        });
       }
-    } catch (error) {
-      console.error(
-        "Error creating property:",
-        error.response || error.message
-      );
-      formData.reset();
-      setIsLoading(false);
-      alert("Error creating property. Please try again."); // Show error message
+
+      try {
+        // Send POST request to create property
+        const res = await axios.post(`/create/property`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        if (res.status === 201) {
+          setIsLoading(false);
+          // alert(res.data.message);
+          navigate("/dashboard/my-properties");
+          formData.reset();
+
+          setCurrentStep(0);
+        }
+      } catch (error) {
+        console.error(
+          "Error creating property:",
+          error.response || error.message
+        );
+        formData.reset();
+        setIsLoading(false);
+        alert("Error creating property. Please try again."); // Show error message
+      }
     }
   };
+
+  console.log({ savedFormValues });
   const handleImageClick = (file) => {
     const index = fileList.indexOf(file);
     if (index !== 0) {
@@ -154,7 +162,7 @@ const CreateProperty = () => {
   }
 
   const handleValuesChange = () => {
-    setIsModified(true);
+    // setIsModified(true);
   };
   const handlePropertyTypeChange = (value) => {
     console.log("propertyType", value);
@@ -186,6 +194,9 @@ const CreateProperty = () => {
                   name="province"
                   onPlaceChanged={handlePlaceChanged}
                   placeholder="Please Enter province"
+                  prefilledValue={
+                    draggedData.province || savedFormValues?.province || ""
+                  }
                 />
               </Form.Item>
             </Col>
@@ -197,6 +208,9 @@ const CreateProperty = () => {
                   name="city"
                   onPlaceChanged={handlePlaceChanged}
                   placeholder="Please Enter city"
+                  prefilledValue={
+                    draggedData.city || savedFormValues?.city || ""
+                  }
                 />
               </Form.Item>
             </Col>
@@ -210,12 +224,20 @@ const CreateProperty = () => {
                   name="location"
                   onPlaceChanged={handlePlaceChanged}
                   placeholder="Please Enter location"
+                  prefilledValue={
+                    draggedData.location || savedFormValues?.location || ""
+                  }
                 />
               </Form.Item>
             </Col>
           </Row>
           <div>
-            <MapLoaction location={selectedLocation} setMap={setMap} />
+            <MapLocation
+              location={selectedLocation}
+              setMap={setMap}
+              setDraggedData={setDraggedData}
+              onPlaceChanged={handlePlaceChanged}
+            />
           </div>
         </div>
       ),
@@ -274,9 +296,23 @@ const CreateProperty = () => {
                     <Form.Item
                       label="Daily Price (THB)"
                       name="dailyPrice"
-                      rules={[{ required: true }]}
+                      rules={[
+                        {
+                          required:
+                            prices.dailyPrice ||
+                            prices.yearlyPrice ||
+                            prices.monthlyPrice
+                              ? false
+                              : true,
+                        },
+                      ]}
                     >
-                      <Input size="large" />
+                      <Input
+                        size="large"
+                        onChange={(e) =>
+                          setPrices({ ...prices, dailyPrice: e.target.value })
+                        }
+                      />
                     </Form.Item>
                   </Col>
                 )}
@@ -284,18 +320,46 @@ const CreateProperty = () => {
                   <Form.Item
                     label="Monthly Price (THB)"
                     name="monthlyPrice"
-                    rules={[{ required: true }]}
+                    rules={[
+                      {
+                        required:
+                          prices.dailyPrice ||
+                          prices.yearlyPrice ||
+                          prices.monthlyPrice
+                            ? false
+                            : true,
+                      },
+                    ]}
                   >
-                    <Input size="large" />
+                    <Input
+                      size="large"
+                      onChange={(e) =>
+                        setPrices({ ...prices, monthlyPrice: e.target.value })
+                      }
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12}>
                   <Form.Item
                     label="Yearly Price (THB)"
                     name="yearlyPrice"
-                    rules={[{ required: true }]}
+                    rules={[
+                      {
+                        required:
+                          prices.dailyPrice ||
+                          prices.yearlyPrice ||
+                          prices.monthlyPrice
+                            ? false
+                            : true,
+                      },
+                    ]}
                   >
-                    <Input size="large" />
+                    <Input
+                      size="large"
+                      onChange={(e) =>
+                        setPrices({ ...prices, yearlyPrice: e.target.value })
+                      }
+                    />
                   </Form.Item>
                 </Col>
               </>
@@ -311,31 +375,49 @@ const CreateProperty = () => {
               </Col>
             )}
 
+            {propertyType !== "land" && (
+              <>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Bedrooms"
+                    name="bedrooms"
+                    rules={[{ required: true }]}
+                  >
+                    <Select size="large" placeholder="Select Bedrooms" required>
+                      <Option value="1">1</Option>
+                      <Option value="2">2</Option>
+                      <Option value="3">3</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Bathrooms"
+                    name="bathrooms"
+                    rules={[{ required: true }]}
+                  >
+                    <Select size="large" placeholder="Select Bathrooms">
+                      <Option value="1">1</Option>
+                      <Option value="2">2</Option>
+                      <Option value="3">3</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </>
+            )}
             <Col xs={24} sm={12}>
               <Form.Item
                 label={
-                  listingType === "forRent" || propertyType === "land"
+                  listingType === "forRent" && propertyType === "land"
                     ? "Land Size m²"
-                    : "Size m²"
+                    : "House Size m²"
                 }
                 name="size"
                 rules={[{ required: true }]}
               >
-                <Input size="large" required />
+                <Input size="large" />
               </Form.Item>
             </Col>
-
-            {propertyType !== "land" && (
-              <Col xs={24} sm={12}>
-                <Form.Item
-                  label={"House Size m²"}
-                  name="floorSize"
-                  rules={[{ required: true }]}
-                >
-                  <Input size="large" required />
-                </Form.Item>
-              </Col>
-            )}
 
             <Col xs={24} sm={12}>
               <Form.Item
@@ -343,7 +425,7 @@ const CreateProperty = () => {
                 name="headline"
                 rules={[{ required: true }]}
               >
-                <Input size="large" required />
+                <Input size="large" />
               </Form.Item>
             </Col>
           </Row>
@@ -355,7 +437,7 @@ const CreateProperty = () => {
                 name="referenceNote"
                 rules={[{ required: true }]}
               >
-                <Input size="large" required />
+                <Input size="large"  />
               </Form.Item>
             </Col> */}
           </Row>
@@ -366,7 +448,7 @@ const CreateProperty = () => {
                 name="descriptionEnglish"
                 rules={[{ required: true }]}
               >
-                <Input.TextArea size="large" rows={4} required />
+                <Input.TextArea size="large" rows={4} />
               </Form.Item>
             </Col>
           </Row>
@@ -526,18 +608,24 @@ const CreateProperty = () => {
       form={form}
       layout="vertical"
       initialValues={{
-        contactName: user?.name || "",
-        contactEmail: user?.email || "",
-        contactNumber: user?.phone || "",
-        contactAddress: user?.address || "",
-        priceType: "THB",
-        bathrooms: "1",
-        bedrooms: "1",
-        listingType: "forSale",
+        // contactName: user?.name || "",
+        // contactEmail: user?.email || "",
+        // contactNumber: user?.phone || "",
+        // contactAddress: user?.address || "",
+        // priceType: "THB",
+        // bathrooms: "1",
+        // bedrooms: "1",
+        listingType: savedFormValues?.listingType || "forSale",
+        city: savedFormValues?.city,
         propertyType: propertyType || "condo",
       }}
       onValuesChange={handleValuesChange}
       className="lg:p-10 p-5 bg-dark2/10"
+      onFinish={() =>
+        currentStep === sections.length - 1
+          ? handleUpdateButton("create")
+          : handleUpdateButton("next")
+      }
     >
       <DashboardHeader
         title="Create Property"
@@ -564,7 +652,7 @@ const CreateProperty = () => {
             className="bg-blue-500 text-white"
             type="primary"
             size="large"
-            onClick={handleNextStep}
+            // onClick={() => handleUpdateButton("next")}
             htmlType="submit"
           >
             Next
@@ -575,8 +663,9 @@ const CreateProperty = () => {
             className="bg-blue-500 text-white"
             type="primary"
             size="large"
+            htmlType="submit"
             // disabled={!(user.phone && user.address)}
-            onClick={handleUpdateButton}
+            // onClick={() => handleUpdateButton("create")}
           >
             Create
           </Button>

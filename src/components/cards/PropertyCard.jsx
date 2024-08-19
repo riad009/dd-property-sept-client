@@ -39,7 +39,7 @@ const PropertyCard = ({ property }) => {
               starting from
             </span>
           </h1>
-          {propertyType !== "Land" && (
+          {propertyType !== "land" && (
             <div className="flex gap-5 my-3">
               <div>
                 <p className="flex items-center gap-2 text-sm text-dark font-[500]">

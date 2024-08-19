@@ -56,7 +56,6 @@ const AutocompleteInput = ({
         autoComplete="off"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        required
       />
     </Autocomplete>
   );

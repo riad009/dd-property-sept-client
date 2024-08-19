@@ -26,7 +26,7 @@ const MoreDetails = ({ property }) => {
                   {property.province}, {property.location},{property.city}
                 </div>
 
-                {property?.propertyType !== "Land" && (
+                {property?.propertyType !== "land" && (
                   <div className="mb-4">
                     <span className="font-semibold">Bedrooms:</span>{" "}
                     {property.bedrooms} |{" "}
@@ -38,10 +38,26 @@ const MoreDetails = ({ property }) => {
               <div>
                 <div className="mb-4">
                   <span className="font-semibold">Price:</span>{" "}
-                  {property.listingType === "forRent"
-                    ? `${property.dailyPrice} Daily, ${property.monthlyPrice} monthly, ${property.yearlyPrice} yearly,`
-                    : property.price}
-                  THB
+                  {property.listingType === "forRent" ? (
+                    <>
+                      {property.dailyPrice && `${property.dailyPrice} Daily`}
+                      {property.dailyPrice &&
+                        (property.monthlyPrice || property.yearlyPrice) &&
+                        ", "}
+                      {property.monthlyPrice &&
+                        `${property.monthlyPrice} Monthly`}
+                      {property.monthlyPrice && property.yearlyPrice && ", "}
+                      {property.yearlyPrice && `${property.yearlyPrice} Yearly`}
+                    </>
+                  ) : (
+                    property.price
+                  )}
+                  {property.price ||
+                  property.dailyPrice ||
+                  property.monthlyPrice ||
+                  property.yearlyPrice
+                    ? " THB"
+                    : ""}
                 </div>
                 {/* <div className="mb-4">
                   <span className="font-semibold">Price Type:</span>{" "}

@@ -15,10 +15,10 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
-import LocationMap from "../../components/Steps/LocationMap";
-import MapLoaction from "../../components/Steps/MapLoaction";
+
 import AutocompleteInput from "../../components/Steps/AutoCompleate";
 import { defaultProperType } from "../../constants/footerItem";
+import MapLocation from "../../components/Steps/MapLocation";
 
 const { Option } = Select;
 
@@ -262,7 +262,7 @@ const UpdateProperty = () => {
             </Col>
           </Row>
           <div>
-            <MapLoaction location={selectedLocation} setMap={setMap} />
+            <MapLocation location={selectedLocation} setMap={setMap} />
           </div>
         </div>
       ),
@@ -286,6 +286,7 @@ const UpdateProperty = () => {
               onChange={handleListingTypeChange}
               style={{ display: "flex", gap: "10px" }}
               required
+              disabled
             >
               <Radio.Button value="forSale">For Sale</Radio.Button>
               <Radio.Button value="forRent">For Rent</Radio.Button>
@@ -312,43 +313,78 @@ const UpdateProperty = () => {
           </Form.Item>
 
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Price (THB)"
-                name="price"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              {listingType === "forSale" || staticPropertyType === "land" ? (
-                <Form.Item
-                  label="Price Type"
-                  name="priceType"
-                  rules={[{ required: true }]}
-                >
-                  <Input size="large" disabled defaultValue={"THB"} />
-                </Form.Item>
-              ) : (
-                <Form.Item
-                  label="Rent Duration"
-                  name="rentDuration"
-                  rules={[{ required: true }]}
-                >
-                  <Select size="large" placeholder="Select Type" required>
-                    <Option value="Daily">Daily</Option>
-                    <Option value="Monthly">Monthly</Option>
-                    <Option value="Yearly">Yearly</Option>
-                  </Select>
-                </Form.Item>
-              )}
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            {staticPropertyType === "land" ? (
-              <></>
+            {listingType === "forRent" ? (
+              <>
+                {propertyType !== "land" && (
+                  <Col xs={24} sm={12}>
+                    <Form.Item
+                      label="Daily Price (THB)"
+                      name="dailyPrice"
+                      rules={[
+                        {
+                          required:
+                            staticPropertyType.dailyPrice ||
+                            staticPropertyType.yearlyPrice ||
+                            staticPropertyType.monthlyPrice
+                              ? false
+                              : true,
+                        },
+                      ]}
+                    >
+                      <Input size="large" />
+                    </Form.Item>
+                  </Col>
+                )}
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Monthly Price (THB)"
+                    name="monthlyPrice"
+                    rules={[
+                      {
+                        required:
+                          staticPropertyType.dailyPrice ||
+                          staticPropertyType.yearlyPrice ||
+                          staticPropertyType.monthlyPrice
+                            ? false
+                            : true,
+                      },
+                    ]}
+                  >
+                    <Input size="large" />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Yearly Price (THB)"
+                    name="yearlyPrice"
+                    rules={[
+                      {
+                        required:
+                          staticPropertyType.dailyPrice ||
+                          staticPropertyType.yearlyPrice ||
+                          staticPropertyType.monthlyPrice
+                            ? false
+                            : true,
+                      },
+                    ]}
+                  >
+                    <Input size="large" />
+                  </Form.Item>
+                </Col>
+              </>
             ) : (
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  label="Price (THB)"
+                  name="price"
+                  rules={[{ required: true }]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
+            )}
+
+            {staticPropertyType !== "land" && (
               <>
                 <Col xs={24} sm={12}>
                   <Form.Item
@@ -378,44 +414,27 @@ const UpdateProperty = () => {
                 </Col>
               </>
             )}
-          </Row>
-          <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item
-                label="Land Size m²"
+                label={
+                  listingType === "forRent" && staticPropertyType === "land"
+                    ? "Land Size m²"
+                    : "House Size m²"
+                }
                 name="size"
                 rules={[{ required: true }]}
               >
-                <Input size="large" required />
+                <Input size="large" />
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Floor Size"
-                name="floorSize"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Reference Note"
-                name="referenceNote"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" required />
-              </Form.Item>
-            </Col>
+
             <Col xs={24} sm={12}>
               <Form.Item
                 label="Headline"
                 name="headline"
                 rules={[{ required: true }]}
               >
-                <Input size="large" required />
+                <Input size="large" />
               </Form.Item>
             </Col>
           </Row>

@@ -6,8 +6,7 @@ import axios from "axios";
 import { useUserContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import ToggleButton from "../../components/Home-components/ToggleButton";
-import { footer1Items } from './../../constants/footerItem';
-
+import { footer1Items } from "./../../constants/footerItem";
 
 const SearchLocation = () => {
   const {
@@ -77,8 +76,8 @@ const SearchLocation = () => {
     setValue(e.target.value);
   };
 
-  // eslint-disable-next-line 
-  const checkBoxHandler = (checkedValues) => { };
+  // eslint-disable-next-line
+  const checkBoxHandler = (checkedValues) => {};
 
   const price = { maxprice, minprice };
 
@@ -94,7 +93,6 @@ const SearchLocation = () => {
   };
 
   // Search start
-
 
   const handleClickOutside = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -180,12 +178,11 @@ const SearchLocation = () => {
                 return (
                   <li
                     key={index}
-
                     className="hover:bg-gray-100 text-gray-500 flex items-center p-4 border-b border-solid border-gray-300 cursor-pointer text-black"
                     onClick={() => {
                       setSearch(suggestion?.district);
                       setCity(suggestion?.city);
-                      handleSearch()
+                      handleSearch();
                       setIsActive(false); // Close the suggestions after selecting a city
                     }}
                   >
@@ -271,8 +268,10 @@ const SearchLocation = () => {
           closeAllDropdowns={closeAllDropdowns}
         />
         {/* Footer 3 */}
-        {
-          value === "Land" ? <></> : <BedroomDropdown
+        {value === "land" ? (
+          <></>
+        ) : (
+          <BedroomDropdown
             bedRoomSizes={bedRoomSizes}
             bedroomsSelected={bedroomsSelected}
             footer3Handler={footer3Handler}
@@ -281,7 +280,7 @@ const SearchLocation = () => {
             setBedroomsSelected={setBedroomsSelected}
             closeAllDropdowns={closeAllDropdowns}
           />
-        }
+        )}
       </div>
     </div>
   );

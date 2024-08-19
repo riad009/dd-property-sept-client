@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import MoreDetails from "./MoreDetails";
 import VideoSection from "./VideoSection";
-import MapLocation from "../../components/Steps/MapLoaction";
+import MapLocation from "../../components/Steps/MapLocation";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -92,10 +92,12 @@ const SingleProperty = () => {
     : { lat: 0, lng: 0 };
   return (
     <div>
-      <div style={{
-        marginLeft: "15px",
-        marginRight: "15px"
-      }}>
+      <div
+        style={{
+          marginLeft: "15px",
+          marginRight: "15px",
+        }}
+      >
         <Banner
           p={property}
           breadCrumbItems={breadCrumbItems}
@@ -124,7 +126,7 @@ const SingleProperty = () => {
           </div>
         </div>
         {/* <HomeFinance /> */}
-        <MapLocation location={loc} setMap={() => { }} />
+        <MapLocation location={loc} setMap={() => {}} />
         {/* <Location lat={loc?.lat} lng={loc?.lng} /> */}
         {property?.isVerified && <ContactDeveloper property={property} />}
       </SmallContainer>

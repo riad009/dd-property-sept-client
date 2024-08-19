@@ -16,25 +16,26 @@ const Overview = ({ property }) => {
       <h1 className="text-2xl mb-5">Overview</h1>
       {/* Cost */}
       <div className="flex gap-5">
-        {property.price && (
+        {property.price ? (
           <div>
             <p className="text-sm text-dark2">Start</p>
             <p className="text-sm text-dark font-[500]">฿{property.price}</p>
           </div>
+        ) : (
+          <div>
+            <p className="text-sm text-dark2">Start</p>
+            <p className="text-sm text-dark font-[500]">
+              ฿
+              {property.dailyPrice ||
+                property.monthlyPrice ||
+                property.yearlyPrice}
+            </p>
+          </div>
         )}
-        <Divider type="vertical h-10" />
-        <div>
-          <p className="text-sm text-dark2">Estimated Monthly Installments</p>
-          <p className="text-sm text-dark font-[500]">
-            {/* ฿{property.price} */}
-            {/* <TextRed to="#">See More Details</TextRed> */}
-            N/A
-          </p>
-        </div>
       </div>
       <Divider />
       {/* Room Details */}
-      {property?.propertyType !== "Land" && (
+      {property?.propertyType !== "land" ? (
         <div className="flex gap-5 mb-2">
           <div>
             <p className="text-sm text-dark2">Bedroom</p>
@@ -48,20 +49,18 @@ const Overview = ({ property }) => {
               <GiBathtub className="text-xl" /> {property.bathrooms}
             </p>
           </div>
-          {/* <div>
-            <p className="text-sm text-dark2">Maidrooms</p>
-            <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-              <MdRoomService className="text-xl" /> {property.maidrooms}
-            </p>
-          </div> */}
+
           <div>
-            <p className="text-sm text-dark2">Floor Position</p>
+            <p className="text-sm text-dark2">House Size</p>
             <p className="flex items-center gap-2 text-sm text-dark font-[500]">
-              <RiCommunityFill className="text-xl" /> {property.floorSize}
+              <MdFormatSize className="text-xl" /> {property.size}
             </p>
           </div>
+        </div>
+      ) : (
+        <div className="flex gap-5 mb-2">
           <div>
-            <p className="text-sm text-dark2">Floor Size</p>
+            <p className="text-sm text-dark2">Land Size</p>
             <p className="flex items-center gap-2 text-sm text-dark font-[500]">
               <MdFormatSize className="text-xl" /> {property.size}
             </p>
