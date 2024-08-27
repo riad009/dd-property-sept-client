@@ -268,31 +268,47 @@ const CreateProperty = () => {
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item
-            label="Property Type"
-            name="propertyType"
-            rules={[{ required: true }]}
-          >
-            <Select
-              size="large"
-              placeholder="Select Property Type"
-              value={propertyType}
-              onChange={handlePropertyTypeChange}
-              required
-            >
-              {defaultProperType.map((type) => (
-                <Option key={type} value={type}>
-                  {type}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Property Type"
+                name="propertyType"
+                rules={[{ required: true }]}
+              >
+                <Select
+                  size="large"
+                  placeholder="Select Property Type"
+                  value={propertyType}
+                  onChange={handlePropertyTypeChange}
+                  required
+                >
+                  {defaultProperType.map((type) => (
+                    <Option key={type} value={type}>
+                      {type}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Headline"
+                name="headline"
+                rules={[{ required: true }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+            </Col>
+          </Row>
 
+          {listingType === "forRent" && (
+            <p className="pb-1">Please provide atleast one price</p>
+          )}
           <Row gutter={16}>
             {listingType === "forRent" ? (
               <>
                 {propertyType !== "land" && (
-                  <Col xs={24} sm={12}>
+                  <Col xs={24} sm={8}>
                     <Form.Item
                       label="Daily Price (THB)"
                       name="dailyPrice"
@@ -316,7 +332,7 @@ const CreateProperty = () => {
                     </Form.Item>
                   </Col>
                 )}
-                <Col xs={24} sm={12}>
+                <Col xs={24} sm={8}>
                   <Form.Item
                     label="Monthly Price (THB)"
                     name="monthlyPrice"
@@ -339,7 +355,7 @@ const CreateProperty = () => {
                     />
                   </Form.Item>
                 </Col>
-                <Col xs={24} sm={12}>
+                <Col xs={24} sm={8}>
                   <Form.Item
                     label="Yearly Price (THB)"
                     name="yearlyPrice"
@@ -364,7 +380,7 @@ const CreateProperty = () => {
                 </Col>
               </>
             ) : (
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={8}>
                 <Form.Item
                   label="Price (THB)"
                   name="price"
@@ -377,7 +393,7 @@ const CreateProperty = () => {
 
             {propertyType !== "land" && (
               <>
-                <Col xs={24} sm={12}>
+                <Col xs={24} sm={8}>
                   <Form.Item
                     label="Bedrooms"
                     name="bedrooms"
@@ -390,7 +406,7 @@ const CreateProperty = () => {
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col xs={24} sm={12}>
+                <Col xs={24} sm={8}>
                   <Form.Item
                     label="Bathrooms"
                     name="bathrooms"
@@ -405,24 +421,15 @@ const CreateProperty = () => {
                 </Col>
               </>
             )}
-            <Col xs={24} sm={12}>
+            <Col xs={24} sm={8}>
               <Form.Item
                 label={
-                  listingType === "forRent" && propertyType === "land"
+                  (listingType === "forRent" || listingType === "forSale") &&
+                  propertyType === "land"
                     ? "Land Size m²"
                     : "House Size m²"
                 }
                 name="size"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" />
-              </Form.Item>
-            </Col>
-
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Headline"
-                name="headline"
                 rules={[{ required: true }]}
               >
                 <Input size="large" />
@@ -527,7 +534,7 @@ const CreateProperty = () => {
                 type: "url",
                 message: "Please enter a valid URL",
               },
-              { required: true },
+              { required: false },
             ]}
           >
             <Input placeholder="Provide a video link from YouTube" />

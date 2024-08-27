@@ -11,6 +11,16 @@ import {
 } from "../../providers/AuthProvider";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import moment from "moment";
+
+function formatDate(createdAt) {
+  const date = new Date(createdAt);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+  const year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
+}
 
 const MyProperties = () => {
   const { user } = useContext(AuthContext);
@@ -19,7 +29,7 @@ const MyProperties = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  const [value, setValue] = useState("Property");
+  const [value, setValue] = useState("All properties");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +97,7 @@ const MyProperties = () => {
 
         <div className="flex gap-4 text-sm">
           <Segmented
-            options={["Property", "Land"]}
+            options={["All properties", "land"]}
             value={value}
             onChange={setValue}
           />
@@ -96,19 +106,19 @@ const MyProperties = () => {
       <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">
           <th className="p-2">Image</th>
-          <th className="p-2">Headline</th>
+          <th className="p-2">Property name</th>
           <th className="p-2">Property Type</th>
           <th className="p-2">Date published</th>
+          <th className="p-2">Province</th>
+          <th className="p-2">City</th>
           <th className="p-2">Location</th>
+          <th className="p-2">Status</th>
           {/* <th className="p-2">Price</th> */}
           {/* <th className="p-2">View</th> */}
           <th className="p-2">Action</th>
         </tr>
 
-        {currentItems?.map((p) => {
-          const date = new Date(p.date);
-          const options = { year: "numeric", month: "long", day: "numeric" };
-          const formattedDate = date.toLocaleDateString("en-US", options);
+        {currentItems?.reverse()?.map((p) => {
           return (
             <tr key={p.email} className="border">
               <td className="p-2">
@@ -123,8 +133,19 @@ const MyProperties = () => {
 
               <td className="p-2">{p.propertyName}</td>
               <td className="p-2">{p.propertyType}</td>
-              <td className="p-2">{formattedDate}</td>
+              <td className="p-2">{moment(p.date).format("DD.MM.YYYY")}</td>
+              <td className="p-2">{p.province}</td>
+              <td className="p-2">{p.city}</td>
               <td className="p-2">{p.location}</td>
+              <td className="p-2">
+                {p.isVerified ? (
+                  <button className="font-bold text-green-600">Verified</button>
+                ) : (
+                  <button className="font-bold text-red-600">
+                    Not verified
+                  </button>
+                )}
+              </td>
               {/* <td className="p-2">{p.price} THB</td> */}
 
               <td>
