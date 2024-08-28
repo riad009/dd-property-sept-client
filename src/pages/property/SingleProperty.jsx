@@ -21,6 +21,7 @@ import { useState } from "react";
 import MoreDetails from "./MoreDetails";
 import VideoSection from "./VideoSection";
 import MapLocation from "../../components/Steps/MapLocation";
+import Amenities from "./Amenities";
 
 const SingleProperty = () => {
   const { projectName } = useParams();
@@ -114,8 +115,9 @@ const SingleProperty = () => {
           <div className="flex-1">
             <OverviewSection property={property} />
             <MoreDetails property={property}></MoreDetails>
+            {property?.amenities && <Amenities property={property} />}
             {/* <AvailableUnitSection p={property} images={images} /> */}
-            <VideoSection property={property} />
+            {property?.video && <VideoSection property={property} />}
             {/* <Facilities property={property} /> */}
           </div>
           <div>

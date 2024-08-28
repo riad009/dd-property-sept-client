@@ -168,6 +168,38 @@ const CreateProperty = () => {
     console.log("propertyType", value);
     setPropertyType(value);
   };
+
+  const amenities = [
+    {
+      label: "Air Conditioning",
+      value: "Air Conditioning",
+    },
+    {
+      label: "Balcony",
+      value: "Balcony",
+    },
+    {
+      label: "Dining Room Furniture",
+      value: "Dining Room Furniture",
+    },
+    {
+      label: "Fridge",
+      value: "Fridge",
+    },
+    {
+      label: "Penthouse",
+      value: "Penthouse",
+    },
+    {
+      label: "Renovated",
+      value: "Renovated",
+    },
+    {
+      label: "Television",
+      value: "Television",
+    },
+  ];
+
   const sections = [
     {
       title: "Create Location",
@@ -269,7 +301,7 @@ const CreateProperty = () => {
           </Form.Item>
 
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
+            <Col xs={24} sm={24}>
               <Form.Item
                 label="Property Type"
                 name="propertyType"
@@ -288,15 +320,6 @@ const CreateProperty = () => {
                     </Option>
                   ))}
                 </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Headline"
-                name="headline"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" />
               </Form.Item>
             </Col>
           </Row>
@@ -435,19 +458,47 @@ const CreateProperty = () => {
                 <Input size="large" />
               </Form.Item>
             </Col>
-          </Row>
 
-          <Row gutter={16}>
-            {/* <Col xs={24} sm={12}>
+            {propertyType !== "land" && (
+              <Col xs={24} sm={8}>
+                <Form.Item
+                  label="Amenities"
+                  name="amenities"
+                  rules={[{ required: true }]}
+                >
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    size="large"
+                    placeholder="Please select"
+                    options={amenities}
+                  />
+                </Form.Item>
+              </Col>
+            )}
+
+            <Col xs={24} sm={8}>
               <Form.Item
-                label="Reference Note"
-                name="referenceNote"
+                label="Headline"
+                name="headline"
                 rules={[{ required: true }]}
               >
-                <Input size="large"  />
+                <Input size="large" type="text" />
               </Form.Item>
-            </Col> */}
+            </Col>
           </Row>
+
+          {/* <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                label="Headline"
+                name="headline"
+                rules={[{ required: true }]}
+              >
+                <Input size="large" type="text" />
+              </Form.Item>
+            </Col>
+          </Row> */}
           <Row gutter={16}>
             <Col xs={24}>
               <Form.Item

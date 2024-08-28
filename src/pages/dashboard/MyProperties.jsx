@@ -95,13 +95,13 @@ const MyProperties = () => {
           description={"We are glad to see you again"}
         />
 
-        <div className="flex gap-4 text-sm">
+        {/* <div className="flex gap-4 text-sm">
           <Segmented
             options={["All properties", "land"]}
             value={value}
             onChange={setValue}
           />
-        </div>
+        </div> */}
       </div>
       <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">

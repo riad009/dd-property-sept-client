@@ -22,6 +22,37 @@ import MapLocation from "../../components/Steps/MapLocation";
 
 const { Option } = Select;
 
+const amenitiesData = [
+  {
+    label: "Air Conditioning",
+    value: "Air Conditioning",
+  },
+  {
+    label: "Balcony",
+    value: "Balcony",
+  },
+  {
+    label: "Dining Room Furniture",
+    value: "Dining Room Furniture",
+  },
+  {
+    label: "Fridge",
+    value: "Fridge",
+  },
+  {
+    label: "Penthouse",
+    value: "Penthouse",
+  },
+  {
+    label: "Renovated",
+    value: "Renovated",
+  },
+  {
+    label: "Television",
+    value: "Television",
+  },
+];
+
 const UpdateProperty = () => {
   const [form] = Form.useForm();
   const [propertyData, setPropertyData] = useState({});
@@ -184,6 +215,7 @@ const UpdateProperty = () => {
     contactNumber,
     contactAddress,
     priceType,
+    amenities,
   } = propertyData;
 
   const cover = coverImage.map((url, index) => ({
@@ -417,7 +449,8 @@ const UpdateProperty = () => {
             <Col xs={24} sm={12}>
               <Form.Item
                 label={
-                  listingType === "forRent" && staticPropertyType === "land"
+                  (listingType === "forRent" || listingType === "forSale") &&
+                  staticPropertyType === "land"
                     ? "Land Size m²"
                     : "House Size m²"
                 }
@@ -427,6 +460,20 @@ const UpdateProperty = () => {
                 <Input size="large" />
               </Form.Item>
             </Col>
+
+            {propertyType !== "land" && (
+              <Col xs={24} sm={12}>
+                <Form.Item label="Amenities" name="amenities">
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    size="large"
+                    placeholder="Please select"
+                    options={amenitiesData}
+                  />
+                </Form.Item>
+              </Col>
+            )}
 
             <Col xs={24} sm={12}>
               <Form.Item
@@ -609,6 +656,7 @@ const UpdateProperty = () => {
         rentDuration,
         priceType,
         propertyType,
+        amenities,
       }}
       onValuesChange={handleValuesChange}
       className="lg:p-10 p-5 bg-dark2/10"
