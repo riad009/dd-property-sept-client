@@ -12,6 +12,8 @@ import {
   MdVerifiedUser,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useContext } from "react";
 
 const sidebarItems = {
   main: [
@@ -76,7 +78,7 @@ const sidebarItems = {
       route: "Manage Properties",
       path: "manage-properties",
       icon: <MdHome />,
-      role: "user",
+      role: "admin",
     },
     {
       id: 6,
@@ -99,20 +101,20 @@ const sidebarItems = {
         },
       ],
     },
-    {
-      id: 7,
-      route: "My Favorites",
-      path: "my-favorites",
-      icon: <MdFavorite />,
-      role: "user",
-    },
-    {
-      id: 8,
-      route: "Saved Search",
-      path: "saved-search",
-      icon: <MdSearch />,
-      role: "user",
-    },
+    // {
+    //   id: 7,
+    //   route: "My Favorites",
+    //   path: "my-favorites",
+    //   icon: <MdFavorite />,
+    //   role: "user",
+    // },
+    // {
+    //   id: 8,
+    //   route: "Saved Search",
+    //   path: "saved-search",
+    //   icon: <MdSearch />,
+    //   role: "user",
+    // },
   ],
   manageAccount: [
     {
@@ -139,6 +141,8 @@ const sidebarItems = {
 };
 
 const Sidebar = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="fixed lg:w-80 md:w-56 w-12 bg-slate-950 h-screen text-white">
       <div className="h-20 flex items-center justify-center bg-slate-800">
@@ -162,16 +166,19 @@ const Sidebar = () => {
           Manage Listings
         </h1>
         <div className="flex flex-col gap-2">
-          {sidebarItems.manageListings.map((item) => (
-            <Link
-              className="flex p-3 gap-2 hover:bg-slate-800 items-center"
-              to={item.path}
-              key={item.id}
-            >
-              <div>{item.icon}</div>
-              <div className="hidden md:inline">{item.route}</div>
-            </Link>
-          ))}
+          {sidebarItems.manageListings.map(
+            (item) =>
+              item.role === user?.role && (
+                <Link
+                  className="flex p-3 gap-2 hover:bg-slate-800 items-center"
+                  to={item.path}
+                  key={item.id}
+                >
+                  <div>{item.icon}</div>
+                  <div className="hidden md:inline">{item.route}</div>
+                </Link>
+              )
+          )}
         </div>
         <h1 className="hidden md:block mt-10 mb-2 text-dark3/50">
           Manage Account

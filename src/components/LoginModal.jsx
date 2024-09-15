@@ -46,6 +46,7 @@ const LoginModal = ({ handleCancel, isModalOpen, setIsOpenRegiser }) => {
           setUserRefetch(!userRefetch);
           setError();
           setTimeout(() => {
+            navigate("/dashboard");
             handleCancel();
             setLoading(false);
           }, 1000);
@@ -73,6 +74,7 @@ const LoginModal = ({ handleCancel, isModalOpen, setIsOpenRegiser }) => {
         setTimeout(() => {
           handleCancel();
           setLoading(false);
+          navigate("/dashboard");
         }, 1000);
       }
     } catch (error) {

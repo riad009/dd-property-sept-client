@@ -56,6 +56,14 @@ const Overview = ({ property }) => {
               <MdFormatSize className="text-xl" /> {property.size}
             </p>
           </div>
+          {property?.floorSize && (
+            <div>
+              <p className="text-sm text-dark2">Floor Size</p>
+              <p className="flex items-center gap-2 text-sm text-dark font-[500]">
+                <MdFormatSize className="text-xl" /> {property.floorSize}
+              </p>
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex gap-5 mb-2">

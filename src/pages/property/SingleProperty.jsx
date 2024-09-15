@@ -115,6 +115,7 @@ const SingleProperty = () => {
           <div className="flex-1">
             <OverviewSection property={property} />
             <MoreDetails property={property}></MoreDetails>
+            {console.log(property?.amenities)}
             {property?.amenities && <Amenities property={property} />}
             {/* <AvailableUnitSection p={property} images={images} /> */}
             {property?.video && <VideoSection property={property} />}

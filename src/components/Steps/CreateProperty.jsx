@@ -31,7 +31,7 @@ const CreateProperty = () => {
   const [prices, setPrices] = useState({});
   const [savedFormValues, setSavedFormValues] = useState({});
   const [listingType, setListingType] = useState("forSale");
-  const [propertyType, setPropertyType] = useState("");
+  const [propertyType, setPropertyType] = useState("condo");
   const [map, setMap] = useState(null);
   const [draggedData, setDraggedData] = useState({});
   const [selectedLocation, setSelectedLocation] = useState({
@@ -81,9 +81,15 @@ const CreateProperty = () => {
       }));
       setCurrentStep(currentStep + 1);
     } else {
+      if (fileList?.length < 5) {
+        return alert("Upload atleast 5 images!");
+      }
+
       setIsLoading(true);
       // Collect form values
       const values = { ...savedFormValues, ...form.getFieldsValue() };
+
+      console.log({ values });
 
       const formData = new FormData();
 
@@ -126,7 +132,7 @@ const CreateProperty = () => {
           setIsLoading(false);
           // alert(res.data.message);
           navigate("/dashboard/my-properties");
-          formData.reset();
+          // formData.reset();
 
           setCurrentStep(0);
         }
@@ -135,7 +141,7 @@ const CreateProperty = () => {
           "Error creating property:",
           error.response || error.message
         );
-        formData.reset();
+        // formData.reset();
         setIsLoading(false);
         alert("Error creating property. Please try again."); // Show error message
       }
@@ -168,6 +174,8 @@ const CreateProperty = () => {
     console.log("propertyType", value);
     setPropertyType(value);
   };
+
+  console.log({ fileList });
 
   const amenities = [
     {
@@ -458,6 +466,26 @@ const CreateProperty = () => {
                 <Input size="large" />
               </Form.Item>
             </Col>
+            {(propertyType === "apartment" ||
+              propertyType === "condo" ||
+              propertyType === "hotel") && (
+              <Col xs={24} sm={8}>
+                <Form.Item
+                  label="Floor size"
+                  name="floorSize"
+                  rules={[{ required: true }]}
+                >
+                  <Select
+                    size="large"
+                    placeholder="Please select"
+                    options={Array.from({ length: 60 }, (_, i) => ({
+                      value: i + 1,
+                      label: `${i + 1}`,
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
+            )}
 
             {propertyType !== "land" && (
               <Col xs={24} sm={8}>
@@ -517,7 +545,7 @@ const CreateProperty = () => {
       title: "Create Media",
       content: (
         <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">Update Listing: Media</h1>
+          <h1 className="mb-5 font-semibold text-2xl">Create Listing: Media</h1>
           <Form.Item label="Add Photos">
             <Upload
               listType="picture-card"
@@ -665,6 +693,7 @@ const CreateProperty = () => {
     <Form
       form={form}
       layout="vertical"
+      autoComplete="none"
       initialValues={{
         // contactName: user?.name || "",
         // contactEmail: user?.email || "",

@@ -11,9 +11,9 @@ const SectionHeader = ({ title, clickEvent, newItem }) => {
           </span>
         )}
       </h1>
-      <p className="sm:flex hidden items-center text-danger text-sm">
+      {/* <p className="sm:flex hidden items-center text-danger text-sm">
         View More <BiChevronRight className="text-xl" />
-      </p>
+      </p> */}
     </div>
   );
 };

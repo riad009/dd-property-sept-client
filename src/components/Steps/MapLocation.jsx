@@ -92,7 +92,7 @@ const MapLocation = ({ location, setMap, onPlaceChanged, setDraggedData }) => {
           >
             <MarkerF
               position={location}
-              draggable={true}
+              draggable={setDraggedData ? true : false}
               onDragEnd={onMarkerDragEnd}
               options={{
                 icon: {

@@ -23,7 +23,7 @@ const CardOne = ({
         <img
           src={property?.coverImage}
           alt="card_image"
-          className={`${shadow && "rounded-t"}`}
+          className={`${shadow && "rounded-t"} object-cover`}
           style={{ height: "200px", width: "300px" }} // Adjust the height and width as needed
         />
 

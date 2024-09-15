@@ -1,17 +1,23 @@
 import ImageViewer from "react-simple-image-viewer";
 import SmallContainer from "../../shared/SmallContainer";
-import { Breadcrumb, Divider, Tooltip } from "antd";
+import { Breadcrumb, Col, Divider, Row, Tooltip } from "antd";
 import { CiCircleChevRight, CiTwitter } from "react-icons/ci";
-import {
-  MdFacebook,
-  MdOutlinePendingActions,
-  MdVerified,
-} from "react-icons/md";
-import { PiHeart, PiShareFatThin } from "react-icons/pi";
-import { Slide } from "react-slideshow-image";
-import thumb from "../../assets/singleProjectThumb.jpg";
+import { MdOutlinePendingActions, MdVerified } from "react-icons/md";
+
 import { useCallback, useState } from "react";
-import Share from "../../components/Share";
+
+import { Carousel } from "antd";
+const contentStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+  maxHeight: "350px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
 
 const Details = ({ children, icon }) => (
   <p className="font-semibold flex items-center gap-x-2 gap-y-20">
@@ -33,67 +39,53 @@ const Banner = ({ breadCrumbItems, images, p, coverImage }) => {
     setIsViewerOpen(false);
   };
 
+  const slides = [];
+
+  // Group images into sets of 4
+  for (let i = 0; i < images.length; i += 4) {
+    slides.push(
+      <div key={i}>
+        <Row gutter={16}>
+          {images.slice(i, i + 4).map((image, index) => (
+            <Col span={6} key={index}>
+              <div style={contentStyle}>
+                <img
+                  onClick={() => openImageViewer(index)}
+                  src={image}
+                  alt={`slide-${i + index}`}
+                  className="object-cover"
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="max-w-[1800px] mx-auto">
       <SmallContainer extraClasses="p-5">
         <Breadcrumb separator=">" items={breadCrumbItems} />
 
         <div className="sm:flex items-start justify-between text-xs sm:my-5 my-2"></div>
       </SmallContainer>
 
-      <div className="slide-container" style={{ textAlign: images.length === 1 ? 'center' : 'left' }}>
-        <Slide
-          slidesToScroll={1}
-          slidesToShow={1}
-          indicators={true}
-          duration={100}
-          autoplay={false}
-          infinite={false}
-          responsive={[
-            {
-              breakpoint: 1366,
-              settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4,
-              },
-            },
-            {
-              breakpoint: 500,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-              },
-            },
-          ]}
+      {images?.length > 0 ? (
+        <Carousel
+          // arrows
+          infinite={true}
+          autoplay
+          draggable
+          autoplaySpeed={2000}
+          className="cursor-grab "
         >
-          {coverImage && <img
-            src={coverImage}
-            onClick={() => openImageViewer(0)}
-            alt="cover-Image"
-            className="cursor-pointer"
-            style={{
-              width: "432px",
-              height: "325px",
-              objectFit: "cover",
-              margin: '0 auto' 
-            }}
-          />}
-          {images?.map((item, index) => (
-            <img
-              onClick={() => openImageViewer(index)}
-              key={index}
-              src={item}
-              className="cursor-pointer"
-              style={{
-                width: "432px",
-                height: "325px",
-                objectFit: "cover",
-                margin: '0 auto'  
-              }}
-            />
-          ))}
-        </Slide>
-      </div>
+          {slides}
+        </Carousel>
+      ) : (
+        <p className="text-center">No images</p>
+      )}
 
       <SmallContainer extraClasses="p-2">
         <div className="sm:flex gap-5 justify-between text-justify">
@@ -116,6 +108,10 @@ const Banner = ({ breadCrumbItems, images, p, coverImage }) => {
 
       {isViewerOpen && (
         <ImageViewer
+          backgroundStyle={{
+            // position: "relative",
+            zIndex: "100",
+          }}
           src={images.map((img) => img)}
           currentIndex={currentImage}
           disableScroll={false}

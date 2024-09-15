@@ -65,7 +65,7 @@ const UpdateProperty = () => {
   const [staticPropertyType, setStaticPropertyType] = useState();
   const [selectedLocation, setSelectedLocation] = useState({});
   const { id } = useParams();
-
+  const [draggedData, setDraggedData] = useState({});
   const fetchPropertyData = async () => {
     setIsLoading(true);
     try {
@@ -259,10 +259,16 @@ const UpdateProperty = () => {
                 rules={[{ required: true }]}
               >
                 <AutocompleteInput
-                  prefilledValue={province}
+                  // prefilledValue={province}
                   name="province"
                   onPlaceChanged={handlePlaceChanged}
                   placeholder="Please Enter province"
+                  prefilledValue={
+                    draggedData.province ||
+                    savedFormValues?.province ||
+                    province ||
+                    ""
+                  }
                 />
               </Form.Item>
             </Col>
@@ -271,7 +277,10 @@ const UpdateProperty = () => {
             <Col xs={24} sm={12}>
               <Form.Item label="City" name="city" rules={[{ required: true }]}>
                 <AutocompleteInput
-                  prefilledValue={city}
+                  // prefilledValue={city}
+                  prefilledValue={
+                    draggedData.city || savedFormValues?.city || city || ""
+                  }
                   name="city"
                   onPlaceChanged={handlePlaceChanged}
                   placeholder="Please Enter city"
@@ -285,7 +294,13 @@ const UpdateProperty = () => {
                 rules={[{ required: true }]}
               >
                 <AutocompleteInput
-                  prefilledValue={location}
+                  // prefilledValue={location}
+                  prefilledValue={
+                    draggedData.location ||
+                    savedFormValues?.location ||
+                    location ||
+                    ""
+                  }
                   name="location"
                   onPlaceChanged={handlePlaceChanged}
                   placeholder="Please Enter location"
@@ -294,7 +309,11 @@ const UpdateProperty = () => {
             </Col>
           </Row>
           <div>
-            <MapLocation location={selectedLocation} setMap={setMap} />
+            <MapLocation
+              location={selectedLocation}
+              setMap={setMap}
+              setDraggedData={setDraggedData}
+            />
           </div>
         </div>
       ),
@@ -460,6 +479,27 @@ const UpdateProperty = () => {
                 <Input size="large" />
               </Form.Item>
             </Col>
+
+            {(propertyType === "apartment" ||
+              propertyType === "condo" ||
+              propertyType === "hotel") && (
+              <Col xs={24} sm={12}>
+                <Form.Item
+                  label="Floor size"
+                  name="floorSize"
+                  rules={[{ required: true }]}
+                >
+                  <Select
+                    size="large"
+                    placeholder="Please select"
+                    options={Array.from({ length: 60 }, (_, i) => ({
+                      value: i + 1,
+                      label: `${i + 1}`,
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
+            )}
 
             {propertyType !== "land" && (
               <Col xs={24} sm={12}>

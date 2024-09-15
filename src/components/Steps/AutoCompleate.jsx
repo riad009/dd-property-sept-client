@@ -53,9 +53,12 @@ const AutocompleteInput = ({
       <Input
         size="large"
         placeholder={placeholder}
+        name={name}
         autoComplete="off"
+        role="presentation"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
+        // readOnly={true}
       />
     </Autocomplete>
   );

@@ -18,15 +18,12 @@ const ManageProperties = () => {
 
   const [data, setData] = useState([]);
 
-  const [value, setValue] = useState("Property");
   const [refetch, setrefetch] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${baseURL}/get/emailWise?type=${value.toLowerCase()}`
-        );
+        const response = await fetch(`${baseURL}/get/emailWise`);
         const result = await response.json();
 
         setData(result);
@@ -36,7 +33,7 @@ const ManageProperties = () => {
     };
 
     fetchData();
-  }, [user?.email, value, refetch]);
+  }, [user?.email, refetch]);
 
   const handleVerify = async (propertyId) => {
     try {
@@ -65,14 +62,6 @@ const ManageProperties = () => {
           title={"Manage Properties"}
           description={"We are glad to see you again"}
         />
-
-        <div className="flex gap-4 text-sm">
-          <Segmented
-            options={["Property", "Land"]}
-            value={value}
-            onChange={setValue}
-          />
-        </div>
       </div>
       <table className="md:w-full min-w-[600px] mt-5">
         <tr className="bg-dark text-white text-left">

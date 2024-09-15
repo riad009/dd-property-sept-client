@@ -26,6 +26,7 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
         setTimeout(() => {
           handleCancel();
           setLoading(false);
+          navigate("/dashboard");
         }, 1000);
       }
     } catch (error) {
