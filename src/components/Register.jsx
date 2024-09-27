@@ -46,9 +46,11 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
     >
       <div className='text-center p-5'>
         <Brand center />
-        <h1 className='my-4 font-semibold text-xl'>Welcome to DDproperty</h1>
+        <h1 className='my-4 font-semibold text-xl'>
+          Welcome to Thaiproperty4u
+        </h1>
         <p className='my-2 text-sm'>
-          Register up to get the most out of your DDproperty experience.
+          Register up to get the most out of your Thaiproperty4u experience.
         </p>
 
         <form onSubmit={handleSubmit} className='my-5 flex flex-col gap-2'>
@@ -89,7 +91,7 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
         <Divider />
 
         <p className='text-xs'>
-          I agree to DDproperty&apos;s Terms of Service and Privacy Policy
+          I agree to Thaiproperty4u&apos;s Terms of Service and Privacy Policy
           including the collection, use and disclosure of my personal
           information.
         </p>

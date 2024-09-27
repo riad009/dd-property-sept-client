@@ -133,9 +133,12 @@ const LoginModal = ({ handleCancel, isModalOpen, setIsOpenRegiser }) => {
     >
       <div className='text-center p-5'>
         <Brand center />
-        <h1 className='my-4 font-semibold text-xl'>Welcome to DDproperty</h1>
+        <h1 className='my-4 font-semibold text-xl'>
+          Welcome to Thaiproperty4u
+        </h1>
         <p className='my-2 text-sm'>
-          Log in or sign up to get the most out of your DDproperty experience.
+          Log in or sign up to get the most out of your Thaiproperty4u
+          experience.
         </p>
 
         <form onSubmit={handleSubmit} className='my-5 flex flex-col gap-2'>
@@ -215,7 +218,7 @@ const LoginModal = ({ handleCancel, isModalOpen, setIsOpenRegiser }) => {
         <Divider />
 
         <p className='text-xs'>
-          I agree to DDproperty&apos;s Terms of Service and Privacy Policy
+          I agree to Thaiproperty4u&apos;s Terms of Service and Privacy Policy
           including the collection, use and disclosure of my personal
           information.
         </p>

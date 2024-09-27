@@ -1,27 +1,27 @@
-import TextRed from "../components/TextRed";
-import SmallContainer from "../shared/SmallContainer";
+import TextRed from '../components/TextRed';
+import SmallContainer from '../shared/SmallContainer';
 
 const TermsCondition = () => {
   return (
-    <div className="p-20 text-justify">
-      <SmallContainer extraClasses="md:flex gap-5">
-        <div className="md:w-4/6">
-          <h1 className="text-3xl font-bold">Website Terms And Conditions</h1>
-          <p className="my-10 text-xs">
-            Welcome to the website DDproperty.com This website is created and
-            operated by All Property Media Company Limited registered in
+    <div className='p-20 text-justify'>
+      <SmallContainer extraClasses='md:flex gap-5'>
+        <div className='md:w-4/6'>
+          <h1 className='text-3xl font-bold'>Website Terms And Conditions</h1>
+          <p className='my-10 text-xs'>
+            Welcome to the website Thaiproperty4u.com This website is created
+            and operated by All Property Media Company Limited registered in
             Thailand. Visitors to this website are bound by the terms and
             conditions of this website. so please read these terms and
             conditions carefully before conducting any transactions on this
             website. and for the purpose In these terms and conditions, the term
-            "this website" means DDproperty.com. which may be connected with
-            other websites of our network and other third party websites. <br />{" "}
+            "this website" means Thaiproperty4u.com. which may be connected with
+            other websites of our network and other third party websites. <br />{' '}
             Please read the terms and conditions for using this website. to be
             thorough before accessing the website You accept these terms and
             conditions before using the website.
           </p>
           <h3>Use Of The Website</h3>
-          <p className="text-xs my-5">
+          <p className='text-xs my-5'>
             This website may change these terms and conditions from time to
             time. Therefore, visitors to this website You should always read the
             details. To help you always update the terms and conditions of
@@ -55,7 +55,7 @@ const TermsCondition = () => {
             permission is strictly prohibited.
           </p>
           <h1>About The Information On The Website</h1>
-          <div className="text-xs my-5">
+          <div className='text-xs my-5'>
             All Property Media Co., Ltd. uses reasonable efforts to collect
             information that is up to date, accurate at all times. However, All
             Property Media Co., Ltd. does not warrant or guarantee its accuracy.
@@ -64,7 +64,7 @@ const TermsCondition = () => {
             this website
           </div>
           <h1>Submission Of Information On The Website</h1>
-          <p className="text-xs my-5">
+          <p className='text-xs my-5'>
             All types of information that you submit to All Property Media Co.,
             Ltd. will be considered non-confidential information. and is not
             proprietary in any way Everything you send, publish or post
@@ -80,7 +80,7 @@ const TermsCondition = () => {
             Privacy Policy.
           </p>
           <h1>Links To Other Websites</h1>
-          <p className="text-xs my-5">
+          <p className='text-xs my-5'>
             This website may contain links to other websites. These links allow
             you to quickly and easily find related websites, services and/or
             products. We have no power to control. Make no representations as to
@@ -93,10 +93,10 @@ const TermsCondition = () => {
             damages in connection with the owner. or the operators of any
             website (including damages resulting from any alleged infringement
             All Property Media Co., Ltd. does not allow unauthorized links to be
-            placed on this website.{" "}
+            placed on this website.{' '}
           </p>
           <h1>DISCLAIMER AND LIMITATION OF LIABILITY</h1>
-          <p className="text-xs my-5">
+          <p className='text-xs my-5'>
             You must admit that When you use this website You accept the risk
             you are responsible For all expenses incurred (if any) in connection
             with your use of All Property Media Co., Ltd., its directors,
@@ -109,7 +109,7 @@ const TermsCondition = () => {
             be corrected by the Court of Justice
           </p>
           <h1>Changes To Terms And Conditions</h1>
-          <p className="text-xs my-5">
+          <p className='text-xs my-5'>
             operation of our business Has been continuously developed Therefore,
             our privacy policy, terms and conditions of use, and our advertising
             guidelines May be changed from time to time. We recommend that you
@@ -117,14 +117,14 @@ const TermsCondition = () => {
             add requirements
           </p>
         </div>
-        <div className="flex-1">
+        <div className='flex-1'>
           <h1>Curtomer Service Center</h1>
-          <div className="flex flex-col gap-5 border p-2 border-dark2/10 rounded-md">
-            <TextRed to="/">About DDProperty.com</TextRed>
+          <div className='flex flex-col gap-5 border p-2 border-dark2/10 rounded-md'>
+            <TextRed to='/'>About Thaiproperty4u.com</TextRed>
             <hr />
-            <TextRed to="/">Contact Us</TextRed>
+            <TextRed to='/'>Contact Us</TextRed>
             <hr />
-            <TextRed to="/">Suggestions/comments</TextRed>
+            <TextRed to='/'>Suggestions/comments</TextRed>
           </div>
         </div>
       </SmallContainer>
