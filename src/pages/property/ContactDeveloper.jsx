@@ -1,58 +1,40 @@
-import { Checkbox, Input } from "antd";
-import React from "react";
-import TextRed from "../../components/TextRed";
-import Button from "../../components/Button";
-import { Content } from "./StickySection";
+import React from 'react';
 
-const ContactDeveloper = ({ property }) => {
+const ContactDeveloper = ({ owner }) => {
   return (
-    <div className="mt-10">
-      <h1 className="text-2xl font-semibold">Contact Property Owner</h1>
-      <div className=" gap-5 mt-5 bg-dark/5 p-5 sm:p-10 rounded-lg text-base">
-        <div className="flex flex-col">
-          <div className="flex gap-4 mt-2">
-            <label className="w-auto">Name:</label>
-            <p className="font-semibold">{property?.contactName}</p>
+    <div className='mt-10'>
+      <h1 className='text-2xl font-semibold mb-6'>Contact Property Owner</h1>
+      <div className='bg-gray-100 p-6 sm:p-8 rounded-lg shadow-md'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+          <div className='flex flex-col'>
+            <label className='text-gray-600'>Name</label>
+            <p className='font-semibold text-lg'>{owner?.name || 'N/A'}</p>
           </div>
-          <div className="flex gap-4 mt-2">
-            <label className="w-auto">Email:</label>
-            <p className="font-semibold">{property?.contactEmail}</p>
+          <div className='flex flex-col'>
+            <label className='text-gray-600'>Email</label>
+            <a
+              href={`mailto:${owner?.email}`}
+              className='font-semibold text-lg text-blue-600 hover:underline'
+            >
+              {owner?.email || 'N/A'}
+            </a>
           </div>
-          <div className="flex gap-4 mt-2">
-            <label className="w-auto">Mobile number:</label>
-            <p className="font-semibold">{property?.contactNumber}</p>
+          <div className='flex flex-col'>
+            <label className='text-gray-600'>Mobile number</label>
+            <a
+              href={`tel:${owner?.phone}`}
+              className='font-semibold text-lg text-blue-600 hover:underline'
+            >
+              {owner?.phone || 'N/A'}
+            </a>
           </div>
-          <div className="flex gap-4 mt-2">
-            <label className="w-auto">Address:</label>
-            <p className="font-semibold">{property?.contactAddress}</p>
+          <div className='flex flex-col'>
+            <label className='text-gray-600'>Address</label>
+            <p className='font-semibold text-lg'>{owner?.address || 'N/A'}</p>
           </div>
-
-          {/* <div className="sm:px-10 py-3">
-            <Checkbox className="text-xs">
-              I accept AllProperty Media Co Ltd’s ('APM'){" "}
-              <TextRed>Privacy Policy</TextRed> and your collection, use and
-              disclosure of my personal data.
-            </Checkbox>
-            <Checkbox className="text-xs my-3">
-              Send me direct marketing from APM according to{" "}
-              <TextRed>Privacy Policy</TextRed>
-            </Checkbox>
-            <p>
-              By clicking "SUBMIT", I accept APMs{" "}
-              <TextRed>Terms of Use</TextRed> and agree for my personal data to
-              be passed to the Developer, Agent and/or any authorised service
-              provider to contact me about my enquiry.
-            </p>
-            <Button type="submit" extraClasses="bg-danger text-white mt-5">
-              Submit
-            </Button>
-          </div> */}
         </div>
-        {/* <div className="flex-0">
-          <Content handleContactAbout={() => {}} />
-        </div> */}
       </div>
-      <div className="text-center text-xs my-2">
+      <div className='text-center text-xs mt-4 text-gray-500'>
         Legal Disclaimer: The advertiser assumes all responsibility for the
         advertisement details
       </div>

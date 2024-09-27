@@ -1,13 +1,10 @@
 import React, { useCallback } from "react";
-import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { Spin } from "antd";
+import useGoogleMapsLoader from "../../utils/useGoogleMap";
 
 const MapLocation = ({ location, setMap, onPlaceChanged, setDraggedData }) => {
-  const { isLoaded, loadError } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyD59nvKAjfbGsXeVaWE-klnJplh9CW8HF4",
-    libraries: ["places"],
-  });
+  const { isLoaded, loadError } = useGoogleMapsLoader();
 
   const onMapLoad = useCallback(
     (map) => {
@@ -83,7 +80,7 @@ const MapLocation = ({ location, setMap, onPlaceChanged, setDraggedData }) => {
       {!isLoaded ? (
         <Spin size="large" />
       ) : (
-        <div className="w-full h-96 md:h-128 lg:h-160">
+        <div className="w-full h-96 md:h-128 lg:h-96">
           <GoogleMap
             mapContainerStyle={{ height: "100%", width: "100%" }}
             center={location}

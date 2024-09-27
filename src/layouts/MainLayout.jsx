@@ -1,13 +1,16 @@
 import Footer from "../components/Footer";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 
 const MainLayout = () => {
+  const { pathname } = useLocation();
+  console.log({ pathname });
+
   return (
     <div>
       <Navbar />
       <Outlet />
-      <Footer />
+      {pathname !== "/property-for-sale" && <Footer />}
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { BiPackage } from "react-icons/bi";
-import Brand from "../../components/Brand";
+import { BiPackage } from 'react-icons/bi';
+import Brand from '../../components/Brand';
 import {
   MdAddBox,
   MdFavorite,
@@ -10,32 +10,32 @@ import {
   MdSearch,
   MdSpaceDashboard,
   MdVerifiedUser,
-} from "react-icons/md";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../providers/AuthProvider";
-import { useContext } from "react";
+} from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
+import { useContext } from 'react';
 
 const sidebarItems = {
   main: [
     {
       id: 1,
-      route: "Dashboard",
-      path: "/dashboard",
+      route: 'Dashboard',
+      path: '/dashboard',
       icon: <MdSpaceDashboard />,
     },
     {
       id: 2,
-      route: "Create Listing",
-      path: "create-listing",
+      route: 'Create Listing',
+      path: 'create-listing',
       icon: <MdAddBox />,
-      role: "user",
+      role: 'user',
     },
     {
       id: 3,
-      route: "My Profile",
-      path: "my-profile",
+      route: 'My Profile',
+      path: 'my-profile',
       icon: <MdVerifiedUser />,
-      role: "user",
+      role: 'user',
     },
     // {
     //   id: 3,
@@ -48,66 +48,66 @@ const sidebarItems = {
   manageListings: [
     {
       id: 4,
-      route: "My Properties",
-      path: "my-properties",
+      route: 'My Properties',
+      path: 'my-properties',
       icon: <MdHome />,
-      role: "user",
+      role: 'user',
       children: [
         {
-          route: "General Elements",
-          path: "general-elements",
+          route: 'General Elements',
+          path: 'general-elements',
           icon: <MdReviews />,
-          role: "user",
+          role: 'user',
         },
         {
-          route: "Advanced Elements",
-          path: "advanced-elements",
+          route: 'Advanced Elements',
+          path: 'advanced-elements',
           icon: <MdReviews />,
-          role: "user",
+          role: 'user',
         },
         {
-          route: "Editors",
-          path: "editors",
+          route: 'Editors',
+          path: 'editors',
           icon: <MdReviews />,
-          role: "user",
+          role: 'user',
         },
       ],
     },
     {
       id: 5,
-      route: "Manage Properties",
-      path: "manage-properties",
+      route: 'Manage Properties',
+      path: 'manage-properties',
       icon: <MdHome />,
-      role: "admin",
+      role: 'admin',
     },
     {
       id: 6,
-      route: "Reviews",
-      path: "reviews",
+      route: 'Reviews',
+      path: 'reviews',
       icon: <MdReviews />,
-      role: "user",
+      role: 'user',
       children: [
         {
-          route: "My Reviews",
-          path: "my-reviews",
+          route: 'My Reviews',
+          path: 'my-reviews',
           icon: <MdReviews />,
-          role: "user",
+          role: 'user',
         },
         {
-          route: "Visitors Reviews",
-          path: "visitors-reviews",
+          route: 'Visitors Reviews',
+          path: 'visitors-reviews',
           icon: <MdReviews />,
-          role: "user",
+          role: 'user',
         },
       ],
     },
-    // {
-    //   id: 7,
-    //   route: "My Favorites",
-    //   path: "my-favorites",
-    //   icon: <MdFavorite />,
-    //   role: "user",
-    // },
+    {
+      id: 7,
+      route: 'My Favorites',
+      path: 'my-favorites',
+      icon: <MdFavorite />,
+      role: 'user',
+    },
     // {
     //   id: 8,
     //   route: "Saved Search",
@@ -119,8 +119,8 @@ const sidebarItems = {
   manageAccount: [
     {
       id: 9,
-      route: "My package",
-      path: "my-package",
+      route: 'My package',
+      path: 'my-package',
       icon: <BiPackage />,
     },
     // {
@@ -132,10 +132,10 @@ const sidebarItems = {
     // },
     {
       id: 11,
-      route: "Logout",
-      path: "#",
+      route: 'Logout',
+      path: '#',
       icon: <MdLogout />,
-      role: "user",
+      role: 'user',
     },
   ],
 };
@@ -144,54 +144,54 @@ const Sidebar = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="fixed lg:w-80 md:w-56 w-12 bg-slate-950 h-screen text-white">
-      <div className="h-20 flex items-center justify-center bg-slate-800">
+    <div className='fixed lg:w-80 md:w-56 w-12 bg-slate-950 h-screen text-white'>
+      <div className='h-20 flex items-center justify-center bg-slate-800'>
         <Brand center white />
       </div>
-      <div className="md:p-5 py-10">
-        <h1 className="hidden md:block mb-2 text-dark3/50">Menu</h1>
-        <div className="flex flex-col gap-2">
+      <div className='md:p-5 py-10'>
+        <h1 className='hidden md:block mb-2 text-dark3/50'>Menu</h1>
+        <div className='flex flex-col gap-2'>
           {sidebarItems.main.map((item) => (
             <Link
-              className="flex p-3 gap-2 hover:bg-slate-800 items-center"
+              className='flex p-3 gap-2 hover:bg-slate-800 items-center'
               to={item.path}
               key={item.id}
             >
               <div>{item.icon}</div>
-              <div className="hidden md:inline">{item.route}</div>
+              <div className='hidden md:inline'>{item.route}</div>
             </Link>
           ))}
         </div>
-        <h1 className="hidden md:block mt-10 mb-2 text-dark3/50">
+        <h1 className='hidden md:block mt-10 mb-2 text-dark3/50'>
           Manage Listings
         </h1>
-        <div className="flex flex-col gap-2">
+        <div className='flex flex-col gap-2'>
           {sidebarItems.manageListings.map(
             (item) =>
               item.role === user?.role && (
                 <Link
-                  className="flex p-3 gap-2 hover:bg-slate-800 items-center"
+                  className='flex p-3 gap-2 hover:bg-slate-800 items-center'
                   to={item.path}
                   key={item.id}
                 >
                   <div>{item.icon}</div>
-                  <div className="hidden md:inline">{item.route}</div>
+                  <div className='hidden md:inline'>{item.route}</div>
                 </Link>
               )
           )}
         </div>
-        <h1 className="hidden md:block mt-10 mb-2 text-dark3/50">
+        <h1 className='hidden md:block mt-10 mb-2 text-dark3/50'>
           Manage Account
         </h1>
-        <div className="flex flex-col gap-2">
+        <div className='flex flex-col gap-2'>
           {sidebarItems.manageAccount.map((item) => (
             <Link
-              className="flex p-3 gap-2 hover:bg-slate-800 items-center"
+              className='flex p-3 gap-2 hover:bg-slate-800 items-center'
               to={item.path}
               key={item.id}
             >
               <div>{item.icon}</div>
-              <div className="hidden md:inline">{item.route}</div>
+              <div className='hidden md:inline'>{item.route}</div>
             </Link>
           ))}
         </div>

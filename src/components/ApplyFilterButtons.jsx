@@ -1,60 +1,66 @@
-import React, { useCallback, useContext } from "react";
-import Button from "./Button";
-import { AuthContext } from "../providers/AuthProvider";
+import React, { useCallback, useContext } from 'react';
+import Button from './Button';
+import { AuthContext } from '../providers/AuthProvider';
 
 const ApplyFilterButtons = ({
   bedroomsSelected,
   closeAllDropdowns,
-  setValue
+  setValue,
 }) => {
-  // Accessing necessary functions and state from AuthContext
-  console.log(typeof setValue); // Should log "function"
-  console.log(typeof closeAllDropdowns); // Should log "function"
+  console.log(typeof setValue);
+  console.log(typeof closeAllDropdowns);
 
   const {
     handlebedrooms,
     handlePrice,
     pricefilter,
     setpricefilter,
-    setBedroomsSelected
+    setBedroomsSelected,
+    handleSearchvalue,
   } = useContext(AuthContext);
 
-  // Handler for applying filters
   const handleFilterButton = useCallback(() => {
-    // Applying bedroom and price filters
     handlebedrooms(bedroomsSelected);
     handlePrice(pricefilter);
-
-    // Closing all dropdowns after applying filters
+    // handleSearchvalue({ propertyType: '' });
     closeAllDropdowns();
-  }, [bedroomsSelected, pricefilter, handlebedrooms, handlePrice, closeAllDropdowns]);
+  }, [
+    bedroomsSelected,
+    pricefilter,
+    handlebedrooms,
+    handlePrice,
+    closeAllDropdowns,
+  ]);
 
-  // Handler for clearing filters
   const clearClickEvent = useCallback(() => {
-    // Clearing bedroom selection
     closeAllDropdowns();
-    setBedroomsSelected("");
-    handlebedrooms(""); // Clearing bedroom filter state
-    setpricefilter({ minPrice: "", maxPrice: "" }); // Clearing price filter state
+    setBedroomsSelected('');
+    handlebedrooms('');
+    setpricefilter({ minPrice: '', maxPrice: '' });
 
-    // Setting value to "All Residential"
-    setValue("All Residential");
+    setValue('Property type');
+    handleSearchvalue({ propertyType: '' });
 
-    // Optional: Log a message to verify if clearClickEvent is called
-    console.log("Filters cleared");
-  }, [closeAllDropdowns, setBedroomsSelected, handlebedrooms, setpricefilter, setValue]);
+    console.log('Filters cleared');
+  }, [
+    closeAllDropdowns,
+    setBedroomsSelected,
+    handlebedrooms,
+    setpricefilter,
+    setValue,
+  ]);
 
   return (
-    <div className="text-dark flex justify-between items-center p-5 text-sm">
+    <div className='text-dark flex justify-between items-center p-5 text-sm'>
       {/* Button to clear filters */}
-      <h6 onClick={clearClickEvent} className="cursor-pointer">
+      <h6 onClick={clearClickEvent} className='cursor-pointer'>
         Clear
       </h6>
 
       {/* Button to apply filters */}
       <Button
         clickEvent={handleFilterButton}
-        extraClasses="bg-dark hover:bg-dark/90 text-white"
+        extraClasses='bg-dark hover:bg-dark/90 text-white'
       >
         Apply Filter
       </Button>

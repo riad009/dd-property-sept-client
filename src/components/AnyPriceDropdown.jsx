@@ -1,13 +1,18 @@
-import { Divider, InputNumber } from "antd";
-import React, { useEffect, useState } from "react";
-import { BiChevronDown, BiChevronUp } from "react-icons/bi";
-import ApplyFilterButtons from "./ApplyFilterButtons";
-import { useUserContext } from "../providers/AuthProvider";
+import { Divider, InputNumber } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
+import ApplyFilterButtons from './ApplyFilterButtons';
+import { useUserContext } from '../providers/AuthProvider';
 
-const AnyPrice = ({ footer2Handler, footer2Open, border, closeAllDropdowns }) => {
-  const { setpricefilter, pricefilter } = useUserContext();
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+const AnyPrice = ({
+  footer2Handler,
+  footer2Open,
+  border,
+  closeAllDropdowns,
+}) => {
+  const { setpricefilter, pricefilter, handleSearchvalue } = useUserContext();
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
     if (pricefilter) {
@@ -16,25 +21,27 @@ const AnyPrice = ({ footer2Handler, footer2Open, border, closeAllDropdowns }) =>
     }
   }, [pricefilter]);
 
-  const minPriceHandler = (e) => {
-    setMinPrice(e);
+  const minPriceHandler = (value) => {
+    setMinPrice(value);
+    handleSearchvalue({ minPrice: value });
     setpricefilter((prev) => ({
       ...prev,
-      minPrice: e,
+      minPrice: value,
     }));
   };
 
-  const maxPriceHandler = (e) => {
-    setMaxPrice(e);
+  const maxPriceHandler = (value) => {
+    setMaxPrice(value);
+    handleSearchvalue({ maxPrice: value });
     setpricefilter((prev) => ({
       ...prev,
-      maxPrice: e,
+      maxPrice: value,
     }));
   };
 
   const priceLabel = () => {
     if (minPrice === undefined || maxPrice === undefined) {
-      return "Any Price";
+      return 'Any Price';
     }
     if (minPrice && maxPrice) {
       return `฿${minPrice} - ฿${maxPrice}`;
@@ -43,37 +50,38 @@ const AnyPrice = ({ footer2Handler, footer2Open, border, closeAllDropdowns }) =>
     } else if (maxPrice) {
       return `Up to ฿${maxPrice}`;
     }
-    return "Any Price";
+    return 'Any Price';
   };
 
   return (
-    <div className={`relative ${border && "bg-white w-fit py-2 rounded-md"}`}>
+    <div className={`relative ${border && 'bg-white w-fit py-2 rounded-md'}`}>
       <h6
         onClick={footer2Handler}
-        className="flex items-center gap-1 cursor-pointer"
+        className='flex items-center gap-1 cursor-pointer'
       >
         {priceLabel()}
         {footer2Open ? <BiChevronUp /> : <BiChevronDown />}
       </h6>
       {footer2Open && (
         <div
-          className={`absolute shadow-md rounded-lg ${border ? "top-12 shadow-lg" : "top-7"
-            } -right-28 bg-white w-80`}
+          className={`absolute shadow-md rounded-lg ${
+            border ? 'top-12 shadow-lg' : 'top-7'
+          } -right-28 bg-white w-80`}
         >
-          <div className="p-3">
-            <h1 className="text-dark text-sm">Price</h1>
-            <div className="flex text-sm gap-5 mt-5">
+          <div className='p-3'>
+            <h1 className='text-dark text-sm'>Price</h1>
+            <div className='flex text-sm gap-5 mt-5'>
               <InputNumber
-                type="number"
+                type='number'
                 addonBefore={<span>&#3647;</span>}
-                placeholder="Min Price"
+                placeholder='Min Price'
                 value={minPrice}
                 onChange={minPriceHandler}
               />
               <InputNumber
-                type="number"
+                type='number'
                 addonBefore={<span>&#3647;</span>}
-                placeholder="Max Price"
+                placeholder='Max Price'
                 value={maxPrice}
                 onChange={maxPriceHandler}
               />

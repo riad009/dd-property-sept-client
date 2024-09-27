@@ -1,34 +1,105 @@
-import { Checkbox } from "antd";
-import img4 from "../../assets/leaf.jpg";
-import Button from "../../components/Button";
-import { CiHeart, CiShare2 } from "react-icons/ci";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
+import { Button, message, Rate } from 'antd';
+import { CiHeart, CiShare2 } from 'react-icons/ci';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
+import axios from 'axios';
 
-export const Content = ({ handleContactAbout }) => {
+export const Content = ({ propertyId, user }) => {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState('');
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`/reviews/${propertyId}`);
+        setReviews(response.data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    fetchReviews();
+  }, [propertyId]);
+
+  const handleSubmitReview = async () => {
+    if (!rating || !review) {
+      message.error('Please rate the property');
+      return;
+    }
+
+    if (!user) {
+      message.error('Please login to submit a review');
+      return;
+    }
+
+    try {
+      const response = await axios.post(`/reviews`, {
+        rating,
+        message: review,
+        propertyId,
+        email: user.email,
+      });
+      if (response.status === 201) {
+        message.success('Review submitted successfully');
+        setRating(0);
+        setReview('');
+        // Refresh reviews
+        const updatedReviews = await axios.get(`/reviews/${propertyId}`);
+        setReviews(updatedReviews.data);
+      }
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
+  };
+
+  console.log(user);
+
   return (
-    <div>
-      <img className="w-16 mx-auto" src={img4} alt="leaf" />
-      <p className="text-xs my-3  text-center">
-        Peace and Living Public Company Limited
-      </p>
-      <p className="text-left text-[0.7em] my-3">Please contact me about</p>
-      <Checkbox.Group
-        className="flex flex-col gap-2"
-        style={{ width: "100%" }}
-        onChange={handleContactAbout}
-      >
-        <Checkbox value="Prices, promotions and discounts">
-          Prices, promotions and discounts
-        </Checkbox>
-        <Checkbox value="empty unit">empty unit</Checkbox>
-        <Checkbox value="room/house plan">room/house plan</Checkbox>
-        <Checkbox value="brochure">brochure</Checkbox>
-      </Checkbox.Group>
-      <Button extraClasses="mx-auto bg-danger hover:bg-danger/90 text-white mt-5">
-        Get Developer Call.
-      </Button>
+    <div className='bg-white rounded-lg shadow-md p-6'>
+      <h2 className='text-2xl font-semibold text-center mb-4'>
+        Reviews & Ratings
+      </h2>
+      <div className='mb-4'>
+        <p className='text-sm font-medium mb-2'>Your Rating:</p>
+        <Rate value={rating} onChange={setRating} />
+      </div>
+      <div className='mb-4'>
+        <p className='text-sm font-medium mb-2'>Your Review:</p>
+        <textarea
+          className='w-full p-2 border rounded'
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
+          rows={4}
+        />
+      </div>
+      {user?.email ? (
+        <Button
+          onClick={handleSubmitReview}
+          className='w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md'
+        >
+          Submit Review
+        </Button>
+      ) : (
+        <p className='text-center mb-4'>Please login to submit a review</p>
+      )}
+
+      <div className='mt-6'>
+        <h3 className='text-xl font-semibold mb-3'>Recent Reviews</h3>
+        {reviews.length > 0 ? (
+          reviews.slice(0, 5).map((review, index) => (
+            <div key={index} className='mb-4 border-b pb-2'>
+              <Rate disabled defaultValue={review.rating} />
+              <p className='text-sm mt-1'>{review.message}</p>
+              <p className='text-xs text-gray-500 mt-1'>
+                By {review.user.name} on{' '}
+                {new Date(review.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet.</p>
+        )}
+      </div>
     </div>
   );
 };
@@ -43,28 +114,32 @@ const StickySection = ({ handleContactAbout, property }) => {
       });
       console.log({ response });
       if (response?.status === 200) {
-        alert("Property added to favourites");
+        alert('Property added to favourites');
       }
     } catch (error) {
-      console.error("Error updating favorites:", error);
+      console.error('Error updating favorites:', error);
     }
   };
   return (
-    <div className="w-72 sm:sticky top-16">
-      <div className="bg-dark/5 p-3 rounded-md">
-        <Content handleContactAbout={handleContactAbout} />
+    <div className='w-72 sm:sticky top-16'>
+      <div className='bg-dark/5 p-3 rounded-md'>
+        <Content
+          handleContactAbout={handleContactAbout}
+          propertyId={property?._id}
+          user={user}
+        />
       </div>
-      <div className="flex items-center justify-center gap-3 text-danger mt-3 text-sm">
+      <div className='flex items-center justify-center gap-3 text-danger mt-3 text-sm'>
         {user?.email && (
           <div
-            className="cursor-pointer flex items-center gap-2"
+            className='cursor-pointer flex items-center gap-2'
             onClick={handleFavoriteClick}
           >
-            <CiHeart className="text-lg" />
+            <CiHeart className='text-lg' />
             Favourite
           </div>
         )}
-        <div className="cursor-pointer flex items-center gap-2">
+        <div className='cursor-pointer flex items-center gap-2'>
           <CiShare2 />
           Share
         </div>

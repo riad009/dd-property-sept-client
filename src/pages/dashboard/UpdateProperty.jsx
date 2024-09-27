@@ -71,7 +71,7 @@ const UpdateProperty = () => {
     try {
       const response = await axios.get(`/property/${id}`);
       setPropertyData(response.data);
-      setSelectedLocation(JSON.parse(response.data.latLng));
+      setSelectedLocation(response.data.latLng);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching property data:", error);

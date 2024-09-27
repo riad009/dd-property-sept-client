@@ -1,18 +1,13 @@
 import { useContext, useState } from "react";
-import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import { Form, Input } from "antd";
 import { AuthContext } from "../../providers/AuthProvider";
+import useGoogleMapsLoader from "../../utils/useGoogleMap";
 
 function SearchLocationInput({ placeName, setPlaceName, setSelectedLocation }) {
   const { setPropertyData, propertyData } = useContext(AuthContext);
   const [searchResult, setSearchResult] = useState("Result: none");
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyD59nvKAjfbGsXeVaWE-klnJplh9CW8HF4",
-    // googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
-    libraries: ["places"],
-  });
+  const { isLoaded, loadError } = useGoogleMapsLoader();
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);

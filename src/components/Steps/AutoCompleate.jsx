@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import { Input } from "antd";
 import Loader from "../Loader";
+import useGoogleMapsLoader from "../../utils/useGoogleMap";
 
 const AutocompleteInput = ({
   name,
@@ -12,13 +13,7 @@ const AutocompleteInput = ({
   const [autocomplete, setAutocomplete] = useState(null);
   const [inputValue, setInputValue] = useState(prefilledValue || "");
 
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyD59nvKAjfbGsXeVaWE-klnJplh9CW8HF4",
-    // googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
-    libraries: ["places"],
-  });
-
+  const { isLoaded, loadError } = useGoogleMapsLoader();
   useEffect(() => {
     if (prefilledValue) {
       setInputValue(prefilledValue);

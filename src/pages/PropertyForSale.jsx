@@ -1,239 +1,115 @@
-import { useState } from "react";
-import AllResidentialDropdown from "../components/AllResidentialDropdown";
-import SmallContainer from "../shared/SmallContainer";
-import AnyPrice from "../components/AnyPriceDropdown";
-import BedroomDropdown from "../components/BedroomDropdown";
-import Search from "antd/es/input/Search";
-import TextRed from "../components/TextRed";
-import { Switch } from "antd";
-import PropertyCard from "../components/cards/PropertyCard";
-import { baseURL, useUserContext } from "../providers/AuthProvider";
-import { useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import PropertyCard from '../components/cards/PropertyCard';
+import { baseURL, useUserContext } from '../providers/AuthProvider';
+import MapCluster from './ClusterMap';
+import { useSearchParams } from 'react-router-dom';
 
 const PropertyForSale = () => {
   const { searchvalue, category, bedroomsSelected, pricefilter } =
     useUserContext();
 
-  const [map, setMap] = useState(false);
-
   const [searchResults, setSearchResults] = useState([]);
+  const [allProperties, setAllProperties] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const [isAllPropertyLoading, setIsAllPropertyLoading] = useState(false);
 
-  console.log({ searchvalue, category, bedroomsSelected, pricefilter });
+  const [searchParams] = useSearchParams();
+  const location = searchParams.get('location');
+  const maxPrice = searchParams.get('maxPrice');
+  const minPrice = searchParams.get('minPrice');
+  const bedrooms = searchParams.get('bedrooms');
+  const propertyType = searchParams.get('propertyType');
 
-  useEffect(() => {
-    const apiUrl = `${baseURL}/get/search/property/new`;
-    // "http://localhost:5000/get/search/property/new";
-
-    const requestData = {
-      searchvalue: JSON.stringify(searchvalue),
-      bedrooms: bedroomsSelected,
-      maxprice: pricefilter?.maxprice,
-      minprice: pricefilter?.minprice,
-    };
-    setIsDataLoading(true);
-    // Fetch data only if isDataLoading is true
-
-    // Send the search object to the server using POST method
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the received data
-        setSearchResults(data);
-        // Set isDataLoading to false after the data is loaded
-        setIsDataLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle errors if needed
-        setIsDataLoading(false); // Set isDataLoading to false in case of an error
-      });
-  }, []); // Dependency array with isDataLoading to run the effect when isDataLoading changes
-
-  // get property
-
-  //category
-
-  const [categoryproperty, setcategory] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  console.log({ searchResults, categoryproperty });
+  console.log({ location, searchvalue });
 
   useEffect(() => {
-    // Define the search object
-    const userData = {
-      category: category.combinedFields?.category,
-      category2: category.combinedFields?.category2,
-    };
-    setLoading(true);
-    const fetchData = async () => {
+    const fetchProperties = async () => {
+      const apiUrl = `/get/search/property/new`;
+      const requestData = {
+        location,
+        bedrooms,
+        maxPrice,
+        minPrice,
+        propertyType,
+      };
+
       try {
-        const response = await fetch(
-          `/get/categoryproperty/${userData.category}/${userData.category2}`
-        );
-        const data = await response.json();
-        setcategory(data);
-        setLoading(false); // Set loading to false after data is fetched
+        setIsDataLoading(true);
+        const { data } = await axios.post(apiUrl, requestData);
+        setSearchResults(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false); // Set loading to false in case of an error
+        console.error('Error fetching properties:', error);
+      } finally {
+        setIsDataLoading(false);
       }
     };
 
-    // Fetch data only on the initial render
+    fetchProperties();
+  }, [searchvalue, bedroomsSelected, pricefilter]);
 
-    fetchData();
+  useEffect(() => {
+    const fetchCategoryProperties = async () => {
+      try {
+        setIsAllPropertyLoading(true);
+        const { data } = await axios.get(`/get/allProperties`);
+        setAllProperties(data);
+      } catch (error) {
+        console.error('Error fetching category properties:', error);
+      } finally {
+        setIsAllPropertyLoading(false);
+      }
+    };
+
+    fetchCategoryProperties();
   }, []);
 
-  //category
+  const moreProperties = allProperties.filter(
+    (property) => !searchResults.some((result) => result._id === property._id)
+  );
 
-  //loader data
-
-  const property = useLoaderData();
-
-  const length = categoryproperty.length;
-  //loader data
   return (
-    <div className="p-10 bg-dark2/5">
-      <SmallContainer>
-        {/* <div className="bg-white/10 p-2 md:flex items-center gap-4 mb-10">
-          <Search
-            placeholder="input search text"
-            allowClear
-            size="large"
-            className="flex-1"
-          />
-          <div className="flex items-center gap-4 mt-3 md:mt-0">
-            <AllResidentialDropdown
-              border
-              footer1Handler={footer1Handler}
-              footer1Items={footer1Items}
-              footer1Open={footer1Open}
-              propertyType={propertyType}
-              radioHandler={radioHandler}
-              value={value}
-              setPropertyType={setPropertyType}
-            />
-            <AnyPrice
-              footer2Handler={footer2Handler}
-              footer2Open={footer2Open}
-              maxPriceHandler={maxPriceHandler}
-              minPriceHandler={minPriceHandler}
-              border
-            />
-           
-            <BedroomDropdown
-              bedRoomSizes={bedRoomSizes}
-              bedroomsSelected={bedroomsSelected}
-              footer3Handler={footer3Handler}
-              footer3Open={footer3Open}
-              handleBedroomSizeFilter={handleBedroomSizeFilter}
-              border
-            />
-          </div>
-        </div> */}
-
-        <div className="flex items-center justify-between">
-          <p>
-            {length > 0 ? (
-              <>
-                {" "}
-                {length} Results of Property For Sale in,{" "}
-                {categoryproperty[0]?.category},{" "}
-                {categoryproperty[0]?.category2}
-              </>
-            ) : (
-              <> </>
-            )}
-            {/* <TextRed>     Create Alert.</TextRed> */}
-          </p>
-          <Switch
-            checked={map}
-            className="bg-black"
-            onChange={() => setMap(!map)}
-          />
+    <div className='p-10 bg-dark2/5'>
+      {isDataLoading ? (
+        <div className='flex items-center justify-center h-24'>
+          <div className='animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 h-12 w-12'></div>
         </div>
-
-        <div className="flex gap-2 my-5">
-          {/* <FilterOption
-            setFilterOption={setFilterOption}
-            text={"All"}
-            seleted={filterOption === "All"}
-          /> */}
-          {/* <FilterOption
-            setFilterOption={setFilterOption}
-            seleted={filterOption === "New Project"}
-            text={"New Project"}
-          /> */}
-
-          {/* <FilterOption
-            setFilterOption={setFilterOption}
-            seleted={filterOption === "Verified Agent Listing"}
-            text={"Verified Agent Listing"}
-          /> */}
-        </div>
-
-        <div>
-          {/* <div className="flex flex-col gap-5">
-            {searchResults.map((property) => (
-              <PropertyCard property={property} />
-            ))}
-          </div> */}
-          {isDataLoading ? (
-            <div className="flex items-center justify-center h-24">
-              <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-50 border-solid h-12 w-12"></div>
-            </div>
-          ) : (
-            <section>
-              {searchResults.length > 0 ? (
-                <>
-                  <div className="flex flex-col gap-5">
-                    {searchResults.map((property) => (
-                      <PropertyCard key={property.id} property={property} />
+      ) : (
+        <>
+          <section className='flex'>
+            <div className='flex-1 h-screen overflow-auto'>
+              <div className='flex flex-col gap-5'>
+                <h2 className='text-xl font-semibold mb-5'>
+                  {searchResults?.length > 0
+                    ? `Search Results (${searchResults.length})`
+                    : 'No properties found for your search'}
+                </h2>
+                {searchResults.map((property) => (
+                  <PropertyCard key={property._id} property={property} />
+                ))}
+              </div>
+              {moreProperties.length > 0 && (
+                <div className='mt-10'>
+                  <h3 className='text-xl font-semibold mb-5'>
+                    More Properties
+                  </h3>
+                  <div className='flex flex-col gap-5'>
+                    {moreProperties.map((property) => (
+                      <PropertyCard key={property._id} property={property} />
                     ))}
                   </div>
-                </>
-              ) : (
-                <>
-                  {categoryproperty.length > 0 ? (
-                    <>
-                      <div className="flex flex-col gap-5">
-                        {categoryproperty.map((property) => (
-                          <PropertyCard key={property.id} property={property} />
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div>No data found</div>
-                    </>
-                  )}
-                </>
+                </div>
               )}
-            </section>
-          )}
-        </div>
-      </SmallContainer>
+            </div>
+
+            <div className='flex-1'>
+              <MapCluster properties={allProperties} />
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 };
 
 export default PropertyForSale;
-
-const FilterOption = ({ text, seleted, setFilterOption }) => (
-  <div
-    onClick={() => setFilterOption(text)}
-    className={`${
-      seleted ? "bg-danger/10 text-danger" : "bg-dark2/10 text-dark"
-    } py-1 px-6 rounded-full`}
-  >
-    {text}
-  </div>
-);

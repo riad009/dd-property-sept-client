@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import { Form, Input } from "antd";
+import useGoogleMapsLoader from "../../utils/useGoogleMap";
 
 function LocationInput({
   location,
@@ -11,12 +12,7 @@ function LocationInput({
 }) {
   const [searchResult, setSearchResult] = useState("Result: none");
 
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyD59nvKAjfbGsXeVaWE-klnJplh9CW8HF4",
-    // googleMapsApiKey: "AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM",
-    libraries: ["places"],
-  });
+  const { isLoaded } = useGoogleMapsLoader();
 
   function onLoad(autocomplete) {
     setSearchResult(autocomplete);
