@@ -102,7 +102,7 @@ const MyProperties = () => {
           return (
             <tr key={p.email} className='border'>
               <td className='p-2'>
-                <Link to={`/property/projects/${p._id}`}>
+                <Link to={`/property/${p._id}`}>
                   <img
                     className='w-40 inline rounded-lg'
                     src={p?.coverImage}

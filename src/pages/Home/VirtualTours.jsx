@@ -1,34 +1,34 @@
-import { useEffect, useState } from "react";
-import image1 from "../../assets/banner1.jpg";
-import Button from "../../components/Button";
-import SectionHeader from "../../components/SectionHeader";
-import CardOne from "../../components/cards/CardOne";
-import SmallContainer from "../../shared/SmallContainer";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import image1 from '../../assets/banner1.jpg';
+import Button from '../../components/Button';
+import SectionHeader from '../../components/SectionHeader';
+import CardOne from '../../components/cards/CardOne';
+import SmallContainer from '../../shared/SmallContainer';
+import { useNavigate } from 'react-router-dom';
 
 const virtualToursData = [
   {
     image: image1,
-    type: "Video",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
+    type: 'Video',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
   },
   {
     image: image1,
-    type: "New Project",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'New Project',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
   {
     image: image1,
-    type: "Virtual Tour",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'Virtual Tour',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
   {
     image: image1,
-    type: "Virtual Tour",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'Virtual Tour',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
 ];
 
@@ -46,7 +46,7 @@ const VirtualTours = () => {
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -59,12 +59,12 @@ const VirtualTours = () => {
 
   return (
     <div>
-      <SmallContainer extraClasses="px-10 sm:py-16 py-10">
-        <SectionHeader newItem title="Videos & Virtual Tours" />
-        <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
+      <SmallContainer extraClasses='px-10 sm:py-16 py-10'>
+        <SectionHeader newItem title='Videos & Virtual Tours' />
+        <div className='grid md:grid-cols-4 grid-cols-2 gap-5'>
           {properties?.map((property, index) => (
             <CardOne
-              clickEvent={() => navigate(`/property/projects/${property._id}`)}
+              clickEvent={() => navigate(`/property/${property._id}`)}
               property={property}
               key={index}
               // image={project.image}
@@ -74,7 +74,7 @@ const VirtualTours = () => {
             />
           ))}
         </div>
-        <Button extraClasses="sm:hidden bg-dark text-white mx-auto mt-10">
+        <Button extraClasses='sm:hidden bg-dark text-white mx-auto mt-10'>
           View More
         </Button>
       </SmallContainer>

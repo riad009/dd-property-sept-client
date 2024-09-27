@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import image1 from "../../assets/banner1.jpg";
-import SectionHeader from "../../components/SectionHeader";
-import CardOne from "../../components/cards/CardOne";
-import SmallContainer from "../../shared/SmallContainer";
-import Button from "../../components/Button";
-import { useEffect } from "react";
-import { useState } from "react";
-import { baseURL } from "../../providers/AuthProvider";
+import { useNavigate } from 'react-router-dom';
+import image1 from '../../assets/banner1.jpg';
+import SectionHeader from '../../components/SectionHeader';
+import CardOne from '../../components/cards/CardOne';
+import SmallContainer from '../../shared/SmallContainer';
+import Button from '../../components/Button';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { baseURL } from '../../providers/AuthProvider';
 
 const LatestProjects = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const LatestProjects = () => {
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -33,26 +33,14 @@ const LatestProjects = () => {
   }, [loading]); // Dependency array includes 'loading' to ensure the effect runs when 'loading' changes
 
   return (
-    <div className="bg-dark2/10">
-      <SmallContainer extraClasses="px-10 sm:py-16 py-10">
-        <SectionHeader title="Latest Properties" />
-        <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
+    <div className='bg-dark2/10'>
+      <SmallContainer extraClasses='px-10 sm:py-16 py-10'>
+        <SectionHeader title='Latest Properties' />
+        <div className='grid md:grid-cols-4 grid-cols-2 gap-5'>
           {properties?.map((property, index) => (
             <CardOne
               clickEvent={() => {
-                navigate(
-                  `/property/projects/${property?.propertyName
-                    ?.toLowerCase()
-                    .replace(/ /g, "-")}/${property?.location
-                    ?.toLowerCase()
-                    .replace(/ /g, "-")}/${property?.province
-                    ?.toLowerCase()
-                    .replace(/ /g, "-")}/${property?.city
-                    ?.toLowerCase()
-                    .replace(/ /g, "-")}/${property?.listingType}/${
-                    property?._id
-                  }`
-                );
+                navigate(`/property/${property?._id}`);
               }}
               key={index}
               property={property}

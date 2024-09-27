@@ -1,40 +1,40 @@
-import { useEffect, useState } from "react";
-import image1 from "../../assets/banner1.jpg";
-import Button from "../../components/Button";
-import SectionHeader from "../../components/SectionHeader";
-import CardOne from "../../components/cards/CardOne";
-import SmallContainer from "../../shared/SmallContainer";
-import { Navigate, useNavigate } from "react-router-dom";
-import { baseURL } from "../../providers/AuthProvider";
+import { useEffect, useState } from 'react';
+import image1 from '../../assets/banner1.jpg';
+import Button from '../../components/Button';
+import SectionHeader from '../../components/SectionHeader';
+import CardOne from '../../components/cards/CardOne';
+import SmallContainer from '../../shared/SmallContainer';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { baseURL } from '../../providers/AuthProvider';
 
 const handPicked = [
   {
     image: image1,
     price: 2000,
-    type: "Studio",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'Studio',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
   {
     image: image1,
     price: 2000,
-    type: "Studio",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'Studio',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
   {
     image: image1,
     price: 2000,
-    type: "Studio",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'Studio',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
   {
     image: image1,
     price: 2000,
-    type: "Studio",
-    title: "InterContinental Residences Hua Hin, Prachuap Khiri Khan",
-    text: "Hua Hin, Prachuap Khiri Khan",
+    type: 'Studio',
+    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
+    text: 'Hua Hin, Prachuap Khiri Khan',
   },
 ];
 //
@@ -52,7 +52,7 @@ const HandPicked = () => {
         setProperties(data);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
         setLoading(false); // Set loading to false in case of an error
       }
     };
@@ -66,13 +66,13 @@ const HandPicked = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-dark2/10">
-      <SmallContainer extraClasses="px-10 sm:py-16 py-10">
-        <SectionHeader title="Handpicked for you" />
-        <div className="md:overflow-x-hidden overflow-x-scroll flex gap-5">
+    <div className='bg-dark2/10'>
+      <SmallContainer extraClasses='px-10 sm:py-16 py-10'>
+        <SectionHeader title='Handpicked for you' />
+        <div className='md:overflow-x-hidden overflow-x-scroll flex gap-5'>
           {properties?.map((property, index) => (
             <CardOne
-              clickEvent={() => Navigate(`/property/projects/${property._id}`)}
+              clickEvent={() => Navigate(`/property/${property._id}`)}
               key={index}
               property={property}
               // shadow
@@ -84,7 +84,7 @@ const HandPicked = () => {
             />
           ))}
         </div>
-        <Button extraClasses="sm:hidden bg-dark text-white mx-auto mt-10">
+        <Button extraClasses='sm:hidden bg-dark text-white mx-auto mt-10'>
           View More
         </Button>
       </SmallContainer>

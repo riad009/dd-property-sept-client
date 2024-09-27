@@ -8,6 +8,7 @@ import {
 
 import { customDesign } from '../constants/footerItem';
 import useGoogleMapsLoader from '../utils/useGoogleMap';
+import { Link } from 'react-router-dom';
 
 const mapContainerStyle = {
   width: '100%',
@@ -76,39 +77,49 @@ const MapCluster = memo(({ properties }) => {
             {(clusterer) => (
               <>
                 {properties?.map((property) => {
-                  const { _id, headline, latLng } = selectedProperty || {};
+                  const {
+                    _id,
+                    propertyName,
+                    location,
+                    city,
+                    province,
+                    price,
+                    latLng,
+                  } = property || selectedProperty || {};
 
                   return (
                     <MarkerF
-                      key={property._id}
+                      key={_id}
                       position={{
-                        lat: property?.latLng.lat,
-                        lng: property?.latLng.lng,
+                        lat: latLng?.lat,
+                        lng: latLng?.lng,
                       }}
                       clusterer={clusterer}
                       onClick={() => handleMarkerClick(property)}
                     >
-                      {_id === property._id &&
+                      {selectedProperty?._id === _id &&
                         latLng?.lat !== undefined &&
                         latLng?.lng !== undefined && (
                           <InfoWindowF
-                            position={{ lat: latLng?.lat, lng: latLng?.lng }}
+                            position={{ lat: latLng.lat, lng: latLng.lng }}
                             onCloseClick={handleInfoWindowClose}
                           >
-                            <div>
-                              <div>
-                                <h5>{headline}</h5>
-                                {/* <div>
-                                  <div>{address}</div>
-                                  <div>
-                                    Tlf.:{" "}
-                                    <a href={`tel:+45${phone}`}>+45 {phone}</a>
-                                  </div>
-                                  <div>
-                                    <a href={`mailto:${email}`}>{email}</a>
-                                  </div>
-                                </div> */}
+                            <div className='bg-white p-4 rounded-lg shadow-md'>
+                              <Link
+                                to={`/property/${_id}`}
+                                className='text-xl font-bold text-blue-600 hover:underline mb-2 block'
+                              >
+                                {propertyName}
+                              </Link>
+                              <div className='text-gray-600 mb-2'>
+                                <p>{location}</p>
+                                <p>
+                                  {city}, {province}
+                                </p>
                               </div>
+                              <p className='text-green-600 font-semibold'>
+                                {price} THB
+                              </p>
                             </div>
                           </InfoWindowF>
                         )}

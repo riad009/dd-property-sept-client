@@ -1,104 +1,103 @@
-import thi_flag from "../../assets/thiland.png";
-import eng_flag from "../../assets/england.png";
-import Container from "../../shared/Container";
-import { Dropdown, Space, Button, Divider } from "antd";
+import thi_flag from '../../assets/thiland.png';
+import eng_flag from '../../assets/england.png';
+import Container from '../../shared/Container';
+import { Button, Divider } from 'antd';
 import {
   MenuOutlined,
   HeartOutlined,
   CloseOutlined,
   SearchOutlined,
-} from "@ant-design/icons";
-import { BiChevronDown, BiChevronRight } from "react-icons/bi";
-import { BsBuildingAdd, BsBuildingsFill } from "react-icons/bs";
-import { HiOutlineLightBulb } from "react-icons/hi";
-import { RiPhoneFindFill } from "react-icons/ri";
-import { useContext, useState } from "react";
-import Brand from "../Brand";
-import NavItem from "../NavItem";
+} from '@ant-design/icons';
+import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
+import { BsBuildingAdd } from 'react-icons/bs';
+import { HiOutlineLightBulb } from 'react-icons/hi';
+import { useContext, useState } from 'react';
+import Brand from '../Brand';
+import NavItem from '../NavItem';
 
-import { Link, useHref } from "react-router-dom";
-import LoginModal from "../LoginModal";
-import RightSide from "./RightSide";
-import { MdOutlineCardMembership } from "react-icons/md";
-import { AuthContext } from "../../providers/AuthProvider";
-import Register from "../Register";
+import { Link, useHref } from 'react-router-dom';
+import LoginModal from '../LoginModal';
+import RightSide from './RightSide';
+import { MdOutlineCardMembership } from 'react-icons/md';
+import { AuthContext } from '../../providers/AuthProvider';
+import Register from '../Register';
 
 const ShortList = () => {
   return (
-    <a href="/" className="flex items-center gap-2">
+    <Link to='/dashboard/my-favorites' className='flex items-center gap-2'>
       <HeartOutlined />
-      Shortlist
-    </a>
+      Favorites
+    </Link>
   );
 };
 
 export const navItems = [
   {
     key: 0,
-    label: "Find Constructor",
-    path: "/find-construction",
+    label: 'Find Constructor',
+    path: '/find-construction',
     icon: <SearchOutlined />,
   },
   {
     key: 1,
-    label: "Find Agent",
-    path: "/find-agent",
+    label: 'Find Agent',
+    path: '/find-agent',
     icon: <SearchOutlined />,
   },
   {
     key: 2,
-    label: "Condos",
-    path: "/",
+    label: 'Condos',
+    path: '/',
     icon: <BiChevronDown />,
   },
   {
     key: 3,
-    label: "New Projects",
-    path: "/",
+    label: 'New Projects',
+    path: '/',
     icon: <BsBuildingAdd />,
   },
   {
     key: 4,
-    label: "Membership",
-    path: "/membership",
+    label: 'Membership',
+    path: '/membership',
     icon: <MdOutlineCardMembership />,
   },
   {
     key: 5,
-    label: "Guides",
-    path: "/",
-    icon: <HiOutlineLightBulb className="text-xl" />,
+    label: 'Guides',
+    path: '/',
+    icon: <HiOutlineLightBulb className='text-xl' />,
   },
   {
     key: 5,
-    label: "News",
-    path: "/",
-    icon: <HiOutlineLightBulb className="text-xl" />,
+    label: 'News',
+    path: '/',
+    icon: <HiOutlineLightBulb className='text-xl' />,
   },
 ];
 
 export const items = [
   {
-    key: "0",
+    key: '0',
     label: <ShortList />,
   },
 ];
 
 export const languages = [
   {
-    value: "th",
+    value: 'th',
     label: (
-      <p className="flex gap-2 items-center">
-        <img className="w-5" src={thi_flag} alt="thiland" />
+      <p className='flex gap-2 items-center'>
+        <img className='w-5' src={thi_flag} alt='thiland' />
         TH
       </p>
     ),
   },
   {
-    value: "en",
+    value: 'en',
     label: (
-      <p className="flex gap-2 items-center">
-        <img className="w-5" src={eng_flag} alt="malaysia" />
+      <p className='flex gap-2 items-center'>
+        <img className='w-5' src={eng_flag} alt='malaysia' />
         EN
       </p>
     ),
@@ -117,7 +116,7 @@ const Navbar = () => {
   const [accordionOpen, setAccordionOpen] = useState(false);
 
   const logOut = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem('accessToken');
     setUser({});
   };
 
@@ -139,54 +138,46 @@ const Navbar = () => {
 
   const itemsUser = [
     {
-      key: "0",
-      label: <Link to="/">Profile</Link>,
+      key: '0',
+      label: <Link to='/dashboard/my-profile'>Profile</Link>,
     },
     {
-      type: "divider",
+      type: 'divider',
     },
     {
-      key: "0",
+      key: '1',
 
-      label: <Link to="/dashboard">Dashboard</Link>,
-    },
-    {
-      key: "1",
-      label: <Link to="/">Email Preferences</Link>,
-    },
-    {
-      key: "2",
-      label: <Link to="/">Feedback</Link>,
+      label: <Link to='/dashboard'>Dashboard</Link>,
     },
 
     {
-      key: "3",
+      key: '3',
       label: <h1 onClick={logOut}>Logout</h1>,
     },
   ];
 
   return (
-    <div className="shadow z-10 relative transition-all duration-300">
+    <div className='shadow z-10 relative transition-all duration-300'>
       <Container>
-        <div className="p-6">
-          <div className="flex items-center">
+        <div className='p-6'>
+          <div className='flex items-center'>
             {!sidebarOpen ? (
               <MenuOutlined
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden md:inline"
+                className='lg:hidden md:inline'
               />
             ) : (
               <CloseOutlined
-                className="lg:hidden md:inline"
+                className='lg:hidden md:inline'
                 onClick={() => setSidebarOpen(false)}
               />
             )}
             <Brand medium />
           </div>
-          <div className="hidden w-full lg:flex lg:items-center">
-            <div className="w-full lg:flex items-center gap-5">
-              {path !== "/dashboard" && <Brand />}
-              <div className="lg:flex items-center gap-2">
+          <div className='hidden w-full lg:flex lg:items-center'>
+            <div className='w-full lg:flex items-center gap-5'>
+              {path !== '/dashboard' && <Brand />}
+              <div className='lg:flex items-center gap-2'>
                 {navItems.map((item) => (
                   <NavItem
                     key={item.key}
@@ -260,35 +251,35 @@ const Navbar = () => {
           {/* TODO:Add Transition Animation */}
           {/* Sidebar */}
           {sidebarOpen && (
-            <div className="absolute flex top-[70px] lg:hidden w-full left-0">
+            <div className='absolute flex top-[70px] lg:hidden w-full left-0'>
               <div
                 className={`bg-white flex flex-col left-0 sm:w-[360px] w-full`}
               >
-                <div className="bg-danger px-3 text-sm py-7 text-white">
+                <div className='bg-danger px-3 text-sm py-7 text-white'>
                   <div
                     onClick={() => setAccordionOpen(!accordionOpen)}
-                    className="cursor-pointer transition-colors duration-300"
+                    className='cursor-pointer transition-colors duration-300'
                   >
-                    <div className="flex items-center justify-between">
+                    <div className='flex items-center justify-between'>
                       <p>Quick Links</p>
                       {accordionOpen ? <BiChevronDown /> : <BiChevronRight />}
                     </div>
                   </div>
                   {/* TODO:Add Transition Animation */}
                   {accordionOpen && (
-                    <div className="h-0 p-3">
+                    <div className='h-0 p-3'>
                       <ShortList />
                     </div>
                   )}
-                  <Divider className="bg-white" />
-                  <p className="text-[11px]">
+                  <Divider className='bg-white' />
+                  <p className='text-[11px]'>
                     Personalize your search & get unlimited access to features
                   </p>
-                  <Button className="bg-white w-full mt-2 border-none">
+                  <Button className='bg-white w-full mt-2 border-none'>
                     Login/Create Account
                   </Button>
                 </div>
-                <div className="p-1">
+                <div className='p-1'>
                   {navItems.map((item, index) => (
                     <NavItem
                       key={index}
@@ -298,7 +289,7 @@ const Navbar = () => {
                     />
                   ))}
                 </div>
-                <div className="mx-auto pb-10">
+                <div className='mx-auto pb-10'>
                   <RightSide
                     currentUser={user?.email}
                     items={items}
@@ -309,7 +300,7 @@ const Navbar = () => {
                   />
                 </div>
               </div>
-              <div className="flex-grow bg-dark bg-opacity-50"></div>
+              <div className='flex-grow bg-dark bg-opacity-50'></div>
             </div>
           )}
         </div>

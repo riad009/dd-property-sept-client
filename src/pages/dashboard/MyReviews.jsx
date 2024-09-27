@@ -4,6 +4,7 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 import axios from 'axios';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Rate, Spin, Empty } from 'antd';
+import { Link } from 'react-router-dom';
 
 const ReviewCard = ({ review, onEdit, onDelete }) => (
   <div className='bg-white p-4 rounded-lg shadow-md mb-4'>
@@ -14,9 +15,11 @@ const ReviewCard = ({ review, onEdit, onDelete }) => (
         alt='User avatar'
       />
       <div>
-        <h2 className='text-lg font-semibold'>
-          {review.property.propertyName}
-        </h2>
+        <Link to={`/property/${review.property._id}`}>
+          <h2 className='text-lg font-semibold'>
+            {review.property.propertyName}
+          </h2>
+        </Link>
         <p className='text-sm text-gray-500'>
           {new Date(review.createdAt).toLocaleDateString()}
         </p>

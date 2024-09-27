@@ -27,17 +27,7 @@ const PropertyCard = ({ property }) => {
 
   console.log({ property });
   return (
-    <Link
-      to={`/property/projects/${propertyName
-        ?.toLowerCase()
-        .replace(/ /g, '-')}/${location
-        ?.toLowerCase()
-        .replace(/ /g, '-')}/${province
-        ?.toLowerCase()
-        .replace(/ /g, '-')}/${city
-        ?.toLowerCase()
-        .replace(/ /g, '-')}/${listingType}/${_id}`}
-    >
+    <Link to={`/property/${_id}`}>
       <div className='flex gap-3 bg-white w-full shadow-md rounded-md'>
         <img
           src={coverImage[0]}
