@@ -66,13 +66,10 @@ const ManageProperties = () => {
       <table className='md:w-full min-w-[600px] mt-5'>
         <tr className='bg-dark text-white text-left'>
           <th className='p-2'>Image</th>
-          <th className='p-2'>Headline</th>
+          <th className='p-2'>Property Name</th>
           <th className='p-2'>Property Type</th>
           <th className='p-2'>Date published</th>
           <th className='p-2'>Status</th>
-          {/* <th className="p-2">Location</th>
-          <th className="p-2">Price</th> */}
-
           <th className='p-2'>Action</th>
         </tr>
 
@@ -88,7 +85,7 @@ const ManageProperties = () => {
               </Link>
             </td>
 
-            <td className='p-2'>{p.headline}</td>
+            <td className='p-2'>{p.propertyName}</td>
             <td className='p-2'>{p.propertyType}</td>
             <td className='p-2'>
               {' '}
@@ -101,8 +98,6 @@ const ManageProperties = () => {
                 <button className='font-bold text-red-600'>Not verified</button>
               )}
             </td>
-            {/* <td className="p-2">{p.location}</td>
-            <td className="p-2">${p.price}</td> */}
 
             <td>
               <div className='flex gap-2 text-xs'>
@@ -118,15 +113,6 @@ const ManageProperties = () => {
                 >
                   Verify
                 </button>
-                {/* <Link onClick={() => handleUpdate(p._id)}>
-                  {" "}
-                  <MdEdit className="bg-danger/10 p-1 text-2xl rounded-md" />
-                </Link> */}
-                {/* 
-                <MdDelete
-                  onClick={() => handleDelete(p._id)}
-                  className="bg-danger/10 p-1 text-2xl rounded-md"
-                /> */}
               </div>
             </td>
           </tr>

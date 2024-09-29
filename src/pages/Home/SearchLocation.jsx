@@ -114,7 +114,7 @@ const SearchLocation = () => {
           {isActive && search.length > 0 && (
             <ul className='absolute top-full left-0 w-full border border-solid border-gray-300 bg-white rounded-b-md shadow-md z-10 font-serif max-h-72 overflow-y-auto'>
               {suggestions?.map((suggestion, index) => {
-                const parts = suggestion?.location?.split(
+                const parts = suggestion?.address?.split(
                   new RegExp(`(${search})`, 'gi')
                 );
 
@@ -123,8 +123,8 @@ const SearchLocation = () => {
                     key={index}
                     className='hover:bg-gray-100 text-gray-500 flex items-center p-4 border-b border-solid border-gray-300 cursor-pointer'
                     onClick={() => {
-                      setSearch(suggestion?.location);
-                      handleSearch(suggestion?.location);
+                      setSearch(suggestion?.address);
+                      handleSearch(suggestion?.address);
                       setIsActive(false);
                     }}
                   >

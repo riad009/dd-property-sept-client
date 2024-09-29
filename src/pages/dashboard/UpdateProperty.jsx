@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import DashboardHeader from "./DashboardHeader";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import DashboardHeader from './DashboardHeader';
+import axios from 'axios';
 import {
   Form,
   Input,
@@ -11,45 +11,45 @@ import {
   Upload,
   Steps,
   Radio,
-} from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useParams } from "react-router-dom";
-import Loader from "../../components/Loader";
+} from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { useParams } from 'react-router-dom';
+import Loader from '../../components/Loader';
 
-import AutocompleteInput from "../../components/Steps/AutoCompleate";
-import { defaultProperType } from "../../constants/footerItem";
-import MapLocation from "../../components/Steps/MapLocation";
+import AutocompleteInput from '../../components/Steps/AutoCompleate';
+import { defaultProperType } from '../../constants/footerItem';
+import MapLocation from '../../components/Steps/MapLocation';
 
 const { Option } = Select;
 
 const amenitiesData = [
   {
-    label: "Air Conditioning",
-    value: "Air Conditioning",
+    label: 'Air Conditioning',
+    value: 'Air Conditioning',
   },
   {
-    label: "Balcony",
-    value: "Balcony",
+    label: 'Balcony',
+    value: 'Balcony',
   },
   {
-    label: "Dining Room Furniture",
-    value: "Dining Room Furniture",
+    label: 'Dining Room Furniture',
+    value: 'Dining Room Furniture',
   },
   {
-    label: "Fridge",
-    value: "Fridge",
+    label: 'Fridge',
+    value: 'Fridge',
   },
   {
-    label: "Penthouse",
-    value: "Penthouse",
+    label: 'Penthouse',
+    value: 'Penthouse',
   },
   {
-    label: "Renovated",
-    value: "Renovated",
+    label: 'Renovated',
+    value: 'Renovated',
   },
   {
-    label: "Television",
-    value: "Television",
+    label: 'Television',
+    value: 'Television',
   },
 ];
 
@@ -74,7 +74,7 @@ const UpdateProperty = () => {
       setSelectedLocation(response.data.latLng);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error fetching property data:", error);
+      console.error('Error fetching property data:', error);
       setIsLoading(false);
     }
   };
@@ -140,19 +140,19 @@ const UpdateProperty = () => {
 
     const jsonLatLng = JSON.stringify(latLng);
 
-    formData.append("latLng", jsonLatLng);
+    formData.append('latLng', jsonLatLng);
 
     if (fileList.length) {
-      formData.append("coverImage", fileList[0].originFileObj);
+      formData.append('coverImage', fileList[0].originFileObj);
       fileList.slice(1).forEach((file) => {
-        formData.append("imageUrls", file.originFileObj);
+        formData.append('imageUrls', file.originFileObj);
       });
     }
     // console.log({latLng,jsonLatLng})
     try {
       const res = await axios.put(`/update/property/${id}`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       if (res.status === 201) {
@@ -163,7 +163,7 @@ const UpdateProperty = () => {
       }
     } catch (error) {
       console.error(
-        "Error updating property:",
+        'Error updating property:',
         error.response || error.message
       );
     }
@@ -189,19 +189,19 @@ const UpdateProperty = () => {
     return <Loader />;
   }
   const handlePropertyTypeChange = (value) => {
-    console.log("propertyType", value);
+    console.log('propertyType', value);
     setStaticPropertyType(value);
   };
   const {
     propertyName,
     province,
     city,
-    location,
+    address,
     price,
     bedrooms,
     bathrooms,
     floorSize,
-    headline,
+
     video,
     coverImage = [],
     imageUrls = [],
@@ -221,14 +221,14 @@ const UpdateProperty = () => {
   const cover = coverImage.map((url, index) => ({
     uid: `${-1}`,
     name: `cover_photo${index}.png`,
-    status: "done",
+    status: 'done',
     url,
   }));
 
   const images = imageUrls.map((url, index) => ({
     uid: `${-1}`,
     name: `other_photo${index}.png`,
-    status: "done",
+    status: 'done',
     url,
   }));
   console.log({ cover, images });
@@ -238,36 +238,36 @@ const UpdateProperty = () => {
   console.log(propertyData);
   const sections = [
     {
-      title: "Update Location",
+      title: 'Update Location',
       content: (
-        <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">Update Location</h1>
+        <div className='bg-white p-10 rounded-lg'>
+          <h1 className='mb-5 font-semibold text-2xl'>Update Location</h1>
           <Row gutter={16}>
             <Col xs={24} sm={12}>
               <Form.Item
-                label="Name of the property"
-                name="propertyName"
+                label='Name of the property'
+                name='propertyName'
                 rules={[{ required: true }]}
               >
-                <Input size="large" placeholder="Please enter property name" />
+                <Input size='large' placeholder='Please enter property name' />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item
-                label="Province"
-                name="province"
+                label='Province'
+                name='province'
                 rules={[{ required: true }]}
               >
                 <AutocompleteInput
                   // prefilledValue={province}
-                  name="province"
+                  name='province'
                   onPlaceChanged={handlePlaceChanged}
-                  placeholder="Please Enter province"
+                  placeholder='Please Enter province'
                   prefilledValue={
                     draggedData.province ||
                     savedFormValues?.province ||
                     province ||
-                    ""
+                    ''
                   }
                 />
               </Form.Item>
@@ -275,36 +275,25 @@ const UpdateProperty = () => {
           </Row>
           <Row gutter={16}>
             <Col xs={24} sm={12}>
-              <Form.Item label="City" name="city" rules={[{ required: true }]}>
+              <Form.Item label='City' name='city' rules={[{ required: true }]}>
                 <AutocompleteInput
                   // prefilledValue={city}
                   prefilledValue={
-                    draggedData.city || savedFormValues?.city || city || ""
+                    draggedData.city || savedFormValues?.city || city || ''
                   }
-                  name="city"
+                  name='city'
                   onPlaceChanged={handlePlaceChanged}
-                  placeholder="Please Enter city"
+                  placeholder='Please Enter city'
                 />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
               <Form.Item
-                label="Location"
-                name="location"
+                label='Address'
+                name='address'
                 rules={[{ required: true }]}
               >
-                <AutocompleteInput
-                  // prefilledValue={location}
-                  prefilledValue={
-                    draggedData.location ||
-                    savedFormValues?.location ||
-                    location ||
-                    ""
-                  }
-                  name="location"
-                  onPlaceChanged={handlePlaceChanged}
-                  placeholder="Please Enter location"
-                />
+                <Input size='large' placeholder='Please enter address' />
               </Form.Item>
             </Col>
           </Row>
@@ -319,39 +308,39 @@ const UpdateProperty = () => {
       ),
     },
     {
-      title: "Update Details",
+      title: 'Update Details',
       content: (
-        <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">
+        <div className='bg-white p-10 rounded-lg'>
+          <h1 className='mb-5 font-semibold text-2xl'>
             Enter Property Details
           </h1>
           <Form.Item
-            label="Listing Type"
-            name="listingType"
+            label='Listing Type'
+            name='listingType'
             rules={[{ required: true }]}
           >
             <Radio.Group
-              buttonStyle="solid"
-              size="large"
+              buttonStyle='solid'
+              size='large'
               value={listingType}
               onChange={handleListingTypeChange}
-              style={{ display: "flex", gap: "10px" }}
+              style={{ display: 'flex', gap: '10px' }}
               required
               disabled
             >
-              <Radio.Button value="forSale">For Sale</Radio.Button>
-              <Radio.Button value="forRent">For Rent</Radio.Button>
+              <Radio.Button value='forSale'>For Sale</Radio.Button>
+              <Radio.Button value='forRent'>For Rent</Radio.Button>
             </Radio.Group>
           </Form.Item>
 
           <Form.Item
-            label="Property Type"
-            name="propertyType"
+            label='Property Type'
+            name='propertyType'
             rules={[{ required: true }]}
           >
             <Select
-              size="large"
-              placeholder="Select Property Type"
+              size='large'
+              placeholder='Select Property Type'
               onChange={handlePropertyTypeChange}
               required
             >
@@ -364,13 +353,13 @@ const UpdateProperty = () => {
           </Form.Item>
 
           <Row gutter={16}>
-            {listingType === "forRent" ? (
+            {listingType === 'forRent' ? (
               <>
-                {propertyType !== "land" && (
+                {propertyType !== 'land' && (
                   <Col xs={24} sm={12}>
                     <Form.Item
-                      label="Daily Price (THB)"
-                      name="dailyPrice"
+                      label='Daily Price (THB)'
+                      name='dailyPrice'
                       rules={[
                         {
                           required:
@@ -382,14 +371,14 @@ const UpdateProperty = () => {
                         },
                       ]}
                     >
-                      <Input size="large" />
+                      <Input size='large' />
                     </Form.Item>
                   </Col>
                 )}
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label="Monthly Price (THB)"
-                    name="monthlyPrice"
+                    label='Monthly Price (THB)'
+                    name='monthlyPrice'
                     rules={[
                       {
                         required:
@@ -401,13 +390,13 @@ const UpdateProperty = () => {
                       },
                     ]}
                   >
-                    <Input size="large" />
+                    <Input size='large' />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label="Yearly Price (THB)"
-                    name="yearlyPrice"
+                    label='Yearly Price (THB)'
+                    name='yearlyPrice'
                     rules={[
                       {
                         required:
@@ -419,47 +408,47 @@ const UpdateProperty = () => {
                       },
                     ]}
                   >
-                    <Input size="large" />
+                    <Input size='large' />
                   </Form.Item>
                 </Col>
               </>
             ) : (
               <Col xs={24} sm={12}>
                 <Form.Item
-                  label="Price (THB)"
-                  name="price"
+                  label='Price (THB)'
+                  name='price'
                   rules={[{ required: true }]}
                 >
-                  <Input size="large" />
+                  <Input size='large' />
                 </Form.Item>
               </Col>
             )}
 
-            {staticPropertyType !== "land" && (
+            {staticPropertyType !== 'land' && (
               <>
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label="Bedrooms"
-                    name="bedrooms"
+                    label='Bedrooms'
+                    name='bedrooms'
                     rules={[{ required: true }]}
                   >
-                    <Select size="large" placeholder="Select Bedrooms" required>
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
+                    <Select size='large' placeholder='Select Bedrooms' required>
+                      <Option value='1'>1</Option>
+                      <Option value='2'>2</Option>
+                      <Option value='3'>3</Option>
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label="Bathrooms"
-                    name="bathrooms"
+                    label='Bathrooms'
+                    name='bathrooms'
                     rules={[{ required: true }]}
                   >
-                    <Select size="large" placeholder="Select Bathrooms">
-                      <Option value="1">1</Option>
-                      <Option value="2">2</Option>
-                      <Option value="3">3</Option>
+                    <Select size='large' placeholder='Select Bathrooms'>
+                      <Option value='1'>1</Option>
+                      <Option value='2'>2</Option>
+                      <Option value='3'>3</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -468,30 +457,30 @@ const UpdateProperty = () => {
             <Col xs={24} sm={12}>
               <Form.Item
                 label={
-                  (listingType === "forRent" || listingType === "forSale") &&
-                  staticPropertyType === "land"
-                    ? "Land Size m²"
-                    : "House Size m²"
+                  (listingType === 'forRent' || listingType === 'forSale') &&
+                  staticPropertyType === 'land'
+                    ? 'Land Size m²'
+                    : 'House Size m²'
                 }
-                name="size"
+                name='size'
                 rules={[{ required: true }]}
               >
-                <Input size="large" />
+                <Input size='large' />
               </Form.Item>
             </Col>
 
-            {(propertyType === "apartment" ||
-              propertyType === "condo" ||
-              propertyType === "hotel") && (
+            {(propertyType === 'apartment' ||
+              propertyType === 'condo' ||
+              propertyType === 'hotel') && (
               <Col xs={24} sm={12}>
                 <Form.Item
-                  label="Floor size"
-                  name="floorSize"
+                  label='Floor size'
+                  name='floorSize'
                   rules={[{ required: true }]}
                 >
                   <Select
-                    size="large"
-                    placeholder="Please select"
+                    size='large'
+                    placeholder='Please select'
                     options={Array.from({ length: 60 }, (_, i) => ({
                       value: i + 1,
                       label: `${i + 1}`,
@@ -501,38 +490,28 @@ const UpdateProperty = () => {
               </Col>
             )}
 
-            {propertyType !== "land" && (
+            {propertyType !== 'land' && (
               <Col xs={24} sm={12}>
-                <Form.Item label="Amenities" name="amenities">
+                <Form.Item label='Amenities' name='amenities'>
                   <Select
-                    mode="multiple"
+                    mode='multiple'
                     allowClear
-                    size="large"
-                    placeholder="Please select"
+                    size='large'
+                    placeholder='Please select'
                     options={amenitiesData}
                   />
                 </Form.Item>
               </Col>
             )}
-
-            <Col xs={24} sm={12}>
-              <Form.Item
-                label="Headline"
-                name="headline"
-                rules={[{ required: true }]}
-              >
-                <Input size="large" />
-              </Form.Item>
-            </Col>
           </Row>
           <Row gutter={16}>
             <Col xs={24}>
               <Form.Item
-                label="Description"
-                name="descriptionEnglish"
+                label='Description'
+                name='descriptionEnglish'
                 rules={[{ required: true }]}
               >
-                <Input.TextArea size="large" rows={4} required />
+                <Input.TextArea size='large' rows={4} required />
               </Form.Item>
             </Col>
           </Row>
@@ -540,13 +519,13 @@ const UpdateProperty = () => {
       ),
     },
     {
-      title: "Update Media",
+      title: 'Update Media',
       content: (
-        <div className="bg-white p-10 rounded-lg">
-          <h1 className="mb-5 font-semibold text-2xl">Update Listing: Media</h1>
-          <Form.Item label="Add Photos">
+        <div className='bg-white p-10 rounded-lg'>
+          <h1 className='mb-5 font-semibold text-2xl'>Update Listing: Media</h1>
+          <Form.Item label='Add Photos'>
             <Upload
-              listType="picture-card"
+              listType='picture-card'
               multiple
               maxCount={10}
               beforeUpload={() => false}
@@ -570,9 +549,9 @@ const UpdateProperty = () => {
           </Form.Item>
 
           {fileList.length > 0 && (
-            <Form.Item label="Cover Photo">
+            <Form.Item label='Cover Photo'>
               <Upload
-                listType="picture-card"
+                listType='picture-card'
                 fileList={[fileList[0]]}
                 showUploadList={{
                   showPreviewIcon: false,
@@ -586,9 +565,9 @@ const UpdateProperty = () => {
           )}
 
           {fileList.length > 1 && (
-            <Form.Item label="Other Photos">
+            <Form.Item label='Other Photos'>
               <Upload
-                listType="picture-card"
+                listType='picture-card'
                 fileList={fileList.slice(1)}
                 showUploadList={{
                   showPreviewIcon: false,
@@ -604,17 +583,17 @@ const UpdateProperty = () => {
           )}
 
           <Form.Item
-            name="video"
-            label="Add Video"
+            name='video'
+            label='Add Video'
             rules={[
               {
-                type: "url",
-                message: "Please enter a valid URL",
+                type: 'url',
+                message: 'Please enter a valid URL',
               },
               { required: true },
             ]}
           >
-            <Input placeholder="Provide a video link from YouTube" />
+            <Input placeholder='Provide a video link from YouTube' />
           </Form.Item>
         </div>
       ),
@@ -674,17 +653,16 @@ const UpdateProperty = () => {
   return (
     <Form
       form={form}
-      layout="vertical"
+      layout='vertical'
       initialValues={{
         propertyName,
         province,
         city,
-        location,
+        address,
         price,
         bedrooms,
         bathrooms,
         floorSize,
-        headline,
         video,
         referenceNote,
         descriptionEnglish,
@@ -699,29 +677,29 @@ const UpdateProperty = () => {
         amenities,
       }}
       onValuesChange={handleValuesChange}
-      className="lg:p-10 p-5 bg-dark2/10"
+      className='lg:p-10 p-5 bg-dark2/10'
     >
       <DashboardHeader
-        title="Update Property"
-        description="We are glad to see you again!"
+        title='Update Property'
+        description='We are glad to see you again!'
       />
       <Steps current={currentStep}>
         {sections.map((section, index) => (
           <Steps.Step key={index} title={section.title} />
         ))}
       </Steps>
-      <div className="mt-5">{sections[currentStep].content}</div>
-      <div className="flex justify-between mt-4">
+      <div className='mt-5'>{sections[currentStep].content}</div>
+      <div className='flex justify-between mt-4'>
         {currentStep > 0 && (
-          <Button type="default" size="large" onClick={handlePreviousStep}>
+          <Button type='default' size='large' onClick={handlePreviousStep}>
             Previous
           </Button>
         )}
         {currentStep < sections.length - 1 && (
           <Button
-            className="bg-blue-500 text-white"
-            type="primary"
-            size="large"
+            className='bg-blue-500 text-white'
+            type='primary'
+            size='large'
             onClick={handleNextStep}
           >
             Next
@@ -729,9 +707,9 @@ const UpdateProperty = () => {
         )}
         {currentStep === sections.length - 1 && (
           <Button
-            className="bg-blue-500 text-white"
-            type="primary"
-            size="large"
+            className='bg-blue-500 text-white'
+            type='primary'
+            size='large'
             onClick={handleUpdateButton}
           >
             Update

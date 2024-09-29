@@ -91,10 +91,9 @@ const MyProperties = () => {
           <th className='p-2'>Date published</th>
           <th className='p-2'>Province</th>
           <th className='p-2'>City</th>
-          <th className='p-2'>Location</th>
+          <th className='p-2'>Address</th>
           <th className='p-2'>Status</th>
-          {/* <th className="p-2">Price</th> */}
-          {/* <th className="p-2">View</th> */}
+
           <th className='p-2'>Action</th>
         </tr>
 
@@ -116,7 +115,7 @@ const MyProperties = () => {
               <td className='p-2'>{moment(p.date).format('DD.MM.YYYY')}</td>
               <td className='p-2'>{p.province}</td>
               <td className='p-2'>{p.city}</td>
-              <td className='p-2'>{p.location}</td>
+              <td className='p-2'>{p.address}</td>
               <td className='p-2'>
                 {p.isVerified ? (
                   <button className='font-bold text-green-600'>Verified</button>

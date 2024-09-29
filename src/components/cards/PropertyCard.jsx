@@ -2,16 +2,12 @@ import React from 'react';
 import { GiBathtub, GiBed } from 'react-icons/gi';
 import { RiCommunityFill } from 'react-icons/ri';
 
-import { Link } from 'react-router-dom';
 import { BiCheck } from 'react-icons/bi';
 
-const PropertyCard = ({ property }) => {
+const PropertyCard = ({ property, setSelectedProperty }) => {
   const {
     coverImage,
-    title,
-    location,
-    price,
-    headLine,
+    address,
     floorSize,
     size,
     bedrooms,
@@ -21,13 +17,13 @@ const PropertyCard = ({ property }) => {
     propertyName,
     province,
     city,
-    listingType,
-    _id,
   } = property;
 
-  console.log({ property });
   return (
-    <Link to={`/property/${_id}`}>
+    <div
+      onClick={() => setSelectedProperty(property)}
+      className='cursor-pointer'
+    >
       <div className='flex gap-3 bg-white w-full shadow-md rounded-md'>
         <img
           src={coverImage[0]}
@@ -36,17 +32,11 @@ const PropertyCard = ({ property }) => {
         />
         <div className='p-2'>
           <h1 className='mt-3 font-semibold text-xl'>{propertyName}</h1>
-          <h1 className='mt-3 font-semibold text-xl'>{headLine}</h1>
           <h1 className='text-sm my-1'>
-            {province}, {city}, {location}
+            {province}, {city}, {address}
           </h1>
 
-          <h1 className='flex items-center gap-2 my-2'>
-            ฿ {price}{' '}
-            <span className='text-xs bg-dark2/10 py-1 px-3 rounded'>
-              starting from
-            </span>
-          </h1>
+          <h1 className='text-sm my-1'>Property type: {propertyType}</h1>
           {propertyType !== 'land' && (
             <div className='flex gap-5 my-3'>
               <div>
@@ -86,7 +76,7 @@ const PropertyCard = ({ property }) => {
               )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

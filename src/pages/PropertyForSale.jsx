@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropertyCard from '../components/cards/PropertyCard';
-import { baseURL, useUserContext } from '../providers/AuthProvider';
+import { useUserContext } from '../providers/AuthProvider';
 import MapCluster from './ClusterMap';
 import { useSearchParams } from 'react-router-dom';
 
 const PropertyForSale = () => {
-  const { searchvalue, category, bedroomsSelected, pricefilter } =
-    useUserContext();
+  const { searchvalue, bedroomsSelected, pricefilter } = useUserContext();
 
   const [searchResults, setSearchResults] = useState([]);
   const [allProperties, setAllProperties] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(false);
-  const [isAllPropertyLoading, setIsAllPropertyLoading] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState({});
 
   const [searchParams] = useSearchParams();
   const location = searchParams.get('location');
@@ -21,7 +20,7 @@ const PropertyForSale = () => {
   const bedrooms = searchParams.get('bedrooms');
   const propertyType = searchParams.get('propertyType');
 
-  console.log({ location, searchvalue });
+  console.log({ searchResults });
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -51,13 +50,10 @@ const PropertyForSale = () => {
   useEffect(() => {
     const fetchCategoryProperties = async () => {
       try {
-        setIsAllPropertyLoading(true);
         const { data } = await axios.get(`/get/allProperties`);
         setAllProperties(data);
       } catch (error) {
         console.error('Error fetching category properties:', error);
-      } finally {
-        setIsAllPropertyLoading(false);
       }
     };
 
@@ -85,7 +81,11 @@ const PropertyForSale = () => {
                     : 'No properties found for your search'}
                 </h2>
                 {searchResults.map((property) => (
-                  <PropertyCard key={property._id} property={property} />
+                  <PropertyCard
+                    key={property._id}
+                    property={property}
+                    setSelectedProperty={setSelectedProperty}
+                  />
                 ))}
               </div>
               {moreProperties.length > 0 && (
@@ -95,7 +95,11 @@ const PropertyForSale = () => {
                   </h3>
                   <div className='flex flex-col gap-5'>
                     {moreProperties.map((property) => (
-                      <PropertyCard key={property._id} property={property} />
+                      <PropertyCard
+                        key={property._id}
+                        property={property}
+                        setSelectedProperty={setSelectedProperty}
+                      />
                     ))}
                   </div>
                 </div>
@@ -103,7 +107,11 @@ const PropertyForSale = () => {
             </div>
 
             <div className='flex-1'>
-              <MapCluster properties={allProperties} />
+              <MapCluster
+                properties={allProperties}
+                selectedProperty={selectedProperty}
+                setSelectedProperty={setSelectedProperty}
+              />
             </div>
           </section>
         </>

@@ -1,10 +1,8 @@
-import { Popover, Progress, Select } from "antd";
-import { useContext, useEffect, useState } from "react";
-import { FaCircleInfo } from "react-icons/fa6";
-import FormInput from "../forms/FormInput";
+import { useContext, useEffect, useState } from 'react';
+import FormInput from '../forms/FormInput';
 
-import { AuthContext } from "../../providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const ContactStep = () => {
   const { user } = useContext(AuthContext);
@@ -25,74 +23,76 @@ const ContactStep = () => {
       setEmail(user.email || '');
       setPhone(user.phone || '');
       setAddress(user.address || '');
-      setIsLoading(false);  // Indicate loading is complete
+      setIsLoading(false); // Indicate loading is complete
     }
   }, [user]);
 
   useEffect(() => {
     if (!isLoading && (!username || !email || !phone || !address)) {
-      alert("Please update your profile and enter your address and phone number and try again.");
+      alert(
+        'Please update your profile and enter your address and phone number and try again.'
+      );
       navigate('/dashboard/my-profile');
     }
   }, [username, email, phone, address, isLoading, navigate]);
 
   return (
     <div
-      className="bg-white "
+      className='bg-white '
       style={{
-        border: "1px solid #d9d9d9",
-        borderRadius: "5px",
-        padding: "15px",
-        marginBottom: "10px",
+        border: '1px solid #d9d9d9',
+        borderRadius: '5px',
+        padding: '15px',
+        marginBottom: '10px',
       }}
     >
       <p
         style={{
-          fontSize: "28px",
-          marginBottom: "10px",
+          fontSize: '28px',
+          marginBottom: '10px',
         }}
-        className="font-semibold"
+        className='font-semibold'
       >
         Almost Done
       </p>
       <p
         style={{
-          fontSize: "20px",
-          marginBottom: "10px",
+          fontSize: '20px',
+          marginBottom: '10px',
         }}
       >
         Enter your contact information
       </p>
 
-      <div className="w-full max-w-[600px] flex flex-col gap-4">
+      <div className='w-full max-w-[600px] flex flex-col gap-4'>
         <div>
           <FormInput
-            type="text"
-            name="contactName"
-            size="large"
-            placeholder="name"
-            label="Your name"
+            type='text'
+            name='contactName'
+            size='large'
+            placeholder='name'
+            label='Your name'
             required={true}
             value={username}
           />
         </div>
         <div>
           <FormInput
-            type="email"
-            name="contactEmail"
-            size="large"
-            placeholder="email"
-            label="Your Email"
+            type='email'
+            name='contactEmail'
+            size='large'
+            placeholder='email'
+            label='Your Email'
             required={true}
             value={email}
           />
         </div>
         <div>
           <FormInput
-            name="contactNumber"
-            size="large"
-            placeholder="number"
-            label="Your number"
+            name='contactNumber'
+            size='large'
+            placeholder='number'
+            label='Your number'
             required={true}
             value={phone}
           />
@@ -100,11 +100,11 @@ const ContactStep = () => {
 
         <div>
           <FormInput
-            type="text"
-            name="contactAddress"
-            size="large"
-            placeholder="address"
-            label="Your address"
+            type='text'
+            name='contactAddress'
+            size='large'
+            placeholder='address'
+            label='Your address'
             required={true}
             value={address}
           />
