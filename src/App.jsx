@@ -25,6 +25,7 @@ import CreateListingFront from './pages/CreateListingFront';
 import ManageProperties from './pages/dashboard/ManageProperties';
 import AdminRoute from './shared/AdminRoute';
 import CreateProperty from './components/Steps/CreateProperty';
+import ManagePackages from './pages/dashboard/ManagePackages';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -136,6 +137,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageProperties />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: 'manage-packages',
+        element: (
+          <AdminRoute>
+            <ManagePackages />
           </AdminRoute>
         ),
       },

@@ -5,11 +5,11 @@ import { HomeOutlined } from '@ant-design/icons';
 import BodyNav from './BodyNav';
 import OverviewSection from './OverviewSection';
 import Banner from './Banner';
-import StickySection from './StickySection';
+import ReviewSection from './ReviewSection';
 
 import 'react-slideshow-image/dist/styles.css';
 
-import ContactDeveloper from './ContactDeveloper';
+import ContactOwner from './ContactOwner';
 import SimilarListings from './SimilarListings';
 import FAQ from './FAQ';
 
@@ -74,19 +74,20 @@ const SingleProperty = () => {
             {property?.amenities && <Amenities property={property} />}
 
             {property?.video && <VideoSection property={property} />}
-            {/* <Facilities property={property} /> */}
           </div>
           <div>
-            <StickySection
-              handleContactAbout={handleContactAbout}
-              property={property}
-            />
+            {/* {property?.isVerified &&  */}
+            <ContactOwner property={property} />
+            {/* } */}
           </div>
         </div>
-        {/* <HomeFinance /> */}
+
         <MapLocation location={property.latLng} setMap={() => {}} />
-        {/* <Location lat={loc?.lat} lng={loc?.lng} /> */}
-        {property?.isVerified && <ContactDeveloper owner={property?.owner} />}
+
+        <ReviewSection
+          handleContactAbout={handleContactAbout}
+          property={property}
+        />
       </SmallContainer>
       <SimilarListings />
       <SmallContainer>

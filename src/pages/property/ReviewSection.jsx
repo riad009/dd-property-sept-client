@@ -1,12 +1,11 @@
-import { Button, message, Rate } from 'antd';
-import { CiHeart, CiShare2 } from 'react-icons/ci';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
+import { Button, message, Rate, Input } from 'antd';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export const Content = ({ propertyId, user }) => {
+export const Content = ({ propertyId }) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
+  const [email, setEmail] = useState('');
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -22,13 +21,13 @@ export const Content = ({ propertyId, user }) => {
   }, [propertyId]);
 
   const handleSubmitReview = async () => {
-    if (!rating || !review) {
-      message.error('Please rate the property');
+    if (!rating || !review || !email) {
+      message.error('Please fill in all fields');
       return;
     }
 
-    if (!user) {
-      message.error('Please login to submit a review');
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      message.error('Please enter a valid email address');
       return;
     }
 
@@ -37,12 +36,13 @@ export const Content = ({ propertyId, user }) => {
         rating,
         message: review,
         propertyId,
-        email: user.email,
+        email,
       });
       if (response.status === 201) {
         message.success('Review submitted successfully');
         setRating(0);
         setReview('');
+        setEmail('');
         // Refresh reviews
         const updatedReviews = await axios.get(`/reviews/${propertyId}`);
         setReviews(updatedReviews.data);
@@ -51,8 +51,6 @@ export const Content = ({ propertyId, user }) => {
       console.error('Error submitting review:', error);
     }
   };
-
-  console.log(user);
 
   return (
     <div className='bg-white rounded-lg shadow-md p-6'>
@@ -72,16 +70,21 @@ export const Content = ({ propertyId, user }) => {
           rows={4}
         />
       </div>
-      {user?.email ? (
-        <Button
-          onClick={handleSubmitReview}
-          className='w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md'
-        >
-          Submit Review
-        </Button>
-      ) : (
-        <p className='text-center mb-4'>Please login to submit a review</p>
-      )}
+      <div className='mb-4'>
+        <p className='text-sm font-medium mb-2'>Your Email:</p>
+        <Input
+          type='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='Enter your email'
+        />
+      </div>
+      <Button
+        onClick={handleSubmitReview}
+        className='w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md'
+      >
+        Submit Review
+      </Button>
 
       <div className='mt-6'>
         <h3 className='text-xl font-semibold mb-3'>Recent Reviews</h3>
@@ -91,7 +94,7 @@ export const Content = ({ propertyId, user }) => {
               <Rate disabled defaultValue={review.rating} />
               <p className='text-sm mt-1'>{review.message}</p>
               <p className='text-xs text-gray-500 mt-1'>
-                By {review.user.name} on{' '}
+                By {review.email} on{' '}
                 {new Date(review.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -103,49 +106,15 @@ export const Content = ({ propertyId, user }) => {
     </div>
   );
 };
-const StickySection = ({ handleContactAbout, property }) => {
-  const { user } = useContext(AuthContext);
 
-  const handleFavoriteClick = async () => {
-    try {
-      // Update user's favorites on the backend
-      const response = await axios.put(`/user/favorites/${user?.email}`, {
-        propertyId: property?._id,
-      });
-      console.log({ response });
-      if (response?.status === 200) {
-        alert('Property added to favourites');
-      }
-    } catch (error) {
-      console.error('Error updating favorites:', error);
-    }
-  };
+const ReviewSection = ({ property }) => {
   return (
-    <div className='w-72 sm:sticky top-16'>
-      <div className='bg-dark/5 p-3 rounded-md'>
-        <Content
-          handleContactAbout={handleContactAbout}
-          propertyId={property?._id}
-          user={user}
-        />
-      </div>
-      <div className='flex items-center justify-center gap-3 text-danger mt-3 text-sm'>
-        {user?.email && (
-          <div
-            className='cursor-pointer flex items-center gap-2'
-            onClick={handleFavoriteClick}
-          >
-            <CiHeart className='text-lg' />
-            Favourite
-          </div>
-        )}
-        <div className='cursor-pointer flex items-center gap-2'>
-          <CiShare2 />
-          Share
-        </div>
+    <div className='mt-10'>
+      <div className='rounded-md'>
+        <Content propertyId={property?._id} />
       </div>
     </div>
   );
 };
 
-export default StickySection;
+export default ReviewSection;

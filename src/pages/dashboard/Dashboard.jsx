@@ -1,9 +1,4 @@
-import {
-  MdFavoriteBorder,
-  MdHome,
-  MdMessage,
-  MdVerified,
-} from 'react-icons/md';
+import { MdHome, MdMessage, MdVerified } from 'react-icons/md';
 import DashCard from '../../components/cards/DashCard';
 import DashboardHeader from './DashboardHeader';
 import { useContext, useEffect, useState, useMemo } from 'react';
@@ -34,7 +29,6 @@ const Dashboard = () => {
     myProperty: 0,
     allProperty: 0,
     verifiedProperties: 0,
-    favourites: 0,
     reviews: 0,
   });
 
@@ -45,8 +39,7 @@ const Dashboard = () => {
           await Promise.all([
             axios.get(`/get/emailWise?email=${user?.email}`),
             axios.get(`/get/emailWise`),
-            axios.get(`/get/favourites/${user?.email}`),
-            // if role is admin then get all reviews
+
             user?.role === 'admin'
               ? axios.get(`/reviews`)
               : axios.get(`/reviews/?email=${user?.email}`),
@@ -66,7 +59,6 @@ const Dashboard = () => {
           allProperty: allPropertyData.length,
           verifiedProperties: allPropertyData.filter((p) => p.isVerified)
             .length,
-          favourites: favouritesRes.data.favorites?.length || 0,
           reviews: reviewsRes.data.length,
         });
       } catch (error) {
@@ -104,12 +96,6 @@ const Dashboard = () => {
         bgColor: 'bg-sky-100 text-sky-600',
         number: dashboardData.reviews,
         title: 'Total Reviews',
-      },
-      {
-        icon: <MdFavoriteBorder />,
-        bgColor: 'bg-orange-100 text-orange-600',
-        number: dashboardData.favourites,
-        title: 'My Favorites',
       },
     ],
     [dashboardData]

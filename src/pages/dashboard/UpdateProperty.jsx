@@ -377,7 +377,7 @@ const UpdateProperty = () => {
                 )}
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label='Monthly Price (THB)'
+                    label='30 Year Leasing Price (THB)'
                     name='monthlyPrice'
                     rules={[
                       {
@@ -395,7 +395,7 @@ const UpdateProperty = () => {
                 </Col>
                 <Col xs={24} sm={12}>
                   <Form.Item
-                    label='Yearly Price (THB)'
+                    label='90 Year Leasing Price (THB)'
                     name='yearlyPrice'
                     rules={[
                       {

@@ -119,7 +119,7 @@ const CreateProperty = () => {
         if (res.status === 201) {
           setIsLoading(false);
           // alert(res.data.message);
-          navigate('/dashboard/my-properties');
+          navigate('/dashboard/membership');
           // formData.reset();
 
           setCurrentStep(0);
@@ -345,7 +345,7 @@ const CreateProperty = () => {
                 )}
                 <Col xs={24} sm={8}>
                   <Form.Item
-                    label='Monthly Price (THB)'
+                    label='30 Year Leasing Price (THB)'
                     name='monthlyPrice'
                     rules={[
                       {
@@ -368,7 +368,7 @@ const CreateProperty = () => {
                 </Col>
                 <Col xs={24} sm={8}>
                   <Form.Item
-                    label='Yearly Price (THB)'
+                    label='90 Year Leasing Price (THB)'
                     name='yearlyPrice'
                     rules={[
                       {

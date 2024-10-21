@@ -15,9 +15,9 @@ const MoreDetails = ({ property }) => {
                 </div>
                 <div className='mb-4'>
                   <span className='font-semibold'>Status:</span>{' '}
-                  {property.listingType
-                    .replace(/([a-z])([A-Z])/g, '$1 $2')
-                    .replace(/^./, function (str) {
+                  {property?.listingType
+                    ?.replace(/([a-z])([A-Z])/g, '$1 $2')
+                    ?.replace(/^./, function (str) {
                       return str.toUpperCase();
                     })}
                 </div>

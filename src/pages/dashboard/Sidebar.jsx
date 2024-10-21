@@ -101,13 +101,13 @@ const sidebarItems = {
         },
       ],
     },
-    {
-      id: 7,
-      route: 'My Favorites',
-      path: 'my-favorites',
-      icon: <MdFavorite />,
-      role: 'user',
-    },
+    // {
+    //   id: 7,
+    //   route: 'My Favorites',
+    //   path: 'my-favorites',
+    //   icon: <MdFavorite />,
+    //   role: 'user',
+    // },
     // {
     //   id: 8,
     //   route: "Saved Search",
@@ -122,6 +122,14 @@ const sidebarItems = {
       route: 'My package',
       path: 'my-package',
       icon: <BiPackage />,
+      role: 'user',
+    },
+    {
+      id: 10,
+      route: 'Manage packages',
+      path: 'manage-packages',
+      icon: <BiPackage />,
+      role: 'admin',
     },
     // {
     //   id: 10,
@@ -184,16 +192,19 @@ const Sidebar = () => {
           Manage Account
         </h1>
         <div className='flex flex-col gap-2'>
-          {sidebarItems.manageAccount.map((item) => (
-            <Link
-              className='flex p-3 gap-2 hover:bg-slate-800 items-center'
-              to={item.path}
-              key={item.id}
-            >
-              <div>{item.icon}</div>
-              <div className='hidden md:inline'>{item.route}</div>
-            </Link>
-          ))}
+          {sidebarItems.manageAccount.map(
+            (item) =>
+              item.role === user?.role && (
+                <Link
+                  className='flex p-3 gap-2 hover:bg-slate-800 items-center'
+                  to={item.path}
+                  key={item.id}
+                >
+                  <div>{item.icon}</div>
+                  <div className='hidden md:inline'>{item.route}</div>
+                </Link>
+              )
+          )}
         </div>
       </div>
     </div>
