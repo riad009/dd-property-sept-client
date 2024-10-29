@@ -23,7 +23,7 @@ const AgentCard = ({ agent }) => {
           alt="company_image"
         />
       </div>
-      {status === "verified" && (
+      {status && status === "verified" && (
         <div className="absolute top-0 right-2">
           <Verified />
         </div>

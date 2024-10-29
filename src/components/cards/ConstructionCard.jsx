@@ -1,23 +1,24 @@
 import TextRed from "../TextRed";
 
-const ConstructionCard = ({ construction }) => {
-  const { image, type, title, date, description, sellerName, sellerImage } =
-    construction;
+const ConstructionCard = ({ constructor }) => {
+  const { image, type, title, createdAt, description, name, company_logo } =
+    constructor;
+
   return (
     <div className="relative shadow-lg bg-white p-2 rounded-xl">
-      <img className="rounded-lg" src={image} alt="thumb" />
+      <img className="rounded-lg" src={company_logo} alt="thumb" />
       <h1 className="my-2 font-semibold">{title}</h1>
-      <h1>{date}</h1>
+      <h1>
+        {createdAt
+          ? new Date(createdAt).toDateString()
+          : new Date().toDateString}
+      </h1>
       <h1 className="my-2 text-sm">{description}</h1>
       <hr />
       <div className="py-3 flex justify-between items-center">
         <div className="gap-2 flex items-center">
-          <img
-            className="h-8 w-8 rounded-full"
-            src={sellerImage}
-            alt="avatar"
-          />
-          <h1>{sellerName}</h1>
+          <img className="h-8 w-8 rounded-full" src={image} alt="avatar" />
+          <h1>{name}</h1>
         </div>
         <TextRed>Read More {">"}</TextRed>
       </div>

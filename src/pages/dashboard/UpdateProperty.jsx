@@ -242,7 +242,7 @@ const UpdateProperty = () => {
       content: (
         <div className='bg-white p-10 rounded-lg'>
           <h1 className='mb-5 font-semibold text-2xl'>Update Location</h1>
-          <Row gutter={16}>
+          <Row gutter={16} >
             <Col xs={24} sm={12}>
               <Form.Item
                 label='Name of the property'
