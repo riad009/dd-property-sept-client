@@ -21,10 +21,11 @@ const facebookProvider = new FacebookAuthProvider();
 // Create the UserContext
 export const AuthContext = createContext();
 
-// export const baseURL = 'https://dd-property-sept-server.vercel.app';
-export const baseURL = "http://localhost:5003";
+export const baseURL = "https://dd-property-sept-server.vercel.app";
+// export const baseURL = "http://localhost:5003";
 
 axios.defaults.baseURL = baseURL;
+5;
 
 // Create a UserContextProvider component
 export const AuthProvider = ({ children }) => {
