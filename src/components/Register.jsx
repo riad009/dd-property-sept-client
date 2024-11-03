@@ -1,21 +1,21 @@
-import { Button, Divider, Input, Modal, Select, Upload } from "antd";
-import Brand from "./Brand";
+import { Button, Divider, Input, Modal, Select, Upload } from 'antd';
+import Brand from './Brand';
 
-import TextRed from "./TextRed";
-import { useContext, useState } from "react";
-import { AuthContext } from "../providers/AuthProvider";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { PlusOutlined } from "@ant-design/icons";
-import { keys } from "localforage";
+import TextRed from './TextRed';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../providers/AuthProvider';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { PlusOutlined } from '@ant-design/icons';
+import { keys } from 'localforage';
 const { Option } = Select;
 
 const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const { userRefetch, setUserRefetch } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState("user");
+  const [selectedRole, setSelectedRole] = useState('user');
 
   const [fileList, setFileList] = useState([]);
   const [images, setImage] = useState([]);
@@ -31,22 +31,22 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMediaFileError(false);
-    setError("");
+    setError('');
 
     const formData = new FormData(e.target);
 
-    formData.append("role", selectedRole);
+    formData.append('role', selectedRole);
 
     formData.append(
-      "image",
+      'image',
       images.length > 0 ? images[0]?.originFileObj : null
     );
     formData.append(
-      "company_logo",
+      'company_logo',
       company_logo.length > 0 ? company_logo[0]?.originFileObj : null
     );
 
-    if (selectedRole !== "user") {
+    if (selectedRole !== 'user') {
       if (!images[0]?.originFileObj || !company_logo[0]?.originFileObj) {
         setMediaFileError(true);
         return; // Stop further execution if media files are missing
@@ -59,17 +59,17 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
     try {
       const promise = await axios.post(`/register`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       if (promise.status === 200) {
-        localStorage.setItem("accessToken", promise.data.token);
+        localStorage.setItem('accessToken', promise.data.token);
         setUserRefetch(!userRefetch);
         setError();
         setTimeout(() => {
           handleCancel();
           setLoading(false);
-          navigate("/dashboard");
+          navigate('/dashboard');
         }, 1000);
       }
     } catch (error) {
@@ -81,82 +81,82 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
 
   return (
     <Modal
-      label="Auth Modal"
+      label='Auth Modal'
       onCancel={handleCancel}
       open={isModalOpen}
       footer={null}
     >
-      <div className="text-center p-5">
+      <div className='text-center p-5'>
         <Brand center />
-        <h1 className="my-4 font-semibold text-xl">
+        <h1 className='my-4 font-semibold text-xl'>
           Welcome to Thaiproperty4u
         </h1>
-        <p className="my-2 text-sm">
+        <p className='my-2 text-sm'>
           Register up to get the most out of your Thaiproperty4u experience.
         </p>
 
-        <form onSubmit={handleSubmit} className="my-5 flex flex-col gap-2">
+        <form onSubmit={handleSubmit} className='my-5 flex flex-col gap-2'>
           <Select
             defaultValue={selectedRole}
             onChange={(e) => setSelectedRole(e)}
-            name="role"
+            name='role'
             required
           >
-            <Option value="user">User</Option>
-            <Option value="agent">Agent</Option>
-            <Option value="constructor">Construction Company</Option>
+            <Option value='user'>Owner</Option>
+            <Option value='agent'>Agent</Option>
+            <Option value='constructor'>Construction Company</Option>
           </Select>
           <Input
-            name="name"
+            name='name'
             required
             placeholder={
-              selectedRole === "user" || selectedRole === "agent"
-                ? "Name"
-                : "Seller Name"
+              selectedRole === 'user' || selectedRole === 'agent'
+                ? 'Name'
+                : 'Seller Name'
             }
           />
 
-          {selectedRole === "agent" && (
-            <div className="flex flex-col gap-2">
-              <Input name="title" required placeholder="Title" />
-              <Input name="phoneNumber" required placeholder="Phone Number" />
+          {selectedRole === 'agent' && (
+            <div className='flex flex-col gap-2'>
+              <Input name='title' required placeholder='Title' />
+              <Input name='phoneNumber' required placeholder='Phone Number' />
             </div>
           )}
 
-          {selectedRole === "constructor" && (
-            <div className="flex flex-col gap-2">
-              <Input name="title" required placeholder="Company Title" />
+          {selectedRole === 'constructor' && (
+            <div className='flex flex-col gap-2'>
+              <Input name='title' required placeholder='Company Title' />
 
               <Input
-                name="description"
+                name='description'
                 required
-                placeholder="Company Description"
-                type="textarea"
-                size="large"
+                placeholder='Company Description'
+                type='textarea'
+                size='large'
                 spellCheck
                 maxLength={1000}
                 showCount
               />
 
               <Input
-                name="type"
+                name='type'
                 required
-                placeholder="Company Type (ie. buisness, real estate)"
+                placeholder='Company Type (ie. buisness, real estate)'
               />
             </div>
           )}
 
-          <Input name="email" required placeholder="Email address" />
+          <Input name='email' required placeholder='Email address' />
           <Input
-            name="password"
+            name='password'
             required
-            type="password"
-            placeholder="Password"
+            type='password'
+            placeholder='Password'
           />
-          {(selectedRole === "agent" || selectedRole === "constructor") && (
-            <div className="flex flex-col gap-2 md:flex-row">
+          {(selectedRole === 'agent' || selectedRole === 'constructor') && (
+            <div className='flex flex-col gap-2 md:flex-row'>
               <Upload
-                listType="picture-card"
+                listType='picture-card'
                 maxCount={1}
                 beforeUpload={() => false}
                 fileList={images}
@@ -166,15 +166,15 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
                   <div>
                     <PlusOutlined />
                     <div style={{ marginTop: 8 }}>
-                      {selectedRole === "agent"
-                        ? "Upload Profile Image"
-                        : "Upload Seller Image"}
+                      {selectedRole === 'agent'
+                        ? 'Upload Profile Image'
+                        : 'Upload Seller Image'}
                     </div>
                   </div>
                 )}
               </Upload>
               <Upload
-                listType="picture-card"
+                listType='picture-card'
                 maxCount={1}
                 beforeUpload={() => false}
                 fileList={company_logo}
@@ -190,28 +190,28 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
             </div>
           )}
           {mediaFileError && (
-            <p className="text-red-600 text-xs">Please Upload Image(s)</p>
+            <p className='text-red-600 text-xs'>Please Upload Image(s)</p>
           )}
           <Button
             disabled={loading}
-            htmlType="submit"
-            type="submit"
-            className="bg-danger text-white w-full hover:bg-danger/90"
+            htmlType='submit'
+            type='submit'
+            className='bg-danger text-white w-full hover:bg-danger/90'
           >
-            {loading ? "Registering.." : "Register"}
+            {loading ? 'Registering..' : 'Register'}
           </Button>
 
-          {error && <p className="text-danger">{error}</p>}
+          {error && <p className='text-danger'>{error}</p>}
         </form>
 
-        <div className="my-5">
+        <div className='my-5'>
           <p>Already have an account?</p>
           <TextRed
             onClick={() => {
               setIsModalOpen(true);
               handleCancel();
             }}
-            extraClasses="hover:text-danger/80"
+            extraClasses='hover:text-danger/80'
           >
             Login
           </TextRed>
@@ -219,7 +219,7 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
 
         <Divider />
 
-        <p className="text-xs">
+        <p className='text-xs'>
           I agree to Thaiproperty4u&apos;s Terms of Service and Privacy Policy
           including the collection, use and disclosure of my personal
           information.

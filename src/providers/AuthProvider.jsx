@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import {
   createUserWithEmailAndPassword,
@@ -10,9 +10,9 @@ import {
   signInWithPopup,
   signOut,
   FacebookAuthProvider,
-} from "firebase/auth";
-import app from "../firebase";
-import axios from "axios";
+} from 'firebase/auth';
+import app from '../firebase';
+import axios from 'axios';
 const auth = getAuth(app);
 const auth2 = getAuth(app);
 
@@ -21,8 +21,8 @@ const facebookProvider = new FacebookAuthProvider();
 // Create the UserContext
 export const AuthContext = createContext();
 
-export const baseURL = "https://dd-property-sept-server.vercel.app";
-// export const baseURL = "http://localhost:5003";
+// export const baseURL = "https://dd-property-sept-server.vercel.app";
+export const baseURL = 'http://localhost:5003';
 
 axios.defaults.baseURL = baseURL;
 5;
@@ -43,26 +43,26 @@ export const AuthProvider = ({ children }) => {
 
   const [videoUrls, setVideoUrls] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
-  const [coverImage, setCoverImage] = useState("");
-  const [listingType, setListingType] = useState("");
-  const [location, setLocation] = useState("");
-  const [furnishValue, setFurnishValue] = useState("");
+  const [coverImage, setCoverImage] = useState('');
+  const [listingType, setListingType] = useState('');
+  const [location, setLocation] = useState('');
+  const [furnishValue, setFurnishValue] = useState('');
   const [furnishObjects, setFurnishObjects] = useState([]);
   const [unitFeatures, setUnitFeatures] = useState([]);
-  const [availabilityForLiveTour, setAvailabilityForLiveTour] = useState("");
+  const [availabilityForLiveTour, setAvailabilityForLiveTour] = useState('');
 
-  const [searchvalue, setsearchvalue] = useState("");
+  const [searchvalue, setsearchvalue] = useState('');
 
-  const [category, setcategory] = useState("");
+  const [category, setcategory] = useState('');
 
-  const [bedrooms, setbedrooms] = useState("");
+  const [bedrooms, setbedrooms] = useState('');
 
   const [pricefilter, setpricefilter] = useState({
-    minPrice: "",
-    maxPrice: "",
+    minPrice: '',
+    maxPrice: '',
   });
-  const [bedroomsSelected, setBedroomsSelected] = useState("");
-  const [propertyUpdateId, setPropertyid] = useState("");
+  const [bedroomsSelected, setBedroomsSelected] = useState('');
+  const [propertyUpdateId, setPropertyid] = useState('');
 
   console.log({ searchvalue });
 
@@ -171,14 +171,14 @@ export const AuthProvider = ({ children }) => {
       handlePropertyid();
     };
 
-    window.addEventListener("popstate", handleBackButton);
+    window.addEventListener('popstate', handleBackButton);
 
     return () => {
-      window.removeEventListener("popstate", handleBackButton);
+      window.removeEventListener('popstate', handleBackButton);
     };
   }, []);
 
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem('accessToken');
   useEffect(() => {
     const getProfile = async () => {
       setIsLoading(true);
@@ -190,14 +190,14 @@ export const AuthProvider = ({ children }) => {
           },
         });
 
-        console.log("useruser", promise.data.data);
+        console.log('useruser', promise.data.data);
         setUser(promise.data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
         setIsLoading(false);
-        if (error.response.data.message === "Invalid Token!") {
-          localStorage.removeItem("accessToken");
+        if (error.response.data.message === 'Invalid Token!') {
+          localStorage.removeItem('accessToken');
         }
       }
     };
