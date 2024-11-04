@@ -38,7 +38,8 @@ export const Content = ({ propertyId }) => {
         propertyId,
         email,
       });
-      if (response.status === 201) {
+      console.log({ response });
+      if (response.status === 200) {
         message.success('Review submitted successfully');
         setRating(0);
         setReview('');
@@ -51,6 +52,8 @@ export const Content = ({ propertyId }) => {
       console.error('Error submitting review:', error);
     }
   };
+
+  console.log({ reviews });
 
   return (
     <div className='bg-white rounded-lg shadow-md p-6'>

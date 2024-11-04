@@ -1,9 +1,8 @@
 import { MdHome, MdMessage, MdVerified } from 'react-icons/md';
 import DashCard from '../../components/cards/DashCard';
 import DashboardHeader from './DashboardHeader';
-import { useContext, useEffect, useState, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
-import axios from 'axios';
 
 import {
   LineChart,
@@ -80,52 +79,7 @@ const ACTIVITIES = [
 ];
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
-  const [dashboardData, setDashboardData] = useState({
-    myProperty: 0,
-    allProperty: 0,
-    verifiedProperties: 0,
-    reviews: 0,
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [myPropertyRes, allPropertyRes, favouritesRes, reviewsRes] =
-          await Promise.all([
-            axios.get(`/get/emailWise?email=${user?.email}`),
-            axios.get(`/get/emailWise`),
-
-            user?.role === 'admin'
-              ? axios.get(`/reviews`)
-              : axios.get(`/reviews/?email=${user?.email}`),
-          ]);
-
-        console.log({
-          myPropertyRes,
-          allPropertyRes,
-          favouritesRes,
-          reviewsRes,
-        });
-        const myPropertyData = myPropertyRes.data;
-        const allPropertyData = allPropertyRes.data;
-
-        setDashboardData({
-          myProperty: myPropertyData.length,
-          allProperty: allPropertyData.length,
-          verifiedProperties: allPropertyData.filter((p) => p.isVerified)
-            .length,
-          reviews: reviewsRes.data.length,
-        });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    if (user?.email) {
-      fetchData();
-    }
-  }, [user?.email]);
+  const { dashboardData } = useContext(AuthContext);
 
   const dashCards = useMemo(
     () => [

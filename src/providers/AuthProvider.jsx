@@ -63,8 +63,51 @@ export const AuthProvider = ({ children }) => {
   });
   const [bedroomsSelected, setBedroomsSelected] = useState('');
   const [propertyUpdateId, setPropertyid] = useState('');
+  const [user, setUser] = useState({});
+  const [dashboardData, setDashboardData] = useState({
+    myProperty: 0,
+    allProperty: 0,
+    verifiedProperties: 0,
+    reviews: 0,
+  });
 
-  console.log({ searchvalue });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [myPropertyRes, allPropertyRes, reviewsRes] = await Promise.all([
+          axios.get(`/get/emailWise?email=${user?.email}`),
+          axios.get(`/get/emailWise`),
+
+          user?.role === 'admin'
+            ? axios.get(`/reviews`)
+            : axios.get(`/reviews/?email=${user?.email}`),
+        ]);
+
+        console.log({
+          myPropertyRes,
+          allPropertyRes,
+          reviewsRes,
+        });
+        const myPropertyData = myPropertyRes?.data;
+        const allPropertyData = allPropertyRes?.data;
+
+        console.log({ myPropertyData, allPropertyData });
+        setDashboardData({
+          myProperty: myPropertyData?.length,
+          allProperty: allPropertyData?.length,
+          verifiedProperties: allPropertyData?.filter((p) => p.isVerified)
+            .length,
+          reviews: reviewsRes?.data?.length,
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (user?.email) {
+      fetchData();
+    }
+  }, [user?.email]);
 
   const handleSearchvalue = (newData) => {
     setsearchvalue((prev) => ({
@@ -90,8 +133,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   //firebase------------------------------
-
-  const [user, setUser] = useState({});
 
   // useEffect(() => {
   //   const gettoken = async () => {
@@ -222,6 +263,7 @@ export const AuthProvider = ({ children }) => {
     logout,
 
     user,
+    dashboardData,
     loading,
     providerLogin,
     creatUser,
