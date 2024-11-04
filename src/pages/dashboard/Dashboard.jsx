@@ -15,51 +15,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
-
 const ACTIVITIES = [
   { notification: 'Your Listing Shanto Villa has been approved' },
   { notification: 'Congratulations! Your Listing Sunny Haven is now live.' },
@@ -111,6 +66,28 @@ const Dashboard = () => {
     [dashboardData]
   );
 
+  const graphData = useMemo(
+    () => [
+      {
+        name: 'My Properties',
+        value: dashboardData.myProperty,
+      },
+      {
+        name: 'All Properties',
+        value: dashboardData.allProperty,
+      },
+      {
+        name: 'Verified Properties',
+        value: dashboardData.verifiedProperties,
+      },
+      {
+        name: 'Reviews',
+        value: dashboardData.reviews,
+      },
+    ],
+    [dashboardData]
+  );
+
   return (
     <div className='min-h-[90vh] p-5 md:p-10 bg-dark2/5'>
       <DashboardHeader description='We are glad to see you again' />
@@ -124,7 +101,7 @@ const Dashboard = () => {
       <div className='flex gap-6'>
         <div className='flex-1 w-full h-[400px]'>
           <ResponsiveContainer>
-            <LineChart data={data}>
+            <LineChart data={graphData}>
               <CartesianGrid strokeDasharray='3 3' />
               <XAxis dataKey='name' padding={{ left: 30, right: 30 }} />
               <YAxis />
@@ -132,11 +109,10 @@ const Dashboard = () => {
               <Legend />
               <Line
                 type='monotone'
-                dataKey='pv'
+                dataKey='value'
                 stroke='#8884d8'
                 activeDot={{ r: 8 }}
               />
-              <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -1,36 +1,12 @@
 import SmallContainer from '../shared/SmallContainer';
 import Heading from '../components/Heading';
-import company from '../assets/company.webp';
-import agent from '../assets/agent_pic.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Provinces from '../components/Provinces';
 import AgentCard from '../components/cards/AgentCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { debounce } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Loader from '../components/Loader';
-
-const featuredAgents = [
-  {
-    id: 1,
-    name: 'Krittawan Talomkham',
-    title: 'Freelance Real Estate Agent',
-    image: agent,
-    status: 'verified',
-    company_logo: company,
-    phoneNumber: '+66 89 937 5511',
-  },
-  {
-    id: 2,
-    name: 'Krittawan Talomkham',
-    title: 'Freelance Real Estate Agent',
-    image: agent,
-    status: 'not-verified',
-    company_logo: company,
-    phoneNumber: '+66 89 937 5511',
-  },
-];
 
 const FindAgent = () => {
   const location = useLocation();

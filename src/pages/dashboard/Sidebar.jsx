@@ -2,12 +2,9 @@ import { BiPackage } from 'react-icons/bi';
 import Brand from '../../components/Brand';
 import {
   MdAddBox,
-  MdFavorite,
   MdHome,
   MdLogout,
-  MdMessage,
   MdReviews,
-  MdSearch,
   MdSpaceDashboard,
   MdVerifiedUser,
 } from 'react-icons/md';
@@ -28,14 +25,14 @@ const sidebarItems = {
       route: 'Create Listing',
       path: 'create-listing',
       icon: <MdAddBox />,
-      role: ['user', 'agent'],
+      role: ['user', 'agent', 'constructor'],
     },
     {
       id: 3,
       route: 'My Profile',
       path: 'my-profile',
       icon: <MdVerifiedUser />,
-      role: ['user', 'agent'],
+      role: ['user', 'agent', 'constructor'],
     },
     // {
     //   id: 3,
@@ -51,25 +48,25 @@ const sidebarItems = {
       route: 'My Properties',
       path: 'my-properties',
       icon: <MdHome />,
-      role: ['user', 'agent'],
+      role: ['user', 'agent', 'constructor'],
       children: [
         {
           route: 'General Elements',
           path: 'general-elements',
           icon: <MdReviews />,
-          role: ['user', 'agent'],
+          role: ['user', 'agent', 'constructor'],
         },
         {
           route: 'Advanced Elements',
           path: 'advanced-elements',
           icon: <MdReviews />,
-          role: ['user', 'agent'],
+          role: ['user', 'agent', 'constructor'],
         },
         {
           route: 'Editors',
           path: 'editors',
           icon: <MdReviews />,
-          role: ['user', 'agent'],
+          role: ['user', 'agent', 'constructor'],
         },
       ],
     },
@@ -85,19 +82,19 @@ const sidebarItems = {
       route: 'Reviews',
       path: 'reviews',
       icon: <MdReviews />,
-      role: ['user', 'agent'],
+      role: ['user', 'agent', 'constructor'],
       children: [
         {
           route: 'My Reviews',
           path: 'my-reviews',
           icon: <MdReviews />,
-          role: ['user', 'agent'],
+          role: ['user', 'agent', 'constructor'],
         },
         {
           route: 'Visitors Reviews',
           path: 'visitors-reviews',
           icon: <MdReviews />,
-          role: ['user', 'agent'],
+          role: ['user', 'agent', 'constructor'],
         },
       ],
     },
@@ -122,7 +119,7 @@ const sidebarItems = {
       route: 'My package',
       path: 'my-package',
       icon: <BiPackage />,
-      role: ['user', 'agent'],
+      role: ['user', 'agent', 'constructor'],
     },
     {
       id: 10,
@@ -143,7 +140,7 @@ const sidebarItems = {
       route: 'Logout',
       path: '#',
       icon: <MdLogout />,
-      role: ['user', 'agent'],
+      role: ['user', 'agent', 'constructor'],
     },
   ],
 };

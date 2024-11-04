@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import banner from '../assets/greyBanner.svg';
 import SmallContainer from '../shared/SmallContainer';
 import Share from '../components/Share';
@@ -7,8 +7,6 @@ import { MdQuestionMark, MdVerified } from 'react-icons/md';
 import Heading from '../components/Heading';
 
 const AgentProfile = () => {
-  const { id: agentId } = useParams();
-
   const agentInfo = {
     id: 1,
     name: 'Krittawan Talomkham',
@@ -17,7 +15,7 @@ const AgentProfile = () => {
     status: 'verified',
     company_logo:
       'https://th2-cdn.pgimgs.com/agency/30/CLOGO.68060144.V120.jpg',
-    phoneNumber: '+66 89 937 5511',
+    phone: '+66 89 937 5511',
   };
 
   return (
@@ -48,7 +46,7 @@ const AgentProfile = () => {
                   src={agentInfo.company_logo}
                   alt='company_logo'
                 />
-                <h1 className='text-2xl'>{agentInfo.title}</h1>
+                {/* <h1 className='text-2xl'>{agentInfo.title}</h1> */}
               </div>
               <div className='flex items-center gap-2'>
                 <Share />
@@ -112,7 +110,7 @@ const AgentProfile = () => {
               height='350'
               allowfullscreen=''
               loading='lazy'
-              referrerpolicy='no-referrer-when-downgrade'
+              referrerPolicy='no-referrer-when-downgrade'
             ></iframe>
           </div>
         </section>
@@ -122,5 +120,3 @@ const AgentProfile = () => {
 };
 
 export default AgentProfile;
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;

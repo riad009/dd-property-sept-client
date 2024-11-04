@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import { BiPhone } from 'react-icons/bi';
+import { BsLine } from 'react-icons/bs';
 import { MdEmail, MdWhatsapp } from 'react-icons/md';
 
 const ContactOwner = ({ property }) => {
@@ -48,6 +49,13 @@ const ContactOwner = ({ property }) => {
             >
               <MdWhatsapp className='w-5 h-5 mr-2' />
               WhatsApp
+            </a>
+            <a
+              href={`https://line.me/ti/p/${owner?.phone}`}
+              className='w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-md mb-2 flex items-center justify-center'
+            >
+              <BsLine className='w-5 h-5 mr-2' />
+              Line
             </a>
 
             <button

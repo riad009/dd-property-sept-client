@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import ProfileInput from '../../components/ProfileInput';
 import { AuthContext } from '../../providers/AuthProvider';
@@ -12,20 +12,6 @@ const ProfilePage = () => {
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
 
-  const [skype, setSkype] = useState('');
-  const [website, setWebsite] = useState('');
-  const [facebook, setFacebook] = useState('');
-  const [twitter, setTwitter] = useState('');
-  const [linkedin, setLinkedin] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [googleplus, setGoogleplus] = useState('');
-  const [youtube, setYoutube] = useState('');
-  const [pinterest, setPinterest] = useState('');
-  const [vimeo, setVimeo] = useState('');
-
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [userId, setUserId] = useState(null);
 
   const handleProfileImageChange = (e) => {
@@ -39,11 +25,7 @@ const ProfilePage = () => {
       reader.readAsDataURL(file);
     }
   };
-  const { user, setUser } = useContext(AuthContext);
-
-  console.log({ profileImageFile });
-
-  console.log(user);
+  const { user } = useContext(AuthContext);
 
   const handleUpdateProfile = async () => {
     let image;
@@ -65,8 +47,6 @@ const ProfilePage = () => {
       image = imgbbResponse.data.data.url;
     }
 
-    console.log({ image });
-
     let formData = {
       name: username,
       email,
@@ -85,9 +65,6 @@ const ProfilePage = () => {
           phone: response.data.phone,
           address: response.data.address,
         };
-
-        console.log({ user });
-        console.log(response.data.data);
       }
     } catch (error) {
       console.error(error);

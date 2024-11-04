@@ -7,7 +7,6 @@ import { AuthContext } from '../providers/AuthProvider';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
-import { keys } from 'localforage';
 const { Option } = Select;
 
 const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
@@ -17,16 +16,9 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
   const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState('user');
 
-  const [fileList, setFileList] = useState([]);
   const [images, setImage] = useState([]);
   const [company_logo, setCompanyLogo] = useState([]);
   const [mediaFileError, setMediaFileError] = useState(false);
-
-  // const handleChange = ({ fileList }) => {
-  //   console.log(fileList);
-  //   // setFileList(fileList);
-
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -116,16 +108,16 @@ const Register = ({ handleCancel, isModalOpen, setIsModalOpen }) => {
             }
           />
 
-          {selectedRole === 'agent' && (
-            <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2'>
+            {selectedRole === 'agent' && (
               <Input name='title' required placeholder='Title' />
-              <Input name='phoneNumber' required placeholder='Phone Number' />
-            </div>
-          )}
+            )}
+            <Input name='phone' required placeholder='Phone Number' />
+          </div>
 
           {selectedRole === 'constructor' && (
             <div className='flex flex-col gap-2'>
-              <Input name='title' required placeholder='Company Title' />
+              {/* <Input name='title' required placeholder='Company Title' /> */}
 
               <Input
                 name='description'

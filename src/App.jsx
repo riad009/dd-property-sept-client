@@ -1,66 +1,70 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home/Home";
-import SingleProperty from "./pages/property/SingleProperty";
-import { AuthProvider, baseURL } from "./providers/AuthProvider";
-import Dashboard from "./pages/dashboard/Dashboard";
-import PrivateRoute from "./shared/PrivateRoute";
-import { DashboardLayout } from "./layouts/DashboardLayout";
-import TermsCondition from "./pages/TermsCondition";
-import FindConstruction from "./pages/FindConstruction";
-import FindAgent from "./pages/FindAgent";
-import AgentProfile from "./pages/AgentProfile";
-import PropertyForSale from "./pages/PropertyForSale";
-import MyProperties from "./pages/dashboard/MyProperties";
-import MyReviews from "./pages/dashboard/MyReviews";
-import MyFavorites from "./pages/dashboard/MyFavorites";
-import ProfilePage from "./pages/dashboard/MyProfile";
-import MyPackage from "./pages/dashboard/MyPackage";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home/Home';
+import SingleProperty from './pages/property/SingleProperty';
+import { AuthProvider, baseURL } from './providers/AuthProvider';
+import Dashboard from './pages/dashboard/Dashboard';
+import PrivateRoute from './shared/PrivateRoute';
+import { DashboardLayout } from './layouts/DashboardLayout';
+import TermsCondition from './pages/TermsCondition';
+import FindConstruction from './pages/FindConstruction';
+import FindAgent from './pages/FindAgent';
+import AgentProfile from './pages/AgentProfile';
+import PropertyForSale from './pages/PropertyForSale';
+import MyProperties from './pages/dashboard/MyProperties';
+import MyReviews from './pages/dashboard/MyReviews';
+import MyFavorites from './pages/dashboard/MyFavorites';
+import ProfilePage from './pages/dashboard/MyProfile';
+import MyPackage from './pages/dashboard/MyPackage';
 
-import Membership from "./pages/Membership";
-import UpdateProperty from "./pages/dashboard/UpdateProperty";
+import Membership from './pages/Membership';
+import UpdateProperty from './pages/dashboard/UpdateProperty';
 
-import CreateListingFront from "./pages/CreateListingFront";
+import CreateListingFront from './pages/CreateListingFront';
 
-import ManageProperties from "./pages/dashboard/ManageProperties";
-import AdminRoute from "./shared/AdminRoute";
-import CreateProperty from "./components/Steps/CreateProperty";
-import ManagePackages from "./pages/dashboard/ManagePackages";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ManageProperties from './pages/dashboard/ManageProperties';
+import AdminRoute from './shared/AdminRoute';
+import CreateProperty from './components/Steps/CreateProperty';
+import ManagePackages from './pages/dashboard/ManagePackages';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainLayout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "/terms-and-conditions",
+        path: '/terms-and-conditions',
         element: <TermsCondition />,
       },
       {
-        path: "/find-construction",
+        path: '/find-construction',
         element: <FindConstruction />,
       },
       {
-        path: "/find-agent",
+        path: '/find-agent',
         element: <FindAgent />,
       },
+      // {
+      //   path: '/find-agent/:id',
+      //   element: <EachAgent />,
+      // },
       {
-        path: "/membership",
+        path: '/membership',
         element: <Membership />,
       },
       {
-        path: "/agent/:id",
+        path: '/agent/:id',
         element: <AgentProfile />,
       },
       {
-        path: "/property-for-sale",
+        path: '/property-for-sale',
         element: <PropertyForSale />,
       },
 
@@ -71,7 +75,7 @@ const router = createBrowserRouter([
       // },
 
       {
-        path: "/property/:id",
+        path: '/property/:id',
         element: <SingleProperty />,
 
         loader: ({ params }) =>
@@ -80,11 +84,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     element: <DashboardLayout />,
     children: [
       {
-        path: "/dashboard",
+        path: '/dashboard',
         element: (
           <PrivateRoute>
             <Dashboard />
@@ -92,7 +96,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "create-listing",
+        path: 'create-listing',
         element: (
           <PrivateRoute>
             {/* <CreateListing /> */}
@@ -102,7 +106,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "create-property",
+        path: 'create-property',
         element: (
           <PrivateRoute>
             {/* <CreateListing /> */}
@@ -121,7 +125,7 @@ const router = createBrowserRouter([
       //   ),
       // },
       {
-        path: "update/:id",
+        path: 'update/:id',
         element: (
           <PrivateRoute>
             <UpdateProperty></UpdateProperty>
@@ -129,7 +133,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-properties",
+        path: 'my-properties',
         element: (
           <PrivateRoute>
             <MyProperties />
@@ -137,7 +141,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "manage-properties",
+        path: 'manage-properties',
         element: (
           <AdminRoute>
             <ManageProperties />
@@ -145,7 +149,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "manage-packages",
+        path: 'manage-packages',
         element: (
           <AdminRoute>
             <ManagePackages />
@@ -153,7 +157,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "membership",
+        path: 'membership',
         element: (
           <PrivateRoute>
             <Membership />
@@ -161,7 +165,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "reviews",
+        path: 'reviews',
         element: (
           <PrivateRoute>
             <MyReviews />
@@ -169,7 +173,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-favorites",
+        path: 'my-favorites',
         element: (
           <PrivateRoute>
             <MyFavorites />
@@ -177,7 +181,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-profile",
+        path: 'my-profile',
         element: (
           <PrivateRoute>
             <ProfilePage />
@@ -185,7 +189,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-package",
+        path: 'my-package',
         element: (
           <PrivateRoute>
             <MyPackage />

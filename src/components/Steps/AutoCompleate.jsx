@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Autocomplete } from "@react-google-maps/api";
-import { Input } from "antd";
-import Loader from "../Loader";
-import useGoogleMapsLoader from "../../utils/useGoogleMap";
+import React, { useState, useEffect } from 'react';
+import { Autocomplete } from '@react-google-maps/api';
+import { Input } from 'antd';
+import Loader from '../Loader';
+import useGoogleMapsLoader from '../../utils/useGoogleMap';
 
 const AutocompleteInput = ({
   name,
@@ -11,9 +11,9 @@ const AutocompleteInput = ({
   prefilledValue,
 }) => {
   const [autocomplete, setAutocomplete] = useState(null);
-  const [inputValue, setInputValue] = useState(prefilledValue || "");
+  const [inputValue, setInputValue] = useState(prefilledValue || '');
 
-  const { isLoaded, loadError } = useGoogleMapsLoader();
+  const { isLoaded } = useGoogleMapsLoader();
   useEffect(() => {
     if (prefilledValue) {
       setInputValue(prefilledValue);
@@ -46,11 +46,11 @@ const AutocompleteInput = ({
   return (
     <Autocomplete onLoad={handleOnLoad} onPlaceChanged={handlePlaceChanged}>
       <Input
-        size="large"
+        size='large'
         placeholder={placeholder}
         name={name}
-        autoComplete="off"
-        role="presentation"
+        autoComplete='off'
+        role='presentation'
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         // readOnly={true}
