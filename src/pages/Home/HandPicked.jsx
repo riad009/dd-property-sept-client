@@ -1,43 +1,10 @@
 import { useEffect, useState } from 'react';
-import image1 from '../../assets/banner1.jpg';
 import Button from '../../components/Button';
 import SectionHeader from '../../components/SectionHeader';
 import CardOne from '../../components/cards/CardOne';
 import SmallContainer from '../../shared/SmallContainer';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { baseURL } from '../../providers/AuthProvider';
-
-const handPicked = [
-  {
-    image: image1,
-    price: 2000,
-    type: 'Studio',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-  {
-    image: image1,
-    price: 2000,
-    type: 'Studio',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-  {
-    image: image1,
-    price: 2000,
-    type: 'Studio',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-  {
-    image: image1,
-    price: 2000,
-    type: 'Studio',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-];
-//
 
 const HandPicked = () => {
   const [properties, setProperties] = useState([]);
@@ -72,7 +39,11 @@ const HandPicked = () => {
         <div className='md:overflow-x-hidden overflow-x-scroll flex gap-5'>
           {properties?.map((property, index) => (
             <CardOne
-              clickEvent={() => Navigate(`/property/${property._id}`)}
+              clickEvent={() =>
+                navigate(
+                  `/property/${property._id}?propertyName=${property.propertyName}`
+                )
+              }
               key={index}
               property={property}
               // shadow

@@ -1,15 +1,8 @@
 import DashboardHeader from './DashboardHeader';
-import { Segmented } from 'antd';
-
-import { MdDelete, MdEdit } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import {
-  AuthContext,
-  baseURL,
-  useUserContext,
-} from '../../providers/AuthProvider';
+import { AuthContext, baseURL } from '../../providers/AuthProvider';
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -37,7 +30,7 @@ const ManageProperties = () => {
 
   const handleVerify = async (propertyId) => {
     try {
-      const response = await axios.put(`/api/verify/${propertyId}`);
+      await axios.put(`/api/verify/${propertyId}`);
       setrefetch(!refetch);
       alert('verified');
     } catch (error) {
@@ -47,7 +40,7 @@ const ManageProperties = () => {
 
   const handleDecline = async (propertyId) => {
     try {
-      const response = await axios.put(`/api/decline/${propertyId}`);
+      await axios.put(`/api/decline/${propertyId}`);
       setrefetch(!refetch);
       alert('declined');
     } catch (error) {
@@ -76,7 +69,7 @@ const ManageProperties = () => {
         {data?.map((p) => (
           <tr key={p.email} className='border'>
             <td className='p-2'>
-              <Link to={`/property/${p._id}`}>
+              <Link to={`/property/${p._id}?propertyName=${p.propertyName}`}>
                 <img
                   className='w-40 inline rounded-lg'
                   src={p?.coverImage}

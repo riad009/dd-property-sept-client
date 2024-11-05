@@ -1,5 +1,5 @@
 import DashboardHeader from './DashboardHeader';
-import { Pagination, Segmented, Select } from 'antd';
+import { Pagination } from 'antd';
 
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useEffect, useState } from 'react';
@@ -101,7 +101,7 @@ const MyProperties = () => {
           return (
             <tr key={p.email} className='border'>
               <td className='p-2'>
-                <Link to={`/property/${p._id}`}>
+                <Link to={`/property/${p._id}?propertyName=${p.propertyName}`}>
                   <img
                     className='w-40 inline rounded-lg'
                     src={p?.coverImage}

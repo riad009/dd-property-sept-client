@@ -106,7 +106,7 @@ const MapCluster = memo(
                             >
                               <div className='bg-white p-4 rounded-lg shadow-md'>
                                 <Link
-                                  to={`/property/${_id}`}
+                                  to={`/property/${_id}?propertyName=${propertyName}`}
                                   className='text-xl font-bold text-blue-600 hover:underline mb-2 block'
                                 >
                                   {propertyName}

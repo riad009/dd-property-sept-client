@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import DashboardHeader from './DashboardHeader';
-import { MdDelete, MdEdit } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 import axios from 'axios';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Rate, Spin, Empty } from 'antd';
 import { Link } from 'react-router-dom';
 
-const ReviewCard = ({ review, onEdit, onDelete }) => (
+const ReviewCard = ({ review, onDelete }) => (
   <div className='bg-white p-4 rounded-lg shadow-md mb-4'>
     <div className='flex items-center mb-2'>
       <img
@@ -15,7 +15,9 @@ const ReviewCard = ({ review, onEdit, onDelete }) => (
         alt='User avatar'
       />
       <div>
-        <Link to={`/property/${review.property._id}`}>
+        <Link
+          to={`/property/${review.property._id}?propertyName=${review.property.propertyName}`}
+        >
           <h2 className='text-lg font-semibold'>
             {review.property.propertyName}
           </h2>

@@ -1,20 +1,13 @@
 import { Divider } from 'antd';
-import TextRed from '../../components/TextRed';
-import {
-  MdFormatSize,
-  MdLocationOn,
-  MdRoom,
-  MdRoomService,
-} from 'react-icons/md';
-import { RiCommunityFill } from 'react-icons/ri';
+import { MdFormatSize, MdLocationOn } from 'react-icons/md';
 import { GiBathtub, GiBed } from 'react-icons/gi';
 
 const Overview = ({ property }) => {
   console.log({ property });
   return (
     <div>
-      <h1 className='text-2xl mb-5'>Overview</h1>
-      {/* Cost */}
+      <h1 className='text-2xl mb-5'>{property.propertyName}</h1>
+
       <div className='flex gap-5'>
         {property.price ? (
           <div>

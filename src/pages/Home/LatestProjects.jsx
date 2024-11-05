@@ -1,9 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import image1 from '../../assets/banner1.jpg';
 import SectionHeader from '../../components/SectionHeader';
 import CardOne from '../../components/cards/CardOne';
 import SmallContainer from '../../shared/SmallContainer';
-import Button from '../../components/Button';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { baseURL } from '../../providers/AuthProvider';
@@ -40,28 +38,15 @@ const LatestProjects = () => {
           {properties?.map((property, index) => (
             <CardOne
               clickEvent={() => {
-                navigate(`/property/${property?._id}`);
+                navigate(
+                  `/property/${property?._id}?propertyName=${property?.propertyName}`
+                );
               }}
               key={index}
               property={property}
             />
           ))}
-          {/* {properties?.map((property, index) => (
-            <CardOne
-              clickEvent={() => navigate(`/property/projects/${property._id}`)}
-              // clickEvent={() => navigate(`/property/projects/${property.name?.toLowerCase().replace(/ /g, '-')}/${property.listingType}/${property._id}`)}
-              key={index}
-              property={property}
-              // image={project.image}
-              // type={project.type}
-              // title={project.title}
-              // text={project.text}
-            />
-          ))} */}
         </div>
-        {/* <Button extraClasses="sm:hidden bg-dark text-white mx-auto mt-10">
-          View More
-        </Button> */}
       </SmallContainer>
     </div>
   );

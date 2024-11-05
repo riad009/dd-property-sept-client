@@ -1,6 +1,4 @@
-import Search from 'antd/es/input/Search';
 import DashboardHeader from './DashboardHeader';
-import { Select } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../providers/AuthProvider';
@@ -53,7 +51,7 @@ const MyFavorites = () => {
           return (
             <tr key={p.email} className='border'>
               <td className='p-2'>
-                <Link to={`/property/${p._id}`}>
+                <Link to={`/property/${p._id}?propertyName=${p.propertyName}`}>
                   <img
                     className='w-40 inline rounded-lg'
                     src={p?.coverImage}

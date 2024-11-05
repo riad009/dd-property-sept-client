@@ -1,36 +1,10 @@
 import { useEffect, useState } from 'react';
-import image1 from '../../assets/banner1.jpg';
 import Button from '../../components/Button';
 import SectionHeader from '../../components/SectionHeader';
 import CardOne from '../../components/cards/CardOne';
 import SmallContainer from '../../shared/SmallContainer';
 import { useNavigate } from 'react-router-dom';
-
-const virtualToursData = [
-  {
-    image: image1,
-    type: 'Video',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-  },
-  {
-    image: image1,
-    type: 'New Project',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-  {
-    image: image1,
-    type: 'Virtual Tour',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-  {
-    image: image1,
-    type: 'Virtual Tour',
-    title: 'InterContinental Residences Hua Hin, Prachuap Khiri Khan',
-    text: 'Hua Hin, Prachuap Khiri Khan',
-  },
-];
+import { baseURL } from '../../providers/AuthProvider';
 
 const VirtualTours = () => {
   const navigate = useNavigate();
@@ -64,7 +38,11 @@ const VirtualTours = () => {
         <div className='grid md:grid-cols-4 grid-cols-2 gap-5'>
           {properties?.map((property, index) => (
             <CardOne
-              clickEvent={() => navigate(`/property/${property._id}`)}
+              clickEvent={() =>
+                navigate(
+                  `/property/${property._id}?propertyName=${property.propertyName}`
+                )
+              }
               property={property}
               key={index}
               // image={project.image}

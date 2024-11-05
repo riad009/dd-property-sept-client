@@ -2,10 +2,26 @@ import { message } from 'antd';
 import { BiPhone } from 'react-icons/bi';
 import { BsLine } from 'react-icons/bs';
 import { MdEmail, MdWhatsapp } from 'react-icons/md';
+import axios from 'axios';
 
 const ContactOwner = ({ property }) => {
   const owner = property?.owner;
   const isVerified = property?.isVerified;
+
+  console.log({ owner });
+
+  const handleEmailClick = async () => {
+    if (!isVerified) {
+      try {
+        await axios.post('/send-verify-email', {
+          email: 'mohammadjahid0007@gmail.com',
+        });
+        message.success('Property owner notified.');
+      } catch (error) {
+        message.error('Something went wrong. Please try again.');
+      }
+    }
+  };
 
   return (
     <div className='w-72 sm:sticky top-16 bg-white rounded-lg shadow-md p-4'>
@@ -32,7 +48,8 @@ const ContactOwner = ({ property }) => {
       </div>
 
       <a
-        href={`mailto:${owner?.email}`}
+        href={isVerified ? `mailto:${owner?.email}` : '#'}
+        onClick={handleEmailClick}
         className='w-full bg-red-500 text-white py-2 rounded-md mb-3 flex items-center justify-center'
       >
         <MdEmail className='w-5 h-5 mr-2' />

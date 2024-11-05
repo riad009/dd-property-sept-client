@@ -1,47 +1,31 @@
-import React from 'react';
-import { Checkbox } from 'antd';
+import React, { useState } from 'react';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import ApplyFilterButtons from './ApplyFilterButtons';
 
-const PropertyTypeHeader = ({ propertyType, setPropertyType }) => (
+const PropertyTypeHeader = () => (
   <div className='p-3'>
     <h1 className='text-dark'>Property Type</h1>
-    {/* <div className='flex gap-2 mt-3'>
-      {['residential', 'commercial'].map((type) => (
-        <h6
-          key={type}
-          onClick={() => setPropertyType(type)}
-          className={`cursor-pointer py-1 px-3 rounded-full ${
-            propertyType === type
-              ? 'bg-danger bg-opacity-10 text-danger'
-              : 'bg-dark bg-opacity-10 text-dark'
-          }`}
-        >
-          {type.charAt(0).toUpperCase() + type.slice(1)}
-        </h6>
-      ))}
-    </div> */}
   </div>
 );
 
-const FooterItem = ({ item, value, radioHandler }) => (
+const FooterItem = ({ item, selectedValues, handleSelection }) => (
   <div key={item.key}>
     <label
       className={`p-3 w-full flex items-center mb-2 cursor-pointer ${
-        item.label === value && 'bg-dark2'
+        selectedValues.includes(item.label) && 'bg-dark2'
       }`}
     >
       <input
         type='radio'
         value={item.label}
-        checked={item.label === value}
-        onChange={(e) => {
-          radioHandler(e);
-        }}
+        checked={selectedValues.includes(item.label)}
+        onChange={() => handleSelection(item.label)}
         className='form-radio h-5 w-5 text-blue-600'
       />
       <span
-        className={`ml-2 ${item.label === value ? 'text-white' : 'text-dark'}`}
+        className={`ml-2 ${
+          selectedValues.includes(item.label) ? 'text-white' : 'text-dark'
+        }`}
       >
         {item.label}
       </span>
@@ -52,17 +36,22 @@ const FooterItem = ({ item, value, radioHandler }) => (
 const AllResidentialDropdown = ({
   footer1Handler,
   footer1Open,
-  propertyType,
-  setPropertyType,
   footer1Items,
-  radioHandler,
-
-  value,
   border,
   hideFooter,
   setValue,
   closeAllDropdowns,
 }) => {
+  const [selectedValues, setSelectedValues] = useState([]);
+
+  const handleSelection = (label) => {
+    const newSelectedValues = selectedValues.includes(label)
+      ? selectedValues.filter((item) => item !== label)
+      : [...selectedValues, label];
+    setSelectedValues(newSelectedValues);
+    setValue(newSelectedValues.join(','));
+  };
+
   return (
     <div className={`relative ${border && 'bg-white w-fit p-2 rounded-md'}`}>
       <h6
@@ -73,7 +62,7 @@ const AllResidentialDropdown = ({
             : ''
         }`}
       >
-        {value}
+        {selectedValues.join(', ') || 'Property Type'}
         {footer1Open ? <BiChevronUp /> : <BiChevronDown />}
       </h6>
       {footer1Open && (
@@ -82,17 +71,14 @@ const AllResidentialDropdown = ({
             border ? 'top-12 shadow-lg' : 'top-7'
           } left-0 bg-white`}
         >
-          <PropertyTypeHeader
-            propertyType={propertyType}
-            setPropertyType={setPropertyType}
-          />
+          <PropertyTypeHeader />
           <div className='overflow-scroll h-52 overflow-x-hidden w-80 bg-dark2 bg-opacity-5'>
             {footer1Items.map((item) => (
               <FooterItem
                 key={item.key}
                 item={item}
-                value={value}
-                radioHandler={radioHandler}
+                selectedValues={selectedValues}
+                handleSelection={handleSelection}
               />
             ))}
           </div>
@@ -100,6 +86,7 @@ const AllResidentialDropdown = ({
             <ApplyFilterButtons
               closeAllDropdowns={closeAllDropdowns}
               setValue={setValue}
+              setSelectedValues={setSelectedValues}
             />
           )}
         </div>

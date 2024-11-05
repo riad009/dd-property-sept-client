@@ -38,6 +38,8 @@ const SearchLocation = () => {
     }
   };
 
+  console.log({ value });
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -74,16 +76,17 @@ const SearchLocation = () => {
   };
 
   const handleSearchProperty = () => {
+    let searchParams;
     if (!search) {
-      return alert('Please Enter location in the search box');
+      searchParams = 'all=true';
+    } else {
+      const filteredSearchValue = Object.fromEntries(
+        Object.entries(searchvalue).filter(
+          ([key, value]) => value && value !== 'property type'
+        )
+      );
+      searchParams = new URLSearchParams(filteredSearchValue).toString();
     }
-    const filteredSearchValue = Object.fromEntries(
-      Object.entries(searchvalue).filter(
-        ([key, value]) => value && value !== 'property type'
-      )
-    );
-
-    const searchParams = new URLSearchParams(filteredSearchValue).toString();
 
     navigate(`/property-for-sale?${searchParams}`);
   };

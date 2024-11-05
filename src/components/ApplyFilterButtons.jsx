@@ -6,10 +6,8 @@ const ApplyFilterButtons = ({
   bedroomsSelected,
   closeAllDropdowns,
   setValue,
+  setSelectedValues,
 }) => {
-  console.log(typeof setValue);
-  console.log(typeof closeAllDropdowns);
-
   const {
     handlebedrooms,
     handlePrice,
@@ -37,7 +35,7 @@ const ApplyFilterButtons = ({
     setBedroomsSelected('');
     handlebedrooms('');
     setpricefilter({ minPrice: '', maxPrice: '' });
-
+    setSelectedValues([]);
     setValue('Property type');
     handleSearchvalue({ propertyType: '' });
 
