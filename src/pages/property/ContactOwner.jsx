@@ -14,7 +14,7 @@ const ContactOwner = ({ property }) => {
     if (!isVerified) {
       try {
         await axios.post('/send-verify-email', {
-          email: 'mohammadjahid0007@gmail.com',
+          email: owner?.email,
         });
         message.success('Property owner notified.');
       } catch (error) {
